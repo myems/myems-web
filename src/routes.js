@@ -304,7 +304,6 @@ export const homeRoutes = {
   icon: 'chart-pie',
   children: [
     { to: '/', name: '系统概览' },
-    { to: '/dvls', name: '数据可视化大屏' },
   ]
 };
 
