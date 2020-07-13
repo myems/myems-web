@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Row, Col, Card, CardBody, Button, InputGroup, CustomInput } from 'reactstrap';
 import CountUp from 'react-countup';
-import CardSummary from './CardSummary';
-import ActiveUsersBarChart from './ActiveUsersBarChart';
-import PaymentsLineChart from './PaymentsLineChart';
+import CardSummary from '../dashboard/CardSummary';
+import ActiveUsersBarChart from '../dashboard/ActiveUsersBarChart';
+import PaymentsLineChart from '../dashboard/PaymentsLineChart';
 import { toast } from 'react-toastify';
 import FalconCardHeader from '../common/FalconCardHeader';
 import ButtonIcon from '../common/ButtonIcon';
 
 import loadable from '@loadable/component';
-import DashBoardDepositStatus from './DashboardDepositStatus';
-const PurchasesTable = loadable(() => import('./PurchasesTable'));
-const ActiveUsersMap = loadable(() => import('./ActiveUsersMap'));
+import DashBoardDepositStatus from '../dashboard/DashboardDepositStatus';
+const PurchasesTable = loadable(() => import('../dashboard/PurchasesTable'));
+const ActiveUsersMap = loadable(() => import('../dashboard/ActiveUsersMap'));
 
 const Dashboard = () => {
   // State
@@ -28,19 +28,33 @@ const Dashboard = () => {
 
   return (
     <Fragment>
-      <PaymentsLineChart />
-      <DashBoardDepositStatus />
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="Customers" color="warning" linkText="See all">
-          58.39k
+        <CardSummary rate="-0.23%" title="本年总电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="Orders" color="info" linkText="All orders">
-          73.46k
+        <CardSummary rate="0.0%" title="本年总自来水量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="Revenue" color="success" linkText="Statistics">
-          <CountUp end={43594} duration={5} prefix="$" separator="," decimal="." />
+        <CardSummary rate="0.0%" title="本年总天然气量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CountUp end={9887} duration={2} prefix="" separator="," decimal="." />
+        </CardSummary>
+        <CardSummary rate="+9.54%" title="本年总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
+      <div className="card-deck">
+        <CardSummary rate="-0.23%" title="本年总电费 (RMB)" color="success" linkText="详情" to="/space/cost">
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
+        </CardSummary>
+        <CardSummary rate="0.0%" title="本年总自来水费 (RMB)" color="info" linkText="详情" to="/space/cost">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
+        </CardSummary>
+        <CardSummary rate="+9.54%" title="本年总天然气费 (RMB)" color="warning" linkText="详情" to="/space/cost">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
+        </CardSummary>
+      </div>
+      <PaymentsLineChart />
+      <DashBoardDepositStatus />
       <Card className="mb-3">
         <FalconCardHeader title="Recent Purchases" light={false}>
           {isSelected ? (

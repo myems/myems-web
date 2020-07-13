@@ -249,7 +249,24 @@ const MyEMSRoutes = () => (
 
     {/*Space*/}
     <Route path="/space/energycategory" exact component={SpaceEnergyCategory} />
+    {/*Equipment*/}
 
+    {/*Tenant*/}
+    
+    {/*Sotore*/}
+    
+    {/*Shopfloor*/}
+    
+    {/*Auxiliary System*/}
+    
+    {/*FDD*/}
+    
+    {/*Equipment Monitoring*/}
+    
+    {/*Advanced Reporting*/}
+    
+    {/*Knowledge Base*/}
+    
     {/*Redirect*/}
     <Redirect to="/errors/404" />
   </Switch>
