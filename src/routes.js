@@ -298,14 +298,14 @@ import { version } from './config';
 //     { to: '/utilities/visibility', name: 'Visibility' }
 //   ]
 // };
+
 export const homeRoutes = {
-  name: '首页',
+  name: '概览',
   to: '/',
-  icon: 'chart-pie',
-  children: [
-    { to: '/', name: '系统概览' },
-  ]
+  exact: true,
+  icon: 'chart-pie'
 };
+
 
 export const spaceRoutes = {
   name: '空间数据分析',

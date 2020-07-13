@@ -63,11 +63,11 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
           Documentation
         </NavLink>
       </NavItem> */}
-      <NavbarDropdownComponents
-        title={homeRoutes.name}
-        items={[homeRoutes]}
-        handleSetNavbarCollapsed={handleSetNavbarCollapsed}
-      />
+      <NavItem onClick={handleSetNavbarCollapsed}>
+        <NavLink className="nav-link" to={homeRoutes.to}>
+          {homeRoutes.name}
+        </NavLink>
+      </NavItem>
       <NavbarDropdownComponents
         title={spaceRoutes.name}
         items={[spaceRoutes]}

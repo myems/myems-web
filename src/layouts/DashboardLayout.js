@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import Dashboard from '../components/dashboard/Dashboard';
+// import Dashboard from '../components/dashboard/Dashboard';
+import Dashboard from '../components/dashboardMyEMS/Dashboard';
 import DashboardAlt from '../components/dashboard-alt/DashboardAlt';
 import NavbarTop from '../components/navbar/NavbarTop';
 import NavbarVertical from '../components/navbar/NavbarVertical';
@@ -12,7 +13,8 @@ import ProductProvider from '../components/e-commerce/ProductProvider';
 import SidePanelModal from '../components/side-panel/SidePanelModal';
 import { getPageName } from '../helpers/utils';
 
-const DashboardRoutes = loadable(() => import('./DashboardRoutes'));
+// const DashboardRoutes = loadable(() => import('./DashboardRoutes'));
+const MyEMSRoutes = loadable(() => import('./MyEMSRoutes'));
 
 const DashboardLayout = ({ location }) => {
   const { isFluid, isTopNav, navbarStyle } = useContext(AppContext);
@@ -20,7 +22,8 @@ const DashboardLayout = ({ location }) => {
   const isKanban = getPageName('kanban');
 
   useEffect(() => {
-    DashboardRoutes.preload();
+    // DashboardRoutes.preload();
+    MyEMSRoutes.preload();
   }, []);
 
   useEffect(() => {
@@ -36,7 +39,8 @@ const DashboardLayout = ({ location }) => {
           <Switch>
             <Route path="/" exact component={Dashboard} />
             <Route path="/dashboard-alt" exact component={DashboardAlt} />
-            <DashboardRoutes />
+            {/* <DashboardRoutes /> */}
+            <MyEMSRoutes /> 
           </Switch>
           {!isKanban && <Footer />}
         </div>
