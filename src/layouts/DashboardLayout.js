@@ -37,7 +37,9 @@ const DashboardLayout = ({ location }) => {
         <div className="content">
           <NavbarTop />
           <Switch>
+            {/* added one more route to avoid navlink active issue */}
             <Route path="/" exact component={Dashboard} />
+            <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/dashboard-alt" exact component={DashboardAlt} />
             {/* <DashboardRoutes /> */}
             <MyEMSRoutes /> 

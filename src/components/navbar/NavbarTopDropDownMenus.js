@@ -14,7 +14,7 @@ import {
   // utilityRoutes,
   // widgetsRoutes,
   // kanbanRoutes,
-  homeRoutes,
+  dashboardRoutes,
   spaceRoutes,
   equipmentRoutes,
   tenantRoutes,
@@ -64,8 +64,8 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
         </NavLink>
       </NavItem> */}
       <NavItem onClick={handleSetNavbarCollapsed}>
-        <NavLink className="nav-link" to={homeRoutes.to}>
-          {homeRoutes.name}
+        <NavLink className="nav-link" to={dashboardRoutes.to}>
+          {dashboardRoutes.name}
         </NavLink>
       </NavItem>
       <NavbarDropdownComponents

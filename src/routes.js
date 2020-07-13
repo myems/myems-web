@@ -299,20 +299,20 @@ import { version } from './config';
 //   ]
 // };
 
-export const homeRoutes = {
+export const dashboardRoutes = {
   name: '概览',
-  to: '/',
+  to: '/dashboard',
   exact: true,
   icon: 'chart-pie'
 };
-
 
 export const spaceRoutes = {
   name: '空间数据分析',
   to: '/space',
   icon: 'chart-pie',
+  exact: true,
   children: [
-    { to: '/space/energycategory', name: '空间能耗分析' },
+    { to: '/space/energycategory', name: '空间能耗分析'},
     { to: '/space/energyitem', name: '空间能耗分项分析' },
     { to: '/space/cost', name: '空间成本分析' },
     { to: '/space/output', name: '空间产出分析' },
@@ -455,7 +455,7 @@ export default [
   // pluginRoutes,
   // documentationRoutes,
   // changelogRoutes,
-  homeRoutes,
+  dashboardRoutes,
   spaceRoutes,
   tenantRoutes,
   storeRoutes,
