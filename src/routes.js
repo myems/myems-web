@@ -298,22 +298,21 @@ import { version } from './config';
 //     { to: '/utilities/visibility', name: 'Visibility' }
 //   ]
 // };
-export const homeRoutes = {
-  name: '首页',
-  to: '/',
-  icon: 'chart-pie',
-  children: [
-    { to: '/', name: '系统概览' },
-    { to: '/dvls', name: '数据可视化大屏' },
-  ]
+
+export const dashboardRoutes = {
+  name: '概览',
+  to: '/dashboard',
+  exact: true,
+  icon: 'chart-pie'
 };
 
 export const spaceRoutes = {
   name: '空间数据分析',
   to: '/space',
   icon: 'chart-pie',
+  exact: true,
   children: [
-    { to: '/space/energycategory', name: '空间能耗分析' },
+    { to: '/space/energycategory', name: '空间能耗分析'},
     { to: '/space/energyitem', name: '空间能耗分项分析' },
     { to: '/space/cost', name: '空间成本分析' },
     { to: '/space/output', name: '空间产出分析' },
@@ -456,7 +455,7 @@ export default [
   // pluginRoutes,
   // documentationRoutes,
   // changelogRoutes,
-  homeRoutes,
+  dashboardRoutes,
   spaceRoutes,
   tenantRoutes,
   storeRoutes,

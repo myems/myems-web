@@ -14,7 +14,7 @@ import {
   // utilityRoutes,
   // widgetsRoutes,
   // kanbanRoutes,
-  homeRoutes,
+  dashboardRoutes,
   spaceRoutes,
   equipmentRoutes,
   tenantRoutes,
@@ -41,12 +41,12 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
 
   return (
     <>
-      <NavbarDropdownComponents
+      {/*<NavbarDropdown
         title={homeRoutes.name}
-        items={[homeRoutes]}
+        items={homeRoutes.children}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
-      {/* <NavbarDropdown title={pageRoutes.name} items={pages} handleSetNavbarCollapsed={handleSetNavbarCollapsed} />
+       <NavbarDropdown title={pageRoutes.name} items={pages} handleSetNavbarCollapsed={handleSetNavbarCollapsed} />
       <NavbarDropdownComponents
         title={componentRoutes.name}
         items={components}
@@ -63,6 +63,11 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
           Documentation
         </NavLink>
       </NavItem> */}
+      <NavItem onClick={handleSetNavbarCollapsed}>
+        <NavLink className="nav-link" to={dashboardRoutes.to}>
+          {dashboardRoutes.name}
+        </NavLink>
+      </NavItem>
       <NavbarDropdownComponents
         title={spaceRoutes.name}
         items={[spaceRoutes]}
