@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody, CardHeader, Button, InputGroup, CustomInput }
 import CountUp from 'react-countup';
 import CardSummary from '../dashboard/CardSummary';
 import ActiveUsersBarChart from '../dashboard/ActiveUsersBarChart';
-import EnergysLineChart from './EnergysLineChart';
+import SpaceLineChart from './SpaceLineChart';
 import { toast } from 'react-toastify';
 import FalconCardHeader from '../common/FalconCardHeader';
 import ButtonIcon from '../common/ButtonIcon';
@@ -53,7 +53,7 @@ const Dashboard = () => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <EnergysLineChart />
+      <SpaceLineChart />
       <ChildSpacesTable />
       
     </Fragment>

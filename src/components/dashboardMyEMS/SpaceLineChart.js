@@ -25,7 +25,7 @@ const energyDataByCategory = {
   naturalgas: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2].map(d => (d * 3.14).toFixed(2))
 };
 
-const EnergyLineChart = () => {
+const SpaceLineChart = () => {
   const [energyCategory, setEnergyCategory] = useState('electricity');
   const { isDark } = useContext(AppContext);
 
@@ -124,4 +124,4 @@ const EnergyLineChart = () => {
   );
 };
 
-export default EnergyLineChart;
+export default SpaceLineChart;

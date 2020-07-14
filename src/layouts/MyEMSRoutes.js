@@ -103,6 +103,8 @@ import Chat from '../components/chat/Chat';
 import Widgets from '../components/widgets/Widgets';
 import Kanban from '../components/kanban/Kanban';
 import SpaceEnergyCategory from '../components/Space/SpaceEnergyCategory';
+import SpaceEnergyItem from '../components/Space/SpaceEnergyItem';
+import SpaceCost from '../components/Space/SpaceCost';
 
 const InboxRoutes = ({ match: { url } }) => (
   <InboxProvider>
@@ -249,6 +251,8 @@ const MyEMSRoutes = () => (
 
     {/*Space*/}
     <Route path="/space/energycategory" exact component={SpaceEnergyCategory} />
+    <Route path="/space/energyitem" exact component={SpaceEnergyItem} />
+    <Route path="/space/cost" exact component={SpaceCost} />
     {/*Equipment*/}
 
     {/*Tenant*/}
