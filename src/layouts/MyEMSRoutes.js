@@ -106,6 +106,7 @@ import SpaceEnergyCategory from '../components/MyEMS/Space/SpaceEnergyCategory';
 import SpaceEnergyItem from '../components/MyEMS/Space/SpaceEnergyItem';
 import SpaceCost from '../components/MyEMS/Space/SpaceCost';
 import SpaceOutput from '../components/MyEMS/Space/SpaceOutput';
+import SpaceIncome from '../components/MyEMS/Space/SpaceIncome';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -256,6 +257,7 @@ const MyEMSRoutes = () => (
     <Route path="/space/energyitem" exact component={SpaceEnergyItem} />
     <Route path="/space/cost" exact component={SpaceCost} />
     <Route path="/space/output" exact component={SpaceOutput} />
+    <Route path="/space/income" exact component={SpaceIncome} />
     {/*Equipment*/}
 
     {/*Tenant*/}
