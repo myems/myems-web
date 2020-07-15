@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2';
 import { rgbaColor, themeColors, isIterableArray } from '../../helpers/utils';
 import AppContext from '../../context/Context';
 
-const EnergyLineChart = ({
+const LineChart = ({
   reportingTitle, 
   baselineTitle,
   labels,
@@ -106,4 +106,4 @@ const EnergyLineChart = ({
   );
 };
 
-export default EnergyLineChart;
+export default LineChart;

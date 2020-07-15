@@ -16,7 +16,7 @@ import {
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import CardSummary from '../dashboard/CardSummary';
-import SpaceLineChart from './SpaceLineChart';
+import LineChart from './LineChart';
 import { toast } from 'react-toastify';
 
 import loadable from '@loadable/component';
@@ -112,8 +112,38 @@ const SpaceCost = () => {
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
-    { value: 'c', label: '二氧化碳排放'}];
+    { value: 'd', label: '二氧化碳排放'}];
+  
+  const parameterLineChartLabels = [
+    '2020-07-01',
+    '2020-07-02',
+    '2020-07-03',
+    '2020-07-04',
+    '2020-07-05',
+    '2020-07-06',
+    '2020-07-07',
+    '2020-07-08',
+    '2020-07-09',
+    '2020-07-10',
+    '2020-07-11',
+    '2020-07-12'
+  ];
     
+  const parameterLineChartData = {
+    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+  };
+  
+  const parameterLineChartOptions = [
+    { value: 'a', label: '室外温度'},
+    { value: 'b', label: '相对湿度'},
+    { value: 'c', label: '电费率'},
+    { value: 'd', label: '自来水费率'},
+    { value: 'e', label: '天然气费率'}];
+  
   useEffect(() => {
     toast(
       <Fragment>
@@ -214,12 +244,20 @@ const SpaceCost = () => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <SpaceLineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
+      <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
+        baselineTitle='基准期总电费 684.87 (RMB)' 
         labels={lineChartLabels} 
         data={lineChartData}
         options={lineChartOptions}>
-      </SpaceLineChart>
+      </LineChart>
+
+      <LineChart reportingTitle='相关参数' 
+        baselineTitle='' 
+        labels={parameterLineChartLabels} 
+        data={parameterLineChartData}
+        options={parameterLineChartOptions}>
+      </LineChart>
+
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       

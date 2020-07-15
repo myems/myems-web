@@ -22,7 +22,7 @@ import LineChart from './LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 
 
-const SpaceEnergyCategory = () => {
+const SpaceOutput = () => {
   // State
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
@@ -69,23 +69,19 @@ const SpaceEnergyCategory = () => {
     sort: true
   }, {
     dataField: 'electricity',
-    text: '电 (kWh)',
+    text: '冷 (kWh)',
     sort: true
   }, {
     dataField: 'water',
-    text: '自来水 (M3)',
+    text: '热 (GJ)',
     sort: true
   }, {
     dataField: 'naturalgas',
-    text: '天然气 (M3)',
-    sort: true
-  }, {
-    dataField: 'co2',
-    text: '二氧化碳排放 (T)',
+    text: '蒸汽 (T)',
     sort: true
   }];
 
-  const spaceLineChartLabels = [
+  const lineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -100,20 +96,18 @@ const SpaceEnergyCategory = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const lineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
+  const lineChartOptions = [
+    { value: 'a', label: '冷'},
+    { value: 'b', label: '热'},
+    { value: 'c', label: '蒸汽'}];
   
-  const spaceLineChartOptions = [
-    { value: 'a', label: '电'},
-    { value: 'b', label: '自来水'},
-    { value: 'c', label: '天然气'},
-    { value: 'd', label: '二氧化碳排放'}];
-
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -157,7 +151,7 @@ const SpaceEnergyCategory = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间产出分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -231,33 +225,28 @@ const SpaceEnergyCategory = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
+        <CardSummary rate="-0.23%" title="报告期总冷量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总热量 (GJ)" color="info" linkText="详情" to="/space/energycategory">
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总蒸汽量 (T)" color="info" linkText="详情" to="/space/energycategory">
         <CountUp end={9887} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
-        </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+      <LineChart reportingTitle='报告期总冷量 764.39 (kWh)' 
+        baselineTitle='基准期总冷量 684.87 (kWh)' 
+        labels={lineChartLabels} 
+        data={lineChartData}
+        options={lineChartOptions}>
       </LineChart>
-
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       
@@ -265,4 +254,4 @@ const SpaceEnergyCategory = () => {
   );
 };
 
-export default SpaceEnergyCategory;
+export default SpaceOutput;
