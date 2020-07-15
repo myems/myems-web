@@ -342,21 +342,21 @@ const SpaceEnergyItem = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
+        <CardSummary rate="-0.23%" title="报告期总空调水电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总空调风电量 (kWh)" color="info" linkText="详情" to="/space/energycategory">
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总照明及插座电量 (kWh)" color="info" linkText="详情" to="/space/energycategory">
         <CountUp end={9887} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="+9.54%" title="报告期总电梯电量 (kWh)" color="warning" linkText="详情" to="/space/energycategory">
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
+      <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
+        baselineTitle='基准期总空调水电量 684.87 (kWh)' 
         labels={lineChartLabels} 
         data={lineChartData}
         options={lineChartOptions}>
