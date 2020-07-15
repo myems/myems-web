@@ -20,6 +20,7 @@ import loadable from '@loadable/component';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
+const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
 const SpaceEnergyCategory = () => {
@@ -143,7 +144,118 @@ const SpaceEnergyCategory = () => {
     { value: 'c', label: '电费率'},
     { value: 'd', label: '自来水费率'},
     { value: 'e', label: '天然气费率'}];
-  
+
+  const  detailedDataTableData =[
+    {
+      id: 1,
+      startdatetime: '2020-07-01',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 2,
+      startdatetime: '2020-07-02',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 3,
+      startdatetime: '2020-07-03',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 4,
+      startdatetime: '2020-07-04',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 5,
+      startdatetime: '2020-07-05',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 6,
+      startdatetime: '2020-07-06',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 7,
+      startdatetime: '2020-07-07',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 8,
+      startdatetime: '2020-07-08',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 9,
+      startdatetime: '2020-07-09',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 10,
+      startdatetime: '2020-07-10',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
+    },
+    {
+      id: 11,
+      startdatetime: '总计',
+      a: '98720',
+      b: '34570',
+      c: '5670',
+      d: '5670',
+    }
+  ];
+  const detailedDataTableColumns = [{
+    dataField: 'startdatetime',
+    text: '日期时间',
+    sort: true
+  }, {
+    dataField: 'a',
+    text: '电 (kWh)',
+    sort: true
+  }, {
+    dataField: 'b',
+    text: '自来水 (M3)',
+    sort: true
+  }, {
+    dataField: 'c',
+    text: '天然气 (M3)',
+    sort: true
+  }, {
+    dataField: 'd',
+    text: '二氧化碳排放 (T)',
+    sort: true
+  }];
   useEffect(() => {
     toast(
       <Fragment>
@@ -260,6 +372,9 @@ const SpaceEnergyCategory = () => {
 
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
+      <br />
+      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      </DetailedDataTable>
       
     </Fragment>
   );
