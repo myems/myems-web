@@ -1,11 +1,7 @@
 import React, { Fragment } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 
-import PageHeader from '../common/PageHeader';
 import { Button, Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import FalconEditor from '../common/FalconEditor';
 const  childSpacesData =[
   {
     id: 1,

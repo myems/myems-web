@@ -11,19 +11,19 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput  
+  CustomInput 
 } from 'reactstrap';
 import CountUp from 'react-countup';
-import Datetime from 'react-datetime';
-import CardSummary from '../dashboard/CardSummary';
-import LineChart from './LineChart';
 import { toast } from 'react-toastify';
+import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
+import CardSummary from '../../dashboard/CardSummary';
+import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 
-const SpaceEnergyItem = () => {
+
+const SpaceEnergyCategory = () => {
   // State
-  
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -85,7 +85,7 @@ const SpaceEnergyItem = () => {
     sort: true
   }];
 
-  const lineChartLabels = [
+  const spaceLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -100,19 +100,20 @@ const SpaceEnergyItem = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const spaceLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
+  
+  const spaceLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
     { value: 'd', label: '二氧化碳排放'}];
-  
+
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -151,12 +152,12 @@ const SpaceEnergyItem = () => {
       </Fragment>
     );
   }, []);
-
+  
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间能耗分项分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间能耗分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -175,7 +176,7 @@ const SpaceEnergyItem = () => {
                 <Label className={labelClasses} for="baselineStartDatetime">
                 基准期开始(可选)
                 </Label>
-                <Datetime id='baselineStartDatetime' />
+                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
               </FormGroup>
             </Col>
             <Col >
@@ -245,16 +246,18 @@ const SpaceEnergyItem = () => {
       </div>
       <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
         baselineTitle='基准期总电量 684.87 (kWh)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+        labels={spaceLineChartLabels} 
+        data={spaceLineChartData}
+        options={spaceLineChartOptions}>
       </LineChart>
+
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
+
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       
@@ -262,4 +265,4 @@ const SpaceEnergyItem = () => {
   );
 };
 
-export default SpaceEnergyItem;
+export default SpaceEnergyCategory;

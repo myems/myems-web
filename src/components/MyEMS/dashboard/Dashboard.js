@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import CountUp from 'react-countup';
-import CardSummary from '../dashboard/CardSummary';
-import LineChart from './LineChart';
+import CardSummary from '../../dashboard/CardSummary';
+import LineChart from '../common/LineChart';
 import { toast } from 'react-toastify';
 
 import loadable from '@loadable/component';

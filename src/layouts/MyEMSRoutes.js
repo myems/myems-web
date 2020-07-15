@@ -102,10 +102,10 @@ import EmojiMart from '../components/plugins/EmojiMart';
 import Chat from '../components/chat/Chat';
 import Widgets from '../components/widgets/Widgets';
 import Kanban from '../components/kanban/Kanban';
-import SpaceEnergyCategory from '../components/Space/SpaceEnergyCategory';
-import SpaceEnergyItem from '../components/Space/SpaceEnergyItem';
-import SpaceCost from '../components/Space/SpaceCost';
-import SpaceOutput from '../components/Space/SpaceOutput';
+import SpaceEnergyCategory from '../components/MyEMS/Space/SpaceEnergyCategory';
+import SpaceEnergyItem from '../components/MyEMS/Space/SpaceEnergyItem';
+import SpaceCost from '../components/MyEMS/Space/SpaceCost';
+import SpaceOutput from '../components/MyEMS/Space/SpaceOutput';
 
 
 const InboxRoutes = ({ match: { url } }) => (

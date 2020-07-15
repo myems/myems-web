@@ -11,18 +11,17 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput  
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
-import CardSummary from '../dashboard/CardSummary';
-import LineChart from './LineChart';
+import CardSummary from '../../dashboard/CardSummary';
+import LineChart from '../common/LineChart';
 import { toast } from 'react-toastify';
-
 import loadable from '@loadable/component';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 
-const SpaceCost = () => {
+const SpaceEnergyItem = () => {
   // State
   
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -157,7 +156,7 @@ const SpaceCost = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间成本分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间能耗分项分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -231,33 +230,31 @@ const SpaceCost = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电费 (RMB)" color="success" linkText="详情" to="/space/energycategory" >
+        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水费 (RMB)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/energycategory">
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气费 (RMB)" color="info" linkText="详情" to="/space/energycategory">
+        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/energycategory">
         <CountUp end={9887} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
-        baselineTitle='基准期总电费 684.87 (RMB)' 
+      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
+        baselineTitle='基准期总电量 684.87 (kWh)' 
         labels={lineChartLabels} 
         data={lineChartData}
         options={lineChartOptions}>
       </LineChart>
-
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       
@@ -265,4 +262,4 @@ const SpaceCost = () => {
   );
 };
 
-export default SpaceCost;
+export default SpaceEnergyItem;

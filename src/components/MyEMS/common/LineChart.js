@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Card, CardBody, CustomInput } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
-import { rgbaColor, themeColors, isIterableArray } from '../../helpers/utils';
-import AppContext from '../../context/Context';
+import { rgbaColor, themeColors, isIterableArray } from '../../../helpers/utils';
+import AppContext from '../../../context/Context';
 
 const LineChart = ({
   reportingTitle, 

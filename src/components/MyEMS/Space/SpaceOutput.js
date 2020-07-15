@@ -17,8 +17,8 @@ import CountUp from 'react-countup';
 import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
-import CardSummary from '../dashboard/CardSummary';
-import LineChart from './LineChart';
+import CardSummary from '../../dashboard/CardSummary';
+import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 
 
