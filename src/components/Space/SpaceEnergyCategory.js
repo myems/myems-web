@@ -85,6 +85,34 @@ const SpaceEnergyCategory = () => {
     sort: true
   }];
 
+  const lineChartLabels = [
+    '2020-07-01',
+    '2020-07-02',
+    '2020-07-03',
+    '2020-07-04',
+    '2020-07-05',
+    '2020-07-06',
+    '2020-07-07',
+    '2020-07-08',
+    '2020-07-09',
+    '2020-07-10',
+    '2020-07-11',
+    '2020-07-12'
+  ];
+  
+  const lineChartData = {
+    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+  };
+
+  const lineChartOptions = [
+    { value: 'a', label: '电'},
+    { value: 'b', label: '自来水'},
+    { value: 'c', label: '天然气'},
+    { value: 'c', label: '二氧化碳排放'}];
+
   useEffect(() => {
     toast(
       <Fragment>
@@ -185,7 +213,11 @@ const SpaceEnergyCategory = () => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <SpaceLineChart reportingTitle='报告期总电量 764.39 (kWh)' baselineTitle='基准期总电量 684.87 (kWh)'>
+      <SpaceLineChart reportingTitle='报告期总电量 764.39 (kWh)' 
+        baselineTitle='基准期总电量 684.87 (kWh)' 
+        labels={lineChartLabels} 
+        data={lineChartData}
+        options={lineChartOptions}>
       </SpaceLineChart>
 
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
