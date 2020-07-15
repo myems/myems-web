@@ -1,34 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { Row, Col, Card, CardBody, CustomInput } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
-import { rgbaColor, themeColors } from '../../helpers/utils';
-import AppContext from '../../context/Context';
+import { rgbaColor, themeColors, isIterableArray } from '../../../helpers/utils';
+import AppContext from '../../../context/Context';
 
-const days = [
-  '2020-07-01',
-  '2020-07-02',
-  '2020-07-03',
-  '2020-07-04',
-  '2020-07-05',
-  '2020-07-06',
-  '2020-07-07',
-  '2020-07-08',
-  '2020-07-09',
-  '2020-07-10',
-  '2020-07-11',
-  '2020-07-12'
-];
-
-const energyDataByCategory = {
-  electricity: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10].map(d => (d * 3.14).toFixed(2)),
-  water: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8].map(d => (d * 3.14).toFixed(2)),
-  naturalgas: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2].map(d => (d * 3.14).toFixed(2))
-};
-
-const SpaceLineChart = () => {
-  const [energyCategory, setEnergyCategory] = useState('electricity');
+const LineChart = ({
+  reportingTitle, 
+  baselineTitle,
+  labels,
+  data,
+  options
+}) => {
+  const [option, setOption] = useState('a');
   const { isDark } = useContext(AppContext);
-
+  
   const config = {
     data(canvas) {
       const ctx = canvas.getContext('2d');
@@ -39,11 +24,11 @@ const SpaceLineChart = () => {
       gradientFill.addColorStop(1, isDark ? 'transparent' : 'rgba(255, 255, 255, 0)');
 
       return {
-        labels: days,
+        labels: labels,
         datasets: [
           {
             borderWidth: 2,
-            data: energyDataByCategory[energyCategory].map(d => (d * 3.14).toFixed(2)),
+            data: data[option],
             borderColor: rgbaColor(isDark ? themeColors.primary : '#fff', 0.8),
             backgroundColor: gradientFill
           }
@@ -58,7 +43,7 @@ const SpaceLineChart = () => {
         yPadding: 10,
         displayColors: false,
         callbacks: {
-          label: tooltipItem => `${days[tooltipItem.index]} - ${tooltipItem.yLabel}`,
+          label: tooltipItem => `${labels[tooltipItem.index]} - ${tooltipItem.yLabel}`,
           title: () => null
         }
       },
@@ -66,10 +51,6 @@ const SpaceLineChart = () => {
       scales: {
         xAxes: [
           {
-            scaleLabel: {
-              show: true,
-              labelString: 'Month'
-            },
             ticks: {
               fontColor: rgbaColor('#fff', 0.7),
               fontStyle: 600
@@ -98,9 +79,9 @@ const SpaceLineChart = () => {
       <CardBody className="rounded-soft bg-gradient">
         <Row className="text-white align-items-center no-gutters">
           <Col>
-            <h4 className="text-white mb-0">本月总电量 764.39 (kWh)</h4>
+            <h4 className="text-white mb-0">{reportingTitle}</h4>
             <p className="fs--1 font-weight-semi-bold">
-            上月总电量 <span className="opacity-50">684.87 (kWh)</span>
+            {baselineTitle}
             </p>
           </Col>
           <Col xs="auto" className="d-none d-sm-block">
@@ -109,12 +90,13 @@ const SpaceLineChart = () => {
               type="select"
               bsSize="sm"
               className="mb-3 shadow"
-              value={energyCategory}
-              onChange={({ target }) => setEnergyCategory(target.value)}
+              value={option}
+              onChange={({ target }) => setOption(target.value)}
             >
-              <option value="electricity">电</option>
-              <option value="water">自来水</option>
-              <option value="naturalgas">天然气</option>
+              {isIterableArray(options) &&
+                options.map(({ value, label }) => (
+                  <option value={value}>{label}</option>
+                ))}
             </CustomInput>
           </Col>
         </Row>
@@ -124,4 +106,4 @@ const SpaceLineChart = () => {
   );
 };
 
-export default SpaceLineChart;
+export default LineChart;
