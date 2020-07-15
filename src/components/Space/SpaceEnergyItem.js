@@ -37,7 +37,53 @@ const SpaceEnergyItem = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
+  const  childSpacesTableData =[
+    {
+      id: 1,
+      name: '公区',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    },
+    {
+      id: 2,
+      name: '车库',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    },
+    {
+      id: 3,
+      name: '租区',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    }
+  ];
+  const childSpacesTableColumns = [{
+    dataField: 'name',
+    text: '子空间',
+    sort: true
+  }, {
+    dataField: 'electricity',
+    text: '电 (kWh)',
+    sort: true
+  }, {
+    dataField: 'water',
+    text: '自来水 (M3)',
+    sort: true
+  }, {
+    dataField: 'naturalgas',
+    text: '天然气 (M3)',
+    sort: true
+  }, {
+    dataField: 'co2',
+    text: '二氧化碳排放 (T)',
+    sort: true
+  }];
   useEffect(() => {
     toast(
       <Fragment>
@@ -138,8 +184,10 @@ const SpaceEnergyItem = () => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
-      <SpaceLineChart />
-      <ChildSpacesTable />
+      <SpaceLineChart reportingTitle='报告期总电量 764.39 (kWh)' baselineTitle='基准期总电量 684.87 (kWh)'>
+      </SpaceLineChart>
+      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
+      </ChildSpacesTable>
       
     </Fragment>
   );

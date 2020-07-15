@@ -1,70 +1,19 @@
 import React, { Fragment } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
 
-import PageHeader from '../common/PageHeader';
-import { Button, Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import FalconEditor from '../common/FalconEditor';
-const  childSpacesData =[
-  {
-    id: 1,
-    name: '公区',
-    electricity: '9872',
-    water: '3457',
-    naturalgas: '567',
-    co2: '567',
-  },
-  {
-    id: 2,
-    name: '车库',
-    electricity: '9872',
-    water: '3457',
-    naturalgas: '567',
-    co2: '567',
-  },
-  {
-    id: 3,
-    name: '租区',
-    electricity: '9872',
-    water: '3457',
-    naturalgas: '567',
-    co2: '567',
-  }
-];
-const columns = [{
-  dataField: 'name',
-  text: '子空间',
-  sort: true
-}, {
-  dataField: 'electricity',
-  text: '电 (kWh)',
-  sort: true
-}, {
-  dataField: 'water',
-  text: '自来水 (M3)',
-  sort: true
-}, {
-  dataField: 'naturalgas',
-  text: '天然气 (M3)',
-  sort: true
-}, {
-  dataField: 'co2',
-  text: '二氧化碳排放 (T)',
-  sort: true
-}];
 
 const defaultSorted = [{
   dataField: 'name',
   order: 'desc'
 }];
 
-const ChildSpacesTable = () => {
+const ChildSpacesTable = ({title, data, columns}) => {
   return (
     <Fragment>
       <Card>
         <CardHeader className="bg-light">
-          <h4 className="mb-0">子空间报告期数据</h4>
+          <h4 className="mb-0">{title}</h4>
         </CardHeader>
         <CardBody>
           <Row>
@@ -72,7 +21,7 @@ const ChildSpacesTable = () => {
             <BootstrapTable
               bootstrap4
               keyField="id"
-              data={ childSpacesData }
+              data={ data }
               columns={ columns }
               defaultSorted={ defaultSorted } 
             />

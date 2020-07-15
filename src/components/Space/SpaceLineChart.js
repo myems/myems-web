@@ -25,10 +25,13 @@ const energyDataByCategory = {
   naturalgas: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2].map(d => (d * 3.14).toFixed(2))
 };
 
-const EnergyLineChart = () => {
+const EnergyLineChart = ({
+  reportingTitle, 
+  baselineTitle,
+}) => {
   const [energyCategory, setEnergyCategory] = useState('electricity');
   const { isDark } = useContext(AppContext);
-
+  
   const config = {
     data(canvas) {
       const ctx = canvas.getContext('2d');
@@ -98,9 +101,9 @@ const EnergyLineChart = () => {
       <CardBody className="rounded-soft bg-gradient">
         <Row className="text-white align-items-center no-gutters">
           <Col>
-            <h4 className="text-white mb-0">报告期总电量 764.39 (kWh)</h4>
+            <h4 className="text-white mb-0">{reportingTitle}</h4>
             <p className="fs--1 font-weight-semi-bold">
-            基准期总电量 <span className="opacity-50">684.87 (kWh)</span>
+            {baselineTitle}
             </p>
           </Col>
           <Col xs="auto" className="d-none d-sm-block">
