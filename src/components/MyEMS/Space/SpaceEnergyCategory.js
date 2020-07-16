@@ -17,6 +17,7 @@ import CountUp from 'react-countup';
 import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
+import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
@@ -25,12 +26,51 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 const SpaceEnergyCategory = () => {
   // State
+  const [selectedSpace, setSelectedSpace] = useState(null);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   
+  const cascaderOptions = [{
+    label: '福建',
+    value: 'fj',
+    children: [{
+      label: '福州',
+      value: 'fuzhou',
+      children: [{
+        label: '马尾',
+        value: 'mawei',
+      }],
+    }, {
+      label: '泉州',
+      value: 'quanzhou',
+    }],
+  }, {
+    label: '浙江',
+    value: 'zj',
+    children: [{
+      label: '杭州',
+      value: 'hangzhou',
+      children: [{
+        label: '余杭',
+        value: 'yuhang',
+      }],
+    }],
+  }, {
+    label: '北京',
+    value: 'bj',
+    children: [{
+      label: '朝阳区',
+      value: 'chaoyang',
+    }, {
+      label: '海淀区',
+      value: 'haidian',
+      disabled: true,
+    }],
+  }];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -256,6 +296,7 @@ const SpaceEnergyCategory = () => {
     text: '二氧化碳排放 (T)',
     sort: true
   }];
+
   useEffect(() => {
     toast(
       <Fragment>
@@ -264,7 +305,13 @@ const SpaceEnergyCategory = () => {
       </Fragment>
     );
   }, []);
+
   
+  let onChange = (value, selectedOptions) => {
+    console.log(value, selectedOptions);
+    setSelectedSpace(selectedOptions.map(o => o.label).join(', '))
+  }
+
   return (
     <Fragment>
       <div>
@@ -280,7 +327,13 @@ const SpaceEnergyCategory = () => {
                 <Label className={labelClasses} for="space">
                 空间
                 </Label>
-                <Input />
+                <Cascader options={cascaderOptions} 
+                          onChange={onChange}>
+                  <input
+                    placeholder="please select space"
+                    value={selectedSpace}
+                  />
+                </Cascader>
               </FormGroup>
             </Col>
             <Col >
