@@ -107,7 +107,11 @@ import SpaceEnergyItem from '../components/MyEMS/Space/SpaceEnergyItem';
 import SpaceCost from '../components/MyEMS/Space/SpaceCost';
 import SpaceOutput from '../components/MyEMS/Space/SpaceOutput';
 import SpaceIncome from '../components/MyEMS/Space/SpaceIncome';
+import SpaceEfficiency from '../components/MyEMS/Space/SpaceEfficiency';
 import SpaceLoad from '../components/MyEMS/Space/SpaceLoad';
+import SpaceStatical from '../components/MyEMS/Space/SpaceStatical';
+import SpaceFault from '../components/MyEMS/Space/SpaceFault';
+import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -259,7 +263,12 @@ const MyEMSRoutes = () => (
     <Route path="/space/cost" exact component={SpaceCost} />
     <Route path="/space/output" exact component={SpaceOutput} />
     <Route path="/space/income" exact component={SpaceIncome} />
+    <Route path="/space/efficiency" exact component={SpaceEfficiency} />
     <Route path="/space/load" exact component={SpaceLoad} />
+    <Route path="/space/statical" exact component={SpaceStatical} />
+    <Route path="/space/fault" exact component={SpaceFault} />
+    <Route path="/space/saving" exact component={SpaceSaving} />
+
     {/*Equipment*/}
 
     {/*Tenant*/}
