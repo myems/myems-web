@@ -71,15 +71,15 @@ const SpaceCost = () => {
     sort: true
   }, {
     dataField: 'electricity',
-    text: '电 (kWh)',
+    text: '电 (RMB)',
     sort: true
   }, {
     dataField: 'water',
-    text: '自来水 (M3)',
+    text: '自来水 (RMB)',
     sort: true
   }, {
     dataField: 'naturalgas',
-    text: '天然气 (M3)',
+    text: '天然气 (RMB)',
     sort: true
   }, {
     dataField: 'co2',
