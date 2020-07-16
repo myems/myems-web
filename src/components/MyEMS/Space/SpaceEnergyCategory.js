@@ -34,40 +34,64 @@ const SpaceEnergyCategory = () => {
   const [periodType, setPeriodType] = useState('hourly');
   
   const cascaderOptions = [{
-    label: '福建',
-    value: 'fj',
+    label: '成都项目',
+    value: 1,
     children: [{
-      label: '福州',
-      value: 'fuzhou',
+      label: '租区',
+      value: 2,
       children: [{
-        label: '马尾',
-        value: 'mawei',
+        label: '大租户',
+        value: 9,
+      }, {
+        label: '餐饮租户',
+        value: 10,
+      }, {
+        label: '零售租户',
+        value: 11,
       }],
     }, {
-      label: '泉州',
-      value: 'quanzhou',
-    }],
-  }, {
-    label: '浙江',
-    value: 'zj',
-    children: [{
-      label: '杭州',
-      value: 'hangzhou',
+      label: '公区商场',
+      value: 3,
       children: [{
-        label: '余杭',
-        value: 'yuhang',
-      }],
-    }],
-  }, {
-    label: '北京',
-    value: 'bj',
-    children: [{
-      label: '朝阳区',
-      value: 'chaoyang',
+        label: '给排水',
+        value: 12,
+      }, {
+        label: '扶梯直梯',
+        value: 13,
+      }, {
+        label: '照明及插座',
+        value: 14,
+      }, {
+        label: '空调水',
+        value: 15,
+      }, {
+        label: '空调风',
+        value: 16,
+      }, {
+        label: '特殊功能房间',
+        value: 17,
+      }, {
+        label: '其他用电设备',
+        value: 18,
+      }]
     }, {
-      label: '海淀区',
-      value: 'haidian',
-      disabled: true,
+      label: '公区车库',
+      value: 4,
+      children: [{
+        label: '车库通风',
+        value: 5,
+      }, {
+        label: '车库照明',
+        value: 6,
+        children: [{
+          label: '应急照明',
+          value: 7,
+        }, {
+          label: '普通照明',
+          value: 8,
+        }
+        ]
+      }]
     }],
   }];
 
@@ -297,6 +321,11 @@ const SpaceEnergyCategory = () => {
     sort: true
   }];
 
+  let onCascaderChange = (value, selectedOptions) => {
+    console.log(value, selectedOptions);
+    setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
+  }
+
   useEffect(() => {
     toast(
       <Fragment>
@@ -307,11 +336,6 @@ const SpaceEnergyCategory = () => {
   }, []);
 
   
-  let onChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
-    setSelectedSpace(selectedOptions.map(o => o.label).join(', '))
-  }
-
   return (
     <Fragment>
       <div>
@@ -322,15 +346,17 @@ const SpaceEnergyCategory = () => {
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Row form>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
                 空间
                 </Label>
+                <br />
                 <Cascader options={cascaderOptions} 
-                          onChange={onChange}>
-                  <input
-                    placeholder="please select space"
+                          onChange={onCascaderChange}
+                          changeOnSelect
+                          expandTrigger="hover">
+                  <Input
                     value={selectedSpace}
                   />
                 </Cascader>
