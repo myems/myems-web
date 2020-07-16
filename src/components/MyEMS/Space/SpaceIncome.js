@@ -391,7 +391,7 @@ const SpaceIncome = () => {
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
                 时间尺度
@@ -406,7 +406,7 @@ const SpaceIncome = () => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
