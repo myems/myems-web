@@ -23,7 +23,7 @@ import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const SpaceIncome = () => {
+const SpaceEfficiency = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -31,6 +31,8 @@ const SpaceIncome = () => {
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
+  const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
+  const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   
   const cascaderOptions = [{
     label: '成都项目',
@@ -93,6 +95,17 @@ const SpaceIncome = () => {
       }]
     }],
   }];
+
+  const inputEnergyCategoryOptions = [
+    { value: 1, label: '电'},
+    { value: 2, label: '自来水'},
+    { value: 3, label: '天然气'},];
+
+  const outputEnergyCategoryOptions = [
+    { value: 4, label: '冷'},
+    { value: 5, label: '热'},
+    { value: 6, label: '蒸汽'},];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -105,25 +118,22 @@ const SpaceIncome = () => {
       id: 1,
       name: '公区',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 2,
       name: '车库',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 3,
       name: '租区',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     }
   ];
   const childSpacesTableColumns = [{
@@ -132,19 +142,15 @@ const SpaceIncome = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '冷 (RMB)',
+    text: '电 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '热 (RMB)',
+    text: '冷 (kWh)',
     sort: true
   }, {
-    dataField: 'd',
-    text: '蒸汽 (RMB)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '总计 (RMB)',
+    dataField: 'c',
+    text: '效率 (kWh/kWh)',
     sort: true
   }];
 
@@ -171,10 +177,9 @@ const SpaceIncome = () => {
   };
 
   const lineChartOptions = [
-    { value: 'a', label: '冷'},
-    { value: 'b', label: '热'},
-    { value: 'c', label: '蒸汽'},
-    { value: 'd', label: '总计'}];
+    { value: 'a', label: '电制冷效率'},
+    { value: 'b', label: '电制热效率'},
+    { value: 'c', label: '天然气制蒸汽效率'}];
   
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -211,89 +216,78 @@ const SpaceIncome = () => {
       id: 1,
       startdatetime: '2020-07-01',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
       a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      b: '55975',
+      c: '5.67',
     },
     {
       id: 11,
-      startdatetime: '总计',
+      startdatetime: '综合',
       a: '98720',
       b: '34570',
       c: '5670',
-      d: '138960',
     }
   ];
   const detailedDataTableColumns = [{
@@ -302,21 +296,18 @@ const SpaceIncome = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '冷 (RMB)',
+    text: '电 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '热 (RMB)',
+    text: '冷 (kWh)',
     sort: true
   }, {
     dataField: 'c',
-    text: '蒸汽 (RMB)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '总计 (RMB)',
+    text: '效率 (kWh/kWh)',
     sort: true
   }];
+
 
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
@@ -336,7 +327,7 @@ const SpaceIncome = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间收入分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间效率分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -358,7 +349,37 @@ const SpaceIncome = () => {
                 </Cascader>
               </FormGroup>
             </Col>
-            <Col >
+            <Col  xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="inputEnergyCategory">
+                消耗能源分类
+                </Label>
+                <CustomInput type="select" id="inputEnergyCategory" name="inputEnergyCategory" value={inputEnergyCategory} onChange={({ target }) => setInputEnergyCategory(target.value)}
+                >
+                  { inputEnergyCategoryOptions.map((inputEnergyCategory, index) => (
+                      <option value={inputEnergyCategory.value} key={inputEnergyCategory.value}>
+                        {inputEnergyCategory.label}
+                      </option>
+                    ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col  xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="outputEnergyCategory">
+                产出能源分类
+                </Label>
+                <CustomInput type="select" id="outputEnergyCategory" name="outputEnergyCategory" value={outputEnergyCategory} onChange={({ target }) => setOutputEnergyCategory(target.value)}
+                >
+                  { outputEnergyCategoryOptions.map((outputEnergyCategory, index) => (
+                      <option value={outputEnergyCategory.value} key={outputEnergyCategory.value}>
+                        {outputEnergyCategory.label}
+                      </option>
+                    ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
                 基准期开始(可选)
@@ -366,7 +387,7 @@ const SpaceIncome = () => {
                 <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineEndDatetime">
                 基准期结束(可选)
@@ -375,7 +396,7 @@ const SpaceIncome = () => {
                 <Datetime id='baselineEndDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
                 报告期开始
@@ -383,7 +404,7 @@ const SpaceIncome = () => {
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
                 报告期结束
@@ -391,7 +412,7 @@ const SpaceIncome = () => {
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
             </Col>
-            <Col xs="auto">
+            <Col  xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
                 时间尺度
@@ -406,7 +427,7 @@ const SpaceIncome = () => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col xs="auto">
+            <Col  xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
@@ -418,21 +439,18 @@ const SpaceIncome = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总冷收入 (RMB)" color="success" linkText="详情" to="/space/income" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/efficiency" >
+          <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总热收入 (RMB)" color="info" linkText="详情" to="/space/income">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总冷量 (kWh/kWh)" color="info" linkText="详情" to="/space/efficiency">
+          <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总蒸汽收入 (RMB)" color="info" linkText="详情" to="/space/income">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总收入 (RMB)" color="warning" linkText="详情" to="/space/income">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" linkText="详情" to="/space/efficiency">
+        <CountUp end={5.609} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
-        baselineTitle='基准期总冷收入 684.87 (RMB)' 
+      <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
+        baselineTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
         labels={lineChartLabels} 
         data={lineChartData}
         options={lineChartOptions}>
@@ -453,4 +471,4 @@ const SpaceIncome = () => {
   );
 };
 
-export default SpaceIncome;
+export default SpaceEfficiency;

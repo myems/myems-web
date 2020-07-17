@@ -23,7 +23,8 @@ import LineChart from '../common/LineChart';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const SpaceIncome = () => {
+
+const SpaceSaving = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -93,6 +94,7 @@ const SpaceIncome = () => {
       }]
     }],
   }];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -104,26 +106,26 @@ const SpaceIncome = () => {
     {
       id: 1,
       name: '公区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
     },
     {
       id: 2,
       name: '车库',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
     },
     {
       id: 3,
       name: '租区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
     }
   ];
   const childSpacesTableColumns = [{
@@ -131,24 +133,24 @@ const SpaceIncome = () => {
     text: '子空间',
     sort: true
   }, {
-    dataField: 'a',
-    text: '冷 (RMB)',
+    dataField: 'electricity',
+    text: '电 (kWh)',
     sort: true
   }, {
-    dataField: 'b',
-    text: '热 (RMB)',
+    dataField: 'water',
+    text: '自来水 (M3)',
     sort: true
   }, {
-    dataField: 'd',
-    text: '蒸汽 (RMB)',
+    dataField: 'naturalgas',
+    text: '天然气 (M3)',
     sort: true
   }, {
-    dataField: 'd',
-    text: '总计 (RMB)',
+    dataField: 'co2',
+    text: '二氧化碳排放 (T)',
     sort: true
   }];
 
-  const lineChartLabels = [
+  const spaceLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -163,19 +165,20 @@ const SpaceIncome = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const spaceLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
-    { value: 'a', label: '冷'},
-    { value: 'b', label: '热'},
-    { value: 'c', label: '蒸汽'},
-    { value: 'd', label: '总计'}];
   
+  const spaceLineChartOptions = [
+    { value: 'a', label: '电'},
+    { value: 'b', label: '自来水'},
+    { value: 'c', label: '天然气'},
+    { value: 'd', label: '二氧化碳排放'}];
+
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -205,7 +208,7 @@ const SpaceIncome = () => {
     { value: 'c', label: '电费率'},
     { value: 'd', label: '自来水费率'},
     { value: 'e', label: '天然气费率'}];
-  
+
   const  detailedDataTableData =[
     {
       id: 1,
@@ -213,7 +216,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 2,
@@ -221,7 +224,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 3,
@@ -229,7 +232,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 4,
@@ -237,7 +240,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 5,
@@ -245,7 +248,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 6,
@@ -253,7 +256,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 7,
@@ -261,7 +264,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 8,
@@ -269,7 +272,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 9,
@@ -277,7 +280,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 10,
@@ -285,7 +288,7 @@ const SpaceIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 11,
@@ -293,7 +296,7 @@ const SpaceIncome = () => {
       a: '98720',
       b: '34570',
       c: '5670',
-      d: '138960',
+      d: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -302,19 +305,19 @@ const SpaceIncome = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '冷 (RMB)',
+    text: '电 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '热 (RMB)',
+    text: '自来水 (M3)',
     sort: true
   }, {
     dataField: 'c',
-    text: '蒸汽 (RMB)',
+    text: '天然气 (M3)',
     sort: true
   }, {
     dataField: 'd',
-    text: '总计 (RMB)',
+    text: '二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -331,12 +334,13 @@ const SpaceIncome = () => {
       </Fragment>
     );
   }, []);
+
   
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间收入分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间节能分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -418,31 +422,33 @@ const SpaceIncome = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总冷收入 (RMB)" color="success" linkText="详情" to="/space/income" >
+        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/saving" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总热收入 (RMB)" color="info" linkText="详情" to="/space/income">
+        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/saving">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总蒸汽收入 (RMB)" color="info" linkText="详情" to="/space/income">
+        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/saving">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总收入 (RMB)" color="warning" linkText="详情" to="/space/income">
+        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/saving">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
-        baselineTitle='基准期总冷收入 684.87 (RMB)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
+        baselineTitle='基准期总电量 684.87 (kWh)' 
+        labels={spaceLineChartLabels} 
+        data={spaceLineChartData}
+        options={spaceLineChartOptions}>
       </LineChart>
+
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
+
       <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       <br />
@@ -453,4 +459,4 @@ const SpaceIncome = () => {
   );
 };
 
-export default SpaceIncome;
+export default SpaceSaving;

@@ -275,7 +275,7 @@ const SpaceCost = () => {
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Row form>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
                 空间
@@ -316,7 +316,7 @@ const SpaceCost = () => {
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
                 时间尺度
@@ -331,7 +331,7 @@ const SpaceCost = () => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
@@ -343,17 +343,17 @@ const SpaceCost = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电费 (RMB)" color="success" linkText="详情" to="/space/energycategory" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
+        <CardSummary rate="-0.23%" title="报告期总电费 (RMB)" color="success" linkText="详情" to="/space/cost" >
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水费 (RMB)" color="info" linkText="详情" to="/space/energycategory">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
+        <CardSummary rate="0.0%" title="报告期总自来水费 (RMB)" color="info" linkText="详情" to="/space/cost">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气费 (RMB)" color="info" linkText="详情" to="/space/energycategory">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimal="." />
+        <CardSummary rate="0.0%" title="报告期总天然气费 (RMB)" color="info" linkText="详情" to="/space/cost">
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
+        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/cost">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
