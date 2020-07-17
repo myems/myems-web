@@ -1,4 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { createRef, Fragment, useEffect, useState } from 'react';
+import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
+import BootstrapTable from 'react-bootstrap-table-next';
 import { 
   Breadcrumb, 
   BreadcrumbItem, 
@@ -11,18 +13,508 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  InputGroup,
+  UncontrolledDropdown
 } from 'reactstrap';
-import CountUp from 'react-countup';
 import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
-import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
-import LineChart from '../common/LineChart';
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
-const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
+import ButtonIcon from '../../common/ButtonIcon';
+import { Link } from 'react-router-dom';
+import Badge from 'reactstrap/es/Badge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import FalconCardHeader from '../../common/FalconCardHeader';
+import uuid from 'uuid/v1';
+import { getPaginationArray } from '../../../helpers/utils';
 
+const orderFormatter = (dataField, { id, name, email }: row) => (
+  <Fragment>
+    <Link to="/e-commerce/order-details">
+      <strong>#{id}</strong>
+    </Link>{' '}
+    by <strong>{name}</strong>
+    <br />
+    <a href={`mailto:${email}`}>{email}</a>
+  </Fragment>
+);
+
+const shippingFormatter = (address, { shippingType }: row) => (
+  <Fragment>
+    {address}
+    <p className="mb-0 text-500">{shippingType}</p>
+  </Fragment>
+);
+
+const badgeFormatter = status => {
+  let color = '';
+  let icon = '';
+  let text = '';
+  switch (status) {
+    case 'success':
+      color = 'success';
+      icon = 'check';
+      text = 'Completed';
+      break;
+    case 'hold':
+      color = 'secondary';
+      icon = 'ban';
+      text = 'On hold';
+      break;
+    case 'processing':
+      color = 'primary';
+      icon = 'redo';
+      text = 'Processing';
+      break;
+    case 'pending':
+      color = 'warning';
+      icon = 'stream';
+      text = 'Pending';
+      break;
+    default:
+      color = 'warning';
+      icon = 'stream';
+      text = 'Pending';
+  }
+
+  return (
+    <Badge color={`soft-${color}`} className="rounded-capsule fs--1 d-block">
+      {text}
+      <FontAwesomeIcon icon={icon} transform="shrink-2" className="ml-1" />
+    </Badge>
+  );
+};
+
+const amountFormatter = amount => {
+  return (
+    <Fragment>
+      {'$'}
+      {amount}
+    </Fragment>
+  );
+};
+
+const actionFormatter = (dataField, { id }: row) => (
+  // Control your row with this id
+  <UncontrolledDropdown>
+    <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
+      <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
+    </DropdownToggle>
+    <DropdownMenu right className="border py-2">
+      <DropdownItem onClick={() => console.log('Completed: ', id)}>Completed</DropdownItem>
+      <DropdownItem onClick={() => console.log('Processing: ', id)}>Processing</DropdownItem>
+      <DropdownItem onClick={() => console.log('On hold: ', id)}>On hold</DropdownItem>
+      <DropdownItem onClick={() => console.log('Pending: ', id)}>Pending</DropdownItem>
+      <DropdownItem divider />
+      <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">
+        Delete
+      </DropdownItem>
+    </DropdownMenu>
+  </UncontrolledDropdown>
+);
+const orders = [
+  {
+    id: uuid().split('-')[0],
+    // id: 181,
+    name: 'Ricky Antony',
+    email: 'ricky@example.com',
+    date: '20/04/2019',
+    address: 'Ricky Antony, 2392 Main Avenue, Penasauka, New Jersey 02149',
+    shippingType: 'Via Flat Rate',
+    status: 'success',
+    amount: 99
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 182,
+    name: 'Kin Rossow',
+    email: 'kin@example.com',
+    date: '20/04/2019',
+    address: 'Kin Rossow, 1 Hollywood Blvd,Beverly Hills, California 90210',
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 120
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 183,
+    name: 'Merry Diana',
+    email: 'merry@example.com',
+    date: '30/04/2019',
+    address: 'Merry Diana, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Link Road',
+    status: 'hold',
+    amount: 70
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 184,
+    name: 'Bucky Robert',
+    email: 'bucky@example.com',
+    date: '30/04/2019',
+    address: 'Bucky Robert, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Free Shipping',
+    status: 'pending',
+    amount: 92
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 185,
+    name: 'Rocky Zampa',
+    email: 'rocky@example.com',
+    date: '30/04/2019',
+    address: 'Rocky Zampa, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Free Road',
+    status: 'hold',
+    amount: 120
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 186,
+    name: 'Ricky John',
+    email: 'ricky@example.com',
+    date: '30/04/2019',
+    address: 'Ricky John, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Free Shipping',
+    status: 'processing',
+    amount: 145
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 187,
+    name: 'Cristofer Henric',
+    email: 'cristofer@example.com',
+    date: '30/04/2019',
+    address: 'Cristofer Henric, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Flat Rate',
+    status: 'success',
+    amount: 55
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 188,
+    name: 'Brate Lee',
+    email: 'lee@example.com',
+    date: '29/04/2019',
+    address: 'Brate Lee, 1 Infinite Loop, Cupertino, California 90210',
+    shippingType: 'Via Link Road',
+    status: 'hold',
+    amount: 90
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 189,
+    name: 'Thomas Stephenson',
+    email: 'Stephenson@example.com',
+    date: '29/04/2019',
+    address: 'Thomas Stephenson, 116 Ballifeary Road, Bamff',
+    shippingType: 'Via Flat Rate',
+    status: 'processing',
+    amount: 52
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 190,
+    name: 'Evie Singh',
+    email: 'eviewsing@example.com',
+    date: '29/04/2019',
+    address: 'Evie Singh, 54 Castledore Road, Tunstead',
+    shippingType: 'Via Flat Rate',
+    status: 'success',
+    amount: 90
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 191,
+    name: 'David Peters',
+    email: 'peter@example.com',
+    date: '29/04/2019',
+    address: 'David Peters, Rhyd Y Groes, Rhosgoch, LL66 0AT',
+    shippingType: 'Via Link Road',
+    status: 'success',
+    amount: 69
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 192,
+    name: 'Jennifer Johnson',
+    email: 'jennifer@example.com',
+    date: '28/04/2019',
+    address: 'Jennifer Johnson, Rhyd Y Groes, Rhosgoch, LL66 0AT',
+    shippingType: 'Via Flat Rate',
+    status: 'processing',
+    amount: 112
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 193,
+    name: ' Demarcus Okuneva',
+    email: 'okuneva@example.com',
+    date: '28/04/2019',
+    address: ' Demarcus Okuneva, 90555 Upton Drive Jeffreyview, UT 08771',
+    shippingType: 'Via Flat Rate',
+    status: 'success',
+    amount: 99
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 194,
+    name: 'Simeon Harber',
+    email: 'simeon@example.com',
+    date: '27/04/2019',
+    address: 'Simeon Harber, 702 Kunde Plain Apt. 634 East Bridgetview, HI 13134-1862',
+    shippingType: 'Via Free Shipping',
+    status: 'hold',
+    amount: 129
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 195,
+    name: 'Lavon Haley',
+    email: 'lavon@example.com',
+    date: '27/04/2019',
+    address: 'Lavon Haley, 30998 Adonis Locks McGlynnside, ID 27241',
+    shippingType: 'Via Free Shipping',
+    status: 'pending',
+    amount: 70
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 196,
+    name: 'Ashley Kirlin',
+    email: 'ashley@example.com',
+    date: '26/04/2019',
+    address: 'Ashley Kirlin, 43304 Prosacco Shore South Dejuanfurt, MO 18623-0505',
+    shippingType: 'Via Link Road',
+    status: 'processing',
+    amount: 39
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 197,
+    name: 'Johnnie Considine',
+    email: 'johnnie@example.com',
+    date: '26/04/2019',
+    address: 'Johnnie Considine, 6008 Hermann Points Suite 294 Hansenville, TN 14210',
+    shippingType: 'Via Flat Rate',
+    status: 'pending',
+    amount: 70
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 198,
+    name: 'Trace Farrell',
+    email: 'trace@example.com',
+    date: '26/04/2019',
+    address: 'Trace Farrell, 431 Steuber Mews Apt. 252 Germanland, AK 25882',
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 70
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 199,
+    name: 'Estell Nienow',
+    email: 'nienow@example.com',
+    date: '26/04/2019',
+    address: 'Estell Nienow, 4167 Laverna Manor Marysemouth, NV 74590',
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 59
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 200,
+    name: 'Daisha Howe',
+    email: 'howe@example.com',
+    date: '25/04/2019',
+    address: 'Daisha Howe, 829 Lavonne Valley Apt. 074 Stehrfort, RI 77914-0379',
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 39
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 201,
+    name: 'Miles Haley',
+    email: 'haley@example.com',
+    date: '24/04/2019',
+    address: 'Miles Haley, 53150 Thad Squares Apt. 263 Archibaldfort, MO 00837',
+    shippingType: 'Via Flat Rate',
+    status: 'success',
+    amount: 55
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 202,
+    name: 'Brenda Watsica',
+    email: 'watsica@example.com',
+    date: '24/04/2019',
+    address: "Brenda Watsica, 9198 O'Kon Harbors Morarborough, IA 75409-7383",
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 89
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 203,
+    name: "Ellie O'Reilly",
+    email: 'ellie@example.com',
+    date: '24/04/2019',
+    address: "Ellie O'Reilly, 1478 Kaitlin Haven Apt. 061 Lake Muhammadmouth, SC 35848",
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 47
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 204,
+    name: 'Garry Brainstrow',
+    email: 'garry@example.com',
+    date: '23/04/2019',
+    address: 'Garry Brainstrow, 13572 Kurt Mews South Merritt, IA 52491',
+    shippingType: 'Via Free Shipping',
+    status: 'success',
+    amount: 139
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 205,
+    name: 'Estell Pollich',
+    email: 'estell@example.com',
+    date: '23/04/2019',
+    address: 'Estell Pollich, 13572 Kurt Mews South Merritt, IA 52491',
+    shippingType: 'Via Free Shipping',
+    status: 'hold',
+    amount: 49
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 206,
+    name: 'Ara Mueller',
+    email: 'ara@example.com',
+    date: '23/04/2019',
+    address: 'Ara Mueller, 91979 Kohler Place Waelchiborough, CT 41291',
+    shippingType: 'Via Flat Rate',
+    status: 'hold',
+    amount: 19
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 207,
+    name: 'Lucienne Blick',
+    email: 'blick@example.com',
+    date: '23/04/2019',
+    address: 'Lucienne Blick, 6757 Giuseppe Meadows Geraldinemouth, MO 48819-4970',
+    shippingType: 'Via Flat Rate',
+    status: 'hold',
+    amount: 59
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 208,
+    name: 'Laverne Haag',
+    email: 'haag@example.com',
+    date: '22/04/2019',
+    address: 'Laverne Haag, 2327 Kaylee Mill East Citlalli, AZ 89582-3143',
+    shippingType: 'Via Flat Rate',
+    status: 'hold',
+    amount: 49
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 209,
+    name: 'Brandon Bednar',
+    email: 'bednar@example.com',
+    date: '22/04/2019',
+    address: 'Brandon Bednar, 25156 Isaac Crossing Apt. 810 Lonborough, CO 83774-5999',
+    shippingType: 'Via Flat Rate',
+    status: 'hold',
+    amount: 39
+  },
+  {
+    id: uuid().split('-')[0],
+    // id: 210,
+    name: 'Dimitri Boehm',
+    email: 'dimitri@example.com',
+    date: '23/04/2019',
+    address: 'Dimitri Boehm, 71603 Wolff Plains Apt. 885 Johnstonton, MI 01581',
+    shippingType: 'Via Flat Rate',
+    status: 'hold',
+    amount: 111
+  }
+];
+const columns = [
+  {
+    dataField: 'id',
+    text: 'Space',
+    classes: 'py-2 align-middle',
+    formatter: orderFormatter,
+    sort: true
+  },
+  {
+    dataField: 'date',
+    text: 'Date',
+    classes: 'py-2 align-middle',
+    sort: true
+  },
+  {
+    dataField: 'address',
+    text: 'Description',
+    classes: 'py-2 align-middle',
+    formatter: shippingFormatter,
+    sort: true
+  },
+  {
+    dataField: 'status',
+    text: 'Status',
+    classes: 'py-2 align-middle',
+    formatter: badgeFormatter,
+    sort: true
+  },
+  {
+    dataField: '',
+    text: '',
+    classes: 'py-2 align-middle',
+    formatter: actionFormatter,
+    align: 'right'
+  }
+];
+
+
+
+const options = {
+  custom: true,
+  sizePerPage: 10,
+  totalSize: orders.length
+};
+
+const SelectRowInput = ({ indeterminate, rowIndex, ...rest }) => (
+  <div className="custom-control custom-checkbox">
+    <input
+      className="custom-control-input"
+      {...rest}
+      onChange={() => {}}
+      ref={input => {
+        if (input) input.indeterminate = indeterminate;
+      }}
+    />
+    <label className="custom-control-label" />
+  </div>
+);
+
+const selectRow = onSelect => ({
+  mode: 'checkbox',
+  classes: 'py-2 align-middle',
+  clickToSelect: false,
+  selectionHeaderRenderer: ({ mode, ...rest }) => <SelectRowInput type="checkbox" {...rest} />,
+  selectionRenderer: ({ mode, ...rest }) => <SelectRowInput type={mode} {...rest} />,
+  onSelect: onSelect,
+  onSelectAll: onSelect
+});
 
 const SpaceFault = () => {
   // State
@@ -102,230 +594,29 @@ const SpaceFault = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 2,
-      name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 3,
-      name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'electricity',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'water',
-    text: '自来水 (M3)',
-    sort: true
-  }, {
-    dataField: 'naturalgas',
-    text: '天然气 (M3)',
-    sort: true
-  }, {
-    dataField: 'co2',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
   
-  const spaceLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+  // State
+  let table = createRef();
+  
+  const [isSelected, setIsSelected] = useState(false);
+  const handleNextPage = ({ page, onPageChange }) => () => {
+    onPageChange(page + 1);
   };
 
-  
-  const spaceLineChartOptions = [
-    { value: 'a', label: '电'},
-    { value: 'b', label: '自来水'},
-    { value: 'c', label: '天然气'},
-    { value: 'd', label: '二氧化碳排放'}];
-
-  const parameterLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
-    
-  const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+  const handlePrevPage = ({ page, onPageChange }) => () => {
+    onPageChange(page - 1);
   };
-  
-  const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
 
-  const  detailedDataTableData =[
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 11,
-      startdatetime: '总计',
-      a: '98720',
-      b: '34570',
-      c: '5670',
-      d: '5670',
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: '日期时间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水 (M3)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气 (M3)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
+  const onSelect = () => {
+    setImmediate(() => {
+      setIsSelected(!!table.current.selectionContext.selected.length);
+    });
+  };
 
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
-
   useEffect(() => {
     toast(
       <Fragment>
@@ -421,39 +712,94 @@ const SpaceFault = () => {
           </Row> 
         </CardBody>
       </Card>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/fault" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/fault">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/fault">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/fault">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
-      </LineChart>
+          <Card className="mb-3">
+          <FalconCardHeader title="Alarms" light={false}>
+            {isSelected ? (
+              <InputGroup size="sm" className="input-group input-group-sm">
+                <CustomInput type="select" id="bulk-select">
+                  <option>Bulk actions</option>
+                  <option value="Refund">Refund</option>
+                  <option value="Delete">Delete</option>
+                  <option value="Archive">Archive</option>
+                </CustomInput>
+                <Button color="falcon-default" size="sm" className="ml-2">
+                  Apply
+                </Button>
+              </InputGroup>
+            ) : (
+              <Fragment>
+                <ButtonIcon icon="plus" transform="shrink-3 down-2" color="falcon-default" size="sm">
+                  New
+                </ButtonIcon>
+                <ButtonIcon icon="filter" transform="shrink-3 down-2" color="falcon-default" size="sm" className="mx-2">
+                  Filter
+                </ButtonIcon>
+                <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
+                  Export
+                </ButtonIcon>
+              </Fragment>
+            )}
+          </FalconCardHeader>
+          <CardBody className="p-0">
+            <PaginationProvider pagination={paginationFactory(options)}>
+              {({ paginationProps, paginationTableProps }) => {
+                const lastIndex = paginationProps.page * paginationProps.sizePerPage;
 
-      <LineChart reportingTitle='相关参数' 
-        baselineTitle='' 
-        labels={parameterLineChartLabels} 
-        data={parameterLineChartData}
-        options={parameterLineChartOptions}>
-      </LineChart>
-
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
-      <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
-      </DetailedDataTable>
+                return (
+                  <Fragment>
+                    <div className="table-responsive">
+                      <BootstrapTable
+                        ref={table}
+                        bootstrap4
+                        keyField="id"
+                        data={orders}
+                        columns={columns}
+                        selectRow={selectRow(onSelect)}
+                        bordered={false}
+                        classes="table-dashboard table-striped table-sm fs--1 border-bottom mb-0 table-dashboard-th-nowrap"
+                        rowClasses="btn-reveal-trigger"
+                        headerClasses="bg-200 text-900"
+                        {...paginationTableProps}
+                      />
+                    </div>
+                    <Row noGutters className="px-1 py-3 flex-center">
+                      <Col xs="auto">
+                        <Button
+                          color="falcon-default"
+                          size="sm"
+                          onClick={handlePrevPage(paginationProps)}
+                          disabled={paginationProps.page === 1}
+                        >
+                          <FontAwesomeIcon icon="chevron-left" />
+                        </Button>
+                        {getPaginationArray(paginationProps.totalSize, paginationProps.sizePerPage).map(pageNo => (
+                          <Button
+                            color={paginationProps.page === pageNo ? 'falcon-primary' : 'falcon-default'}
+                            size="sm"
+                            className="ml-2"
+                            onClick={() => paginationProps.onPageChange(pageNo)}
+                            key={pageNo}
+                          >
+                            {pageNo}
+                          </Button>
+                        ))}
+                        <Button
+                          color="falcon-default"
+                          size="sm"
+                          className="ml-2"
+                          onClick={handleNextPage(paginationProps)}
+                          disabled={lastIndex >= paginationProps.totalSize}
+                        >
+                          <FontAwesomeIcon icon="chevron-right" />
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Fragment>
+                );
+              }}
+            </PaginationProvider>
+          </CardBody>
+        </Card>
       
     </Fragment>
   );
