@@ -134,19 +134,19 @@ const SpaceSaving = () => {
     sort: true
   }, {
     dataField: 'electricity',
-    text: '电 (kWh)',
+    text: '节约电 (kWh)',
     sort: true
   }, {
     dataField: 'water',
-    text: '自来水 (M3)',
+    text: '节约自来水 (M3)',
     sort: true
   }, {
     dataField: 'naturalgas',
-    text: '天然气 (M3)',
+    text: '节约天然气 (M3)',
     sort: true
   }, {
     dataField: 'co2',
-    text: '二氧化碳排放 (T)',
+    text: '减少二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -305,19 +305,19 @@ const SpaceSaving = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电 (kWh)',
+    text: '节约电 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水 (M3)',
+    text: '节约自来水 (M3)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气 (M3)',
+    text: '节约天然气 (M3)',
     sort: true
   }, {
     dataField: 'd',
-    text: '二氧化碳排放 (T)',
+    text: '减少二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -365,7 +365,7 @@ const SpaceSaving = () => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
-                基准期开始(可选)
+                基准期开始
                 </Label>
                 <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
               </FormGroup>
@@ -373,7 +373,7 @@ const SpaceSaving = () => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineEndDatetime">
-                基准期结束(可选)
+                基准期结束
                 </Label>
                 
                 <Datetime id='baselineEndDatetime' />
@@ -422,21 +422,21 @@ const SpaceSaving = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/saving" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期节约电量(基线值-实际值) (kWh)" color="success" linkText="详情" to="/space/saving" >
+          <CountUp end={764.39} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/saving">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期节约自来水量(基线值-实际值) (M3)" color="info" linkText="详情" to="/space/saving">
+          <CountUp end={878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/saving">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期节约天然气量(基线值-实际值) (M3)" color="info" linkText="详情" to="/space/saving">
+        <CountUp end={87} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/saving">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="+9.54%" title="报告期减少二氧化碳排放量(基线值-实际值) (T)" color="warning" linkText="详情" to="/space/saving">
+          <CountUp end={594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
+      <LineChart reportingTitle='报告期节约电量 764.39 (kWh) (基线值-实际值)' 
+        baselineTitle='基准期节约电量 684.87 (kWh)(基线值-实际值)' 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
