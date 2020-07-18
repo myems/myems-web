@@ -106,26 +106,26 @@ const SpaceStatical = () => {
     {
       id: 1,
       name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 2,
       name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 3,
       name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     }
   ];
   const childSpacesTableColumns = [{
@@ -133,20 +133,20 @@ const SpaceStatical = () => {
     text: '子空间',
     sort: true
   }, {
-    dataField: 'electricity',
-    text: '电 (kWh)',
+    dataField: 'a',
+    text: '电平均值 (kWh)',
     sort: true
   }, {
-    dataField: 'water',
-    text: '自来水 (M3)',
+    dataField: 'b',
+    text: '自来水平均值 (M3)',
     sort: true
   }, {
-    dataField: 'naturalgas',
-    text: '天然气 (M3)',
+    dataField: 'c',
+    text: '天然气平均值 (M3)',
     sort: true
   }, {
-    dataField: 'co2',
-    text: '二氧化碳排放 (T)',
+    dataField: 'd',
+    text: '二氧化碳排放平均值 (T)',
     sort: true
   }];
 
@@ -292,11 +292,11 @@ const SpaceStatical = () => {
     },
     {
       id: 11,
-      startdatetime: '总计',
-      a: '98720',
-      b: '34570',
-      c: '5670',
-      d: '5670',
+      startdatetime: '总平均值',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     }
   ];
   const detailedDataTableColumns = [{
@@ -305,19 +305,19 @@ const SpaceStatical = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电 (kWh)',
+    text: '电平均值(kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水 (M3)',
+    text: '自来水平均值(M3)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气 (M3)',
+    text: '天然气平均值(M3)',
     sort: true
   }, {
     dataField: 'd',
-    text: '二氧化碳排放 (T)',
+    text: '二氧化碳排放平均值(T)',
     sort: true
   }];
 
@@ -422,21 +422,40 @@ const SpaceStatical = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/statical" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期电量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/statical">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期电量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/statical">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/statical">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期电量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
+      <div className="card-deck">
+        <CardSummary rate="-0.23%" title="报告期自来水量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+        <CardSummary rate="0.0%" title="报告期自来水量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+        <CardSummary rate="0.0%" title="报告期自来水量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+      </div>
+      <div className="card-deck">
+        <CardSummary rate="-0.23%" title="报告期天然气量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+        <CardSummary rate="0.0%" title="报告期天然气量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+        <CardSummary rate="0.0%" title="报告期天然气量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        </CardSummary>
+      </div>
+      <LineChart reportingTitle='报告期总电量 98720 (kWh)' 
+        baselineTitle='基准期总电量 68487 (kWh)' 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
