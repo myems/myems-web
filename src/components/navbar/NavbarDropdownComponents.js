@@ -39,7 +39,8 @@ const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapse
                 {items.map((groupItem, index) => {
                   const NavItemGroup = routesSlicer({
                     routes: groupItem.children,
-                    columns: 4
+                    // columns: 4
+                    columns: 2
                   });
 
                   return (

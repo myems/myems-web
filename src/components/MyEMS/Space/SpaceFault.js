@@ -618,12 +618,7 @@ const SpaceFault = () => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
   useEffect(() => {
-    toast(
-      <Fragment>
-        Welcome to <strong>MyEMS</strong>!<br />
-        the Leading Free and Open Source Energy Management System
-      </Fragment>
-    );
+    
   }, []);
 
   
