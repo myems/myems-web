@@ -515,9 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const SpaceFault = () => {
+const StoreFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [store, setStore] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -585,6 +586,12 @@ const SpaceFault = () => {
       }]
     }],
   }];
+  
+  const storeList = [
+    { value: 1, label: '麦肯鸡(崇文门店)'},
+    { value: 2, label: '麦肯鸡(新世界店)'},
+    { value: 3, label: '麦肯鸡(祈年大街得来速店)'},
+    { value: 4, label: '麦肯鸡(灯市口店)'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -625,7 +632,7 @@ const SpaceFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>门店数据分析</BreadcrumbItem><BreadcrumbItem active>门店故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -645,6 +652,21 @@ const SpaceFault = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="store">
+                门店
+                </Label>
+                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
+                >
+                  { storeList.map((store, index) => (
+                      <option value={store.value} key={store.value}>
+                        {store.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -799,4 +821,4 @@ const SpaceFault = () => {
   );
 };
 
-export default SpaceFault;
+export default StoreFault;

@@ -515,9 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const SpaceFault = () => {
+const EquipmentFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -585,6 +586,12 @@ const SpaceFault = () => {
       }]
     }],
   }];
+  
+  const equipmentList = [
+    { value: 1, label: 'P3PW_D36_009'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -625,7 +632,7 @@ const SpaceFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>设备数据分析</BreadcrumbItem><BreadcrumbItem active>设备故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -645,6 +652,21 @@ const SpaceFault = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="equipment">
+                设备
+                </Label>
+                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                >
+                  { equipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -799,4 +821,4 @@ const SpaceFault = () => {
   );
 };
 
-export default SpaceFault;
+export default EquipmentFault;

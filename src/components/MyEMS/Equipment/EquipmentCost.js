@@ -15,23 +15,23 @@ import {
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
-import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
+
+import loadable from '@loadable/component';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const SpaceLoad = () => {
+const EquipmentCost = () => {
   // State
+  
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -94,6 +94,12 @@ const SpaceLoad = () => {
     }],
   }];
 
+  const equipmentList = [
+    { value: 1, label: 'P3PW_D36_009'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -101,55 +107,8 @@ const SpaceLoad = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电平均负荷 (kW)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '冷平均负荷 (kW)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = [
+  
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -164,20 +123,19 @@ const SpaceLoad = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  
-  const spaceLineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
-    { value: 'd', label: '冷'},];
-
+    { value: 'd', label: '二氧化碳排放'}];
+  
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -207,95 +165,95 @@ const SpaceLoad = () => {
     { value: 'c', label: '电费率'},
     { value: 'd', label: '自来水费率'},
     { value: 'e', label: '天然气费率'}];
-
+  
   const  detailedDataTableData =[
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 11,
-      startdatetime: '平均',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      startdatetime: '总计',
+      a: '98720',
+      b: '34570',
+      c: '5670',
+      d: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -304,19 +262,19 @@ const SpaceLoad = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电平均负荷 (kW)',
+    text: '电 (RMB)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
+    text: '自来水 (RMB)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气平均负荷 (M3/)',
+    text: '天然气 (RMB)',
     sort: true
   }, {
     dataField: 'd',
-    text: '冷平均负荷 (kW)',
+    text: '二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -329,12 +287,11 @@ const SpaceLoad = () => {
     
   }, []);
 
-  
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>设备数据分析</BreadcrumbItem><BreadcrumbItem active>设备成本分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -356,12 +313,27 @@ const SpaceLoad = () => {
                 </Cascader>
               </FormGroup>
             </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="equipment">
+                设备
+                </Label>
+                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                >
+                  { equipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
+                      </option>
+                    ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
                 基准期开始(可选)
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='baselineStartDatetime' />
               </FormGroup>
             </Col>
             <Col >
@@ -416,54 +388,24 @@ const SpaceLoad = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期总电费 (RMB)" color="success" linkText="详情" to="/space/cost" >
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总自来水费 (RMB)" color="info" linkText="详情" to="/space/cost">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总天然气费 (RMB)" color="info" linkText="详情" to="/space/cost">
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={39.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={28.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" linkText="详情" to="/space/load">
-          <CountUp end={0.708} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/cost">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={8.131} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+      <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
+        baselineTitle='基准期总电费 684.87 (RMB)' 
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -473,8 +415,6 @@ const SpaceLoad = () => {
         options={parameterLineChartOptions}>
       </LineChart>
 
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
       <br />
       <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
       </DetailedDataTable>
@@ -483,4 +423,4 @@ const SpaceLoad = () => {
   );
 };
 
-export default SpaceLoad;
+export default EquipmentCost;

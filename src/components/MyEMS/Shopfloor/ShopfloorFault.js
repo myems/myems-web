@@ -515,9 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const SpaceFault = () => {
+const ShopfloorFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [shopfloor, setShopfloor] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -585,6 +586,13 @@ const SpaceFault = () => {
       }]
     }],
   }];
+  
+  const shopfloorList = [
+    { value: 1, label: '铸造'},
+    { value: 2, label: '冲压'},
+    { value: 3, label: '焊接'},
+    { value: 4, label: '喷涂'},
+    { value: 5, label: '总装'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -625,7 +633,7 @@ const SpaceFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>车间数据分析</BreadcrumbItem><BreadcrumbItem active>车间故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -645,6 +653,21 @@ const SpaceFault = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="shopfloor">
+                车间
+                </Label>
+                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                >
+                  { shopfloorList.map((shopfloor, index) => (
+                      <option value={shopfloor.value} key={shopfloor.value}>
+                        {shopfloor.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -799,4 +822,4 @@ const SpaceFault = () => {
   );
 };
 
-export default SpaceFault;
+export default ShopfloorFault;

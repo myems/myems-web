@@ -515,9 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const SpaceFault = () => {
+const TenantFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [tenant, setTenant] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -585,6 +586,12 @@ const SpaceFault = () => {
       }]
     }],
   }];
+  
+  const tenantList = [
+    { value: 1, label: 'Gucci 古驰'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -625,7 +632,7 @@ const SpaceFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -645,6 +652,21 @@ const SpaceFault = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="tenant">
+                租户
+                </Label>
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                >
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -799,4 +821,4 @@ const SpaceFault = () => {
   );
 };
 
-export default SpaceFault;
+export default TenantFault;

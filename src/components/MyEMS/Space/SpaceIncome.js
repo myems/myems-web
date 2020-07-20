@@ -14,7 +14,6 @@ import {
   CustomInput 
 } from 'reactstrap';
 import CountUp from 'react-countup';
-import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
@@ -148,7 +147,7 @@ const SpaceIncome = () => {
     sort: true
   }];
 
-  const lineChartLabels = [
+  const spaceLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -163,14 +162,14 @@ const SpaceIncome = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const spaceLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
+  const spaceLineChartOptions = [
     { value: 'a', label: '冷'},
     { value: 'b', label: '热'},
     { value: 'c', label: '蒸汽'},
@@ -428,9 +427,9 @@ const SpaceIncome = () => {
       </div>
       <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
         baselineTitle='基准期总冷收入 684.87 (RMB)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+        labels={spaceLineChartLabels} 
+        data={spaceLineChartData}
+        options={spaceLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 

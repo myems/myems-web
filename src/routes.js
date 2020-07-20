@@ -335,6 +335,7 @@ export const equipmentRoutes = {
     { to: '/equipment/output', name: '设备产出分析' },
     { to: '/equipment/income', name: '设备收入分析' },
     { to: '/equipment/efficiency', name: '设备效率分析' },
+    { to: '/equipment/load', name: '设备负荷分析' },
     { to: '/equipment/statical', name: '设备统计分析' },
     { to: '/equipment/fault', name: '设备故障分析' },
     { to: '/equipment/saving', name: '设备节能分析' },
@@ -347,7 +348,7 @@ export const tenantRoutes = {
   to: '/tenant',
   icon: 'chart-pie',
   children: [
-    { to: '/tenant/energy', name: '租户能耗分析' },
+    { to: '/tenant/energycategory', name: '租户能耗分析' },
     { to: '/tenant/cost', name: '租户成本分析' },
     { to: '/tenant/load', name: '租户负荷分析' },
     { to: '/tenant/statical', name: '租户统计分析' },
@@ -362,7 +363,7 @@ export const storeRoutes = {
   to: '/store',
   icon: 'chart-pie',
   children: [
-    { to: '/store/energy', name: '门店能耗分析' },
+    { to: '/store/energycategory', name: '门店能耗分析' },
     { to: '/store/cost', name: '门店成本分析' },
     { to: '/store/load', name: '门店负荷分析' },
     { to: '/store/statical', name: '门店统计分析' },
@@ -376,7 +377,7 @@ export const shopfloorRoutes = {
   to: '/shopfloor',
   icon: 'chart-pie',
   children: [
-    { to: '/shopfloor/energy', name: '车间能耗分析' },
+    { to: '/shopfloor/energycategory', name: '车间能耗分析' },
     { to: '/shopfloor/cost', name: '车间成本分析' },
     { to: '/shopfloor/output', name: '车间产出分析' },
     { to: '/shopfloor/income', name: '车间收入分析' },

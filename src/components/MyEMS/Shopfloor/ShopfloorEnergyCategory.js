@@ -19,13 +19,13 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const SpaceLoad = () => {
+const ShopfloorEnergyCategory = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [shopfloor, setShopfloor] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -93,6 +93,13 @@ const SpaceLoad = () => {
       }]
     }],
   }];
+  
+  const shopfloorList = [
+    { value: 1, label: '铸造'},
+    { value: 2, label: '冲压'},
+    { value: 3, label: '焊接'},
+    { value: 4, label: '喷涂'},
+    { value: 5, label: '总装'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -101,55 +108,8 @@ const SpaceLoad = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电平均负荷 (kW)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '冷平均负荷 (kW)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = [
+  
+  const shopfloorLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -164,19 +124,19 @@ const SpaceLoad = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const shopfloorLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   
-  const spaceLineChartOptions = [
+  const shopfloorLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
-    { value: 'd', label: '冷'},];
+    { value: 'd', label: '二氧化碳排放'}];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -212,90 +172,90 @@ const SpaceLoad = () => {
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 11,
-      startdatetime: '平均',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      startdatetime: '总计',
+      a: '98720',
+      b: '34570',
+      c: '5670',
+      d: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -304,19 +264,19 @@ const SpaceLoad = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电平均负荷 (kW)',
+    text: '电 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
+    text: '自来水 (M3)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气平均负荷 (M3/)',
+    text: '天然气 (M3)',
     sort: true
   }, {
     dataField: 'd',
-    text: '冷平均负荷 (kW)',
+    text: '二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -334,7 +294,7 @@ const SpaceLoad = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>车间数据分析</BreadcrumbItem><BreadcrumbItem active>车间能耗分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -354,6 +314,21 @@ const SpaceLoad = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="shopfloor">
+                车间
+                </Label>
+                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                >
+                  { shopfloorList.map((shopfloor, index) => (
+                      <option value={shopfloor.value} key={shopfloor.value}>
+                        {shopfloor.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -416,54 +391,24 @@ const SpaceLoad = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="/space/energycategory" >
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="/space/energycategory">
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={39.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={28.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" linkText="详情" to="/space/load">
-          <CountUp end={0.708} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="/space/energycategory">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={8.131} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+      <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
+        baselineTitle='基准期总电量 684.87 (kWh)' 
+        labels={shopfloorLineChartLabels} 
+        data={shopfloorLineChartData}
+        options={shopfloorLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -472,9 +417,6 @@ const SpaceLoad = () => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
       <br />
       <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
       </DetailedDataTable>
@@ -483,4 +425,4 @@ const SpaceLoad = () => {
   );
 };
 
-export default SpaceLoad;
+export default ShopfloorEnergyCategory;

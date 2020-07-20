@@ -112,6 +112,36 @@ import SpaceLoad from '../components/MyEMS/Space/SpaceLoad';
 import SpaceStatical from '../components/MyEMS/Space/SpaceStatical';
 import SpaceFault from '../components/MyEMS/Space/SpaceFault';
 import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
+import EquipmentEnergyCategory from '../components/MyEMS/Equipment/EquipmentEnergyCategory';
+import EquipmentCost from '../components/MyEMS/Equipment/EquipmentCost';
+import EquipmentOutput from '../components/MyEMS/Equipment/EquipmentOutput';
+import EquipmentIncome from '../components/MyEMS/Equipment/EquipmentIncome';
+import EquipmentEfficiency from '../components/MyEMS/Equipment/EquipmentEfficiency';
+import EquipmentLoad from '../components/MyEMS/Equipment/EquipmentLoad';
+import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
+import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
+import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
+import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
+import TenantCost from '../components/MyEMS/Tenant/TenantCost';
+import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
+import TenantStatical from '../components/MyEMS/Tenant/TenantStatical';
+import TenantFault from '../components/MyEMS/Tenant/TenantFault';
+import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
+import StoreEnergyCategory from '../components/MyEMS/Store/StoreEnergyCategory';
+import StoreCost from '../components/MyEMS/Store/StoreCost';
+import StoreLoad from '../components/MyEMS/Store/StoreLoad';
+import StoreStatical from '../components/MyEMS/Store/StoreStatical';
+import StoreFault from '../components/MyEMS/Store/StoreFault';
+import StoreSaving from '../components/MyEMS/Store/StoreSaving';
+import ShopfloorEnergyCategory from '../components/MyEMS/Shopfloor/ShopfloorEnergyCategory';
+import ShopfloorCost from '../components/MyEMS/Shopfloor/ShopfloorCost';
+import ShopfloorOutput from '../components/MyEMS/Shopfloor/ShopfloorOutput';
+import ShopfloorIncome from '../components/MyEMS/Shopfloor/ShopfloorIncome';
+import ShopfloorEfficiency from '../components/MyEMS/Shopfloor/ShopfloorEfficiency';
+import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
+import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
+import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
+import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -270,12 +300,43 @@ const MyEMSRoutes = () => (
     <Route path="/space/saving" exact component={SpaceSaving} />
 
     {/*Equipment*/}
+    <Route path="/equipment/energycategory" exact component={EquipmentEnergyCategory} />
+    <Route path="/equipment/cost" exact component={EquipmentCost} />
+    <Route path="/equipment/output" exact component={EquipmentOutput} />
+    <Route path="/equipment/income" exact component={EquipmentIncome} />
+    <Route path="/equipment/efficiency" exact component={EquipmentEfficiency} />
+    <Route path="/equipment/load" exact component={EquipmentLoad} />
+    <Route path="/equipment/statical" exact component={EquipmentStatical} />
+    <Route path="/equipment/fault" exact component={EquipmentFault} />
+    <Route path="/equipment/saving" exact component={EquipmentSaving} />
 
     {/*Tenant*/}
+    <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
+    <Route path="/tenant/cost" exact component={TenantCost} />
+    <Route path="/tenant/load" exact component={TenantLoad} />
+    <Route path="/tenant/statical" exact component={TenantStatical} />
+    <Route path="/tenant/fault" exact component={TenantFault} />
+    <Route path="/tenant/saving" exact component={TenantSaving} />
+    {/* <Route path="/tenant/bill" exact component={TenantBill} /> */}
     
     {/*Sotore*/}
+    <Route path="/store/energycategory" exact component={StoreEnergyCategory} />
+    <Route path="/store/cost" exact component={StoreCost} />
+    <Route path="/store/load" exact component={StoreLoad} />
+    <Route path="/store/statical" exact component={StoreStatical} />
+    <Route path="/store/fault" exact component={StoreFault} />
+    <Route path="/store/saving" exact component={StoreSaving} />
     
     {/*Shopfloor*/}
+    <Route path="/shopfloor/energycategory" exact component={ShopfloorEnergyCategory} />
+    <Route path="/shopfloor/cost" exact component={ShopfloorCost} />
+    <Route path="/shopfloor/output" exact component={ShopfloorOutput} />
+    <Route path="/shopfloor/income" exact component={ShopfloorIncome} />
+    <Route path="/shopfloor/efficiency" exact component={ShopfloorEfficiency} />
+    <Route path="/shopfloor/load" exact component={ShopfloorLoad} />
+    <Route path="/shopfloor/statical" exact component={ShopfloorStatical} />
+    <Route path="/shopfloor/fault" exact component={ShopfloorFault} />
+    <Route path="/shopfloor/saving" exact component={ShopfloorSaving} />
     
     {/*Auxiliary System*/}
     
