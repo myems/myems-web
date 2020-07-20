@@ -133,6 +133,15 @@ import StoreLoad from '../components/MyEMS/Store/StoreLoad';
 import StoreStatical from '../components/MyEMS/Store/StoreStatical';
 import StoreFault from '../components/MyEMS/Store/StoreFault';
 import StoreSaving from '../components/MyEMS/Store/StoreSaving';
+import ShopfloorEnergyCategory from '../components/MyEMS/Shopfloor/ShopfloorEnergyCategory';
+import ShopfloorCost from '../components/MyEMS/Shopfloor/ShopfloorCost';
+import ShopfloorOutput from '../components/MyEMS/Shopfloor/ShopfloorOutput';
+import ShopfloorIncome from '../components/MyEMS/Shopfloor/ShopfloorIncome';
+import ShopfloorEfficiency from '../components/MyEMS/Shopfloor/ShopfloorEfficiency';
+import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
+import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
+import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
+import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -319,6 +328,15 @@ const MyEMSRoutes = () => (
     <Route path="/store/saving" exact component={StoreSaving} />
     
     {/*Shopfloor*/}
+    <Route path="/shopfloor/energycategory" exact component={ShopfloorEnergyCategory} />
+    <Route path="/shopfloor/cost" exact component={ShopfloorCost} />
+    <Route path="/shopfloor/output" exact component={ShopfloorOutput} />
+    <Route path="/shopfloor/income" exact component={ShopfloorIncome} />
+    <Route path="/shopfloor/efficiency" exact component={ShopfloorEfficiency} />
+    <Route path="/shopfloor/load" exact component={ShopfloorLoad} />
+    <Route path="/shopfloor/statical" exact component={ShopfloorStatical} />
+    <Route path="/shopfloor/fault" exact component={ShopfloorFault} />
+    <Route path="/shopfloor/saving" exact component={ShopfloorSaving} />
     
     {/*Auxiliary System*/}
     
