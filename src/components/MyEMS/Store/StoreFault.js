@@ -515,10 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const TenantFault = () => {
+const StoreFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [tenant, setTenant] = useState(undefined);
+  const [store, setStore] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -587,7 +587,7 @@ const TenantFault = () => {
     }],
   }];
   
-  const tenantList = [
+  const storeList = [
     { value: 1, label: 'Gucci 古驰'},
     { value: 2, label: 'Longines浪琴'},
     { value: 3, label: 'Starbucks星巴克'},
@@ -632,7 +632,7 @@ const TenantFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户故障分析</BreadcrumbItem>
+          <BreadcrumbItem>门店数据分析</BreadcrumbItem><BreadcrumbItem active>门店故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -656,14 +656,14 @@ const TenantFault = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="tenant">
-                租户
+                <Label className={labelClasses} for="store">
+                门店
                 </Label>
-                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
-                  { tenantList.map((tenant, index) => (
-                      <option value={tenant.value} key={tenant.value}>
-                        {tenant.label}
+                  { storeList.map((store, index) => (
+                      <option value={store.value} key={store.value}>
+                        {store.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -821,4 +821,4 @@ const TenantFault = () => {
   );
 };
 
-export default TenantFault;
+export default StoreFault;

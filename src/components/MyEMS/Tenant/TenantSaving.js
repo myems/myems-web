@@ -25,7 +25,7 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 const TenantSaving = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [equipment, setEquipment] = useState(undefined);
+  const [tenant, setTenant] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -317,14 +317,14 @@ const TenantSaving = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="equipment">
-                设备
+                <Label className={labelClasses} for="tenant">
+                租户
                 </Label>
-                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
                 >
-                  { tenantList.map((equipment, index) => (
-                      <option value={equipment.value} key={equipment.value}>
-                        {equipment.label}
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
                       </option>
                     ))}
                 </CustomInput>

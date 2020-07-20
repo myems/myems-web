@@ -363,7 +363,7 @@ export const storeRoutes = {
   to: '/store',
   icon: 'chart-pie',
   children: [
-    { to: '/store/energy', name: '门店能耗分析' },
+    { to: '/store/energycategory', name: '门店能耗分析' },
     { to: '/store/cost', name: '门店成本分析' },
     { to: '/store/load', name: '门店负荷分析' },
     { to: '/store/statical', name: '门店统计分析' },
@@ -377,7 +377,7 @@ export const shopfloorRoutes = {
   to: '/shopfloor',
   icon: 'chart-pie',
   children: [
-    { to: '/shopfloor/energy', name: '车间能耗分析' },
+    { to: '/shopfloor/energycategory', name: '车间能耗分析' },
     { to: '/shopfloor/cost', name: '车间成本分析' },
     { to: '/shopfloor/output', name: '车间产出分析' },
     { to: '/shopfloor/income', name: '车间收入分析' },

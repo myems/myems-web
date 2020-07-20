@@ -22,10 +22,10 @@ import LineChart from '../common/LineChart';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const TenantLoad = () => {
+const StoreStatical = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [tenant, setTenant] = useState(undefined);
+  const [store, setStore] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -94,7 +94,7 @@ const TenantLoad = () => {
     }],
   }];
   
-  const tenantList = [
+  const storeList = [
     { value: 1, label: 'Gucci 古驰'},
     { value: 2, label: 'Longines浪琴'},
     { value: 3, label: 'Starbucks星巴克'},
@@ -107,8 +107,8 @@ const TenantLoad = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
-  const tenantLineChartLabels = [
+ 
+  const storeLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -123,19 +123,19 @@ const TenantLoad = () => {
     '2020-07-12'
   ];
   
-  const tenantLineChartData = {
+  const storeLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   
-  const tenantLineChartOptions = [
+  const storeLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
-    { value: 'd', label: '冷'},];
+    { value: 'd', label: '二氧化碳排放'}];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -171,90 +171,90 @@ const TenantLoad = () => {
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 11,
-      startdatetime: '平均',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      startdatetime: '总平均值',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     }
   ];
   const detailedDataTableColumns = [{
@@ -263,19 +263,19 @@ const TenantLoad = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电平均负荷 (kW)',
+    text: '电平均值(kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
+    text: '自来水平均值(M3)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气平均负荷 (M3/)',
+    text: '天然气平均值(M3)',
     sort: true
   }, {
     dataField: 'd',
-    text: '冷平均负荷 (kW)',
+    text: '二氧化碳排放平均值(T)',
     sort: true
   }];
 
@@ -293,7 +293,7 @@ const TenantLoad = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>门店数据分析</BreadcrumbItem><BreadcrumbItem active>门店统计分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -317,14 +317,14 @@ const TenantLoad = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="tenant">
-                租户
+                <Label className={labelClasses} for="store">
+                门店
                 </Label>
-                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
-                  { tenantList.map((tenant, index) => (
-                      <option value={tenant.value} key={tenant.value}>
-                        {tenant.label}
+                  { storeList.map((store, index) => (
+                      <option value={store.value} key={store.value}>
+                        {store.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -390,54 +390,43 @@ const TenantLoad = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期电量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期电量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={39.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" linkText="详情" to="/space/load">
-          <CountUp end={28.088} duration={2} prefix="" separator="," decimals={3} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" linkText="详情" to="/space/load">
-          <CountUp end={0.708} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期电量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期自来水量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={8.131} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期自来水量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" linkText="详情" to="/space/load">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期自来水量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期天然气量最大值 (kWh)" color="warning" linkText="详情" to="/space/statical" >
+          <CountUp end={863} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期天然气量最小值 (kWh)" color="success" linkText="详情" to="/space/statical">
+          <CountUp end={278} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" linkText="详情" to="/space/load" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CardSummary rate="0.0%" title="报告期天然气量平均值 (kWh)" color="info" linkText="详情" to="/space/statical">
+        <CountUp end={587} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={tenantLineChartLabels} 
-        data={tenantLineChartData}
-        options={tenantLineChartOptions}>
+      <LineChart reportingTitle='报告期总电量 98720 (kWh)' 
+        baselineTitle='基准期总电量 68487 (kWh)' 
+        labels={storeLineChartLabels} 
+        data={storeLineChartData}
+        options={storeLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -454,4 +443,4 @@ const TenantLoad = () => {
   );
 };
 
-export default TenantLoad;
+export default StoreStatical;

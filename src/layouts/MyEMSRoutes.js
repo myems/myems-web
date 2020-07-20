@@ -127,6 +127,12 @@ import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
 import TenantStatical from '../components/MyEMS/Tenant/TenantStatical';
 import TenantFault from '../components/MyEMS/Tenant/TenantFault';
 import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
+import StoreEnergyCategory from '../components/MyEMS/Store/StoreEnergyCategory';
+import StoreCost from '../components/MyEMS/Store/StoreCost';
+import StoreLoad from '../components/MyEMS/Store/StoreLoad';
+import StoreStatical from '../components/MyEMS/Store/StoreStatical';
+import StoreFault from '../components/MyEMS/Store/StoreFault';
+import StoreSaving from '../components/MyEMS/Store/StoreSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -305,6 +311,12 @@ const MyEMSRoutes = () => (
     {/* <Route path="/tenant/bill" exact component={TenantBill} /> */}
     
     {/*Sotore*/}
+    <Route path="/store/energycategory" exact component={StoreEnergyCategory} />
+    <Route path="/store/cost" exact component={StoreCost} />
+    <Route path="/store/load" exact component={StoreLoad} />
+    <Route path="/store/statical" exact component={StoreStatical} />
+    <Route path="/store/fault" exact component={StoreFault} />
+    <Route path="/store/saving" exact component={StoreSaving} />
     
     {/*Shopfloor*/}
     

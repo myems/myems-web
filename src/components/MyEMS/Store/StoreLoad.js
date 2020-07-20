@@ -22,10 +22,10 @@ import LineChart from '../common/LineChart';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const TenantLoad = () => {
+const StoreLoad = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [tenant, setTenant] = useState(undefined);
+  const [store, setStore] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -94,7 +94,7 @@ const TenantLoad = () => {
     }],
   }];
   
-  const tenantList = [
+  const storeList = [
     { value: 1, label: 'Gucci 古驰'},
     { value: 2, label: 'Longines浪琴'},
     { value: 3, label: 'Starbucks星巴克'},
@@ -108,7 +108,7 @@ const TenantLoad = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const tenantLineChartLabels = [
+  const storeLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -123,15 +123,14 @@ const TenantLoad = () => {
     '2020-07-12'
   ];
   
-  const tenantLineChartData = {
+  const storeLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
   };
 
-  
-  const tenantLineChartOptions = [
+  const storeLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -293,7 +292,7 @@ const TenantLoad = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>门店数据分析</BreadcrumbItem><BreadcrumbItem active>门店负荷分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -317,14 +316,14 @@ const TenantLoad = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="tenant">
-                租户
+                <Label className={labelClasses} for="store">
+                门店
                 </Label>
-                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
-                  { tenantList.map((tenant, index) => (
-                      <option value={tenant.value} key={tenant.value}>
-                        {tenant.label}
+                  { storeList.map((store, index) => (
+                      <option value={store.value} key={store.value}>
+                        {store.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -435,9 +434,9 @@ const TenantLoad = () => {
       </div>
       <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
         baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={tenantLineChartLabels} 
-        data={tenantLineChartData}
-        options={tenantLineChartOptions}>
+        labels={storeLineChartLabels} 
+        data={storeLineChartData}
+        options={storeLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -454,4 +453,4 @@ const TenantLoad = () => {
   );
 };
 
-export default TenantLoad;
+export default StoreLoad;
