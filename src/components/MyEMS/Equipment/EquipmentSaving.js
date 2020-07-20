@@ -26,6 +26,7 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 const EquipmentSaving = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -93,6 +94,12 @@ const EquipmentSaving = () => {
       }]
     }],
   }];
+  
+  const equipmentList = [
+    { value: 1, label: 'P3PW_D36_009'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -307,6 +314,21 @@ const EquipmentSaving = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="equipment">
+                设备
+                </Label>
+                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                >
+                  { equipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
