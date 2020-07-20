@@ -95,10 +95,10 @@ const StoreEnergyCategory = () => {
   }];
   
   const storeList = [
-    { value: 1, label: 'Gucci 古驰'},
-    { value: 2, label: 'Longines浪琴'},
-    { value: 3, label: 'Starbucks星巴克'},
-    { value: 4, label: 'Versace/范思哲'}];
+    { value: 1, label: '麦肯鸡(崇文门店)'},
+    { value: 2, label: '麦肯鸡(新世界店)'},
+    { value: 3, label: '麦肯鸡(祈年大街得来速店)'},
+    { value: 4, label: '麦肯鸡(灯市口店)'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},

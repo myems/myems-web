@@ -95,10 +95,10 @@ const StoreCost = () => {
   }];
 
   const storeList = [
-    { value: 1, label: '劳当麦(崇文门店)'},
-    { value: 2, label: '劳当麦(新世界店)'},
-    { value: 3, label: '劳当麦(祈年大街得来速店)'},
-    { value: 4, label: '劳当麦(灯市口店)'}];
+    { value: 1, label: '麦肯鸡(崇文门店)'},
+    { value: 2, label: '麦肯鸡(新世界店)'},
+    { value: 3, label: '麦肯鸡(祈年大街得来速店)'},
+    { value: 4, label: '麦肯鸡(灯市口店)'}];
     
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
