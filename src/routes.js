@@ -335,6 +335,7 @@ export const equipmentRoutes = {
     { to: '/equipment/output', name: '设备产出分析' },
     { to: '/equipment/income', name: '设备收入分析' },
     { to: '/equipment/efficiency', name: '设备效率分析' },
+    { to: '/equipment/load', name: '设备负荷分析' },
     { to: '/equipment/statical', name: '设备统计分析' },
     { to: '/equipment/fault', name: '设备故障分析' },
     { to: '/equipment/saving', name: '设备节能分析' },
