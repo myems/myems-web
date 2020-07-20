@@ -20,7 +20,6 @@ import {
   InputGroup,
   UncontrolledDropdown
 } from 'reactstrap';
-import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import Cascader from 'rc-cascader';
 import ButtonIcon from '../../common/ButtonIcon';

@@ -18,7 +18,6 @@ import Datetime from 'react-datetime';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
-import { toast } from 'react-toastify';
 import loadable from '@loadable/component';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));

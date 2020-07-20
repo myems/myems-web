@@ -348,7 +348,7 @@ export const tenantRoutes = {
   to: '/tenant',
   icon: 'chart-pie',
   children: [
-    { to: '/tenant/energy', name: '租户能耗分析' },
+    { to: '/tenant/energycategory', name: '租户能耗分析' },
     { to: '/tenant/cost', name: '租户成本分析' },
     { to: '/tenant/load', name: '租户负荷分析' },
     { to: '/tenant/statical', name: '租户统计分析' },

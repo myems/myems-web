@@ -14,7 +14,6 @@ import {
   CustomInput 
 } from 'reactstrap';
 import CountUp from 'react-countup';
-import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';

@@ -121,6 +121,12 @@ import EquipmentLoad from '../components/MyEMS/Equipment/EquipmentLoad';
 import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
 import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
 import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
+import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
+import TenantCost from '../components/MyEMS/Tenant/TenantCost';
+import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
+import TenantStatical from '../components/MyEMS/Tenant/TenantStatical';
+import TenantFault from '../components/MyEMS/Tenant/TenantFault';
+import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -290,6 +296,13 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
 
     {/*Tenant*/}
+    <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
+    <Route path="/tenant/cost" exact component={TenantCost} />
+    <Route path="/tenant/load" exact component={TenantLoad} />
+    <Route path="/tenant/statical" exact component={TenantStatical} />
+    <Route path="/tenant/fault" exact component={TenantFault} />
+    <Route path="/tenant/saving" exact component={TenantSaving} />
+    {/* <Route path="/tenant/bill" exact component={TenantBill} /> */}
     
     {/*Sotore*/}
     

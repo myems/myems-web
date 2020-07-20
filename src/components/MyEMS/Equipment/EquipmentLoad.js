@@ -14,7 +14,6 @@ import {
   CustomInput 
 } from 'reactstrap';
 import CountUp from 'react-countup';
-import { toast } from 'react-toastify';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
@@ -108,54 +107,7 @@ const EquipmentLoad = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电平均负荷 (kW)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '冷平均负荷 (kW)',
-    sort: true
-  }];
-
+  
   const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
