@@ -416,16 +416,16 @@ const SpaceSaving = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期节约电量(基线值-实际值) (kWh)" color="success" linkText="详情" to="/space/saving" >
+        <CardSummary rate="-0.23%" title="报告期节约电量(基线值-实际值) (kWh)" color="success" linkText="详情" to="#" >
           <CountUp end={764.39} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期节约自来水量(基线值-实际值) (M3)" color="info" linkText="详情" to="/space/saving">
+        <CardSummary rate="0.0%" title="报告期节约自来水量(基线值-实际值) (M3)" color="info" linkText="详情" to="#">
           <CountUp end={878} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期节约天然气量(基线值-实际值) (M3)" color="info" linkText="详情" to="/space/saving">
+        <CardSummary rate="0.0%" title="报告期节约天然气量(基线值-实际值) (M3)" color="info" linkText="详情" to="#">
         <CountUp end={87} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期减少二氧化碳排放量(基线值-实际值) (T)" color="warning" linkText="详情" to="/space/saving">
+        <CardSummary rate="+9.54%" title="报告期减少二氧化碳排放量(基线值-实际值) (T)" color="warning" linkText="详情" to="#">
           <CountUp end={594} duration={2} prefix="" separator="," decimals={3} decimal="." />
         </CardSummary>
       </div>
