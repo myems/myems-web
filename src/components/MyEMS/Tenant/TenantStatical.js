@@ -95,10 +95,10 @@ const TenantStatical = () => {
   }];
   
   const tenantList = [
-    { value: 1, label: 'P3PW_D36_009'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
+    { value: 1, label: 'Gucci 古驰'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
