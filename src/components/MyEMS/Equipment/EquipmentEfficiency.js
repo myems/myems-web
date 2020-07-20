@@ -112,48 +112,8 @@ const EquipmentEfficiency = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '冷 (kWh)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '效率 (kWh/kWh)',
-    sort: true
-  }];
-
-  const lineChartLabels = [
+  
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -168,14 +128,14 @@ const EquipmentEfficiency = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电制冷效率'},
     { value: 'b', label: '电制热效率'},
     { value: 'c', label: '天然气制蒸汽效率'}];
@@ -445,9 +405,9 @@ const EquipmentEfficiency = () => {
       </div>
       <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
         baselineTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 

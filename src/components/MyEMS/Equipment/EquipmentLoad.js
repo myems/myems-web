@@ -149,7 +149,7 @@ const EquipmentLoad = () => {
     sort: true
   }];
 
-  const spaceLineChartLabels = [
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -164,7 +164,7 @@ const EquipmentLoad = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -172,7 +172,7 @@ const EquipmentLoad = () => {
   };
 
   
-  const spaceLineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -461,9 +461,9 @@ const EquipmentLoad = () => {
       </div>
       <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
         baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 

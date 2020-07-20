@@ -31,7 +31,7 @@ import FalconCardHeader from '../../common/FalconCardHeader';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
 
-const orderFormatter = (dataField, { id, name, email }: row) => (
+const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
     <Link to="/e-commerce/order-details">
       <strong>#{id}</strong>
@@ -42,7 +42,7 @@ const orderFormatter = (dataField, { id, name, email }: row) => (
   </Fragment>
 );
 
-const shippingFormatter = (address, { shippingType }: row) => (
+const shippingFormatter = (address, { shippingType }) => (
   <Fragment>
     {address}
     <p className="mb-0 text-500">{shippingType}</p>
@@ -97,7 +97,7 @@ const amountFormatter = amount => {
   );
 };
 
-const actionFormatter = (dataField, { id }: row) => (
+const actionFormatter = (dataField, { id }) => (
   // Control your row with this id
   <UncontrolledDropdown>
     <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">

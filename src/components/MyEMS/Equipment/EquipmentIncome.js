@@ -99,55 +99,8 @@ const EquipmentIncome = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '13896',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '冷 (RMB)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '热 (RMB)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '蒸汽 (RMB)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '总计 (RMB)',
-    sort: true
-  }];
-
-  const lineChartLabels = [
+  
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -162,14 +115,14 @@ const EquipmentIncome = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '冷'},
     { value: 'b', label: '热'},
     { value: 'c', label: '蒸汽'},
@@ -427,9 +380,9 @@ const EquipmentIncome = () => {
       </div>
       <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
         baselineTitle='基准期总冷收入 684.87 (RMB)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 

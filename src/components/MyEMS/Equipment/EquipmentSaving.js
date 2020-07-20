@@ -101,55 +101,8 @@ const EquipmentSaving = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 2,
-      name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 3,
-      name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'electricity',
-    text: '节约电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'water',
-    text: '节约自来水 (M3)',
-    sort: true
-  }, {
-    dataField: 'naturalgas',
-    text: '节约天然气 (M3)',
-    sort: true
-  }, {
-    dataField: 'co2',
-    text: '减少二氧化碳排放 (T)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = [
+  
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -164,7 +117,7 @@ const EquipmentSaving = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -172,7 +125,7 @@ const EquipmentSaving = () => {
   };
 
   
-  const spaceLineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -431,9 +384,9 @@ const EquipmentSaving = () => {
       </div>
       <LineChart reportingTitle='报告期节约电量 764.39 (kWh) (基线值-实际值)' 
         baselineTitle='基准期节约电量 684.87 (kWh)(基线值-实际值)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 

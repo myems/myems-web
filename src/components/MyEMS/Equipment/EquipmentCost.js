@@ -38,55 +38,8 @@ const EquipmentCost = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 2,
-      name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    },
-    {
-      id: 3,
-      name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'electricity',
-    text: '电 (RMB)',
-    sort: true
-  }, {
-    dataField: 'water',
-    text: '自来水 (RMB)',
-    sort: true
-  }, {
-    dataField: 'naturalgas',
-    text: '天然气 (RMB)',
-    sort: true
-  }, {
-    dataField: 'co2',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
-
-  const lineChartLabels = [
+  
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -101,14 +54,14 @@ const EquipmentCost = () => {
     '2020-07-12'
   ];
   
-  const lineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const lineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -352,9 +305,9 @@ const EquipmentCost = () => {
       </div>
       <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
         baselineTitle='基准期总电费 684.87 (RMB)' 
-        labels={lineChartLabels} 
-        data={lineChartData}
-        options={lineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
