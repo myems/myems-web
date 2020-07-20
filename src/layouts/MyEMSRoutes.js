@@ -112,6 +112,15 @@ import SpaceLoad from '../components/MyEMS/Space/SpaceLoad';
 import SpaceStatical from '../components/MyEMS/Space/SpaceStatical';
 import SpaceFault from '../components/MyEMS/Space/SpaceFault';
 import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
+import EquipmentEnergyCategory from '../components/MyEMS/Equipment/EquipmentEnergyCategory';
+import EquipmentCost from '../components/MyEMS/Equipment/EquipmentCost';
+import EquipmentOutput from '../components/MyEMS/Equipment/EquipmentOutput';
+import EquipmentIncome from '../components/MyEMS/Equipment/EquipmentIncome';
+import EquipmentEfficiency from '../components/MyEMS/Equipment/EquipmentEfficiency';
+import EquipmentLoad from '../components/MyEMS/Equipment/EquipmentLoad';
+import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
+import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
+import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -270,6 +279,15 @@ const MyEMSRoutes = () => (
     <Route path="/space/saving" exact component={SpaceSaving} />
 
     {/*Equipment*/}
+    <Route path="/equipment/energycategory" exact component={EquipmentEnergyCategory} />
+    <Route path="/equipment/cost" exact component={EquipmentCost} />
+    <Route path="/equipment/output" exact component={EquipmentOutput} />
+    <Route path="/equipment/income" exact component={EquipmentIncome} />
+    <Route path="/equipment/efficiency" exact component={EquipmentEfficiency} />
+    <Route path="/equipment/load" exact component={EquipmentLoad} />
+    <Route path="/equipment/statical" exact component={EquipmentStatical} />
+    <Route path="/equipment/fault" exact component={EquipmentFault} />
+    <Route path="/equipment/saving" exact component={EquipmentSaving} />
 
     {/*Tenant*/}
     
