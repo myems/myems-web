@@ -335,7 +335,7 @@ const Invoice = () => {
                   <Table size="sm" borderless className="fs--1">
                     <tbody>
                       <tr>
-                        <th className="text-sm-right">账单编号:</th>
+                        <th className="text-sm-right">账单号码:</th>
                         <td>{invoice.summary.invoice_no}</td>
                       </tr>
                       <tr>
@@ -347,7 +347,7 @@ const Invoice = () => {
                         <td>{invoice.summary.invoice_date}</td>
                       </tr>
                       <tr>
-                        <th className="text-sm-right">应付款日期:</th>
+                        <th className="text-sm-right">付款到期日:</th>
                         <td>{invoice.summary.payment_due}</td>
                       </tr>
                       <tr className="alert-success font-weight-bold">
@@ -400,7 +400,7 @@ const Invoice = () => {
                       <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
                     </tr>
                     <tr className="border-top">
-                      <th className="text-900">总计:</th>
+                      <th className="text-900">应付金额合计:</th>
                       <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
                     </tr>
                   </tbody>
@@ -411,7 +411,7 @@ const Invoice = () => {
         </CardBody>
         <CardFooter className="bg-light">
           <p className="fs--1 mb-0">
-            <strong>请汇款至以下账户: </strong><br />
+            <strong>请确保在上述付款到期日或之前付款, 汇款至以下账户:</strong><br />
             账户名称: MyEMS商场有限公司<br />
             开户银行: 中国银行股份有限公司北京王府井支行<br />
             银行地址: 中国北京市东城区王府井大街<br />

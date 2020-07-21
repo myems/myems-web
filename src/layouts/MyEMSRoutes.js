@@ -121,6 +121,7 @@ import EquipmentLoad from '../components/MyEMS/Equipment/EquipmentLoad';
 import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
 import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
 import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
+import EquipmentTracking from '../components/MyEMS/Equipment/EquipmentTracking';
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
 import TenantCost from '../components/MyEMS/Tenant/TenantCost';
 import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
@@ -310,6 +311,7 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/statical" exact component={EquipmentStatical} />
     <Route path="/equipment/fault" exact component={EquipmentFault} />
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
+    <Route path="/equipment/tracking" exact component={EquipmentTracking} />
 
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
