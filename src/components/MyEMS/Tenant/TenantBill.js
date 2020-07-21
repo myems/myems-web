@@ -223,7 +223,7 @@ const Invoice = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户成本分析</BreadcrumbItem>
+          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户账单</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
