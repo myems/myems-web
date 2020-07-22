@@ -400,7 +400,7 @@ const StoreCost = () => {
         <CardSummary rate="+9.54%" title="报告期总吨标准煤量 (TCE)" color="warning" linkText="详情" to="#">
           <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总CO2排放量 (T)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="#">
           <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
