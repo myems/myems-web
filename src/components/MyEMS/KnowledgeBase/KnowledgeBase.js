@@ -9,7 +9,7 @@ import createMarkup from '../../../helpers/createMarkup';
 import { isIterableArray } from '../../../helpers/utils';
 
 const KnowledgeBase = () => {
-  const eventCategories = [
+  const knowledgeCategories = [
     '选择分类',
     '法律法规',
     '国家标准',
@@ -26,24 +26,24 @@ const KnowledgeBase = () => {
       id: uuid(),
       calendar: { month: 'Mar', day: '26' },
       title: "工业节能管理办法",
-      uploader: 'AID MIT',
-      additional: '文件类型: PDF <br/>文件大小: 689 KB',
+      uploader: 'Administrator',
+      additional: '上传时间: 2020-03-26 11:00AM<br/>文件类型: PDF <br/>文件大小: 689 KB',
       to: '#'
     },
     {
       id: uuid(),
-      calendar: { month: 'Feb', day: '29' },
+      calendar: { month: 'Feb', day: '26' },
       title: '用能单位能源计量评价技术规范DB11T 858-2012',
-      uploader: 'American Nuclear Society',
-      additional: '文件类型: PDF <br/>文件大小: 1.3 MB',
+      uploader: 'Administrator',
+      additional: '上传时间: 2020-02-26 11:00AM<br/>文件类型: PDF <br/>文件大小: 1.3 MB',
       to: '#',
     },
     {
       id: uuid(),
       calendar: { month: 'Feb', day: '21' },
       title: '综合能耗计算通则GB-T-2589-2008',
-      uploader: 'University of Oxford',
-      additional: '文件类型: PDF <br/>文件大小: 2.5 MB',
+      uploader: 'Administrator',
+      additional: '上传时间: 2020-02-21 11:00AM<br/>文件类型: PDF <br/>文件大小: 2.5 MB',
       to: '#',
       badge: {
         text: 'New',
@@ -55,16 +55,16 @@ const KnowledgeBase = () => {
       id: uuid(),
       calendar: { month: 'Dec', day: '31' },
       title: '能源管理体系-要求GB-T-23331-2012',
-      uploader: 'Chamber Music Society',
-      additional: '文件类型: PDF <br/>文件大小: 3.6 MB',
+      uploader: 'Administrator',
+      additional: '上传时间: 2019-12-31 11:00AM<br/>文件类型: PDF <br/>文件大小: 3.6 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Dec', day: '16' },
       title: '能源管理体系-实施指南GB-T-29456-2012',
-      uploader: 'Harvard University',
-      additional: '文件类型: PDF <br/>文件大小: 8.9 MB',
+      uploader: 'Administrator',
+      additional: '上传时间: 2019-12-16 11:00AM<br/>文件类型: PDF <br/>文件大小: 8.9 MB',
       to: '#'
     }
   ];
@@ -72,10 +72,10 @@ const KnowledgeBase = () => {
   return (
     <Card>
       <FalconCardHeader title="知识库">
-        {isIterableArray(eventCategories) && (
+        {isIterableArray(knowledgeCategories) && (
           <Form inline>
             <CustomInput type="select" id="customSelectCategory" name="customSelectCategory" bsSize="sm">
-              {eventCategories.map((option, index) => (
+              {knowledgeCategories.map((option, index) => (
                 <option value={index} key={index}>
                   {option}
                 </option>
