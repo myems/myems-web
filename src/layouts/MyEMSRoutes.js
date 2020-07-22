@@ -145,6 +145,8 @@ import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
+import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
+import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -344,14 +346,16 @@ const MyEMSRoutes = () => (
     
     {/*Auxiliary System*/}
     <Route path="/auxiliarysystem/energyflowdiagram" exact component={EnergyFlowDiagram} />
-    
+
     {/*FDD*/}
     
     {/*Equipment Monitoring*/}
     
     {/*Advanced Reporting*/}
+    <Route path="/advancedreporting" exact component={AdvancedReporting} />
     
     {/*Knowledge Base*/}
+    <Route path="/knowledgebase" exact component={KnowledgeBase} />
     
     {/*Redirect*/}
     <Redirect to="/errors/404" />
