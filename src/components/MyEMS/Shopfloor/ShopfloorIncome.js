@@ -389,16 +389,16 @@ const ShopfloorIncome = () => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title="报告期总冷收入 (RMB)" color="success" linkText="详情" to="#" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总热收入 (RMB)" color="info" linkText="详情" to="#">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总蒸汽收入 (RMB)" color="info" linkText="详情" to="#">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title="报告期总收入 (RMB)" color="warning" linkText="详情" to="#">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 

@@ -391,16 +391,19 @@ const EquipmentEnergyCategory = () => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="#" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总自来水量 (M3)" color="info" linkText="详情" to="#">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总天然气量 (M3)" color="info" linkText="详情" to="#">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        </CardSummary>
+        <CardSummary rate="+9.54%" title="报告期总吨标准煤量 (TCE)" color="warning" linkText="详情" to="#">
+          <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
         <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" linkText="详情" to="#">
-          <CountUp end={43594} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
