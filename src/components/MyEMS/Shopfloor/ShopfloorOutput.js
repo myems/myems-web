@@ -374,13 +374,13 @@ const ShopfloorOutput = () => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title="报告期总冷量 (kWh)" color="success" linkText="详情" to="#" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总热量 (GJ)" color="info" linkText="详情" to="#">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={3} decimal="." />
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title="报告期总蒸汽量 (T)" color="info" linkText="详情" to="#">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={3} decimal="." />
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总冷量 764.39 (kWh)' 
