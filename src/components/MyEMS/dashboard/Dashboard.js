@@ -128,13 +128,13 @@ const Dashboard = () => {
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={costshare} title={'成本占比'} />
+          <SharePie data={costshare} title={'成本比例'} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={tceshare} title={'吨标准煤占比'} />
+          <SharePie data={tceshare} title={'吨标准煤比例'} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={co2share} title={'二氧化碳排放占比'} />
+          <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
       <LineChart reportingTitle='本月总电量 764.39 (kWh)' 

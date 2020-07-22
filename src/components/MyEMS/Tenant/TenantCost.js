@@ -18,6 +18,7 @@ import Datetime from 'react-datetime';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import SharePie from '../common/SharePie';
 
 import loadable from '@loadable/component';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
@@ -108,6 +109,21 @@ const TenantCost = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
+  const costshare = [
+    { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
+    { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
+    { id: 3, value: 9887, name: '天然气', color: '#d8e2ef' }
+  ];
+  const tceshare = [
+    { id: 1, value: 5890863/8135.56, name: '电', color: '#2c7be5' },
+    { id: 2, value: 29878/1000, name: '自来水', color: '#27bcfd' },
+    { id: 3, value: 9887/751.8, name: '天然气', color: '#d8e2ef' }
+  ];
+  const co2share = [
+    { id: 1, value: (5890863/8135.56)*0.67, name: '电', color: '#2c7be5' },
+    { id: 2, value: (29878/1000)*0.67, name: '自来水', color: '#27bcfd' },
+    { id: 3, value: (9887/751.8)*0.67, name: '天然气', color: '#d8e2ef' }
+  ];
   const tenantLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -404,6 +420,17 @@ const TenantCost = () => {
           <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
+      <Row noGutters>
+        <Col className="mb-3 pr-lg-2 mb-3">
+          <SharePie data={costshare} title={'成本比例'} />
+        </Col>
+        <Col className="mb-3 pr-lg-2 mb-3">
+          <SharePie data={tceshare} title={'吨标准煤比例'} />
+        </Col>
+        <Col className="mb-3 pr-lg-2 mb-3">
+          <SharePie data={co2share} title={'二氧化碳排放比例'} />
+        </Col>
+      </Row>
       <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
         baselineTitle='基准期总电费 684.87 (RMB)' 
         labels={tenantLineChartLabels} 
