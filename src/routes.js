@@ -407,12 +407,12 @@ export const fddRoutes = {
   to: '/fdd',
   icon: 'chart-pie',
   children: [
-    { to: '/fdd/statistic', name: '报警统计分析' },
-    { to: '/fdd/space', name: '空间故障报警分析' },
-    { to: '/fdd/equipment', name: '设备故障报警分析' },
-    { to: '/fdd/tenant', name: '租户故障报警分析' },
-    { to: '/fdd/store', name: '门店故障报警分析' },
-    { to: '/fdd/shopfloor', name: '车间故障报警分析' },
+    { to: '/fdd/statistic', name: '故障统计分析' },
+    { to: '/fdd/space', name: '空间故障分析' },
+    { to: '/fdd/equipment', name: '设备故障分析' },
+    { to: '/fdd/tenant', name: '租户故障分析' },
+    { to: '/fdd/store', name: '门店故障分析' },
+    { to: '/fdd/shopfloor', name: '车间故障分析' },
     { to: '/fdd/energyloss', name: '能源损耗分析' },
   ]
 };
