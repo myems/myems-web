@@ -22,6 +22,7 @@ const EquipmentList = ({
   parameter5,
   parameter6,
   parameter7,
+  alarms,
   isOnline,
   isRunning,
   sliderSettings,
@@ -110,6 +111,12 @@ const EquipmentList = ({
                         {isOnline ? '在线' : '离线'}
                       </strong>
                     </p>
+                    <p className="fs--1 mb-1">
+                    设备状态:{' '}
+                      <strong className={classNames({ 'text-success': isRunning, 'text-danger': !isRunning })}>
+                        {isRunning ? '运行' : '停机'}
+                      </strong>
+                    </p>
                   </div>
                 </div>
                 <div className="mt-md-2">
@@ -126,7 +133,7 @@ const EquipmentList = ({
                         : favouriteItemsDispatch({ type: 'ADD', payload: { id } })
                     }
                   >
-                    故障报警(1)
+                    故障报警({alarms.length})
                   </ButtonIcon>
                   {cartLoading ? (
                     <ButtonIcon
@@ -144,7 +151,7 @@ const EquipmentList = ({
                     <ButtonIcon
                       color="primary"
                       size="sm"
-                      icon="space-shuttle"
+                      icon="users"
                       iconClassName="ml-2 d-none d-md-inline-block"
                       className="w-lg-100 mt-2"
                       onClick={handleAddToCart}
@@ -175,6 +182,7 @@ EquipmentList.propTypes = {
   parameter6: PropTypes.number,
   parameter7: PropTypes.number,
   cumulativePerformance: PropTypes.number,
+  alarms: PropTypes.array,
   isOnline: PropTypes.bool,
   isRunning: PropTypes.bool,
   features: PropTypes.array

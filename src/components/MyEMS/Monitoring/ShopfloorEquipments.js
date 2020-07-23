@@ -23,10 +23,11 @@ import EquipmentFooter from './EquipmentFooter';
 import usePagination from '../../../hooks/usePagination';
 import equipments from './equipments';
 
-const SpaceEquipments = () => {
+const TenantEquipments = () => {
   
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [shopfloor, setShopfloor] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{
     label: '成都项目',
@@ -90,6 +91,13 @@ const SpaceEquipments = () => {
     }],
   }];
 
+  const shopfloorList = [
+    { value: 1, label: '铸造'},
+    { value: 2, label: '冲压'},
+    { value: 3, label: '焊接'},
+    { value: 4, label: '喷涂'},
+    { value: 5, label: '总装'}];
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   let onCascaderChange = (value, selectedOptions) => {
@@ -113,7 +121,7 @@ const SpaceEquipments = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>空间设备监控</BreadcrumbItem>
+          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>车间设备监控</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -133,6 +141,21 @@ const SpaceEquipments = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="shopfloor">
+                车间
+                </Label>
+                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                >
+                  { shopfloorList.map((shopfloor, index) => (
+                      <option value={shopfloor.value} key={shopfloor.value}>
+                        {shopfloor.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -191,4 +214,4 @@ const SpaceEquipments = () => {
   );
 };
 
-export default SpaceEquipments;
+export default TenantEquipments;

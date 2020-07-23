@@ -30,6 +30,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -52,6 +53,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -74,6 +76,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -96,6 +99,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -118,6 +122,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -140,6 +145,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -162,6 +168,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -184,6 +191,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   },
@@ -206,6 +214,7 @@ export default [
     parameter5: 24.0,
     parameter6: 5.0,
     parameter7: 25.1,
+    alarms: ['supply temperature is high', 'return temperature is low'],
     isOnline: true,
     isRunning: true
   }

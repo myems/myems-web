@@ -23,10 +23,11 @@ import EquipmentFooter from './EquipmentFooter';
 import usePagination from '../../../hooks/usePagination';
 import equipments from './equipments';
 
-const SpaceEquipments = () => {
+const TenantEquipments = () => {
   
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [tenant, setTenant] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{
     label: '成都项目',
@@ -90,6 +91,12 @@ const SpaceEquipments = () => {
     }],
   }];
 
+  const tenantList = [
+    { value: 1, label: '海上捞火锅(北京王府井店)'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
+    
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   let onCascaderChange = (value, selectedOptions) => {
@@ -113,7 +120,7 @@ const SpaceEquipments = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>空间设备监控</BreadcrumbItem>
+          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>租户设备监控</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -133,6 +140,21 @@ const SpaceEquipments = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="tenant">
+                租户
+                </Label>
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                >
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -191,4 +213,4 @@ const SpaceEquipments = () => {
   );
 };
 
-export default SpaceEquipments;
+export default TenantEquipments;
