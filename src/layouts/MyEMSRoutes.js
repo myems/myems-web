@@ -145,6 +145,13 @@ import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
+
+import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
+import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
+import FDDTenantFault from '../components/MyEMS/FDD/TenantFault';
+import FDDStoreFault from '../components/MyEMS/FDD/StoreFault';
+import FDDShopfloorFault from '../components/MyEMS/FDD/ShopfloorFault';
+
 import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
 import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
 import SpaceEquipments from '../components/MyEMS/Monitoring/SpaceEquipments';
@@ -352,6 +359,11 @@ const MyEMSRoutes = () => (
     <Route path="/auxiliarysystem/energyflowdiagram" exact component={EnergyFlowDiagram} />
 
     {/*FDD*/}
+    <Route path="/fdd/equipment" exact component={FDDEquipmentFault} />
+    <Route path="/fdd/space" exact component={FDDSpaceFault} />
+    <Route path="/fdd/tenant" exact component={FDDTenantFault} />
+    <Route path="/fdd/store" exact component={FDDStoreFault} />
+    <Route path="/fdd/shopfloor" exact component={FDDShopfloorFault} />
     
     {/*Equipment Monitoring*/}
     <Route path="/monitoring/spaceequipments" exact component={SpaceEquipments} />
