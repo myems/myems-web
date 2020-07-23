@@ -416,15 +416,15 @@ export const fddRoutes = {
     { to: '/fdd/energyloss', name: '能源损耗分析' },
   ]
 };
-export const equipmentMonitoringRoutes = {
+export const monitoringRoutes = {
   name: '设备监控',
-  to: '/equipmentmonitoring',
+  to: '/monitoring',
   icon: 'chart-pie',
   children: [
-    { to: '/equipmentmonitoring/space', name: '空间设备监控' },
-    { to: '/equipmentmonitoring/tenant', name: '租户设备监控' },
-    { to: '/equipmentmonitoring/store', name: '门店设备监控' },
-    { to: '/equipmentmonitoring/shopfloor', name: '车间设备监控' },
+    { to: '/monitoring/spaceequipments', name: '空间设备监控' },
+    { to: '/monitoring/tenantequipments', name: '租户设备监控' },
+    { to: '/monitoring/storeequipments', name: '门店设备监控' },
+    { to: '/monitoring/shopfloorequipments', name: '车间设备监控' },
   ]
 };
 
@@ -463,7 +463,7 @@ export default [
   shopfloorRoutes,
   auxiliarySystemRoutes,
   fddRoutes,
-  equipmentMonitoringRoutes,
+  monitoringRoutes,
   advancedReportingRoutes,
   knowledgeBaseRoutes
 ];
