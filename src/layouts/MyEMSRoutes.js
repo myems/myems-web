@@ -147,6 +147,7 @@ import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
 import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
 import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
+import SpaceEquipments from '../components/MyEMS/Monitoring/SpaceEquipments';
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -350,6 +351,7 @@ const MyEMSRoutes = () => (
     {/*FDD*/}
     
     {/*Equipment Monitoring*/}
+    <Route path="/monitoring/spaceequipments" exact component={SpaceEquipments} />
     
     {/*Advanced Reporting*/}
     <Route path="/advancedreporting" exact component={AdvancedReporting} />
