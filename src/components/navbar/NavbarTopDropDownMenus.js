@@ -17,6 +17,7 @@ import {
   dashboardRoutes,
   spaceRoutes,
   equipmentRoutes,
+  meterRoutes,
   tenantRoutes,
   storeRoutes,
   shopfloorRoutes,
@@ -76,6 +77,11 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
       <NavbarDropdownComponents
         title={equipmentRoutes.name}
         items={[equipmentRoutes]}
+        handleSetNavbarCollapsed={handleSetNavbarCollapsed}
+      />
+      <NavbarDropdownComponents
+        title={meterRoutes.name}
+        items={[meterRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents

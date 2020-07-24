@@ -102,6 +102,7 @@ import EmojiMart from '../components/plugins/EmojiMart';
 import Chat from '../components/chat/Chat';
 import Widgets from '../components/widgets/Widgets';
 import Kanban from '../components/kanban/Kanban';
+// Space
 import SpaceEnergyCategory from '../components/MyEMS/Space/SpaceEnergyCategory';
 import SpaceEnergyItem from '../components/MyEMS/Space/SpaceEnergyItem';
 import SpaceCost from '../components/MyEMS/Space/SpaceCost';
@@ -112,6 +113,7 @@ import SpaceLoad from '../components/MyEMS/Space/SpaceLoad';
 import SpaceStatical from '../components/MyEMS/Space/SpaceStatical';
 import SpaceFault from '../components/MyEMS/Space/SpaceFault';
 import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
+// Equipment
 import EquipmentEnergyCategory from '../components/MyEMS/Equipment/EquipmentEnergyCategory';
 import EquipmentCost from '../components/MyEMS/Equipment/EquipmentCost';
 import EquipmentOutput from '../components/MyEMS/Equipment/EquipmentOutput';
@@ -122,6 +124,9 @@ import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
 import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
 import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
 import EquipmentTracking from '../components/MyEMS/Equipment/EquipmentTracking';
+// Meter
+
+// Tenant
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
 import TenantCost from '../components/MyEMS/Tenant/TenantCost';
 import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
@@ -129,12 +134,14 @@ import TenantStatical from '../components/MyEMS/Tenant/TenantStatical';
 import TenantFault from '../components/MyEMS/Tenant/TenantFault';
 import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
 import TenantBill from '../components/MyEMS/Tenant/TenantBill';
+// Store
 import StoreEnergyCategory from '../components/MyEMS/Store/StoreEnergyCategory';
 import StoreCost from '../components/MyEMS/Store/StoreCost';
 import StoreLoad from '../components/MyEMS/Store/StoreLoad';
 import StoreStatical from '../components/MyEMS/Store/StoreStatical';
 import StoreFault from '../components/MyEMS/Store/StoreFault';
 import StoreSaving from '../components/MyEMS/Store/StoreSaving';
+// Shopfloor
 import ShopfloorEnergyCategory from '../components/MyEMS/Shopfloor/ShopfloorEnergyCategory';
 import ShopfloorCost from '../components/MyEMS/Shopfloor/ShopfloorCost';
 import ShopfloorOutput from '../components/MyEMS/Shopfloor/ShopfloorOutput';
@@ -144,20 +151,24 @@ import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
 import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
+// Auxiliary System
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
-
+// FDD
 import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
 import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
 import FDDTenantFault from '../components/MyEMS/FDD/TenantFault';
 import FDDStoreFault from '../components/MyEMS/FDD/StoreFault';
 import FDDShopfloorFault from '../components/MyEMS/FDD/ShopfloorFault';
-
-import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
-import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
+// Monitoring
 import SpaceEquipments from '../components/MyEMS/Monitoring/SpaceEquipments';
 import TenantEquipments from '../components/MyEMS/Monitoring/TenantEquipments';
 import StoreEquipments from '../components/MyEMS/Monitoring/StoreEquipments';
 import ShopfloorEquipments from '../components/MyEMS/Monitoring/ShopfloorEquipments';
+// Advanced Reporting
+import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
+// Knowledge Base
+import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
+
 
 
 const InboxRoutes = ({ match: { url } }) => (
@@ -326,6 +337,7 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/fault" exact component={EquipmentFault} />
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
     <Route path="/equipment/tracking" exact component={EquipmentTracking} />
+    {/*Meter*/}
 
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />

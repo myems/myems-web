@@ -343,6 +343,20 @@ export const equipmentRoutes = {
   ]
 };
 
+export const meterRoutes = {
+  name: '计量表数据分析',
+  to: '/meter',
+  icon: 'chart-pie',
+  children: [
+    { to: '/meter/energy', name: '计量表能耗分析' },
+    { to: '/meter/historical', name: '计量表历史分析' },
+    { to: '/meter/realtime', name: '计量表实时分析' },
+    { to: '/meter/virtual', name: '虚拟表能耗分析' },
+    { to: '/meter/offline', name: '离线表能耗分析' },
+    { to: '/meter/tracking', name: '计量表台账' },
+  ]
+};
+
 export const tenantRoutes = {
   name: '租户数据分析',
   to: '/tenant',
@@ -458,6 +472,8 @@ export default [
   // changelogRoutes,
   dashboardRoutes,
   spaceRoutes,
+  equipmentRoutes,
+  meterRoutes,
   tenantRoutes,
   storeRoutes,
   shopfloorRoutes,
