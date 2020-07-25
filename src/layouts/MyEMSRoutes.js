@@ -125,6 +125,7 @@ import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
 import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
 import EquipmentTracking from '../components/MyEMS/Equipment/EquipmentTracking';
 // Meter
+import MeterEnergy from '../components/MyEMS/Meter/MeterEnergy';
 
 // Tenant
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
@@ -338,6 +339,7 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
     <Route path="/equipment/tracking" exact component={EquipmentTracking} />
     {/*Meter*/}
+    <Route path="/meter/energy" exact component={MeterEnergy} />
 
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
