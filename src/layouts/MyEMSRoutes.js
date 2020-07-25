@@ -126,7 +126,11 @@ import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
 import EquipmentTracking from '../components/MyEMS/Equipment/EquipmentTracking';
 // Meter
 import MeterEnergy from '../components/MyEMS/Meter/MeterEnergy';
-
+import MeterCost from '../components/MyEMS/Meter/MeterCost';
+import OfflineMeterEnergy from '../components/MyEMS/Meter/OfflineMeterEnergy';
+import OfflineMeterCost from '../components/MyEMS/Meter/OfflineMeterCost';
+import VirtualMeterEnergy from '../components/MyEMS/Meter/VirtualMeterEnergy';
+import VirtualMeterCost from '../components/MyEMS/Meter/VirtualMeterCost';
 // Tenant
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
 import TenantCost from '../components/MyEMS/Tenant/TenantCost';
@@ -339,8 +343,12 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
     <Route path="/equipment/tracking" exact component={EquipmentTracking} />
     {/*Meter*/}
-    <Route path="/meter/energy" exact component={MeterEnergy} />
-
+    <Route path="/meter/meterenergy" exact component={MeterEnergy} />
+    <Route path="/meter/metercost" exact component={MeterCost} />
+    <Route path="/meter/offlinemeterenergy" exact component={OfflineMeterEnergy} />
+    <Route path="/meter/offlinemetercost" exact component={OfflineMeterCost} />
+    <Route path="/meter/virtualmeterenergy" exact component={VirtualMeterEnergy} />
+    <Route path="/meter/virtualmetercost" exact component={VirtualMeterCost} />
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
     <Route path="/tenant/cost" exact component={TenantCost} />

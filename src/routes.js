@@ -348,11 +348,14 @@ export const meterRoutes = {
   to: '/meter',
   icon: 'chart-pie',
   children: [
-    { to: '/meter/energy', name: '计量表能耗分析' },
-    { to: '/meter/historical', name: '计量表历史分析' },
-    { to: '/meter/realtime', name: '计量表实时分析' },
-    { to: '/meter/virtual', name: '虚拟表能耗分析' },
-    { to: '/meter/offline', name: '离线表能耗分析' },
+    { to: '/meter/meterenergy', name: '计量表能耗分析' },
+    { to: '/meter/metercost', name: '计量表成本分析' },
+    { to: '/meter/meterhistorical', name: '计量表历史分析' },
+    { to: '/meter/meterrealtime', name: '计量表实时分析' },
+    { to: '/meter/virtualmeterenergy', name: '虚拟表能耗分析' },
+    { to: '/meter/virtualmetercost', name: '虚拟表成本分析' },
+    { to: '/meter/offlinemeterenergy', name: '离线表能耗分析' },
+    { to: '/meter/offlinemetercost', name: '离线表成本分析' },
     { to: '/meter/tracking', name: '计量表台账' },
   ]
 };
