@@ -307,7 +307,7 @@ export const dashboardRoutes = {
 };
 
 export const spaceRoutes = {
-  name: '空间数据分析',
+  name: '空间数据',
   to: '/space',
   icon: 'chart-pie',
   exact: true,
@@ -326,7 +326,7 @@ export const spaceRoutes = {
 };
 
 export const equipmentRoutes = {
-  name: '设备数据分析',
+  name: '设备数据',
   to: '/equipment',
   icon: 'chart-pie',
   children: [
@@ -343,8 +343,22 @@ export const equipmentRoutes = {
   ]
 };
 
+export const meterRoutes = {
+  name: '计量表数据',
+  to: '/meter',
+  icon: 'chart-pie',
+  children: [
+    { to: '/meter/energy', name: '计量表能耗分析' },
+    { to: '/meter/historical', name: '计量表历史分析' },
+    { to: '/meter/realtime', name: '计量表实时分析' },
+    { to: '/meter/virtual', name: '虚拟表能耗分析' },
+    { to: '/meter/offline', name: '离线表能耗分析' },
+    { to: '/meter/tracking', name: '计量表台账' },
+  ]
+};
+
 export const tenantRoutes = {
-  name: '租户数据分析',
+  name: '租户数据',
   to: '/tenant',
   icon: 'chart-pie',
   children: [
@@ -359,7 +373,7 @@ export const tenantRoutes = {
 };
 
 export const storeRoutes = {
-  name: '门店数据分析',
+  name: '门店数据',
   to: '/store',
   icon: 'chart-pie',
   children: [
@@ -373,7 +387,7 @@ export const storeRoutes = {
 };
 
 export const shopfloorRoutes = {
-  name: '车间数据分析',
+  name: '车间数据',
   to: '/shopfloor',
   icon: 'chart-pie',
   children: [
@@ -390,7 +404,7 @@ export const shopfloorRoutes = {
 };
 
 export const auxiliarySystemRoutes = {
-  name: '辅助系统数据分析',
+  name: '辅助系统数据',
   to: '/auxiliarysystem',
   icon: 'chart-pie',
   children: [
@@ -458,6 +472,8 @@ export default [
   // changelogRoutes,
   dashboardRoutes,
   spaceRoutes,
+  equipmentRoutes,
+  meterRoutes,
   tenantRoutes,
   storeRoutes,
   shopfloorRoutes,
