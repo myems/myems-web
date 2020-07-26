@@ -17,9 +17,9 @@ const Main = props => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isOpenSidePanel, setIsOpenSidePanel] = useState(false);
   const [navbarStyle, setNavbarStyle] = useState(getItemFromStore('navbarStyle', 'vibrant'));
-  const prevIsOpenSidePanel = true
+
   const toggleModal = () => setIsOpenSidePanel(prevIsOpenSidePanel => !prevIsOpenSidePanel);
-  
+
   const value = {
     isRTL,
     isDark,

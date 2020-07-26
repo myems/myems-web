@@ -14,7 +14,7 @@ import SidePanelModal from '../components/side-panel/SidePanelModal';
 import { getPageName } from '../helpers/utils';
 
 // const DashboardRoutes = loadable(() => import('./DashboardRoutes'));
-const MyEMSRoutes = loadable(() => import('./MyEMSRoutes'));
+const DashboardRoutes = loadable(() => import('./MyEMSRoutes'));
 
 const DashboardLayout = ({ location }) => {
   const { isFluid, isTopNav, navbarStyle } = useContext(AppContext);
@@ -22,8 +22,7 @@ const DashboardLayout = ({ location }) => {
   const isKanban = getPageName('kanban');
 
   useEffect(() => {
-    // DashboardRoutes.preload();
-    MyEMSRoutes.preload();
+    DashboardRoutes.preload();
   }, []);
 
   useEffect(() => {
@@ -41,12 +40,11 @@ const DashboardLayout = ({ location }) => {
             <Route path="/" exact component={Dashboard} />
             <Route path="/dashboard" exact component={Dashboard} />
             <Route path="/dashboard-alt" exact component={DashboardAlt} />
-            {/* <DashboardRoutes /> */}
-            <MyEMSRoutes /> 
+            <DashboardRoutes />
           </Switch>
           {!isKanban && <Footer />}
         </div>
-        <SidePanelModal path={location.pathname} />
+        <SidePanelModal autoShow={false} path={location.pathname} />
       </ProductProvider>
     </div>
   );
