@@ -350,7 +350,7 @@ export const meterRoutes = {
   children: [
     { to: '/meter/meterenergy', name: '计量表能耗分析' },
     { to: '/meter/metercost', name: '计量表成本分析' },
-    { to: '/meter/meterhistorical', name: '计量表历史分析' },
+    { to: '/meter/metertrend', name: '计量表趋势分析' },
     { to: '/meter/meterrealtime', name: '计量表实时分析' },
     { to: '/meter/virtualmeterenergy', name: '虚拟表能耗分析' },
     { to: '/meter/virtualmetercost', name: '虚拟表成本分析' },
