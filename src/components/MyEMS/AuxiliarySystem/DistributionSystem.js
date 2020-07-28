@@ -67,7 +67,7 @@ const DistributionSystem = () => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-
+  const [distributionsystem, setDistributionSystem] = useState(undefined);
   
   const cascaderOptions = [{
     label: '成都项目',
@@ -147,6 +147,12 @@ const DistributionSystem = () => {
   };
   const images = [img1];
 
+  const distributionSystemList = [
+    { value: 1, label: '10kV变电所配电图'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
+
   const realtimeChartOptions = [
     { value: 'a', label: '主进线'},
     { value: 'b', label: '地源热泵空调总表'},
@@ -165,22 +171,36 @@ const DistributionSystem = () => {
             <CardBody className="p-3">
             <Row form>
                 <Col xs="auto">
-                <FormGroup className="form-group">
-                    <Label className={labelClasses} for="space">
-                    空间
-                    </Label>
-                    <br />
-                    <Cascader options={cascaderOptions} 
-                            onChange={onCascaderChange}
-                            changeOnSelect
-                            expandTrigger="hover">
-                    <Input
-                        value={selectedSpace}
-                    />
-                    </Cascader>
-                </FormGroup>
+                  <FormGroup className="form-group">
+                      <Label className={labelClasses} for="space">
+                      空间
+                      </Label>
+                      <br />
+                      <Cascader options={cascaderOptions} 
+                              onChange={onCascaderChange}
+                              changeOnSelect
+                              expandTrigger="hover">
+                      <Input
+                          value={selectedSpace}
+                      />
+                      </Cascader>
+                  </FormGroup>
                 </Col>
-                
+                <Col xs="auto">
+                  <FormGroup>
+                    <Label className={labelClasses} for="distributionsystem">
+                    配电系统
+                    </Label>
+                    <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
+                    >
+                      { distributionSystemList.map((distributionsystem, index) => (
+                          <option value={distributionsystem.value} key={distributionsystem.value}>
+                            {distributionsystem.label}
+                          </option>
+                        ))}
+                    </CustomInput>
+                  </FormGroup>
+                </Col>
                 <Col xs="auto">
                 <FormGroup>
                     <br></br>
