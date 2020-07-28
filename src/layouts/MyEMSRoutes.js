@@ -161,6 +161,7 @@ import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 // Auxiliary System
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
+import DistributionSystem from '../components/MyEMS/AuxiliarySystem/DistributionSystem';
 // FDD
 import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
 import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
@@ -385,6 +386,7 @@ const MyEMSRoutes = () => (
     
     {/*Auxiliary System*/}
     <Route path="/auxiliarysystem/energyflowdiagram" exact component={EnergyFlowDiagram} />
+    <Route path="/auxiliarysystem/distributionsystem" exact component={DistributionSystem} />
 
     {/*FDD*/}
     <Route path="/fdd/equipment" exact component={FDDEquipmentFault} />
