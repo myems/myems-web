@@ -31,6 +31,8 @@ import Flex from '../../common/Flex';
 import { getPaginationArray } from '../../../helpers/utils';
 import loadable from '@loadable/component';
 import RealtimeChart from './RealtimeChart';
+import LightBoxGallery from '../../common/LightBoxGallery';
+import img1 from './distribution.svg';
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -61,13 +63,13 @@ const actionFormatter = (dataField, { id }) => (
 );
 
 
-const MeterRealtime = () => {
+const DistributionSystem = () => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
 
   
-const cascaderOptions = [{
+  const cascaderOptions = [{
     label: '成都项目',
     value: 1,
     children: [{
@@ -129,9 +131,9 @@ const cascaderOptions = [{
     }],
   }];
 
-const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
+  const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-let onCascaderChange = (value, selectedOptions) => {
+  let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
@@ -143,12 +145,20 @@ let onCascaderChange = (value, selectedOptions) => {
   const handlePrevPage = ({ page, onPageChange }) => () => {
     onPageChange(page - 1);
   };
+  const images = [img1];
+
+  const realtimeChartOptions = [
+    { value: 'a', label: '主进线'},
+    { value: 'b', label: '地源热泵空调总表'},
+    { value: 'c', label: '消防栓机械泵2路'},
+    { value: 'd', label: '一层南'},
+    { value: 'e', label: '一层北'}];
 
   return (
     <Fragment>
         <div>
             <Breadcrumb>
-            <BreadcrumbItem>计量表数据</BreadcrumbItem><BreadcrumbItem active>计量表实时分析</BreadcrumbItem>
+            <BreadcrumbItem>辅助系统数据</BreadcrumbItem><BreadcrumbItem active>配电系统</BreadcrumbItem>
             </Breadcrumb>
         </div>
         <Card className="bg-light mb-3">
@@ -184,26 +194,26 @@ let onCascaderChange = (value, selectedOptions) => {
         </Card>
         <Row noGutters>
           <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'CW_TOTA_M01_001'}/>
+            <RealtimeChart options={realtimeChartOptions}/>
           </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P1PR_D13_003'}/>
+          <Col lg="9" className="pr-lg-2">
+            <LightBoxGallery images={images}>
+              {openImgIndex => (
+                <img
+                  className="rounded w-100 cursor-pointer"
+                  src={images[0]}
+                  alt=""
+                  onClick={() => {
+                    openImgIndex(0);
+                  }}
+                />
+              )}
+            </LightBoxGallery>
           </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P2PR_D24_003'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P1OF_D15_005'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P3HP_D40_005'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'AP_P1AC_D12_003'}/>
-          </Col>
+          
         </Row>
     </Fragment>
   );
 };
 
-export default MeterRealtime;
+export default DistributionSystem;

@@ -412,7 +412,7 @@ export const auxiliarySystemRoutes = {
   icon: 'chart-pie',
   children: [
     { to: '/auxiliarysystem/energyflowdiagram', name: '企业能流图' },
-    { to: '/auxiliarysystem/distributionsystemdiagram', name: '配电系统图' },
+    { to: '/auxiliarysystem/distributionsystem', name: '配电系统' },
     { to: '/auxiliarysystem/chillerplant', name: '冷站数据分析' },
     { to: '/auxiliarysystem/boilerroom', name: '锅炉房数据分析' },
     { to: '/auxiliarysystem/aircompressorstation', name: '空压站数据分析' },
