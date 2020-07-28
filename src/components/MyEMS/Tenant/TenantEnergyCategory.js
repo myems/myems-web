@@ -304,7 +304,7 @@ const TenantEnergyCategory = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据分析</BreadcrumbItem><BreadcrumbItem active>租户能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户能耗分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

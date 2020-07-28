@@ -633,7 +633,7 @@ const ShopfloorFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据分析</BreadcrumbItem><BreadcrumbItem active>车间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

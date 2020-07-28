@@ -304,7 +304,7 @@ const EquipmentEnergyCategory = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备数据分析</BreadcrumbItem><BreadcrumbItem active>设备能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>设备数据</BreadcrumbItem><BreadcrumbItem active>设备能耗分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
