@@ -625,7 +625,7 @@ const SpaceFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据分析</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

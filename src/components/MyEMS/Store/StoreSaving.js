@@ -304,7 +304,7 @@ const StoreSaving = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>门店数据分析</BreadcrumbItem><BreadcrumbItem active>门店节能分析</BreadcrumbItem>
+          <BreadcrumbItem>门店数据</BreadcrumbItem><BreadcrumbItem active>门店节能分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
