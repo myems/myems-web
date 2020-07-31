@@ -415,7 +415,6 @@ export const auxiliarySystemRoutes = {
     { to: '/auxiliarysystem/distributionsystem', name: '配电系统' },
     { to: '/auxiliarysystem/chillerplant', name: '冷站数据分析' },
     { to: '/auxiliarysystem/boilerroom', name: '锅炉房数据分析' },
-    { to: '/auxiliarysystem/aircompressorstation', name: '空压站数据分析' },
   ]
 };
 
