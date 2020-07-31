@@ -319,7 +319,7 @@ export const spaceRoutes = {
     { to: '/space/income', name: '空间收入分析' },
     { to: '/space/efficiency', name: '空间效率分析' },
     { to: '/space/load', name: '空间负荷分析' },
-    { to: '/space/statical', name: '空间统计分析' },
+    { to: '/space/statistics', name: '空间统计分析' },
     { to: '/space/fault', name: '空间故障分析' },
     { to: '/space/saving', name: '空间节能分析' },
   ]
@@ -336,7 +336,7 @@ export const equipmentRoutes = {
     { to: '/equipment/income', name: '设备收入分析' },
     { to: '/equipment/efficiency', name: '设备效率分析' },
     { to: '/equipment/load', name: '设备负荷分析' },
-    { to: '/equipment/statical', name: '设备统计分析' },
+    { to: '/equipment/statistics', name: '设备统计分析' },
     { to: '/equipment/fault', name: '设备故障分析' },
     { to: '/equipment/saving', name: '设备节能分析' },
     { to: '/equipment/tracking', name: '设备台账' },
@@ -368,7 +368,7 @@ export const tenantRoutes = {
     { to: '/tenant/energycategory', name: '租户能耗分析' },
     { to: '/tenant/cost', name: '租户成本分析' },
     { to: '/tenant/load', name: '租户负荷分析' },
-    { to: '/tenant/statical', name: '租户统计分析' },
+    { to: '/tenant/statistics', name: '租户统计分析' },
     { to: '/tenant/fault', name: '租户故障分析' },
     { to: '/tenant/saving', name: '租户节能分析' },
     { to: '/tenant/bill', name: '租户账单' },
@@ -383,7 +383,7 @@ export const storeRoutes = {
     { to: '/store/energycategory', name: '门店能耗分析' },
     { to: '/store/cost', name: '门店成本分析' },
     { to: '/store/load', name: '门店负荷分析' },
-    { to: '/store/statical', name: '门店统计分析' },
+    { to: '/store/statistics', name: '门店统计分析' },
     { to: '/store/fault', name: '门店故障分析' },
     { to: '/store/saving', name: '门店节能分析' },
   ]
@@ -400,7 +400,7 @@ export const shopfloorRoutes = {
     { to: '/shopfloor/income', name: '车间收入分析' },
     { to: '/shopfloor/efficiency', name: '车间效率分析' },
     { to: '/shopfloor/load', name: '车间负荷分析' },
-    { to: '/shopfloor/statical', name: '车间统计分析' },
+    { to: '/shopfloor/statistics', name: '车间统计分析' },
     { to: '/shopfloor/fault', name: '车间故障分析' },
     { to: '/shopfloor/saving', name: '车间节能分析' },
   ]
@@ -424,7 +424,7 @@ export const fddRoutes = {
   to: '/fdd',
   icon: 'chart-pie',
   children: [
-    { to: '/fdd/statistic', name: '故障统计分析' },
+    { to: '/fdd/statistics', name: '故障统计分析' },
     { to: '/fdd/space', name: '空间故障分析' },
     { to: '/fdd/equipment', name: '设备故障分析' },
     { to: '/fdd/tenant', name: '租户故障分析' },

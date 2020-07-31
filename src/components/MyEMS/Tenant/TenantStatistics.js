@@ -19,13 +19,13 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const SpaceStatical = () => {
+const TenantStatistics = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [tenant, setTenant] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -93,6 +93,12 @@ const SpaceStatical = () => {
       }]
     }],
   }];
+  
+  const tenantList = [
+    { value: 1, label: 'Gucci 古驰'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -101,55 +107,8 @@ const SpaceStatical = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
-    {
-      id: 1,
-      name: '公区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: '子空间',
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电平均值 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水平均值 (M3)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气平均值 (M3)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '二氧化碳排放平均值 (T)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = [
+ 
+  const tenantLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -164,7 +123,7 @@ const SpaceStatical = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const tenantLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -172,7 +131,7 @@ const SpaceStatical = () => {
   };
 
   
-  const spaceLineChartOptions = [
+  const tenantLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -334,7 +293,7 @@ const SpaceStatical = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间统计分析</BreadcrumbItem>
+          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户统计分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -354,6 +313,21 @@ const SpaceStatical = () => {
                     value={selectedSpace}
                   />
                 </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="tenant">
+                租户
+                </Label>
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                >
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
+                      </option>
+                    ))}
+                </CustomInput>
               </FormGroup>
             </Col>
             <Col >
@@ -450,9 +424,9 @@ const SpaceStatical = () => {
       </div>
       <LineChart reportingTitle='报告期总电量 98720 (kWh)' 
         baselineTitle='基准期总电量 68487 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={tenantLineChartLabels} 
+        data={tenantLineChartData}
+        options={tenantLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -461,9 +435,6 @@ const SpaceStatical = () => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
       <br />
       <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
       </DetailedDataTable>
@@ -472,4 +443,4 @@ const SpaceStatical = () => {
   );
 };
 
-export default SpaceStatical;
+export default TenantStatistics;

@@ -22,10 +22,10 @@ import LineChart from '../common/LineChart';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const ShopfloorStatical = () => {
+const EquipmentStatistics = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [shopfloor, setShopfloor] = useState(undefined);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -94,12 +94,11 @@ const ShopfloorStatical = () => {
     }],
   }];
   
-  const shopfloorList = [
-    { value: 1, label: '铸造'},
-    { value: 2, label: '冲压'},
-    { value: 3, label: '焊接'},
-    { value: 4, label: '喷涂'},
-    { value: 5, label: '总装'}];
+  const equipmentList = [
+    { value: 1, label: 'P3PW_D36_009'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -109,7 +108,7 @@ const ShopfloorStatical = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
  
-  const shopfloorLineChartLabels = [
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -124,7 +123,7 @@ const ShopfloorStatical = () => {
     '2020-07-12'
   ];
   
-  const shopfloorLineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -132,7 +131,7 @@ const ShopfloorStatical = () => {
   };
 
   
-  const shopfloorLineChartOptions = [
+  const equipmentLineChartOptions = [
     { value: 'a', label: '电'},
     { value: 'b', label: '自来水'},
     { value: 'c', label: '天然气'},
@@ -294,7 +293,7 @@ const ShopfloorStatical = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间统计分析</BreadcrumbItem>
+          <BreadcrumbItem>设备数据</BreadcrumbItem><BreadcrumbItem active>设备统计分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -318,14 +317,14 @@ const ShopfloorStatical = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="shopfloor">
-                车间
+                <Label className={labelClasses} for="equipment">
+                设备
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { shopfloorList.map((shopfloor, index) => (
-                      <option value={shopfloor.value} key={shopfloor.value}>
-                        {shopfloor.label}
+                  { equipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -425,9 +424,9 @@ const ShopfloorStatical = () => {
       </div>
       <LineChart reportingTitle='报告期总电量 98720 (kWh)' 
         baselineTitle='基准期总电量 68487 (kWh)' 
-        labels={shopfloorLineChartLabels} 
-        data={shopfloorLineChartData}
-        options={shopfloorLineChartOptions}>
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle='相关参数' 
@@ -444,4 +443,4 @@ const ShopfloorStatical = () => {
   );
 };
 
-export default ShopfloorStatical;
+export default EquipmentStatistics;

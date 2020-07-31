@@ -110,7 +110,7 @@ import SpaceOutput from '../components/MyEMS/Space/SpaceOutput';
 import SpaceIncome from '../components/MyEMS/Space/SpaceIncome';
 import SpaceEfficiency from '../components/MyEMS/Space/SpaceEfficiency';
 import SpaceLoad from '../components/MyEMS/Space/SpaceLoad';
-import SpaceStatical from '../components/MyEMS/Space/SpaceStatical';
+import SpaceStatistics from '../components/MyEMS/Space/SpaceStatistics';
 import SpaceFault from '../components/MyEMS/Space/SpaceFault';
 import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
 // Equipment
@@ -120,7 +120,7 @@ import EquipmentOutput from '../components/MyEMS/Equipment/EquipmentOutput';
 import EquipmentIncome from '../components/MyEMS/Equipment/EquipmentIncome';
 import EquipmentEfficiency from '../components/MyEMS/Equipment/EquipmentEfficiency';
 import EquipmentLoad from '../components/MyEMS/Equipment/EquipmentLoad';
-import EquipmentStatical from '../components/MyEMS/Equipment/EquipmentStatical';
+import EquipmentStatistics from '../components/MyEMS/Equipment/EquipmentStatistics';
 import EquipmentFault from '../components/MyEMS/Equipment/EquipmentFault';
 import EquipmentSaving from '../components/MyEMS/Equipment/EquipmentSaving';
 import EquipmentTracking from '../components/MyEMS/Equipment/EquipmentTracking';
@@ -138,7 +138,7 @@ import MeterTracking from '../components/MyEMS/Meter/MeterTracking';
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
 import TenantCost from '../components/MyEMS/Tenant/TenantCost';
 import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
-import TenantStatical from '../components/MyEMS/Tenant/TenantStatical';
+import TenantStatistics from '../components/MyEMS/Tenant/TenantStatistics';
 import TenantFault from '../components/MyEMS/Tenant/TenantFault';
 import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
 import TenantBill from '../components/MyEMS/Tenant/TenantBill';
@@ -146,7 +146,7 @@ import TenantBill from '../components/MyEMS/Tenant/TenantBill';
 import StoreEnergyCategory from '../components/MyEMS/Store/StoreEnergyCategory';
 import StoreCost from '../components/MyEMS/Store/StoreCost';
 import StoreLoad from '../components/MyEMS/Store/StoreLoad';
-import StoreStatical from '../components/MyEMS/Store/StoreStatical';
+import StoreStatistics from '../components/MyEMS/Store/StoreStatistics';
 import StoreFault from '../components/MyEMS/Store/StoreFault';
 import StoreSaving from '../components/MyEMS/Store/StoreSaving';
 // Shopfloor
@@ -156,13 +156,14 @@ import ShopfloorOutput from '../components/MyEMS/Shopfloor/ShopfloorOutput';
 import ShopfloorIncome from '../components/MyEMS/Shopfloor/ShopfloorIncome';
 import ShopfloorEfficiency from '../components/MyEMS/Shopfloor/ShopfloorEfficiency';
 import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
-import ShopfloorStatical from '../components/MyEMS/Shopfloor/ShopfloorStatical';
+import ShopfloorStatistics from '../components/MyEMS/Shopfloor/ShopfloorStatistics';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 // Auxiliary System
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
 import DistributionSystem from '../components/MyEMS/AuxiliarySystem/DistributionSystem';
 // FDD
+import FDDFaultStatistics from '../components/MyEMS/FDD/FaultStatistics';
 import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
 import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
 import FDDTenantFault from '../components/MyEMS/FDD/TenantFault';
@@ -331,7 +332,7 @@ const MyEMSRoutes = () => (
     <Route path="/space/income" exact component={SpaceIncome} />
     <Route path="/space/efficiency" exact component={SpaceEfficiency} />
     <Route path="/space/load" exact component={SpaceLoad} />
-    <Route path="/space/statical" exact component={SpaceStatical} />
+    <Route path="/space/statistics" exact component={SpaceStatistics} />
     <Route path="/space/fault" exact component={SpaceFault} />
     <Route path="/space/saving" exact component={SpaceSaving} />
 
@@ -342,7 +343,7 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/income" exact component={EquipmentIncome} />
     <Route path="/equipment/efficiency" exact component={EquipmentEfficiency} />
     <Route path="/equipment/load" exact component={EquipmentLoad} />
-    <Route path="/equipment/statical" exact component={EquipmentStatical} />
+    <Route path="/equipment/statistics" exact component={EquipmentStatistics} />
     <Route path="/equipment/fault" exact component={EquipmentFault} />
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
     <Route path="/equipment/tracking" exact component={EquipmentTracking} />
@@ -360,7 +361,7 @@ const MyEMSRoutes = () => (
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
     <Route path="/tenant/cost" exact component={TenantCost} />
     <Route path="/tenant/load" exact component={TenantLoad} />
-    <Route path="/tenant/statical" exact component={TenantStatical} />
+    <Route path="/tenant/statistics" exact component={TenantStatistics} />
     <Route path="/tenant/fault" exact component={TenantFault} />
     <Route path="/tenant/saving" exact component={TenantSaving} />
     <Route path="/tenant/bill" exact component={TenantBill} />
@@ -369,7 +370,7 @@ const MyEMSRoutes = () => (
     <Route path="/store/energycategory" exact component={StoreEnergyCategory} />
     <Route path="/store/cost" exact component={StoreCost} />
     <Route path="/store/load" exact component={StoreLoad} />
-    <Route path="/store/statical" exact component={StoreStatical} />
+    <Route path="/store/statistics" exact component={StoreStatistics} />
     <Route path="/store/fault" exact component={StoreFault} />
     <Route path="/store/saving" exact component={StoreSaving} />
     
@@ -380,7 +381,7 @@ const MyEMSRoutes = () => (
     <Route path="/shopfloor/income" exact component={ShopfloorIncome} />
     <Route path="/shopfloor/efficiency" exact component={ShopfloorEfficiency} />
     <Route path="/shopfloor/load" exact component={ShopfloorLoad} />
-    <Route path="/shopfloor/statical" exact component={ShopfloorStatical} />
+    <Route path="/shopfloor/statistics" exact component={ShopfloorStatistics} />
     <Route path="/shopfloor/fault" exact component={ShopfloorFault} />
     <Route path="/shopfloor/saving" exact component={ShopfloorSaving} />
     
@@ -389,6 +390,7 @@ const MyEMSRoutes = () => (
     <Route path="/auxiliarysystem/distributionsystem" exact component={DistributionSystem} />
 
     {/*FDD*/}
+    <Route path="/fdd/statistics" exact component={FDDFaultStatistics} />
     <Route path="/fdd/equipment" exact component={FDDEquipmentFault} />
     <Route path="/fdd/space" exact component={FDDSpaceFault} />
     <Route path="/fdd/tenant" exact component={FDDTenantFault} />
