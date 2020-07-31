@@ -519,11 +519,8 @@ const ShopfloorFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [shopfloor, setShopfloor] = useState(undefined);
-  const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
-  const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
-  const [periodType, setPeriodType] = useState('hourly');
   
   const cascaderOptions = [{
     label: '成都项目',
@@ -593,12 +590,6 @@ const ShopfloorFault = () => {
     { value: 3, label: '焊接'},
     { value: 4, label: '喷涂'},
     { value: 5, label: '总装'}];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: '年'},
-    { value: 'monthly', label: '月'},
-    { value: 'daily', label: '日'},
-    { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
@@ -672,23 +663,6 @@ const ShopfloorFault = () => {
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
-                基准期开始(可选)
-                </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
-              </FormGroup>
-            </Col>
-            <Col >
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
-                基准期结束(可选)
-                </Label>
-                
-                <Datetime id='baselineEndDatetime' />
-              </FormGroup>
-            </Col>
-            <Col >
-              <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
                 报告期开始
                 </Label>
@@ -705,21 +679,6 @@ const ShopfloorFault = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="periodType">
-                时间尺度
-                </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
-                >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {periodType.label}
-                      </option>
-                    ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
                   <Button color="success" >提交</Button>
@@ -730,7 +689,7 @@ const ShopfloorFault = () => {
         </CardBody>
       </Card>
           <Card className="mb-3">
-          <FalconCardHeader title="Alarms" light={false}>
+          <FalconCardHeader title="车间故障" light={false}>
             {isSelected ? (
               <InputGroup size="sm" className="input-group input-group-sm">
                 <CustomInput type="select" id="bulk-select">
@@ -745,14 +704,8 @@ const ShopfloorFault = () => {
               </InputGroup>
             ) : (
               <Fragment>
-                <ButtonIcon icon="plus" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  New
-                </ButtonIcon>
-                <ButtonIcon icon="filter" transform="shrink-3 down-2" color="falcon-default" size="sm" className="mx-2">
-                  Filter
-                </ButtonIcon>
                 <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  Export
+                导出
                 </ButtonIcon>
               </Fragment>
             )}

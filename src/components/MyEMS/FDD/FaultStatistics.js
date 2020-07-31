@@ -1,4 +1,4 @@
-import React, { createRef, Fragment, useEffect, useState } from 'react';
+import React, {createRef, Fragment, useEffect, useState } from 'react';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { 
@@ -9,26 +9,28 @@ import {
   Card, 
   CardBody, 
   Button, 
-  ButtonGroup, 
-  FormGroup,
-  Input,
-  Label,
-  CustomInput,
+  ButtonGroup,
   DropdownItem,
   DropdownMenu,
-  DropdownToggle,
-  InputGroup,
-  UncontrolledDropdown
-} from 'reactstrap';
+  DropdownToggle, 
+  FormGroup,
+  InputGroup, 
+  Label,
+  CustomInput,
+  UncontrolledDropdown } from 'reactstrap';
+import CardSummary from '../../dashboard/CardSummary';
 import Datetime from 'react-datetime';
-import Cascader from 'rc-cascader';
-import ButtonIcon from '../../common/ButtonIcon';
+import CountUp from 'react-countup';
+import LineChart from '../common/LineChart';
 import { Link } from 'react-router-dom';
 import Badge from 'reactstrap/es/Badge';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FalconCardHeader from '../../common/FalconCardHeader';
+import ButtonIcon from '../../common/ButtonIcon';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
+
+import loadable from '@loadable/component';
 
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
@@ -515,92 +517,9 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const EquipmentFault = () => {
-  // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
-  const [equipment, setEquipment] = useState(undefined);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
-  
-  const cascaderOptions = [{
-    label: '成都项目',
-    value: 1,
-    children: [{
-      label: '租区',
-      value: 2,
-      children: [{
-        label: '大租户',
-        value: 9,
-      }, {
-        label: '餐饮租户',
-        value: 10,
-      }, {
-        label: '零售租户',
-        value: 11,
-      }],
-    }, {
-      label: '公区商场',
-      value: 3,
-      children: [{
-        label: '给排水',
-        value: 12,
-      }, {
-        label: '扶梯直梯',
-        value: 13,
-      }, {
-        label: '照明及插座',
-        value: 14,
-      }, {
-        label: '空调水',
-        value: 15,
-      }, {
-        label: '空调风',
-        value: 16,
-      }, {
-        label: '特殊功能房间',
-        value: 17,
-      }, {
-        label: '其他用电设备',
-        value: 18,
-      }]
-    }, {
-      label: '公区车库',
-      value: 4,
-      children: [{
-        label: '车库通风',
-        value: 5,
-      }, {
-        label: '车库照明',
-        value: 6,
-        children: [{
-          label: '应急照明',
-          value: 7,
-        }, {
-          label: '普通照明',
-          value: 8,
-        }
-        ]
-      }]
-    }],
-  }];
-  
-  const equipmentList = [
-    { value: 1, label: 'P3PW_D36_009'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: '年'},
-    { value: 'monthly', label: '月'},
-    { value: 'daily', label: '日'},
-    { value: 'hourly', label: '时'}];
-
-  const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+const FaultStatistics = () => {
   // State
   let table = createRef();
-  
   const [isSelected, setIsSelected] = useState(false);
   const handleNextPage = ({ page, onPageChange }) => () => {
     onPageChange(page + 1);
@@ -615,57 +534,54 @@ const EquipmentFault = () => {
       setIsSelected(!!table.current.selectionContext.selected.length);
     });
   };
+  const faultLineChartLabels = [
+    '2020-07-01',
+    '2020-07-02',
+    '2020-07-03',
+    '2020-07-04',
+    '2020-07-05',
+    '2020-07-06',
+    '2020-07-07',
+    '2020-07-08',
+    '2020-07-09',
+    '2020-07-10',
+    '2020-07-11',
+    '2020-07-12'
+  ];
+  
+  const faultLineChartData = {
+    a: [13, 3, 20, 7, 23, 35, 14, 17, 14, 14, 15, 32],
+    b: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    c: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    d: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    f: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+  };
 
-  let onCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
-    setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
-  }
+  const faultLineChartOptions = [
+    { value: 'a', label: '全部故障'},
+    { value: 'b', label: '空间'},
+    { value: 'c', label: '设备'},
+    { value: 'd', label: '租户'},
+    { value: 'e', label: '门店'},
+    { value: 'f', label: '车间'},];
+  
+  const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
+  
   useEffect(() => {
     
   }, []);
 
-  
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>故障检测与诊断</BreadcrumbItem><BreadcrumbItem active>设备故障分析</BreadcrumbItem>
+          <BreadcrumbItem>故障检测与诊断</BreadcrumbItem><BreadcrumbItem active>故障统计分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                空间
-                </Label>
-                <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
-                </Cascader>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="equipment">
-                设备
-                </Label>
-                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
-                >
-                  { equipmentList.map((equipment, index) => (
-                      <option value={equipment.value} key={equipment.value}>
-                        {equipment.label}
-                      </option>
-                    ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
@@ -693,29 +609,54 @@ const EquipmentFault = () => {
           </Row> 
         </CardBody>
       </Card>
-          <Card className="mb-3">
-          <FalconCardHeader title="设备故障" light={false}>
-            {isSelected ? (
-              <InputGroup size="sm" className="input-group input-group-sm">
-                <CustomInput type="select" id="bulk-select">
-                  <option>Bulk actions</option>
-                  <option value="Refund">Refund</option>
-                  <option value="Delete">Delete</option>
-                  <option value="Archive">Archive</option>
-                </CustomInput>
-                <Button color="falcon-default" size="sm" className="ml-2">
-                  Apply
-                </Button>
-              </InputGroup>
-            ) : (
-              <Fragment>
-                <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                导出
-                </ButtonIcon>
-              </Fragment>
-            )}
-          </FalconCardHeader>
-          <CardBody className="p-0">
+      <LineChart reportingTitle='报告期故障总数 206' 
+        labels={faultLineChartLabels} 
+        data={faultLineChartData}
+        options={faultLineChartOptions}>
+      </LineChart>
+      <div className="card-deck">
+        <CardSummary content="43,594" rate="9.54%" title="全部故障" color="success" linkText="详情" to="#">
+          <CountUp end={206} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title="空间" color="success" linkText="详情" to="#">
+          <CountUp end={66} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title="设备" color="success" linkText="详情" to="#">
+          <CountUp end={66} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title="租户" color="success" linkText="详情" to="#">
+          <CountUp end={52} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title="门店" color="success" linkText="详情" to="#">
+          <CountUp end={11} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title="车间" color="success" linkText="详情" to="#">
+          <CountUp end={11} duration={5} separator="," decimal="." />
+        </CardSummary>
+      </div>
+      <Card className="mb-3">
+        <FalconCardHeader title="全部故障" light={false}>
+          {isSelected ? (
+            <InputGroup size="sm" className="input-group input-group-sm">
+              <CustomInput type="select" id="bulk-select">
+                <option>Bulk actions</option>
+                <option value="Refund">Refund</option>
+                <option value="Delete">Delete</option>
+                <option value="Archive">Archive</option>
+              </CustomInput>
+              <Button color="falcon-default" size="sm" className="ml-2">
+                Apply
+              </Button>
+            </InputGroup>
+          ) : (
+            <Fragment>
+              <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
+              导出
+              </ButtonIcon>
+            </Fragment>
+          )}
+        </FalconCardHeader>
+        <CardBody className="p-0">
             <PaginationProvider pagination={paginationFactory(options)}>
               {({ paginationProps, paginationTableProps }) => {
                 const lastIndex = paginationProps.page * paginationProps.sizePerPage;
@@ -774,10 +715,9 @@ const EquipmentFault = () => {
               }}
             </PaginationProvider>
           </CardBody>
-        </Card>
-      
+      </Card>
     </Fragment>
   );
 };
 
-export default EquipmentFault;
+export default FaultStatistics;
