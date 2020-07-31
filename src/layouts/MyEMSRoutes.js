@@ -169,6 +169,7 @@ import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
 import FDDTenantFault from '../components/MyEMS/FDD/TenantFault';
 import FDDStoreFault from '../components/MyEMS/FDD/StoreFault';
 import FDDShopfloorFault from '../components/MyEMS/FDD/ShopfloorFault';
+import EnergyLoss from '../components/MyEMS/FDD/EnergyLoss';
 // Monitoring
 import SpaceEquipments from '../components/MyEMS/Monitoring/SpaceEquipments';
 import TenantEquipments from '../components/MyEMS/Monitoring/TenantEquipments';
@@ -396,6 +397,7 @@ const MyEMSRoutes = () => (
     <Route path="/fdd/tenant" exact component={FDDTenantFault} />
     <Route path="/fdd/store" exact component={FDDStoreFault} />
     <Route path="/fdd/shopfloor" exact component={FDDShopfloorFault} />
+    <Route path="/fdd/energyloss" exact component={EnergyLoss} />
     
     {/*Equipment Monitoring*/}
     <Route path="/monitoring/spaceequipments" exact component={SpaceEquipments} />
