@@ -11,20 +11,21 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput  
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
-import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import loadable from '@loadable/component';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const ShopfloorIncome = () => {
+const TenantEnergyItem = () => {
   // State
+  
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [shopfloor, setShopfloor] = useState(undefined);
+  const [tenant, setTenant] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -92,13 +93,12 @@ const ShopfloorIncome = () => {
       }]
     }],
   }];
-  
-  const shopfloorList = [
-    { value: 1, label: '铸造'},
-    { value: 2, label: '冲压'},
-    { value: 3, label: '焊接'},
-    { value: 4, label: '喷涂'},
-    { value: 5, label: '总装'}];
+
+  const tenantList = [
+    { value: 1, label: 'Gucci 古驰'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -108,7 +108,7 @@ const ShopfloorIncome = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const shopfloorLineChartLabels = [
+  const tenantLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -123,18 +123,19 @@ const ShopfloorIncome = () => {
     '2020-07-12'
   ];
   
-  const shopfloorLineChartData = {
+  const tenantLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-
-  const shopfloorLineChartOptions = [
-    { value: 'a', label: '冷'},
-    { value: 'b', label: '热'},
-    { value: 'c', label: '蒸汽'},
-    { value: 'd', label: '总计'}];
+  
+  
+  const tenantLineChartOptions = [
+    { value: 'a', label: '空调水'},
+    { value: 'b', label: '空调风'},
+    { value: 'c', label: '照明及插座'},
+    { value: 'd', label: '电梯'}];
   
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -173,7 +174,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 2,
@@ -181,7 +182,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 3,
@@ -189,7 +190,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 4,
@@ -197,7 +198,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 5,
@@ -205,7 +206,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 6,
@@ -213,7 +214,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 7,
@@ -221,7 +222,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 8,
@@ -229,7 +230,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 9,
@@ -237,7 +238,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 10,
@@ -245,7 +246,7 @@ const ShopfloorIncome = () => {
       a: '9872',
       b: '3457',
       c: '567',
-      d: '13896',
+      d: '567',
     },
     {
       id: 11,
@@ -253,7 +254,7 @@ const ShopfloorIncome = () => {
       a: '98720',
       b: '34570',
       c: '5670',
-      d: '138960',
+      d: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -262,21 +263,22 @@ const ShopfloorIncome = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '冷 (RMB)',
+    text: '空调水 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '热 (RMB)',
+    text: '空调风 (kWh)',
     sort: true
   }, {
     dataField: 'c',
-    text: '蒸汽 (RMB)',
+    text: '照明及插座 (kWh)',
     sort: true
   }, {
     dataField: 'd',
-    text: '总计 (RMB)',
+    text: '电梯 (kWh)',
     sort: true
   }];
+
 
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
@@ -286,12 +288,12 @@ const ShopfloorIncome = () => {
   useEffect(() => {
     
   }, []);
-  
+
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间收入分析</BreadcrumbItem>
+          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户能耗分项分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -302,6 +304,7 @@ const ShopfloorIncome = () => {
                 <Label className={labelClasses} for="space">
                 空间
                 </Label>
+                
                 <br />
                 <Cascader options={cascaderOptions} 
                           onChange={onCascaderChange}
@@ -315,14 +318,14 @@ const ShopfloorIncome = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="shopfloor">
-                车间
+                <Label className={labelClasses} for="tenant">
+                租户
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
                 >
-                  { shopfloorList.map((shopfloor, index) => (
-                      <option value={shopfloor.value} key={shopfloor.value}>
-                        {shopfloor.label}
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -333,7 +336,7 @@ const ShopfloorIncome = () => {
                 <Label className={labelClasses} for="baselineStartDatetime">
                 基准期开始(可选)
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='baselineStartDatetime' />
               </FormGroup>
             </Col>
             <Col >
@@ -388,24 +391,24 @@ const ShopfloorIncome = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总冷收入 (RMB)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期总空调水电量 (kWh)" color="success" linkText="详情" to="#" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总热收入 (RMB)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总空调风电量 (kWh)" color="info" linkText="详情" to="#">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总蒸汽收入 (RMB)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总照明及插座电量 (kWh)" color="info" linkText="详情" to="#">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总收入 (RMB)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期总电梯电量 (kWh)" color="warning" linkText="详情" to="#">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
-        baselineTitle='基准期总冷收入 684.87 (RMB)' 
-        labels={shopfloorLineChartLabels} 
-        data={shopfloorLineChartData}
-        options={shopfloorLineChartOptions}>
+      <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
+        baselineTitle='基准期总空调水电量 684.87 (kWh)' 
+        labels={tenantLineChartLabels} 
+        data={tenantLineChartData}
+        options={tenantLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
@@ -416,9 +419,8 @@ const ShopfloorIncome = () => {
       <br />
       <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
     </Fragment>
   );
 };
 
-export default ShopfloorIncome;
+export default TenantEnergyItem;

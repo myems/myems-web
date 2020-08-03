@@ -312,7 +312,7 @@ export const spaceRoutes = {
   icon: 'chart-pie',
   exact: true,
   children: [
-    { to: '/space/energycategory', name: '空间能耗分析'},
+    { to: '/space/energycategory', name: '空间能耗分类分析'},
     { to: '/space/energyitem', name: '空间能耗分项分析' },
     { to: '/space/cost', name: '空间成本分析' },
     { to: '/space/output', name: '空间产出分析' },
@@ -365,7 +365,8 @@ export const tenantRoutes = {
   to: '/tenant',
   icon: 'chart-pie',
   children: [
-    { to: '/tenant/energycategory', name: '租户能耗分析' },
+    { to: '/tenant/energycategory', name: '租户能耗分类分析' },
+    { to: '/tenant/energyitem', name: '租户能耗分项分析' },
     { to: '/tenant/cost', name: '租户成本分析' },
     { to: '/tenant/load', name: '租户负荷分析' },
     { to: '/tenant/statistics', name: '租户统计分析' },
@@ -380,7 +381,8 @@ export const storeRoutes = {
   to: '/store',
   icon: 'chart-pie',
   children: [
-    { to: '/store/energycategory', name: '门店能耗分析' },
+    { to: '/store/energycategory', name: '门店能耗分类分析' },
+    { to: '/store/energyitem', name: '门店能耗分项分析' },
     { to: '/store/cost', name: '门店成本分析' },
     { to: '/store/load', name: '门店负荷分析' },
     { to: '/store/statistics', name: '门店统计分析' },
@@ -394,11 +396,9 @@ export const shopfloorRoutes = {
   to: '/shopfloor',
   icon: 'chart-pie',
   children: [
-    { to: '/shopfloor/energycategory', name: '车间能耗分析' },
+    { to: '/shopfloor/energycategory', name: '车间能耗分类分析' },
+    { to: '/shopfloor/energyitem', name: '车间能耗分项分析' },
     { to: '/shopfloor/cost', name: '车间成本分析' },
-    { to: '/shopfloor/output', name: '车间产出分析' },
-    { to: '/shopfloor/income', name: '车间收入分析' },
-    { to: '/shopfloor/efficiency', name: '车间效率分析' },
     { to: '/shopfloor/load', name: '车间负荷分析' },
     { to: '/shopfloor/statistics', name: '车间统计分析' },
     { to: '/shopfloor/fault', name: '车间故障分析' },
@@ -415,7 +415,6 @@ export const auxiliarySystemRoutes = {
     { to: '/auxiliarysystem/distributionsystem', name: '配电系统' },
     { to: '/auxiliarysystem/chillerplant', name: '冷站数据分析' },
     { to: '/auxiliarysystem/boilerroom', name: '锅炉房数据分析' },
-    { to: '/auxiliarysystem/aircompressorstation', name: '空压站数据分析' },
   ]
 };
 
