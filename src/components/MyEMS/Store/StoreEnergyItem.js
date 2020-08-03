@@ -25,6 +25,7 @@ const StoreEnergyItem = () => {
   // State
   
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [store, setStore] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -92,6 +93,13 @@ const StoreEnergyItem = () => {
       }]
     }],
   }];
+
+  const storeList = [
+    { value: 1, label: '麦肯鸡(崇文门店)'},
+    { value: 2, label: '麦肯鸡(新世界店)'},
+    { value: 3, label: '麦肯鸡(祈年大街得来速店)'},
+    { value: 4, label: '麦肯鸡(灯市口店)'}];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -100,7 +108,7 @@ const StoreEnergyItem = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const spaceLineChartLabels = [
+  const storeLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -115,7 +123,7 @@ const StoreEnergyItem = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const storeLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -123,7 +131,7 @@ const StoreEnergyItem = () => {
   };
   
   
-  const spaceLineChartOptions = [
+  const storeLineChartOptions = [
     { value: 'a', label: '空调水'},
     { value: 'b', label: '空调风'},
     { value: 'c', label: '照明及插座'},
@@ -308,6 +316,21 @@ const StoreEnergyItem = () => {
                 </Cascader>
               </FormGroup>
             </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="store">
+                门店
+                </Label>
+                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
+                >
+                  { storeList.map((store, index) => (
+                      <option value={store.value} key={store.value}>
+                        {store.label}
+                      </option>
+                    ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
@@ -383,9 +406,9 @@ const StoreEnergyItem = () => {
       </div>
       <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
         baselineTitle='基准期总空调水电量 684.87 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={storeLineChartLabels} 
+        data={storeLineChartData}
+        options={storeLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
