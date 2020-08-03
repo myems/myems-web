@@ -136,6 +136,7 @@ import VirtualMeterCost from '../components/MyEMS/Meter/VirtualMeterCost';
 import MeterTracking from '../components/MyEMS/Meter/MeterTracking';
 // Tenant
 import TenantEnergyCategory from '../components/MyEMS/Tenant/TenantEnergyCategory';
+import TenantEnergyItem from '../components/MyEMS/Tenant/TenantEnergyItem';
 import TenantCost from '../components/MyEMS/Tenant/TenantCost';
 import TenantLoad from '../components/MyEMS/Tenant/TenantLoad';
 import TenantStatistics from '../components/MyEMS/Tenant/TenantStatistics';
@@ -144,6 +145,7 @@ import TenantSaving from '../components/MyEMS/Tenant/TenantSaving';
 import TenantBill from '../components/MyEMS/Tenant/TenantBill';
 // Store
 import StoreEnergyCategory from '../components/MyEMS/Store/StoreEnergyCategory';
+import StoreEnergyItem from '../components/MyEMS/Store/StoreEnergyItem';
 import StoreCost from '../components/MyEMS/Store/StoreCost';
 import StoreLoad from '../components/MyEMS/Store/StoreLoad';
 import StoreStatistics from '../components/MyEMS/Store/StoreStatistics';
@@ -151,6 +153,7 @@ import StoreFault from '../components/MyEMS/Store/StoreFault';
 import StoreSaving from '../components/MyEMS/Store/StoreSaving';
 // Shopfloor
 import ShopfloorEnergyCategory from '../components/MyEMS/Shopfloor/ShopfloorEnergyCategory';
+import ShopfloorEnergyItem from '../components/MyEMS/Shopfloor/ShopfloorEnergyItem';
 import ShopfloorCost from '../components/MyEMS/Shopfloor/ShopfloorCost';
 import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
 import ShopfloorStatistics from '../components/MyEMS/Shopfloor/ShopfloorStatistics';
@@ -357,6 +360,7 @@ const MyEMSRoutes = () => (
     <Route path="/meter/tracking" exact component={MeterTracking} />
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
+    <Route path="/tenant/energyitem" exact component={TenantEnergyItem} />
     <Route path="/tenant/cost" exact component={TenantCost} />
     <Route path="/tenant/load" exact component={TenantLoad} />
     <Route path="/tenant/statistics" exact component={TenantStatistics} />
@@ -366,6 +370,7 @@ const MyEMSRoutes = () => (
     
     {/*Sotore*/}
     <Route path="/store/energycategory" exact component={StoreEnergyCategory} />
+    <Route path="/store/energyitem" exact component={StoreEnergyItem} />
     <Route path="/store/cost" exact component={StoreCost} />
     <Route path="/store/load" exact component={StoreLoad} />
     <Route path="/store/statistics" exact component={StoreStatistics} />
@@ -374,6 +379,7 @@ const MyEMSRoutes = () => (
     
     {/*Shopfloor*/}
     <Route path="/shopfloor/energycategory" exact component={ShopfloorEnergyCategory} />
+    <Route path="/shopfloor/energyitem" exact component={ShopfloorEnergyItem} />
     <Route path="/shopfloor/cost" exact component={ShopfloorCost} />
     <Route path="/shopfloor/load" exact component={ShopfloorLoad} />
     <Route path="/shopfloor/statistics" exact component={ShopfloorStatistics} />
