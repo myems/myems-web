@@ -396,9 +396,6 @@ export const shopfloorRoutes = {
   children: [
     { to: '/shopfloor/energycategory', name: '车间能耗分析' },
     { to: '/shopfloor/cost', name: '车间成本分析' },
-    { to: '/shopfloor/output', name: '车间产出分析' },
-    { to: '/shopfloor/income', name: '车间收入分析' },
-    { to: '/shopfloor/efficiency', name: '车间效率分析' },
     { to: '/shopfloor/load', name: '车间负荷分析' },
     { to: '/shopfloor/statistics', name: '车间统计分析' },
     { to: '/shopfloor/fault', name: '车间故障分析' },

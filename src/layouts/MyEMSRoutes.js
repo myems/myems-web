@@ -152,9 +152,6 @@ import StoreSaving from '../components/MyEMS/Store/StoreSaving';
 // Shopfloor
 import ShopfloorEnergyCategory from '../components/MyEMS/Shopfloor/ShopfloorEnergyCategory';
 import ShopfloorCost from '../components/MyEMS/Shopfloor/ShopfloorCost';
-import ShopfloorOutput from '../components/MyEMS/Shopfloor/ShopfloorOutput';
-import ShopfloorIncome from '../components/MyEMS/Shopfloor/ShopfloorIncome';
-import ShopfloorEfficiency from '../components/MyEMS/Shopfloor/ShopfloorEfficiency';
 import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
 import ShopfloorStatistics from '../components/MyEMS/Shopfloor/ShopfloorStatistics';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
@@ -378,9 +375,6 @@ const MyEMSRoutes = () => (
     {/*Shopfloor*/}
     <Route path="/shopfloor/energycategory" exact component={ShopfloorEnergyCategory} />
     <Route path="/shopfloor/cost" exact component={ShopfloorCost} />
-    <Route path="/shopfloor/output" exact component={ShopfloorOutput} />
-    <Route path="/shopfloor/income" exact component={ShopfloorIncome} />
-    <Route path="/shopfloor/efficiency" exact component={ShopfloorEfficiency} />
     <Route path="/shopfloor/load" exact component={ShopfloorLoad} />
     <Route path="/shopfloor/statistics" exact component={ShopfloorStatistics} />
     <Route path="/shopfloor/fault" exact component={ShopfloorFault} />
