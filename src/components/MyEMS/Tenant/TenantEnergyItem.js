@@ -25,6 +25,7 @@ const TenantEnergyItem = () => {
   // State
   
   const [selectedSpace, setSelectedSpace] = useState(null);
+  const [tenant, setTenant] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -92,6 +93,13 @@ const TenantEnergyItem = () => {
       }]
     }],
   }];
+
+  const tenantList = [
+    { value: 1, label: 'Gucci 古驰'},
+    { value: 2, label: 'Longines浪琴'},
+    { value: 3, label: 'Starbucks星巴克'},
+    { value: 4, label: 'Versace/范思哲'}];
+
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -100,7 +108,7 @@ const TenantEnergyItem = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const spaceLineChartLabels = [
+  const tenantLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -115,7 +123,7 @@ const TenantEnergyItem = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const tenantLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -123,7 +131,7 @@ const TenantEnergyItem = () => {
   };
   
   
-  const spaceLineChartOptions = [
+  const tenantLineChartOptions = [
     { value: 'a', label: '空调水'},
     { value: 'b', label: '空调风'},
     { value: 'c', label: '照明及插座'},
@@ -308,6 +316,21 @@ const TenantEnergyItem = () => {
                 </Cascader>
               </FormGroup>
             </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="tenant">
+                租户
+                </Label>
+                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                >
+                  { tenantList.map((tenant, index) => (
+                      <option value={tenant.value} key={tenant.value}>
+                        {tenant.label}
+                      </option>
+                    ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
@@ -383,9 +406,9 @@ const TenantEnergyItem = () => {
       </div>
       <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
         baselineTitle='基准期总空调水电量 684.87 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={tenantLineChartLabels} 
+        data={tenantLineChartData}
+        options={tenantLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 

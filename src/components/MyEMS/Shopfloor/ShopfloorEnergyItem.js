@@ -101,7 +101,7 @@ const ShopfloorEnergyItem = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const spaceLineChartLabels = [
+  const shopfloorLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -116,7 +116,7 @@ const ShopfloorEnergyItem = () => {
     '2020-07-12'
   ];
   
-  const spaceLineChartData = {
+  const shopfloorLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
@@ -124,7 +124,7 @@ const ShopfloorEnergyItem = () => {
   };
   
   
-  const spaceLineChartOptions = [
+  const shopfloorLineChartOptions = [
     { value: 'a', label: '空调水'},
     { value: 'b', label: '空调风'},
     { value: 'c', label: '照明及插座'},
@@ -405,9 +405,9 @@ const ShopfloorEnergyItem = () => {
       </div>
       <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
         baselineTitle='基准期总空调水电量 684.87 (kWh)' 
-        labels={spaceLineChartLabels} 
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={shopfloorLineChartLabels} 
+        data={shopfloorLineChartData}
+        options={shopfloorLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
