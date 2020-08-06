@@ -406,6 +406,23 @@ export const shopfloorRoutes = {
   ]
 };
 
+export const combinedEquipmentRoutes = {
+  name: '组合设备数据',
+  to: '/combinedequipment',
+  icon: 'chart-pie',
+  children: [
+    { to: '/combinedequipment/energycategory', name: '组合设备能耗分析' },
+    { to: '/combinedequipment/cost', name: '组合设备成本分析' },
+    { to: '/combinedequipment/output', name: '组合设备产出分析' },
+    { to: '/combinedequipment/income', name: '组合设备收入分析' },
+    { to: '/combinedequipment/efficiency', name: '组合设备效率分析' },
+    { to: '/combinedequipment/load', name: '组合设备负荷分析' },
+    { to: '/combinedequipment/statistics', name: '组合设备统计分析' },
+    { to: '/combinedequipment/fault', name: '组合设备故障分析' },
+    { to: '/combinedequipment/saving', name: '组合设备节能分析' },
+  ]
+};
+
 export const auxiliarySystemRoutes = {
   name: '辅助系统数据',
   to: '/auxiliarysystem',
@@ -413,8 +430,6 @@ export const auxiliarySystemRoutes = {
   children: [
     { to: '/auxiliarysystem/energyflowdiagram', name: '企业能流图' },
     { to: '/auxiliarysystem/distributionsystem', name: '配电系统' },
-    { to: '/auxiliarysystem/chillerplant', name: '冷站数据分析' },
-    { to: '/auxiliarysystem/boilerroom', name: '锅炉房数据分析' },
   ]
 };
 
@@ -479,6 +494,7 @@ export default [
   tenantRoutes,
   storeRoutes,
   shopfloorRoutes,
+  combinedEquipmentRoutes,
   auxiliarySystemRoutes,
   fddRoutes,
   monitoringRoutes,

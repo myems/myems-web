@@ -21,6 +21,7 @@ import {
   tenantRoutes,
   storeRoutes,
   shopfloorRoutes,
+  combinedEquipmentRoutes,
   auxiliarySystemRoutes,
   fddRoutes,
   monitoringRoutes,
@@ -97,6 +98,11 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
       <NavbarDropdownComponents
         title={shopfloorRoutes.name}
         items={[shopfloorRoutes]}
+        handleSetNavbarCollapsed={handleSetNavbarCollapsed}
+      />
+      <NavbarDropdownComponents
+        title={combinedEquipmentRoutes.name}
+        items={[combinedEquipmentRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
