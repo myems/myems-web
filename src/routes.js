@@ -436,14 +436,15 @@ export const fddRoutes = {
   children: [
     { to: '/fdd/statistics', name: '故障统计分析' },
     { to: '/fdd/space', name: '空间故障分析' },
-    { to: '/fdd/combinedequipment', name: '组合设备故障分析' },
     { to: '/fdd/equipment', name: '设备故障分析' },
+    { to: '/fdd/combinedequipment', name: '组合设备故障分析' },
     { to: '/fdd/tenant', name: '租户故障分析' },
     { to: '/fdd/store', name: '门店故障分析' },
     { to: '/fdd/shopfloor', name: '车间故障分析' },
     { to: '/fdd/energyloss', name: '能源损耗分析' },
   ]
 };
+
 export const monitoringRoutes = {
   name: '设备监控',
   to: '/monitoring',
