@@ -515,10 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const ShopfloorFault = () => {
+const CombinedEquipmentFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [shopfloor, setShopfloor] = useState(undefined);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -587,12 +587,9 @@ const ShopfloorFault = () => {
     }],
   }];
   
-  const shopfloorList = [
-    { value: 1, label: '铸造'},
-    { value: 2, label: '冲压'},
-    { value: 3, label: '焊接'},
-    { value: 4, label: '喷涂'},
-    { value: 5, label: '总装'}];
+  const combinedEquipmentList = [
+    { value: 1, label: '冷站'},
+    { value: 2, label: '锅炉房'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -633,7 +630,7 @@ const ShopfloorFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -657,14 +654,14 @@ const ShopfloorFault = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="shopfloor">
-                车间
+                <Label className={labelClasses} for="equipment">
+                组合设备
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { shopfloorList.map((shopfloor, index) => (
-                      <option value={shopfloor.value} key={shopfloor.value}>
-                        {shopfloor.label}
+                  { combinedEquipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -822,4 +819,4 @@ const ShopfloorFault = () => {
   );
 };
 
-export default ShopfloorFault;
+export default CombinedEquipmentFault;
