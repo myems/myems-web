@@ -93,7 +93,7 @@ const CombinedEquipmentOutput = () => {
     }],
   }];
   
-  const equipmentList = [
+  const combinedEquipmentList = [
     { value: 1, label: '冷站'},
     { value: 2, label: '锅炉房'}];
 
@@ -105,7 +105,7 @@ const CombinedEquipmentOutput = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const equipmentLineChartLabels = [
+  const combinedEquipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -120,14 +120,14 @@ const CombinedEquipmentOutput = () => {
     '2020-07-12'
   ];
   
-  const equipmentLineChartData = {
+  const combinedEquipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const equipmentLineChartOptions = [
+  const combinedEquipmentLineChartOptions = [
     { value: 'a', label: '冷'},
     { value: 'b', label: '热'},
     { value: 'c', label: '蒸汽'}];
@@ -302,7 +302,7 @@ const CombinedEquipmentOutput = () => {
                 </Label>
                 <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { equipmentList.map((equipment, index) => (
+                  { combinedEquipmentList.map((equipment, index) => (
                       <option value={equipment.value} key={equipment.value}>
                         {equipment.label}
                       </option>
@@ -382,9 +382,9 @@ const CombinedEquipmentOutput = () => {
       </div>
       <LineChart reportingTitle='报告期总冷量 764.39 (kWh)' 
         baselineTitle='基准期总冷量 684.87 (kWh)' 
-        labels={equipmentLineChartLabels} 
-        data={equipmentLineChartData}
-        options={equipmentLineChartOptions}>
+        labels={combinedEquipmentLineChartLabels} 
+        data={combinedEquipmentLineChartData}
+        options={combinedEquipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
