@@ -407,7 +407,7 @@ export const combinedEquipmentRoutes = {
   to: '/combinedequipment',
   icon: 'chart-pie',
   children: [
-    { to: '/combinedequipment/energycategory', name: '组合设备能耗分析' },
+    { to: '/combinedequipment/energycategory', name: '组合设备能耗分类分析' },
     { to: '/combinedequipment/energyitem', name: '组合设备能耗分项分析' },
     { to: '/combinedequipment/cost', name: '组合设备成本分析' },
     { to: '/combinedequipment/output', name: '组合设备产出分析' },
