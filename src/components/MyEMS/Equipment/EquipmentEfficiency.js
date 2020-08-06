@@ -30,7 +30,7 @@ const EquipmentEfficiency = () => {
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
+  const [fractionParameter, setFractionParameter] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   
   const cascaderOptions = [{
@@ -101,15 +101,8 @@ const EquipmentEfficiency = () => {
     { value: 3, label: 'CH-CCHWS'},
     { value: 4, label: '1#冷冻泵'}];
 
-  const inputEnergyCategoryOptions = [
-    { value: 1, label: '电'},
-    { value: 2, label: '自来水'},
-    { value: 3, label: '天然气'},];
-
-  const outputEnergyCategoryOptions = [
-    { value: 4, label: '冷'},
-    { value: 5, label: '热'},
-    { value: 6, label: '蒸汽'},];
+  const fractionParameterOptions = [
+    { value: 1, label: '电制冷效率COP'},];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -142,9 +135,7 @@ const EquipmentEfficiency = () => {
   };
 
   const equipmentLineChartOptions = [
-    { value: 'a', label: '电制冷效率'},
-    { value: 'b', label: '电制热效率'},
-    { value: 'c', label: '天然气制蒸汽效率'}];
+    { value: 'a', label: '电制冷效率'},];
   
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -249,10 +240,24 @@ const EquipmentEfficiency = () => {
     },
     {
       id: 11,
+      startdatetime: '2020-07-11',
+      a: '9872',
+      b: '55975',
+      c: '5.67',
+    },
+    {
+      id: 12,
+      startdatetime: '2020-07-12',
+      a: '9872',
+      b: '55975',
+      c: '5.67',
+    },
+    {
+      id: 13,
       startdatetime: '综合',
-      a: '98720',
-      b: '34570',
-      c: '5670',
+      a: '118464',
+      b: '671700',
+      c: '5.67',
     }
   ];
   const detailedDataTableColumns = [{
@@ -269,7 +274,7 @@ const EquipmentEfficiency = () => {
     sort: true
   }, {
     dataField: 'c',
-    text: '效率 (kWh/kWh)',
+    text: '电制冷效率COP (kWh/kWh)',
     sort: true
   }];
 
@@ -326,29 +331,14 @@ const EquipmentEfficiency = () => {
             </Col>
             <Col  xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="inputEnergyCategory">
-                消耗能源分类
+                <Label className={labelClasses} for="fractionParameter">
+                效率参数(分式参数)
                 </Label>
-                <CustomInput type="select" id="inputEnergyCategory" name="inputEnergyCategory" value={inputEnergyCategory} onChange={({ target }) => setInputEnergyCategory(target.value)}
+                <CustomInput type="select" id="fractionParameter" name="fractionParameter" value={fractionParameter} onChange={({ target }) => setFractionParameter(target.value)}
                 >
-                  { inputEnergyCategoryOptions.map((inputEnergyCategory, index) => (
-                      <option value={inputEnergyCategory.value} key={inputEnergyCategory.value}>
-                        {inputEnergyCategory.label}
-                      </option>
-                    ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col  xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="outputEnergyCategory">
-                产出能源分类
-                </Label>
-                <CustomInput type="select" id="outputEnergyCategory" name="outputEnergyCategory" value={outputEnergyCategory} onChange={({ target }) => setOutputEnergyCategory(target.value)}
-                >
-                  { outputEnergyCategoryOptions.map((outputEnergyCategory, index) => (
-                      <option value={outputEnergyCategory.value} key={outputEnergyCategory.value}>
-                        {outputEnergyCategory.label}
+                  { fractionParameterOptions.map((fractionParameter, index) => (
+                      <option value={fractionParameter.value} key={fractionParameter.value}>
+                        {fractionParameter.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -414,18 +404,21 @@ const EquipmentEfficiency = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="#" >
-          <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总冷量 (kWh/kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+          <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        </CardSummary>
+        <CardSummary rate="+2.0%" title="报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
         <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
+        <CardSummary rate="0.0%" title="瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CountUp end={6.201} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
-        baselineTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
+      <LineChart reportingTitle='报告期累计电制冷效率COP 5.609 (kWh/kWh)' 
+        baselineTitle='基准期累计电制冷效率COP 4.321 (kWh/kWh)' 
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
