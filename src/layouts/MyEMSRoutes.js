@@ -159,6 +159,16 @@ import ShopfloorLoad from '../components/MyEMS/Shopfloor/ShopfloorLoad';
 import ShopfloorStatistics from '../components/MyEMS/Shopfloor/ShopfloorStatistics';
 import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
+// CombinedEquipment
+import CombinedEquipmentEnergyCategory from '../components/MyEMS/CombinedEquipment/CombinedEquipmentEnergyCategory';
+import CombinedEquipmentCost from '../components/MyEMS/CombinedEquipment/CombinedEquipmentCost';
+import CombinedEquipmentOutput from '../components/MyEMS/CombinedEquipment/CombinedEquipmentOutput';
+import CombinedEquipmentIncome from '../components/MyEMS/CombinedEquipment/CombinedEquipmentIncome';
+import CombinedEquipmentEfficiency from '../components/MyEMS/CombinedEquipment/CombinedEquipmentEfficiency';
+import CombinedEquipmentLoad from '../components/MyEMS/CombinedEquipment/CombinedEquipmentLoad';
+import CombinedEquipmentStatistics from '../components/MyEMS/CombinedEquipment/CombinedEquipmentStatistics';
+import CombinedEquipmentFault from '../components/MyEMS/CombinedEquipment/CombinedEquipmentFault';
+import CombinedEquipmentSaving from '../components/MyEMS/CombinedEquipment/CombinedEquipmentSaving';
 // Auxiliary System
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
 import DistributionSystem from '../components/MyEMS/AuxiliarySystem/DistributionSystem';
@@ -348,6 +358,7 @@ const MyEMSRoutes = () => (
     <Route path="/equipment/fault" exact component={EquipmentFault} />
     <Route path="/equipment/saving" exact component={EquipmentSaving} />
     <Route path="/equipment/tracking" exact component={EquipmentTracking} />
+
     {/*Meter*/}
     <Route path="/meter/meterenergy" exact component={MeterEnergy} />
     <Route path="/meter/metercost" exact component={MeterCost} />
@@ -385,7 +396,17 @@ const MyEMSRoutes = () => (
     <Route path="/shopfloor/statistics" exact component={ShopfloorStatistics} />
     <Route path="/shopfloor/fault" exact component={ShopfloorFault} />
     <Route path="/shopfloor/saving" exact component={ShopfloorSaving} />
-    
+
+    {/*CombinedEquipment*/}
+    <Route path="/combinedequipment/energycategory" exact component={CombinedEquipmentEnergyCategory} />
+    <Route path="/combinedequipment/cost" exact component={CombinedEquipmentCost} />
+    <Route path="/combinedequipment/output" exact component={CombinedEquipmentOutput} />
+    <Route path="/combinedequipment/income" exact component={CombinedEquipmentIncome} />
+    <Route path="/combinedequipment/efficiency" exact component={CombinedEquipmentEfficiency} />
+    <Route path="/combinedequipment/load" exact component={CombinedEquipmentLoad} />
+    <Route path="/combinedequipment/statistics" exact component={CombinedEquipmentStatistics} />
+    <Route path="/combinedequipment/fault" exact component={CombinedEquipmentFault} />
+    <Route path="/combinedequipment/saving" exact component={CombinedEquipmentSaving} />
     {/*Auxiliary System*/}
     <Route path="/auxiliarysystem/energyflowdiagram" exact component={EnergyFlowDiagram} />
     <Route path="/auxiliarysystem/distributionsystem" exact component={DistributionSystem} />
