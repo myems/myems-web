@@ -115,6 +115,7 @@ import SpaceFault from '../components/MyEMS/Space/SpaceFault';
 import SpaceSaving from '../components/MyEMS/Space/SpaceSaving';
 // Equipment
 import EquipmentEnergyCategory from '../components/MyEMS/Equipment/EquipmentEnergyCategory';
+import EquipmentEnergyItem from '../components/MyEMS/Equipment/EquipmentEnergyItem';
 import EquipmentCost from '../components/MyEMS/Equipment/EquipmentCost';
 import EquipmentOutput from '../components/MyEMS/Equipment/EquipmentOutput';
 import EquipmentIncome from '../components/MyEMS/Equipment/EquipmentIncome';
@@ -161,6 +162,7 @@ import ShopfloorFault from '../components/MyEMS/Shopfloor/ShopfloorFault';
 import ShopfloorSaving from '../components/MyEMS/Shopfloor/ShopfloorSaving';
 // CombinedEquipment
 import CombinedEquipmentEnergyCategory from '../components/MyEMS/CombinedEquipment/CombinedEquipmentEnergyCategory';
+import CombinedEquipmentEnergyItem from '../components/MyEMS/CombinedEquipment/CombinedEquipmentEnergyItem';
 import CombinedEquipmentCost from '../components/MyEMS/CombinedEquipment/CombinedEquipmentCost';
 import CombinedEquipmentOutput from '../components/MyEMS/CombinedEquipment/CombinedEquipmentOutput';
 import CombinedEquipmentIncome from '../components/MyEMS/CombinedEquipment/CombinedEquipmentIncome';
@@ -349,6 +351,7 @@ const MyEMSRoutes = () => (
 
     {/*Equipment*/}
     <Route path="/equipment/energycategory" exact component={EquipmentEnergyCategory} />
+    <Route path="/equipment/energyitem" exact component={EquipmentEnergyItem} />
     <Route path="/equipment/cost" exact component={EquipmentCost} />
     <Route path="/equipment/output" exact component={EquipmentOutput} />
     <Route path="/equipment/income" exact component={EquipmentIncome} />
@@ -399,6 +402,7 @@ const MyEMSRoutes = () => (
 
     {/*CombinedEquipment*/}
     <Route path="/combinedequipment/energycategory" exact component={CombinedEquipmentEnergyCategory} />
+    <Route path="/combinedequipment/energyitem" exact component={CombinedEquipmentEnergyItem} />
     <Route path="/combinedequipment/cost" exact component={CombinedEquipmentCost} />
     <Route path="/combinedequipment/output" exact component={CombinedEquipmentOutput} />
     <Route path="/combinedequipment/income" exact component={CombinedEquipmentIncome} />

@@ -330,7 +330,8 @@ export const equipmentRoutes = {
   to: '/equipment',
   icon: 'chart-pie',
   children: [
-    { to: '/equipment/energycategory', name: '设备能耗分析' },
+    { to: '/equipment/energycategory', name: '设备能耗分类分析' },
+    { to: '/equipment/energyitem', name: '设备能耗分项分析' },
     { to: '/equipment/cost', name: '设备成本分析' },
     { to: '/equipment/output', name: '设备产出分析' },
     { to: '/equipment/income', name: '设备收入分析' },
@@ -411,7 +412,8 @@ export const combinedEquipmentRoutes = {
   to: '/combinedequipment',
   icon: 'chart-pie',
   children: [
-    { to: '/combinedequipment/energycategory', name: '组合设备能耗分析' },
+    { to: '/combinedequipment/energycategory', name: '组合设备能耗分类分析' },
+    { to: '/combinedequipment/energyitem', name: '组合设备能耗分项分析' },
     { to: '/combinedequipment/cost', name: '组合设备成本分析' },
     { to: '/combinedequipment/output', name: '组合设备产出分析' },
     { to: '/combinedequipment/income', name: '组合设备收入分析' },

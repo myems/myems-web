@@ -95,7 +95,7 @@ const CombinedEquipmentEfficiency = () => {
     }],
   }];
   
-  const equipmentList = [
+  const combinedEquipmentList = [
     { value: 1, label: '冷站'},
     { value: 2, label: '锅炉房'}];
 
@@ -117,7 +117,7 @@ const CombinedEquipmentEfficiency = () => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
-  const equipmentLineChartLabels = [
+  const combinedEquipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -132,14 +132,14 @@ const CombinedEquipmentEfficiency = () => {
     '2020-07-12'
   ];
   
-  const equipmentLineChartData = {
+  const combinedEquipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const equipmentLineChartOptions = [
+  const combinedEquipmentLineChartOptions = [
     { value: 'a', label: '电制冷效率'},
     { value: 'b', label: '电制热效率'},
     { value: 'c', label: '天然气制蒸汽效率'}];
@@ -314,7 +314,7 @@ const CombinedEquipmentEfficiency = () => {
                 </Label>
                 <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { equipmentList.map((equipment, index) => (
+                  { combinedEquipmentList.map((equipment, index) => (
                       <option value={equipment.value} key={equipment.value}>
                         {equipment.label}
                       </option>
@@ -424,9 +424,9 @@ const CombinedEquipmentEfficiency = () => {
       </div>
       <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
         baselineTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
-        labels={equipmentLineChartLabels} 
-        data={equipmentLineChartData}
-        options={equipmentLineChartOptions}>
+        labels={combinedEquipmentLineChartLabels} 
+        data={combinedEquipmentLineChartData}
+        options={combinedEquipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 

@@ -11,19 +11,19 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput  
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
-import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import loadable from '@loadable/component';
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const CombinedEquipmentLoad = () => {
+const EquipmentEnergyItem = () => {
   // State
+  
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -93,11 +93,6 @@ const CombinedEquipmentLoad = () => {
       }]
     }],
   }];
-  
-  const combinedEquipmentList = [
-    { value: 1, label: '冷站'},
-    { value: 2, label: '锅炉房'}];
-
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
     { value: 'monthly', label: '月'},
@@ -105,8 +100,14 @@ const CombinedEquipmentLoad = () => {
     { value: 'hourly', label: '时'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
-  const combinedEquipmentLineChartLabels = [
+
+  const equipmentList = [
+    { value: 1, label: 'P3PW_D36_009'},
+    { value: 2, label: '71AL6-1'},
+    { value: 3, label: 'CH-CCHWS'},
+    { value: 4, label: '1#冷冻泵'}];
+
+  const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
     '2020-07-03',
@@ -121,20 +122,20 @@ const CombinedEquipmentLoad = () => {
     '2020-07-12'
   ];
   
-  const combinedEquipmentLineChartData = {
+  const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-
   
-  const combinedEquipmentLineChartOptions = [
-    { value: 'a', label: '电'},
-    { value: 'b', label: '自来水'},
-    { value: 'c', label: '天然气'},
-    { value: 'd', label: '冷'},];
-
+  
+  const equipmentLineChartOptions = [
+    { value: 'a', label: '空调水'},
+    { value: 'b', label: '空调风'},
+    { value: 'c', label: '照明及插座'},
+    { value: 'd', label: '电梯'}];
+  
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -164,95 +165,95 @@ const CombinedEquipmentLoad = () => {
     { value: 'c', label: '电费率'},
     { value: 'd', label: '自来水费率'},
     { value: 'e', label: '天然气费率'}];
-
+  
   const  detailedDataTableData =[
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      a: '9872',
+      b: '3457',
+      c: '567',
+      d: '567',
     },
     {
       id: 11,
-      startdatetime: '平均',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
+      startdatetime: '总计',
+      a: '98720',
+      b: '34570',
+      c: '5670',
+      d: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -261,21 +262,22 @@ const CombinedEquipmentLoad = () => {
     sort: true
   }, {
     dataField: 'a',
-    text: '电平均负荷 (kW)',
+    text: '空调水 (kWh)',
     sort: true
   }, {
     dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
+    text: '空调风 (kWh)',
     sort: true
   }, {
     dataField: 'c',
-    text: '天然气平均负荷 (M3/)',
+    text: '照明及插座 (kWh)',
     sort: true
   }, {
     dataField: 'd',
-    text: '冷平均负荷 (kW)',
+    text: '电梯 (kWh)',
     sort: true
   }];
+
 
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
@@ -286,12 +288,11 @@ const CombinedEquipmentLoad = () => {
     
   }, []);
 
-  
   return (
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>设备数据</BreadcrumbItem><BreadcrumbItem active>设备能耗分项分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -302,6 +303,7 @@ const CombinedEquipmentLoad = () => {
                 <Label className={labelClasses} for="space">
                 空间
                 </Label>
+                
                 <br />
                 <Cascader options={cascaderOptions} 
                           onChange={onCascaderChange}
@@ -316,11 +318,11 @@ const CombinedEquipmentLoad = () => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="equipment">
-                组合设备
+                设备
                 </Label>
-                <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { combinedEquipmentList.map((equipment, index) => (
+                  { equipmentList.map((equipment, index) => (
                       <option value={equipment.value} key={equipment.value}>
                         {equipment.label}
                       </option>
@@ -333,7 +335,7 @@ const CombinedEquipmentLoad = () => {
                 <Label className={labelClasses} for="baselineStartDatetime">
                 基准期开始(可选)
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='baselineStartDatetime' />
               </FormGroup>
             </Col>
             <Col >
@@ -388,56 +390,25 @@ const CombinedEquipmentLoad = () => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" linkText="详情" to="#" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="-0.23%" title="报告期总空调水电量 (kWh)" color="success" linkText="详情" to="#" >
+          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" linkText="详情" to="#" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总空调风电量 (kWh)" color="info" linkText="详情" to="#">
+          <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" linkText="详情" to="#" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title="报告期总照明及插座电量 (kWh)" color="info" linkText="详情" to="#">
+        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" linkText="详情" to="#">
-          <CountUp end={39.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" linkText="详情" to="#">
-          <CountUp end={28.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" linkText="详情" to="#">
-          <CountUp end={0.708} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="+9.54%" title="报告期总电梯电量 (kWh)" color="warning" linkText="详情" to="#">
+          <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" linkText="详情" to="#">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" linkText="详情" to="#">
-        <CountUp end={8.131} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" linkText="详情" to="#">
-        <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" linkText="详情" to="#" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" linkText="详情" to="#" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" linkText="详情" to="#" >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baselineTitle='基准期电平均负荷 6.848 (kW)' 
-        labels={combinedEquipmentLineChartLabels} 
-        data={combinedEquipmentLineChartData}
-        options={combinedEquipmentLineChartOptions}>
+      <LineChart reportingTitle='报告期总空调水电量 764.39 (kWh)' 
+        baselineTitle='基准期总空调水电量 684.87 (kWh)' 
+        labels={equipmentLineChartLabels} 
+        data={equipmentLineChartData}
+        options={equipmentLineChartOptions}>
       </LineChart>
-
       <LineChart reportingTitle='相关参数' 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
@@ -447,9 +418,8 @@ const CombinedEquipmentLoad = () => {
       <br />
       <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
     </Fragment>
   );
 };
 
-export default CombinedEquipmentLoad;
+export default EquipmentEnergyItem;
