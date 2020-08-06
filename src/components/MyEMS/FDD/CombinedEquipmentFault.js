@@ -515,10 +515,10 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const ShopfloorFault = () => {
+const CombinedEquipmentFault = () => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [shopfloor, setShopfloor] = useState(undefined);
+  const [equipment, setEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -587,12 +587,9 @@ const ShopfloorFault = () => {
     }],
   }];
   
-  const shopfloorList = [
-    { value: 1, label: '铸造'},
-    { value: 2, label: '冲压'},
-    { value: 3, label: '焊接'},
-    { value: 4, label: '喷涂'},
-    { value: 5, label: '总装'}];
+  const combinedEquipmentList = [
+    { value: 1, label: '冷站'},
+    { value: 2, label: '锅炉房'}];
 
   const periodTypeOptions = [
     { value: 'yearly', label: '年'},
@@ -633,7 +630,7 @@ const ShopfloorFault = () => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间故障分析</BreadcrumbItem>
+          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备故障分析</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -657,34 +654,17 @@ const ShopfloorFault = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="shopfloor">
-                车间
+                <Label className={labelClasses} for="equipment">
+                组合设备
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { shopfloorList.map((shopfloor, index) => (
-                      <option value={shopfloor.value} key={shopfloor.value}>
-                        {shopfloor.label}
+                  { combinedEquipmentList.map((equipment, index) => (
+                      <option value={equipment.value} key={equipment.value}>
+                        {equipment.label}
                       </option>
                     ))}
                 </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col >
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
-                基准期开始(可选)
-                </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
-              </FormGroup>
-            </Col>
-            <Col >
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
-                基准期结束(可选)
-                </Label>
-                
-                <Datetime id='baselineEndDatetime' />
               </FormGroup>
             </Col>
             <Col >
@@ -705,21 +685,6 @@ const ShopfloorFault = () => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="periodType">
-                时间尺度
-                </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
-                >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {periodType.label}
-                      </option>
-                    ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
                   <Button color="success" >提交</Button>
@@ -730,7 +695,7 @@ const ShopfloorFault = () => {
         </CardBody>
       </Card>
           <Card className="mb-3">
-          <FalconCardHeader title="Alarms" light={false}>
+          <FalconCardHeader title="组合设备故障" light={false}>
             {isSelected ? (
               <InputGroup size="sm" className="input-group input-group-sm">
                 <CustomInput type="select" id="bulk-select">
@@ -745,12 +710,6 @@ const ShopfloorFault = () => {
               </InputGroup>
             ) : (
               <Fragment>
-                <ButtonIcon icon="plus" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  New
-                </ButtonIcon>
-                <ButtonIcon icon="filter" transform="shrink-3 down-2" color="falcon-default" size="sm" className="mx-2">
-                  Filter
-                </ButtonIcon>
                 <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
                   Export
                 </ButtonIcon>
@@ -822,4 +781,4 @@ const ShopfloorFault = () => {
   );
 };
 
-export default ShopfloorFault;
+export default CombinedEquipmentFault;

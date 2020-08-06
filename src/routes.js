@@ -320,7 +320,6 @@ export const spaceRoutes = {
     { to: '/space/efficiency', name: '空间效率分析' },
     { to: '/space/load', name: '空间负荷分析' },
     { to: '/space/statistics', name: '空间统计分析' },
-    { to: '/space/fault', name: '空间故障分析' },
     { to: '/space/saving', name: '空间节能分析' },
   ]
 };
@@ -338,7 +337,6 @@ export const equipmentRoutes = {
     { to: '/equipment/efficiency', name: '设备效率分析' },
     { to: '/equipment/load', name: '设备负荷分析' },
     { to: '/equipment/statistics', name: '设备统计分析' },
-    { to: '/equipment/fault', name: '设备故障分析' },
     { to: '/equipment/saving', name: '设备节能分析' },
     { to: '/equipment/tracking', name: '设备台账' },
   ]
@@ -371,7 +369,6 @@ export const tenantRoutes = {
     { to: '/tenant/cost', name: '租户成本分析' },
     { to: '/tenant/load', name: '租户负荷分析' },
     { to: '/tenant/statistics', name: '租户统计分析' },
-    { to: '/tenant/fault', name: '租户故障分析' },
     { to: '/tenant/saving', name: '租户节能分析' },
     { to: '/tenant/bill', name: '租户账单' },
   ]
@@ -387,7 +384,6 @@ export const storeRoutes = {
     { to: '/store/cost', name: '门店成本分析' },
     { to: '/store/load', name: '门店负荷分析' },
     { to: '/store/statistics', name: '门店统计分析' },
-    { to: '/store/fault', name: '门店故障分析' },
     { to: '/store/saving', name: '门店节能分析' },
   ]
 };
@@ -402,7 +398,6 @@ export const shopfloorRoutes = {
     { to: '/shopfloor/cost', name: '车间成本分析' },
     { to: '/shopfloor/load', name: '车间负荷分析' },
     { to: '/shopfloor/statistics', name: '车间统计分析' },
-    { to: '/shopfloor/fault', name: '车间故障分析' },
     { to: '/shopfloor/saving', name: '车间节能分析' },
   ]
 };
@@ -412,7 +407,7 @@ export const combinedEquipmentRoutes = {
   to: '/combinedequipment',
   icon: 'chart-pie',
   children: [
-    { to: '/combinedequipment/energycategory', name: '组合设备能耗分类分析' },
+    { to: '/combinedequipment/energycategory', name: '组合设备能耗分析' },
     { to: '/combinedequipment/energyitem', name: '组合设备能耗分项分析' },
     { to: '/combinedequipment/cost', name: '组合设备成本分析' },
     { to: '/combinedequipment/output', name: '组合设备产出分析' },
@@ -420,7 +415,6 @@ export const combinedEquipmentRoutes = {
     { to: '/combinedequipment/efficiency', name: '组合设备效率分析' },
     { to: '/combinedequipment/load', name: '组合设备负荷分析' },
     { to: '/combinedequipment/statistics', name: '组合设备统计分析' },
-    { to: '/combinedequipment/fault', name: '组合设备故障分析' },
     { to: '/combinedequipment/saving', name: '组合设备节能分析' },
   ]
 };
@@ -443,12 +437,14 @@ export const fddRoutes = {
     { to: '/fdd/statistics', name: '故障统计分析' },
     { to: '/fdd/space', name: '空间故障分析' },
     { to: '/fdd/equipment', name: '设备故障分析' },
+    { to: '/fdd/combinedequipment', name: '组合设备故障分析' },
     { to: '/fdd/tenant', name: '租户故障分析' },
     { to: '/fdd/store', name: '门店故障分析' },
     { to: '/fdd/shopfloor', name: '车间故障分析' },
     { to: '/fdd/energyloss', name: '能源损耗分析' },
   ]
 };
+
 export const monitoringRoutes = {
   name: '设备监控',
   to: '/monitoring',
