@@ -451,6 +451,7 @@ export const monitoringRoutes = {
   icon: 'chart-pie',
   children: [
     { to: '/monitoring/spaceequipments', name: '空间设备监控' },
+    { to: '/monitoring/combinedequipments', name: '组合设备监控' },
     { to: '/monitoring/tenantequipments', name: '租户设备监控' },
     { to: '/monitoring/storeequipments', name: '门店设备监控' },
     { to: '/monitoring/shopfloorequipments', name: '车间设备监控' },
