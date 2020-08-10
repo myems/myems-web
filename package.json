@@ -42,6 +42,7 @@
     "react-dropzone": "^10.2.2",
     "react-es6-progressbar.js": "^1.0.20",
     "react-hook-form": "^4.10.2",
+    "react-i18next": "^11.7.0",
     "react-image-lightbox": "^5.1.1",
     "react-image-video-lightbox": "^2.0.1",
     "react-leaflet": "^2.6.3",
