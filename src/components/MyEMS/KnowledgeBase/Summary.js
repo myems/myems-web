@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Badge, Media } from 'reactstrap';
 import Calendar from '../../common/Calendar';
+import { withTranslation } from 'react-i18next';
+
+
 
 const FileBadge = ({ text, ...rest }) => <Badge {...rest}>{text}</Badge>;
 
@@ -11,7 +14,7 @@ FileBadge.propTypes = {
   text: PropTypes.string.isRequired
 };
 
-const Summary = ({ calendar, title, badge, uploader, divider, to, children }) => (
+const Summary = ({ calendar, title, badge, uploader, divider, to, children, t }) => (
   <Media>
     <Calendar {...calendar} />
     <Media body className="position-relative pl-3">
@@ -42,4 +45,4 @@ Summary.propTypes = {
 
 Summary.defaultProps = { divider: true };
 
-export default Summary;
+export default withTranslation()(Summary);

@@ -20,8 +20,10 @@ import uuid from 'uuid/v1';
 import Datetime from 'react-datetime';
 import createMarkup from '../../../helpers/createMarkup';
 import { isIterableArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
 
-const AdvacnedReporting = () => {
+
+const AdvacnedReporting = ({ t }) => {
 
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
   const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
@@ -164,4 +166,4 @@ const AdvacnedReporting = () => {
   );
 };
 
-export default AdvacnedReporting;
+export default withTranslation()(AdvacnedReporting);

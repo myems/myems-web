@@ -31,6 +31,9 @@ import Flex from '../../common/Flex';
 import { getPaginationArray } from '../../../helpers/utils';
 import loadable from '@loadable/component';
 import RealtimeChart from './RealtimeChart';
+import { withTranslation } from 'react-i18next';
+
+
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -61,7 +64,7 @@ const actionFormatter = (dataField, { id }) => (
 );
 
 
-const MeterRealtime = () => {
+const MeterRealtime = ({t}) => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -206,4 +209,4 @@ let onCascaderChange = (value, selectedOptions) => {
   );
 };
 
-export default MeterRealtime;
+export default withTranslation()(MeterRealtime);

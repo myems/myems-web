@@ -26,11 +26,11 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const TenantEquipments = ({t}) => {
+const CombinedEquipments = ({t}) => {
   
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [tenant, setTenant] = useState(undefined);
+  const [combinedEquipment, setCombinedEquipment] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{
     label: '成都项目',
@@ -94,11 +94,10 @@ const TenantEquipments = ({t}) => {
     }],
   }];
 
-  const tenantList = [
-    { value: 1, label: '海上捞火锅(北京王府井店)'},
-    { value: 2, label: 'Longines浪琴'},
-    { value: 3, label: 'Starbucks星巴克'},
-    { value: 4, label: 'Versace/范思哲'}];
+  const combinedEquipmentList = [
+    { value: 1, label: '冷站'},
+    { value: 2, label: '锅炉房'}];
+
     
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -123,7 +122,7 @@ const TenantEquipments = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>租户设备监控</BreadcrumbItem>
+          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>组合设备监控</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -147,14 +146,14 @@ const TenantEquipments = ({t}) => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="tenant">
-                租户
+                <Label className={labelClasses} for="combinedEquipment">
+                组合设备
                 </Label>
-                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
-                  { tenantList.map((tenant, index) => (
-                      <option value={tenant.value} key={tenant.value}>
-                        {tenant.label}
+                  { combinedEquipmentList.map((combinedEquipment, index) => (
+                      <option value={combinedEquipment.value} key={combinedEquipment.value}>
+                        {combinedEquipment.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -216,4 +215,4 @@ const TenantEquipments = ({t}) => {
   );
 };
 
-export default withTranslation()(TenantEquipments);
+export default withTranslation()(CombinedEquipments);

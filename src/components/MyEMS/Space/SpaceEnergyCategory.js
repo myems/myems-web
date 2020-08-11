@@ -20,11 +20,14 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const SpaceEnergyCategory = () => {
+const SpaceEnergyCategory = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -475,4 +478,4 @@ const SpaceEnergyCategory = () => {
   );
 };
 
-export default SpaceEnergyCategory;
+export default withTranslation()(SpaceEnergyCategory);

@@ -32,8 +32,10 @@ import { NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { breakpoints } from '../../helpers/utils';
 import { topNavbarBreakpoint } from '../../config';
+import { withTranslation } from 'react-i18next';
 
-const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
+
+const NavbarTopDropDownMenus = ({ setNavbarCollapsed, t }) => {
   // const components = [componentRoutes, pluginRoutes, utilityRoutes];
   // const pages = [pageRoutes, kanbanRoutes, widgetsRoutes, chatRoutes, emailRoutes, ECommerceRoutes];
   const handleSetNavbarCollapsed = () => {
@@ -67,67 +69,67 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
       </NavItem> */}
       <NavItem onClick={handleSetNavbarCollapsed}>
         <NavLink className="nav-link" to={dashboardRoutes.to}>
-          {dashboardRoutes.name}
+          {t(dashboardRoutes.name)}
         </NavLink>
       </NavItem>
       <NavbarDropdownComponents
-        title={spaceRoutes.name}
+        title={t(spaceRoutes.name)}
         items={[spaceRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={equipmentRoutes.name}
+        title={t(equipmentRoutes.name)}
         items={[equipmentRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={meterRoutes.name}
+        title={t(meterRoutes.name)}
         items={[meterRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={tenantRoutes.name}
+        title={t(tenantRoutes.name)}
         items={[tenantRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={storeRoutes.name}
+        title={t(storeRoutes.name)}
         items={[storeRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={shopfloorRoutes.name}
+        title={t(shopfloorRoutes.name)}
         items={[shopfloorRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={combinedEquipmentRoutes.name}
+        title={t(combinedEquipmentRoutes.name)}
         items={[combinedEquipmentRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={auxiliarySystemRoutes.name}
+        title={t(auxiliarySystemRoutes.name)}
         items={[auxiliarySystemRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={fddRoutes.name}
+        title={t(fddRoutes.name)}
         items={[fddRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavbarDropdownComponents
-        title={monitoringRoutes.name}
+        title={t(monitoringRoutes.name)}
         items={[monitoringRoutes]}
         handleSetNavbarCollapsed={handleSetNavbarCollapsed}
       />
       <NavItem onClick={handleSetNavbarCollapsed}>
         <NavLink className="nav-link" to={advancedReportingRoutes.to}>
-          {advancedReportingRoutes.name}
+          {t(advancedReportingRoutes.name)}
         </NavLink>
       </NavItem>
       <NavItem onClick={handleSetNavbarCollapsed}>
         <NavLink className="nav-link" to={knowledgeBaseRoutes.to}>
-          {knowledgeBaseRoutes.name}
+          {t(knowledgeBaseRoutes.name)}
         </NavLink>
       </NavItem>
     </>
@@ -136,4 +138,4 @@ const NavbarTopDropDownMenus = ({ setNavbarCollapsed }) => {
 
 NavbarTopDropDownMenus.propTypes = { setNavbarCollapsed: PropTypes.func.isRequired };
 
-export default NavbarTopDropDownMenus;
+export default withTranslation()(NavbarTopDropDownMenus);

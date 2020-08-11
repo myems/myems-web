@@ -20,10 +20,13 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const TenantSaving = () => {
+const TenantSaving = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [tenant, setTenant] = useState(undefined);
@@ -446,4 +449,4 @@ const TenantSaving = () => {
   );
 };
 
-export default TenantSaving;
+export default withTranslation()(TenantSaving);

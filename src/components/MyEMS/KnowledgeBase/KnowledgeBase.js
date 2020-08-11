@@ -7,8 +7,11 @@ import useFakeFetch from '../../../hooks/useFakeFetch';
 import uuid from 'uuid/v1';
 import createMarkup from '../../../helpers/createMarkup';
 import { isIterableArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
 
-const KnowledgeBase = () => {
+
+
+const KnowledgeBase = ({t}) => {
   const knowledgeCategories = [
     '选择分类',
     '法律法规',
@@ -107,4 +110,4 @@ const KnowledgeBase = () => {
   );
 };
 
-export default KnowledgeBase;
+export default withTranslation()(KnowledgeBase);

@@ -19,10 +19,13 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const StoreLoad = () => {
+const StoreLoad = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [store, setStore] = useState(undefined);
@@ -453,4 +456,4 @@ const StoreLoad = () => {
   );
 };
 
-export default StoreLoad;
+export default withTranslation()(StoreLoad);

@@ -20,10 +20,12 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const VirtualMeterEnergy = () => {
+const VirtualMeterEnergy = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [virtualMeter, setVirtualMeter] = useState(undefined);
@@ -406,4 +408,4 @@ const VirtualMeterEnergy = () => {
   );
 };
 
-export default VirtualMeterEnergy;
+export default withTranslation()(VirtualMeterEnergy);

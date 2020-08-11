@@ -29,6 +29,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FalconCardHeader from '../../common/FalconCardHeader';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
+
 
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
@@ -515,7 +518,7 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const SpaceFault = () => {
+const SpaceFault = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -751,4 +754,4 @@ const SpaceFault = () => {
   );
 };
 
-export default SpaceFault;
+export default withTranslation()(SpaceFault);

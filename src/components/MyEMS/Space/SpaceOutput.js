@@ -19,10 +19,13 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const SpaceOutput = () => {
+const SpaceOutput = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
@@ -425,4 +428,4 @@ const SpaceOutput = () => {
   );
 };
 
-export default SpaceOutput;
+export default withTranslation()(SpaceOutput);

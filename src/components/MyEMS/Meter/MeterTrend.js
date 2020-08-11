@@ -18,10 +18,12 @@ import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const MeterTrend = () => {
+const MeterTrend = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
@@ -324,4 +326,4 @@ const MeterTrend = () => {
   );
 };
 
-export default MeterTrend;
+export default withTranslation()(MeterTrend);

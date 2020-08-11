@@ -19,10 +19,13 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import loadable from '@loadable/component';
+import { withTranslation } from 'react-i18next';
+
+
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const SpaceEnergyItem = () => {
+const SpaceEnergyItem = ({t}) => {
   // State
   
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -449,4 +452,4 @@ const SpaceEnergyItem = () => {
   );
 };
 
-export default SpaceEnergyItem;
+export default withTranslation()(SpaceEnergyItem);

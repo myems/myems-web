@@ -20,10 +20,13 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const StoreEnergyCategory = () => {
+const StoreEnergyCategory = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [store, setStore] = useState(undefined);
@@ -446,4 +449,4 @@ const StoreEnergyCategory = () => {
   );
 };
 
-export default StoreEnergyCategory;
+export default withTranslation()(StoreEnergyCategory);

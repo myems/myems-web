@@ -22,8 +22,11 @@ import EquipmentList from './EquipmentList';
 import EquipmentFooter from './EquipmentFooter';
 import usePagination from '../../../hooks/usePagination';
 import equipments from './equipments';
+import { withTranslation } from 'react-i18next';
 
-const TenantEquipments = () => {
+
+
+const TenantEquipments = ({t}) => {
   
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -214,4 +217,4 @@ const TenantEquipments = () => {
   );
 };
 
-export default TenantEquipments;
+export default withTranslation()(TenantEquipments);

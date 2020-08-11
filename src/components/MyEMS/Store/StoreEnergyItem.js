@@ -19,9 +19,12 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import loadable from '@loadable/component';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const StoreEnergyItem = () => {
+const StoreEnergyItem = ({t}) => {
   // State
   
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -423,4 +426,4 @@ const StoreEnergyItem = () => {
   );
 };
 
-export default StoreEnergyItem;
+export default withTranslation()(StoreEnergyItem);

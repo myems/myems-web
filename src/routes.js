@@ -1,4 +1,5 @@
 import { version } from './config';
+import { Trans } from 'react-i18next'
 
 // export const homeRoutes = {
 //   name: 'Home',
@@ -299,128 +300,130 @@ import { version } from './config';
 //   ]
 // };
 
+//  NOTE: if you changed names below, you must change names in i18n.js
 export const dashboardRoutes = {
-  name: '概览',
+ 
+  name: 'Dashboard',
   to: '/dashboard',
   exact: true,
   icon: 'chart-pie'
 };
 
 export const spaceRoutes = {
-  name: '空间数据',
+  name: 'Space Data',
   to: '/space',
   icon: 'chart-pie',
   exact: true,
   children: [
-    { to: '/space/energycategory', name: '空间能耗分类分析'},
-    { to: '/space/energyitem', name: '空间能耗分项分析' },
-    { to: '/space/cost', name: '空间成本分析' },
-    { to: '/space/output', name: '空间产出分析' },
-    { to: '/space/income', name: '空间收入分析' },
-    { to: '/space/efficiency', name: '空间效率分析' },
-    { to: '/space/load', name: '空间负荷分析' },
-    { to: '/space/statistics', name: '空间统计分析' },
-    { to: '/space/saving', name: '空间节能分析' },
+    { to: '/space/energycategory', name: 'Energy Category'},
+    { to: '/space/energyitem', name: 'Energy Item' },
+    { to: '/space/cost', name: 'Cost' },
+    { to: '/space/output', name: 'Output' },
+    { to: '/space/income', name: 'Income' },
+    { to: '/space/efficiency', name: 'Efficiency' },
+    { to: '/space/load', name: 'Load' },
+    { to: '/space/statistics', name: 'Statistics' },
+    { to: '/space/saving', name: 'Saving' },
   ]
 };
 
 export const equipmentRoutes = {
-  name: '设备数据',
+  name: 'Equipment Data',
   to: '/equipment',
   icon: 'chart-pie',
   children: [
-    { to: '/equipment/energycategory', name: '设备能耗分类分析' },
-    { to: '/equipment/energyitem', name: '设备能耗分项分析' },
-    { to: '/equipment/cost', name: '设备成本分析' },
-    { to: '/equipment/output', name: '设备产出分析' },
-    { to: '/equipment/income', name: '设备收入分析' },
-    { to: '/equipment/efficiency', name: '设备效率分析' },
-    { to: '/equipment/load', name: '设备负荷分析' },
-    { to: '/equipment/statistics', name: '设备统计分析' },
-    { to: '/equipment/saving', name: '设备节能分析' },
-    { to: '/equipment/tracking', name: '设备台账' },
+    { to: '/equipment/energycategory', name: 'Energy Category' },
+    { to: '/equipment/energyitem', name: 'Energy Item' },
+    { to: '/equipment/cost', name: 'Cost' },
+    { to: '/equipment/output', name: 'Output' },
+    { to: '/equipment/income', name: 'Income' },
+    { to: '/equipment/efficiency', name: 'Efficiency' },
+    { to: '/equipment/load', name: 'Load' },
+    { to: '/equipment/statistics', name: 'Statistics' },
+    { to: '/equipment/saving', name: 'Saving' },
+    { to: '/equipment/tracking', name: 'Equipment Tracking' },
   ]
 };
 
 export const meterRoutes = {
-  name: '计量表数据',
+  name: 'Meter Data',
   to: '/meter',
   icon: 'chart-pie',
   children: [
-    { to: '/meter/meterenergy', name: '计量表能耗分析' },
-    { to: '/meter/metercost', name: '计量表成本分析' },
-    { to: '/meter/metertrend', name: '计量表趋势分析' },
-    { to: '/meter/meterrealtime', name: '计量表实时分析' },
-    { to: '/meter/virtualmeterenergy', name: '虚拟表能耗分析' },
-    { to: '/meter/virtualmetercost', name: '虚拟表成本分析' },
-    { to: '/meter/offlinemeterenergy', name: '离线表能耗分析' },
-    { to: '/meter/offlinemetercost', name: '离线表成本分析' },
-    { to: '/meter/tracking', name: '计量表台账' },
+    { to: '/meter/meterenergy', name: 'Meter Energy' },
+    { to: '/meter/metercost', name: 'Meter Cost' },
+    { to: '/meter/metertrend', name: 'Meter Trend' },
+    { to: '/meter/meterrealtime', name: 'Meter Realtime' },
+    { to: '/meter/virtualmeterenergy', name: 'Virtual Meter Energy' },
+    { to: '/meter/virtualmetercost', name: 'Virtual Meter Cost' },
+    { to: '/meter/offlinemeterenergy', name: 'Offline Meter Energy' },
+    { to: '/meter/offlinemetercost', name: 'Offline Meter Cost' },
+    { to: '/meter/tracking', name: 'Meter Tracking' },
   ]
 };
 
 export const tenantRoutes = {
-  name: '租户数据',
+  name: 'Tenant Data',
   to: '/tenant',
   icon: 'chart-pie',
   children: [
-    { to: '/tenant/energycategory', name: '租户能耗分类分析' },
-    { to: '/tenant/energyitem', name: '租户能耗分项分析' },
-    { to: '/tenant/cost', name: '租户成本分析' },
-    { to: '/tenant/load', name: '租户负荷分析' },
-    { to: '/tenant/statistics', name: '租户统计分析' },
-    { to: '/tenant/saving', name: '租户节能分析' },
-    { to: '/tenant/bill', name: '租户账单' },
+    { to: '/tenant/energycategory', name: 'Energy Category' },
+    { to: '/tenant/energyitem', name: 'Energy Item' },
+    { to: '/tenant/cost', name: 'Cost' },
+    { to: '/tenant/load', name: 'Load' },
+    { to: '/tenant/statistics', name: 'Statistics' },
+    { to: '/tenant/saving', name: 'Saving' },
+    { to: '/tenant/bill', name: 'Tenant Bill' },
   ]
 };
 
 export const storeRoutes = {
-  name: '门店数据',
+  name: 'Store Data',
   to: '/store',
   icon: 'chart-pie',
   children: [
-    { to: '/store/energycategory', name: '门店能耗分类分析' },
-    { to: '/store/energyitem', name: '门店能耗分项分析' },
-    { to: '/store/cost', name: '门店成本分析' },
-    { to: '/store/load', name: '门店负荷分析' },
-    { to: '/store/statistics', name: '门店统计分析' },
-    { to: '/store/saving', name: '门店节能分析' },
+    { to: '/store/energycategory', name: 'Energy Category' },
+    { to: '/store/energyitem', name: 'Energy Item' },
+    { to: '/store/cost', name: 'Cost' },
+    { to: '/store/load', name: 'Load' },
+    { to: '/store/statistics', name: 'Statistics' },
+    { to: '/store/saving', name: 'Saving' },
   ]
 };
 
 export const shopfloorRoutes = {
-  name: '车间数据',
+  name: 'Shopfloor Data',
   to: '/shopfloor',
   icon: 'chart-pie',
   children: [
-    { to: '/shopfloor/energycategory', name: '车间能耗分类分析' },
-    { to: '/shopfloor/energyitem', name: '车间能耗分项分析' },
-    { to: '/shopfloor/cost', name: '车间成本分析' },
-    { to: '/shopfloor/load', name: '车间负荷分析' },
-    { to: '/shopfloor/statistics', name: '车间统计分析' },
-    { to: '/shopfloor/saving', name: '车间节能分析' },
+    { to: '/shopfloor/energycategory', name: 'Energy Category' },
+    { to: '/shopfloor/energyitem', name: 'Energy Item' },
+    { to: '/shopfloor/cost', name: 'Cost' },
+    { to: '/shopfloor/load', name: 'Load' },
+    { to: '/shopfloor/statistics', name: 'Statistics' },
+    { to: '/shopfloor/saving', name: 'Saving' },
   ]
 };
 
 export const combinedEquipmentRoutes = {
-  name: '组合设备数据',
+  name: 'Combined Equipment Data',
   to: '/combinedequipment',
   icon: 'chart-pie',
   children: [
-    { to: '/combinedequipment/energycategory', name: '组合设备能耗分类分析' },
-    { to: '/combinedequipment/energyitem', name: '组合设备能耗分项分析' },
-    { to: '/combinedequipment/cost', name: '组合设备成本分析' },
-    { to: '/combinedequipment/output', name: '组合设备产出分析' },
-    { to: '/combinedequipment/income', name: '组合设备收入分析' },
-    { to: '/combinedequipment/efficiency', name: '组合设备效率分析' },
-    { to: '/combinedequipment/load', name: '组合设备负荷分析' },
-    { to: '/combinedequipment/statistics', name: '组合设备统计分析' },
-    { to: '/combinedequipment/saving', name: '组合设备节能分析' },
+    { to: '/combinedequipment/energycategory', name: 'Energy Category' },
+    { to: '/combinedequipment/energyitem', name: 'Energy Item' },
+    { to: '/combinedequipment/cost', name: 'Cost' },
+    { to: '/combinedequipment/output', name: 'Output' },
+    { to: '/combinedequipment/income', name: 'Income' },
+    { to: '/combinedequipment/efficiency', name: 'Efficiency' },
+    { to: '/combinedequipment/load', name: 'Load' },
+    { to: '/combinedequipment/statistics', name: 'Statistics' },
+    { to: '/combinedequipment/saving', name: 'Saving' },
   ]
 };
 
 export const auxiliarySystemRoutes = {
-  name: '辅助系统数据',
+  name: 'Auxiliary System',
   to: '/auxiliarysystem',
   icon: 'chart-pie',
   children: [
@@ -430,42 +433,43 @@ export const auxiliarySystemRoutes = {
 };
 
 export const fddRoutes = {
-  name: '故障检测与诊断',
+  name: 'Fault Detection & Diagnostics',
   to: '/fdd',
   icon: 'chart-pie',
   children: [
-    { to: '/fdd/statistics', name: '故障统计分析' },
-    { to: '/fdd/space', name: '空间故障分析' },
-    { to: '/fdd/equipment', name: '设备故障分析' },
-    { to: '/fdd/combinedequipment', name: '组合设备故障分析' },
-    { to: '/fdd/tenant', name: '租户故障分析' },
-    { to: '/fdd/store', name: '门店故障分析' },
-    { to: '/fdd/shopfloor', name: '车间故障分析' },
-    { to: '/fdd/energyloss', name: '能源损耗分析' },
+    { to: '/fdd/statistics', name: 'Fault Statistics' },
+    { to: '/fdd/space', name: 'Space Faults' },
+    { to: '/fdd/equipment', name: 'Equipment Faults' },
+    { to: '/fdd/combinedequipment', name: 'Combined Eequipment Faults' },
+    { to: '/fdd/tenant', name: 'Tenant Faults' },
+    { to: '/fdd/store', name: 'Store Faults' },
+    { to: '/fdd/shopfloor', name: 'Shopfloor Faults' },
+    { to: '/fdd/energyloss', name: 'Energy Loss' },
   ]
 };
 
 export const monitoringRoutes = {
-  name: '设备监控',
+  name: 'Monitoring & Control',
   to: '/monitoring',
   icon: 'chart-pie',
   children: [
-    { to: '/monitoring/spaceequipments', name: '空间设备监控' },
-    { to: '/monitoring/tenantequipments', name: '租户设备监控' },
-    { to: '/monitoring/storeequipments', name: '门店设备监控' },
-    { to: '/monitoring/shopfloorequipments', name: '车间设备监控' },
+    { to: '/monitoring/spaceequipments', name: 'Space Equipments' },
+    { to: '/monitoring/combinedequipments', name: 'Conbined Equipments' },
+    { to: '/monitoring/tenantequipments', name: 'Tenant Equipments' },
+    { to: '/monitoring/storeequipments', name: 'Store Equipments' },
+    { to: '/monitoring/shopfloorequipments', name: 'Shopfloor Equipments' },
   ]
 };
 
 export const advancedReportingRoutes = {
-  name: '高级报表',
+  name: 'Advanced Reporting',
   to: '/advancedreporting',
   exact: true,
   icon: 'book'
 };
 
 export const knowledgeBaseRoutes = {
-  name: '知识库',
+  name: 'Knowledge Base',
   to: '/knowledgebase',
   exact: true,
   icon: 'book'

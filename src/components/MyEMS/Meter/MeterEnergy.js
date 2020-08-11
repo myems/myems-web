@@ -20,10 +20,12 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const MeterEnergy = () => {
+const MeterEnergy = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
@@ -406,4 +408,4 @@ const MeterEnergy = () => {
   );
 };
 
-export default MeterEnergy;
+export default withTranslation()(MeterEnergy);
