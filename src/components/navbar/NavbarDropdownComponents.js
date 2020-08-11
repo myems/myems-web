@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, Col, DropdownItem, DropdownMenu, DropdownToggle, Row, Dropdown } from 'reactstrap';
 import { breakpoints, isIterableArray, routesSlicer } from '../../helpers/utils';
 import { topNavbarBreakpoint } from '../../config';
+import { withTranslation } from 'react-i18next';
 
-const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapsed }) => {
+const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapsed, t }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
@@ -39,8 +40,7 @@ const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapse
                 {items.map((groupItem, index) => {
                   const NavItemGroup = routesSlicer({
                     routes: groupItem.children,
-                    // columns: 4
-                    columns: 2
+                    columns: 4
                   });
 
                   return (
@@ -62,7 +62,7 @@ const NavbarDropdownComponents = ({ title, items, right, handleSetNavbarCollapse
                                       className="pl-0"
                                       onClick={handleSetNavbarCollapsed}
                                     >
-                                      {navItem.name}
+                                      {t(navItem.name)}
                                       {navItem.badge && (
                                         <Badge color={navItem.badge.color || 'soft-success'} pill className="ml-2">
                                           {navItem.badge.text}
@@ -100,4 +100,4 @@ NavbarDropdownComponents.defaultProps = {
   right: false
 };
 
-export default NavbarDropdownComponents;
+export default withTranslation()(NavbarDropdownComponents);
