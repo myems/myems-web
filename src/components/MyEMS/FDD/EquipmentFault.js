@@ -29,6 +29,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FalconCardHeader from '../../common/FalconCardHeader';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
+
 
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
@@ -515,7 +518,7 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const EquipmentFault = () => {
+const EquipmentFault = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
@@ -780,4 +783,4 @@ const EquipmentFault = () => {
   );
 };
 
-export default EquipmentFault;
+export default withTranslation()(EquipmentFault);

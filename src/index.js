@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import Main from './Main';
 import './helpers/initFA';
+import './i18n';
 
 ReactDOM.render(
   <Main>

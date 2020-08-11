@@ -19,10 +19,12 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const OfflineMeterCost = () => {
+const OfflineMeterCost = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [offlineMeter, setOfflineMeter] = useState(undefined);
@@ -405,4 +407,4 @@ const OfflineMeterCost = () => {
   );
 };
 
-export default OfflineMeterCost;
+export default withTranslation()(OfflineMeterCost);

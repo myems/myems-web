@@ -8,6 +8,9 @@ import Flex from '../../common/Flex';
 import classNames from 'classnames';
 import ButtonIcon from '../../common/ButtonIcon';
 import AppContext, { ProductContext } from '../../../context/Context';
+import { withTranslation } from 'react-i18next';
+
+
 
 const EquipmentList = ({
   id,
@@ -26,7 +29,8 @@ const EquipmentList = ({
   isOnline,
   isRunning,
   sliderSettings,
-  index
+  index,
+  t
 }) => {
   const { currency, isDark } = useContext(AppContext);
   const { isInFavouriteItems, favouriteItemsDispatch } = useContext(ProductContext);
@@ -190,4 +194,4 @@ EquipmentList.propTypes = {
 
 EquipmentList.defaultProps = { isRunning: false, isOnline: false, files: [] };
 
-export default EquipmentList;
+export default withTranslation()(EquipmentList);

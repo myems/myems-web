@@ -20,10 +20,12 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const EquipmentSaving = () => {
+const EquipmentSaving = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
@@ -446,4 +448,4 @@ const EquipmentSaving = () => {
   );
 };
 
-export default EquipmentSaving;
+export default withTranslation()(EquipmentSaving);

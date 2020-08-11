@@ -6,10 +6,12 @@ import LineChart from '../common/LineChart';
 import { toast } from 'react-toastify';
 import SharePie from '../common/SharePie';
 import loadable from '@loadable/component';
+import { withTranslation } from 'react-i18next';
+
+
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 
-
-const Dashboard = () => {
+const Dashboard = ({ t }) => {
   // State
 
   const spaceLineChartLabels = [
@@ -90,8 +92,8 @@ const Dashboard = () => {
   useEffect(() => {
     toast(
       <Fragment>
-        Welcome to <strong>MyEMS</strong>!<br />
-        the Leading Free and Open Source Energy Management System
+        {t("Welcome to")} <strong>MyEMS</strong>!<br />
+        {t("the Leading Free and Open Source Energy Management System")}
       </Fragment>
     );
   }, []);
@@ -144,7 +146,7 @@ const Dashboard = () => {
         options={spaceLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
@@ -156,4 +158,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withTranslation()(Dashboard);

@@ -19,9 +19,12 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const CombinedEquipmentIncome = () => {
+const CombinedEquipmentIncome = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
@@ -418,4 +421,4 @@ const CombinedEquipmentIncome = () => {
   );
 };
 
-export default CombinedEquipmentIncome;
+export default withTranslation()(CombinedEquipmentIncome);

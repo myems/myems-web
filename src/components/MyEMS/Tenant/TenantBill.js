@@ -23,6 +23,9 @@ import Cascader from 'rc-cascader';
 import { isIterableArray } from '../../../helpers/utils';
 import useFakeFetch from '../../../hooks/useFakeFetch';
 import logoInvoice from '../../../assets/img/logos/myems.png';
+import { withTranslation } from 'react-i18next';
+
+
 
 const calculateSubtotal = products => {
   return products.reduce((currentValue, product) => {
@@ -78,7 +81,7 @@ InvoiceHeader.propTypes = {
   address: PropTypes.string
 };
 
-const Invoice = () => {
+const Invoice = ({t}) => {
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
@@ -423,4 +426,4 @@ const Invoice = () => {
   );
 };
 
-export default Invoice;
+export default withTranslation()(Invoice);

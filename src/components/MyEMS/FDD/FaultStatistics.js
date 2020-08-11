@@ -29,8 +29,9 @@ import ButtonIcon from '../../common/ButtonIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
-
 import loadable from '@loadable/component';
+import { withTranslation } from 'react-i18next';
+
 
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
@@ -517,7 +518,7 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const FaultStatistics = () => {
+const FaultStatistics = ({t}) => {
   // State
   let table = createRef();
   const [isSelected, setIsSelected] = useState(false);
@@ -720,4 +721,4 @@ const FaultStatistics = () => {
   );
 };
 
-export default FaultStatistics;
+export default withTranslation()(FaultStatistics);

@@ -19,9 +19,12 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const EquipmentEfficiency = () => {
+const EquipmentEfficiency = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
@@ -437,4 +440,4 @@ const EquipmentEfficiency = () => {
   );
 };
 
-export default EquipmentEfficiency;
+export default withTranslation()(EquipmentEfficiency);

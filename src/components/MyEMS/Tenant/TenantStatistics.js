@@ -19,10 +19,13 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const TenantStatistics = () => {
+const TenantStatistics = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [tenant, setTenant] = useState(undefined);
@@ -443,4 +446,4 @@ const TenantStatistics = () => {
   );
 };
 
-export default TenantStatistics;
+export default withTranslation()(TenantStatistics);

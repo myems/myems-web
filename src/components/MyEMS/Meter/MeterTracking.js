@@ -29,6 +29,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import Flex from '../../common/Flex';
 import { getPaginationArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
+
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -327,7 +330,7 @@ const options = {
   totalSize: meters.length
 };
 
-const MeterTracking = () => {
+const MeterTracking = ({t}) => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -518,4 +521,4 @@ let onCascaderChange = (value, selectedOptions) => {
   );
 };
 
-export default MeterTracking;
+export default withTranslation()(MeterTracking);

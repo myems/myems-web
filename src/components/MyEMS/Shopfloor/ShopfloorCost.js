@@ -19,11 +19,13 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
-
 import loadable from '@loadable/component';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const ShopfloorCost = () => {
+const ShopfloorCost = ({t}) => {
   // State
   
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -454,4 +456,4 @@ const ShopfloorCost = () => {
   );
 };
 
-export default ShopfloorCost;
+export default withTranslation()(ShopfloorCost);

@@ -19,10 +19,12 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const MeterCost = () => {
+const MeterCost = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
@@ -405,4 +407,4 @@ const MeterCost = () => {
   );
 };
 
-export default MeterCost;
+export default withTranslation()(MeterCost);

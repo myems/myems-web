@@ -19,10 +19,12 @@ import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../../dashboard/CardSummary';
 import LineChart from '../common/LineChart';
+import { withTranslation } from 'react-i18next';
+
+
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-
-const VirtualMeterCost = () => {
+const VirtualMeterCost = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [virtualMeter, setVirtualMeter] = useState(undefined);
@@ -405,4 +407,4 @@ const VirtualMeterCost = () => {
   );
 };
 
-export default VirtualMeterCost;
+export default withTranslation()(VirtualMeterCost);

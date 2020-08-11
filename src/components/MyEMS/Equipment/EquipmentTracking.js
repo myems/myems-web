@@ -29,6 +29,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import Flex from '../../common/Flex';
 import { getPaginationArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -327,7 +329,7 @@ const options = {
   totalSize: equipments.length
 };
 
-const EquipmentTracking = () => {
+const EquipmentTracking = ({t}) => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -518,4 +520,4 @@ let onCascaderChange = (value, selectedOptions) => {
   );
 };
 
-export default EquipmentTracking;
+export default withTranslation()(EquipmentTracking);

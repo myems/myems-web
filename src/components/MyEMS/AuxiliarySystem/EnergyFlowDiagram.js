@@ -19,8 +19,10 @@ import echarts from 'echarts/lib/echarts';
 import AppContext from '../../../context/Context';
 import { themeColors, getPosition, getGrays, rgbaColor } from '../../../helpers/utils';
 import { title } from 'echarts/lib/theme/dark';
+import { withTranslation } from 'react-i18next';
 
-const EnergyFlowDiagram = () => {
+
+const EnergyFlowDiagram = ({ t }) => {
   // State
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -253,4 +255,4 @@ const EnergyFlowDiagram = () => {
   );
 };
 
-export default EnergyFlowDiagram;
+export default withTranslation()(EnergyFlowDiagram);

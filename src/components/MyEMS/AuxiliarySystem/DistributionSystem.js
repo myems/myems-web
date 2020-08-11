@@ -33,6 +33,7 @@ import loadable from '@loadable/component';
 import RealtimeChart from './RealtimeChart';
 import LightBoxGallery from '../../common/LightBoxGallery';
 import img1 from './distribution.svg';
+import { withTranslation } from 'react-i18next';
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -63,7 +64,7 @@ const actionFormatter = (dataField, { id }) => (
 );
 
 
-const DistributionSystem = () => {
+const DistributionSystem = ({ t }) => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
@@ -236,4 +237,4 @@ const DistributionSystem = () => {
   );
 };
 
-export default DistributionSystem;
+export default withTranslation()(DistributionSystem);

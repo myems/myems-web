@@ -29,6 +29,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FalconCardHeader from '../../common/FalconCardHeader';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
+
 
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
@@ -515,7 +518,7 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const StoreFault = () => {
+const StoreFault = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [store, setStore] = useState(undefined);
@@ -774,4 +777,4 @@ const StoreFault = () => {
   );
 };
 
-export default StoreFault;
+export default withTranslation()(StoreFault);
