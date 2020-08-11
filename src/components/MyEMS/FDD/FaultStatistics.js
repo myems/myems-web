@@ -577,7 +577,7 @@ const FaultStatistics = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>故障检测与诊断</BreadcrumbItem><BreadcrumbItem active>故障统计分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Fault Detection & Diagnostics')}</BreadcrumbItem><BreadcrumbItem active>{t('Fault Statistics')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

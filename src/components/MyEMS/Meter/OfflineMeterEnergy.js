@@ -278,7 +278,7 @@ const OfflineMeterEnergy = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>计量表数据</BreadcrumbItem><BreadcrumbItem active>离线表能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Offline Meter Energy')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

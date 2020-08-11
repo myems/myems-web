@@ -626,7 +626,7 @@ const TenantFault = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>故障检测与诊断</BreadcrumbItem><BreadcrumbItem active>租户故障分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Fault Detection & Diagnostics')}</BreadcrumbItem><BreadcrumbItem active>{t('Tenant Faults')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

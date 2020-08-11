@@ -310,7 +310,7 @@ const ShopfloorCost = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间成本分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Shopfloor Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Cost')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

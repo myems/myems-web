@@ -626,7 +626,7 @@ const StoreFault = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>故障检测与诊断</BreadcrumbItem><BreadcrumbItem active>门店故障分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Fault Detection & Diagnostics')}</BreadcrumbItem><BreadcrumbItem active>{t('Store Faults')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

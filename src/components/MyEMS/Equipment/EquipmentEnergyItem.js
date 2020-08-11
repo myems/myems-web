@@ -295,7 +295,7 @@ const EquipmentEnergyItem = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备数据</BreadcrumbItem><BreadcrumbItem active>设备能耗分项分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Item')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

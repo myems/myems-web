@@ -295,7 +295,7 @@ const StoreLoad = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>门店数据</BreadcrumbItem><BreadcrumbItem active>门店负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Load')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

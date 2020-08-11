@@ -293,7 +293,7 @@ const EquipmentIncome = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备数据</BreadcrumbItem><BreadcrumbItem active>设备收入分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Income')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

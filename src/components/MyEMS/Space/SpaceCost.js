@@ -350,7 +350,7 @@ const SpaceCost = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间成本分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Space Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Cost')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

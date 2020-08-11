@@ -417,7 +417,7 @@ let onCascaderChange = (value, selectedOptions) => {
     <Fragment>
         <div>
             <Breadcrumb>
-            <BreadcrumbItem>计量表数据</BreadcrumbItem><BreadcrumbItem active>计量表台账</BreadcrumbItem>
+            <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Tracking')}</BreadcrumbItem>
             </Breadcrumb>
         </div>
         <Card className="bg-light mb-3">

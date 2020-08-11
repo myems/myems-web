@@ -295,7 +295,7 @@ const TenantLoad = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Tenant Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Load')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

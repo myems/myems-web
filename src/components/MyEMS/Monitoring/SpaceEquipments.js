@@ -116,7 +116,7 @@ const SpaceEquipments = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>空间设备监控</BreadcrumbItem>
+          <BreadcrumbItem>{t('Monitoring & Control')}</BreadcrumbItem><BreadcrumbItem active>{t('Space Equipments')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

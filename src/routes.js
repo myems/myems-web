@@ -427,8 +427,8 @@ export const auxiliarySystemRoutes = {
   to: '/auxiliarysystem',
   icon: 'chart-pie',
   children: [
-    { to: '/auxiliarysystem/energyflowdiagram', name: '企业能流图' },
-    { to: '/auxiliarysystem/distributionsystem', name: '配电系统' },
+    { to: '/auxiliarysystem/energyflowdiagram', name: 'Energy Flow Diagram' },
+    { to: '/auxiliarysystem/distributionsystem', name: 'Distribution System' },
   ]
 };
 
@@ -440,7 +440,7 @@ export const fddRoutes = {
     { to: '/fdd/statistics', name: 'Fault Statistics' },
     { to: '/fdd/space', name: 'Space Faults' },
     { to: '/fdd/equipment', name: 'Equipment Faults' },
-    { to: '/fdd/combinedequipment', name: 'Combined Eequipment Faults' },
+    { to: '/fdd/combinedequipment', name: 'Combined Equipment Faults' },
     { to: '/fdd/tenant', name: 'Tenant Faults' },
     { to: '/fdd/store', name: 'Store Faults' },
     { to: '/fdd/shopfloor', name: 'Shopfloor Faults' },
@@ -454,7 +454,7 @@ export const monitoringRoutes = {
   icon: 'chart-pie',
   children: [
     { to: '/monitoring/spaceequipments', name: 'Space Equipments' },
-    { to: '/monitoring/combinedequipments', name: 'Conbined Equipments' },
+    { to: '/monitoring/combinedequipments', name: 'Combined Equipments' },
     { to: '/monitoring/tenantequipments', name: 'Tenant Equipments' },
     { to: '/monitoring/storeequipments', name: 'Store Equipments' },
     { to: '/monitoring/shopfloorequipments', name: 'Shopfloor Equipments' },

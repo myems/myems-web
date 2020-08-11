@@ -296,7 +296,7 @@ const ShopfloorStatistics = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>车间数据</BreadcrumbItem><BreadcrumbItem active>车间统计分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Shopfloor Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Statistics')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

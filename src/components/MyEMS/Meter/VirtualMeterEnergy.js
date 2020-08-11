@@ -279,7 +279,7 @@ const VirtualMeterEnergy = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>计量表数据</BreadcrumbItem><BreadcrumbItem active>虚拟表能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Virtual Meter Energy')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

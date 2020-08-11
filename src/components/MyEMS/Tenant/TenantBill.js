@@ -226,7 +226,7 @@ const Invoice = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户账单</BreadcrumbItem>
+          <BreadcrumbItem>{t('Tenant Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Tenant Bill')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

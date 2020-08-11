@@ -123,7 +123,7 @@ const TenantEquipments = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>设备监控</BreadcrumbItem><BreadcrumbItem active>租户设备监控</BreadcrumbItem>
+          <BreadcrumbItem>{t('Monitoring & Control')}</BreadcrumbItem><BreadcrumbItem active>{t('Tenant Equipments')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
