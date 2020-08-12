@@ -122,7 +122,7 @@ const CombinedEquipments = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Monitoring & Control')}</BreadcrumbItem><BreadcrumbItem active>{t('Combined Equipments')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Monitoring')}</BreadcrumbItem><BreadcrumbItem active>{t('Combined Equipments')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -131,7 +131,7 @@ const CombinedEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -147,7 +147,7 @@ const CombinedEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="combinedEquipment">
-                组合设备
+                {t('Combined Equipment')}
                 </Label>
                 <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
@@ -163,7 +163,7 @@ const CombinedEquipments = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

@@ -248,7 +248,7 @@ const MeterTrend = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -264,7 +264,7 @@ const MeterTrend = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="meter">
-                计量表
+                {t('Meter')}
                 </Label>
                 <CustomInput type="select" id="计量表" name="meter" value={meter} onChange={({ target }) => setMeter(target.value)}
                 >
@@ -280,7 +280,7 @@ const MeterTrend = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
-                报告期开始
+                {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
@@ -288,7 +288,7 @@ const MeterTrend = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
-                报告期结束
+                {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
@@ -297,7 +297,7 @@ const MeterTrend = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

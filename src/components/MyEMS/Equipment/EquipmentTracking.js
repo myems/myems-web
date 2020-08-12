@@ -425,7 +425,7 @@ let onCascaderChange = (value, selectedOptions) => {
                 <Col xs="auto">
                 <FormGroup className="form-group">
                     <Label className={labelClasses} for="space">
-                    空间
+                    {t('Space')}
                     </Label>
                     <br />
                     <Cascader options={cascaderOptions} 
@@ -443,7 +443,7 @@ let onCascaderChange = (value, selectedOptions) => {
                 <FormGroup>
                     <br></br>
                     <ButtonGroup id="submit">
-                    <Button color="success" >提交</Button>
+                    <Button color="success" >{t('Submit')}</Button>
                     </ButtonGroup>
                 </FormGroup>
                 </Col>

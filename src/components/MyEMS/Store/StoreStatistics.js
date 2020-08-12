@@ -101,12 +101,12 @@ const StoreStatistics = ({t}) => {
     { value: 2, label: '麦肯鸡(新世界店)'},
     { value: 3, label: '麦肯鸡(祈年大街得来速店)'},
     { value: 4, label: '麦肯鸡(灯市口店)'}];
-
+  
   const periodTypeOptions = [
-    { value: 'yearly', label: '年'},
-    { value: 'monthly', label: '月'},
-    { value: 'daily', label: '日'},
-    { value: 'hourly', label: '时'}];
+    { value: 'yearly', label: 'Yearly'},
+    { value: 'monthly', label: 'Monthly'},
+    { value: 'daily', label: 'Daily'},
+    { value: 'hourly', label: 'Hourly'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
  
@@ -304,7 +304,7 @@ const StoreStatistics = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -320,7 +320,7 @@ const StoreStatistics = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="store">
-                门店
+                {t('Store')}
                 </Label>
                 <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
@@ -335,7 +335,7 @@ const StoreStatistics = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
-                基准期开始(可选)
+                {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
                 <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
               </FormGroup>
@@ -343,7 +343,7 @@ const StoreStatistics = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineEndDatetime">
-                基准期结束(可选)
+                {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
                 
                 <Datetime id='baselineEndDatetime' />
@@ -352,7 +352,7 @@ const StoreStatistics = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
-                报告期开始
+                {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
@@ -360,7 +360,7 @@ const StoreStatistics = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
-                报告期结束
+                {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
@@ -368,13 +368,13 @@ const StoreStatistics = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                时间尺度
+                {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
                   { periodTypeOptions.map((periodType, index) => (
                       <option value={periodType.value} key={periodType.value}>
-                        {periodType.label}
+                        {t(periodType.label)}
                       </option>
                     ))}
                 </CustomInput>
@@ -384,7 +384,7 @@ const StoreStatistics = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

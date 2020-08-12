@@ -28,7 +28,7 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 const CombinedEquipmentSaving = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [equipment, setEquipment] = useState(undefined);
+  const [combinedEquipment, setCombinedEquipment] = useState(undefined);
   const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
   const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
   const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
@@ -102,10 +102,10 @@ const CombinedEquipmentSaving = ({t}) => {
     { value: 2, label: '锅炉房'}];
 
   const periodTypeOptions = [
-    { value: 'yearly', label: '年'},
-    { value: 'monthly', label: '月'},
-    { value: 'daily', label: '日'},
-    { value: 'hourly', label: '时'}];
+    { value: 'yearly', label: 'Yearly'},
+    { value: 'monthly', label: 'Monthly'},
+    { value: 'daily', label: 'Daily'},
+    { value: 'hourly', label: 'Hourly'}];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
@@ -313,7 +313,7 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -328,14 +328,14 @@ const CombinedEquipmentSaving = ({t}) => {
             </Col>
             <Col xs="auto">
               <FormGroup>
-                <Label className={labelClasses} for="equipment">
-                组合设备
+                <Label className={labelClasses} for="combinedEquipment">
+                {t('Combined Equipment')}
                 </Label>
-                <CustomInput type="select" id="组合设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
-                  { combinedEquipmentList.map((equipment, index) => (
-                      <option value={equipment.value} key={equipment.value}>
-                        {equipment.label}
+                  { combinedEquipmentList.map((combinedEquipment, index) => (
+                      <option value={combinedEquipment.value} key={combinedEquipment.value}>
+                        {combinedEquipment.label}
                       </option>
                     ))}
                 </CustomInput>
@@ -344,7 +344,7 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineStartDatetime">
-                基准期开始
+                {t('Base Period Begins')}
                 </Label>
                 <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
               </FormGroup>
@@ -352,7 +352,7 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="baselineEndDatetime">
-                基准期结束
+                {t('Base Period Ends')}
                 </Label>
                 
                 <Datetime id='baselineEndDatetime' />
@@ -361,7 +361,7 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
-                报告期开始
+                {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
@@ -369,7 +369,7 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
-                报告期结束
+                {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
@@ -377,13 +377,13 @@ const CombinedEquipmentSaving = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                时间尺度
+                {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
                   { periodTypeOptions.map((periodType, index) => (
                       <option value={periodType.value} key={periodType.value}>
-                        {periodType.label}
+                        {t(periodType.label)}
                       </option>
                     ))}
                 </CustomInput>
@@ -393,7 +393,7 @@ const CombinedEquipmentSaving = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

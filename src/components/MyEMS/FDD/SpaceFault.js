@@ -627,7 +627,7 @@ const SpaceFault = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -643,7 +643,7 @@ const SpaceFault = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
-                报告期开始
+                {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
@@ -651,7 +651,7 @@ const SpaceFault = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
-                报告期结束
+                {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
@@ -660,7 +660,7 @@ const SpaceFault = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

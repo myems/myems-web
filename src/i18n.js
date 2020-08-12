@@ -8,15 +8,16 @@ const resources = {
     translation: {
       // routes
       "Dashboard": "Dashboard",
-      "Space Data": "Space Data",
-      "Equipment Data": "Equipment Data",
-      "Meter Data": "Meter Data",
-      "Tenant Data": "Tenant Data",
-      "Store Data": "Store Data",
-      "Shopfloor Data": "Shopfloor Data",
-      "Combined Equipment Data": "Combined Equipment Data",
+      "Space Data": "Space",
+      "Equipment Data": "Equipment",
+      "Meter Data": "Meter",
+      "Tenant Data": "Tenant",
+      "Store Data": "Store",
+      "Shopfloor Data": "Shopfloor",
+      "Combined Equipment Data": "Combined Equipment",
       "Auxiliary System": "Auxiliary System",
       "Fault Detection & Diagnostics": "FDD",
+      "Monitoring": "Monitoring",
       "Advanced Reporting": "Advanced Reporting",
       "Knowledge Base": "Knowledge Base",
       "Energy Category": "Energy Category",
@@ -58,7 +59,16 @@ const resources = {
       "Related Parameters": "Related Parameters",
       "Welcome to": "Welcome to",
       "The Leading Free and Open Source Energy Management System": "The Leading Free and Open Source Energy Management System",
-
+      // Entities
+      "Space": "Space",
+      "Equipment": "Equipment",
+      "Meter": "Meter",
+      "Offline Meter": "Offline Meter",
+      "Virtual Meter": "Virtual Meter",
+      "Tenant": "Tenant",
+      "Store": "Store",
+      "Shopfloor": "Shopfloor",
+      "Combined Equipment": "Combined Equipment",
       // SidePanelModal
       "Settings": "Settings",
       "Set your own customized style": "Set your own customized style",
@@ -83,6 +93,18 @@ const resources = {
       "Like What You See?": "Like What You See?",
       "Get MyEMS now.": "Get MyEMS now.",
       "Purchase": "Purchase",
+      // Query Panel
+      "Base Period Begins": "Base Period Begins",
+      "Base Period Ends": "Base Period Ends",
+      "Reporting Period Begins": "Reporting Period Begins",
+      "Reporting Period Ends": "Reporting Period Ends",
+      "(Optional)": "(Optional)",
+      "Period Types": "Period Types",
+      "Yearly": "Yearly",
+      "Monthly": "Monthly",
+      "Daily": "Daily",
+      "Hourly": "Hourly",
+      "Submit": "Submit",
     }
   },
   zh: {
@@ -98,7 +120,7 @@ const resources = {
       "Combined Equipment Data": "组合设备数据",
       "Auxiliary System": "辅助系统",
       "Fault Detection & Diagnostics": "故障检测与诊断",
-      "Monitoring & Control": "设备监控",
+      "Monitoring": "设备监控",
       "Advanced Reporting": "高级报表",
       "Knowledge Base": "知识库",
       "Energy Category": "能耗分类分析",
@@ -141,6 +163,16 @@ const resources = {
       "Related Parameters": "相关参数",
       "Welcome to": '欢迎使用',
       "The Leading Free and Open Source Energy Management System": "领先的免费开源能源管理系统",
+      // Entities
+      "Space": "空间",
+      "Equipment": "设备",
+      "Meter": "计量表",
+      "Offline Meter": "离线表",
+      "Virtual Meter": "虚拟表",
+      "Tenant": "租户",
+      "Store": "门店",
+      "Shopfloor": "车间",
+      "Combined Equipment": "组合设备",
       // SidePanelModal
       "Settings": "设置",
       "Set your own customized style": "设置您的自定义样式",
@@ -165,7 +197,18 @@ const resources = {
       "Like What You See?": "喜欢这个系统?",
       "Get MyEMS now.": "立即获取MyEMS。",
       "Purchase": "购买",
-
+      // Query Panel
+      "Base Period Begins": "基准期开始",
+      "Base Period Ends": "基准期结束",
+      "Reporting Period Begins": "报告期开始",
+      "Reporting Period Ends": "报告期结束",
+      "(Optional)": "(可选)",
+      "Period Types": "时间尺度",
+      "Yearly": "年",
+      "Monthly": "月",
+      "Daily": "日",
+      "Hourly": "时",
+      "Submit": "提交",
     }
   }
 };
