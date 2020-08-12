@@ -105,6 +105,9 @@ const resources = {
       "Daily": "Daily",
       "Hourly": "Hourly",
       "Submit": "Submit",
+      //Data Panels
+      "Related Parameters": "Related Parameters",
+      "Detailed Data": "Detailed Data",
     }
   },
   zh: {
@@ -209,6 +212,9 @@ const resources = {
       "Daily": "日",
       "Hourly": "时",
       "Submit": "提交",
+      //Data Panels
+      "Related Parameters": "相关参数",
+      "Detailed Data": "详细数据",
     }
   }
 };

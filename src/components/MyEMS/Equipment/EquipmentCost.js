@@ -440,7 +440,7 @@ const EquipmentCost = ({t}) => {
         options={equipmentLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
@@ -448,7 +448,7 @@ const EquipmentCost = ({t}) => {
       </LineChart>
 
       <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
       
     </Fragment>
