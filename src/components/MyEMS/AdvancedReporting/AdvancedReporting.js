@@ -104,7 +104,7 @@ const AdvacnedReporting = ({ t }) => {
               <Col >
                 <FormGroup className="form-group">
                   <Label className={labelClasses} for="reportingStartDatetime">
-                  报告期开始
+                  {t('Reporting Period Begins')}
                   </Label>
                   <Datetime id='reportingStartDatetime' />
                 </FormGroup>
@@ -112,7 +112,7 @@ const AdvacnedReporting = ({ t }) => {
               <Col >
                 <FormGroup className="form-group">
                   <Label className={labelClasses} for="reportingEndDatetime">
-                  报告期结束
+                  {t('Reporting Period Ends')}
                   </Label>
                   <Datetime id='reportingEndDatetime' />
                 </FormGroup>
@@ -121,7 +121,7 @@ const AdvacnedReporting = ({ t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >提交</Button>
+                    <Button color="success" >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

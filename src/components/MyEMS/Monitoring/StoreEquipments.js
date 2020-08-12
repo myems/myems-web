@@ -123,7 +123,7 @@ const TenantEquipments = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Monitoring & Control')}</BreadcrumbItem><BreadcrumbItem active>{t('Store Equipments')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Monitoring')}</BreadcrumbItem><BreadcrumbItem active>{t('Store Equipments')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -132,7 +132,7 @@ const TenantEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -148,7 +148,7 @@ const TenantEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="store">
-                门店
+                {t('Store')}
                 </Label>
                 <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
@@ -164,7 +164,7 @@ const TenantEquipments = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

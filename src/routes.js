@@ -449,7 +449,7 @@ export const fddRoutes = {
 };
 
 export const monitoringRoutes = {
-  name: 'Monitoring & Control',
+  name: 'Monitoring',
   to: '/monitoring',
   icon: 'chart-pie',
   children: [

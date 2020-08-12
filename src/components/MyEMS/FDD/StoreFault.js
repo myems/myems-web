@@ -635,7 +635,7 @@ const StoreFault = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                空间
+                {t('Space')}
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions} 
@@ -651,7 +651,7 @@ const StoreFault = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="store">
-                门店
+                {t('Store')}
                 </Label>
                 <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
@@ -666,7 +666,7 @@ const StoreFault = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingStartDatetime">
-                报告期开始
+                {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingStartDatetime' />
               </FormGroup>
@@ -674,7 +674,7 @@ const StoreFault = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingEndDatetime">
-                报告期结束
+                {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingEndDatetime' />
               </FormGroup>
@@ -683,7 +683,7 @@ const StoreFault = ({t}) => {
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
-                  <Button color="success" >提交</Button>
+                  <Button color="success" >{t('Submit')}</Button>
                 </ButtonGroup>
               </FormGroup>
             </Col>

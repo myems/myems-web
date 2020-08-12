@@ -174,7 +174,7 @@ const DistributionSystem = ({ t }) => {
                 <Col xs="auto">
                   <FormGroup className="form-group">
                       <Label className={labelClasses} for="space">
-                      空间
+                      {t('Space')}
                       </Label>
                       <br />
                       <Cascader options={cascaderOptions} 
@@ -190,7 +190,7 @@ const DistributionSystem = ({ t }) => {
                 <Col xs="auto">
                   <FormGroup>
                     <Label className={labelClasses} for="distributionsystem">
-                    配电系统
+                    {t('Distribution System')}
                     </Label>
                     <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
                     >
@@ -206,7 +206,7 @@ const DistributionSystem = ({ t }) => {
                 <FormGroup>
                     <br></br>
                     <ButtonGroup id="submit">
-                    <Button color="success" >提交</Button>
+                    <Button color="success" >{t('Submit')}</Button>
                     </ButtonGroup>
                 </FormGroup>
                 </Col>
