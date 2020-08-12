@@ -30,10 +30,10 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 const SpaceSaving = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
-  const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   
   const cascaderOptions = [{
@@ -372,35 +372,35 @@ const SpaceSaving = ({t}) => {
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
+                <Label className={labelClasses} for="basePeriodBeginsDatetime">
                 {t('Base Period Begins')}
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
+                <Label className={labelClasses} for="basePeriodEndsDatetime">
                 {t('Base Period Ends')}
                 </Label>
                 
-                <Datetime id='baselineEndDatetime' />
+                <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">

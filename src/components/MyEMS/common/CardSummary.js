@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CountUp from 'react-countup';
 import { Card, CardBody } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import Background from '../../common/Background';
 import corner1 from '../../../assets/img/illustrations/corner-1.png';
 import corner2 from '../../../assets/img/illustrations/corner-2.png';
@@ -27,7 +26,7 @@ const getContentClassNames = color => {
   return `${contentClassNames} text-${color}`;
 };
 
-const CardSummary = ({ title, rate, linkText, to, color, children }) => {
+const CardSummary = ({ title, rate, color, children, footnote, footvalue, footunit }) => {
   return (
     <Card className="mb-3 overflow-hidden" style={{ minWidth: '12rem' }}>
       <Background image={getImage(color)} className="bg-card" />
@@ -37,10 +36,9 @@ const CardSummary = ({ title, rate, linkText, to, color, children }) => {
           <span className={`badge badge-soft-${color} rounded-capsule ml-2`}>{rate}</span>
         </h6>
         <div className={getContentClassNames(color)}>{children}</div>
-        <Link className="font-weight-semi-bold fs--1 text-nowrap" to={to}>
-          {linkText}
-          <FontAwesomeIcon icon="angle-right" transform="down-1.5" className="ml-1" />
-        </Link>
+        <h7 className="font-weight-semi-bold fs--1 text-nowrap">
+          {footnote} <CountUp end={footvalue} duration={2} prefix="" separator="," decimal="." decimals={2} /> {footunit}
+        </h7>
       </CardBody>
     </Card>
   );
@@ -49,15 +47,14 @@ const CardSummary = ({ title, rate, linkText, to, color, children }) => {
 CardSummary.propTypes = {
   title: PropTypes.string.isRequired,
   rate: PropTypes.string.isRequired,
-  linkText: PropTypes.string,
-  to: PropTypes.string,
   color: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  footnote: PropTypes.string,
+  footvalue: PropTypes.string,
+  footunit: PropTypes.string,
 };
 
 CardSummary.defaultProps = {
-  linkText: 'See all',
-  to: '#!',
   color: 'primary'
 };
 

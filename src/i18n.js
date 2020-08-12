@@ -118,7 +118,7 @@ const resources = {
   zh_cn: {
     translation: {
       // routes
-      "Dashboard": "概览",
+      "Dashboard": "总览",
       "Space Data": "空间数据",
       "Equipment Data": "设备数据",
       "Meter Data": "计量表数据",
