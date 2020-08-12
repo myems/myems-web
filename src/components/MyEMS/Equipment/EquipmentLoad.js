@@ -392,46 +392,46 @@ const EquipmentLoad = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期电最大负荷 (kW)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期电平均负荷 (kW)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期电负荷系数" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期自来水最大负荷 (M3/h)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={39.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期自来水平均负荷 (M3/h)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={28.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期自来水负荷系数" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={0.708} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期天然气最大负荷 (M3/h)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期天然气平均负荷 (M3/h)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={8.131} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期天然气负荷系数 (M3/h)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期冷最大负荷 (kW)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期冷平均负荷 (kW)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期冷负荷系数" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

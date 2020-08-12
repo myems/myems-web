@@ -407,16 +407,16 @@ const EquipmentEfficiency = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={6.201} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

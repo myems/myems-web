@@ -404,86 +404,86 @@ const CombinedEquipmentEfficiency = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷站报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷站报告期累计综合能效比EER (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷站报告期累计综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站瞬时综合能效比EER (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站瞬时综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#1报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={12988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#1报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷机#1报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#2报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={22988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#2报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷机#2报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷冻泵报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷冻泵报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷冻泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却泵报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却泵报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷却泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却塔报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却塔报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷却塔报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

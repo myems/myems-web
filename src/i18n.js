@@ -105,6 +105,8 @@ const resources = {
       "Daily": "Daily",
       "Hourly": "Hourly",
       "Submit": "Submit",
+      //Data Summary
+      "Per Unit Area": "Per Unit Area",
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
@@ -217,6 +219,8 @@ const resources = {
       "Daily": "日",
       "Hourly": "时",
       "Submit": "提交",
+      //Data Summary
+      "Per Unit Area": "单位面积值",
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
