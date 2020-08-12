@@ -88,7 +88,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "Switch between styles for your vertical navbar",
       "Language": "Language",
       "Switch between languages": "Switch between languages",
-      "language-zh": "简体中文",
+      "language-zhcn": "简体中文",
       "language-en": "English",
       "Like What You See?": "Like What You See?",
       "Get MyEMS now.": "Get MyEMS now.",
@@ -108,9 +108,14 @@ const resources = {
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
+      "Child Spaces Data": "Child Spaces Data",
+      "This Year": "This Year",
+      "This Month": "This Month",
+      "This Day": "This Day",
+      "Total": "Total",
     }
   },
-  zh: {
+  zhcn: {
     translation: {
       // routes
       "Dashboard": "概览",
@@ -195,7 +200,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "切换垂直导航栏的样式",
       "Language": "语言",
       "Switch between languages": "切换语言",
-      "language-zh": "简体中文",
+      "language-zhcn": "简体中文",
       "language-en": "English",
       "Like What You See?": "喜欢这个系统?",
       "Get MyEMS now.": "立即获取MyEMS。",
@@ -215,6 +220,11 @@ const resources = {
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
+      "Child Spaces Data": "子空间数据",
+      "This Year": "本年",
+      "This Month": "本月",
+      "This Day": "本日",
+      "Total": "总",
     }
   }
 };
@@ -223,7 +233,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "zh",
+    lng: "zhcn",
 
     keySeparator: false, // we do not use keys in form messages.welcome
 

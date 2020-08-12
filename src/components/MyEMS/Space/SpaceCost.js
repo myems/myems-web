@@ -378,7 +378,7 @@ const SpaceCost = ({t}) => {
                 <Label className={labelClasses} for="baselineStartDatetime">
                 {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
-                <Datetime id='baselineStartDatetime' />
+                <Datetime id='baselineStartDatetime' locale="fr-ca" />
               </FormGroup>
             </Col>
             <Col >
@@ -474,7 +474,7 @@ const SpaceCost = ({t}) => {
         options={parameterLineChartOptions}>
       </LineChart>
 
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>

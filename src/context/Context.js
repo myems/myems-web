@@ -8,7 +8,7 @@ const AppContext = createContext({
   currency: '$',
   isNavbarVerticalCollapsed: false,
   navbarStyle: 'vibrant',
-  language: 'zh',
+  language: 'zhcn',
 });
 
 export const EmailContext = createContext({ emails: [] });

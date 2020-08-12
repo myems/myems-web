@@ -419,7 +419,7 @@ const SpaceOutput = ({t}) => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
