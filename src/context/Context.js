@@ -7,7 +7,8 @@ const AppContext = createContext({
   showBurgerMenu: false, // controls showing vertical nav on mobile
   currency: '$',
   isNavbarVerticalCollapsed: false,
-  navbarStyle: 'vibrant'
+  navbarStyle: 'vibrant',
+  language: 'zh',
 });
 
 export const EmailContext = createContext({ emails: [] });

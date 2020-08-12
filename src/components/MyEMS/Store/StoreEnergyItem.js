@@ -296,7 +296,7 @@ const StoreEnergyItem = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>门店数据</BreadcrumbItem><BreadcrumbItem active>门店能耗分项分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Item')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

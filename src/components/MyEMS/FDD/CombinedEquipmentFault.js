@@ -632,7 +632,7 @@ const CombinedEquipmentFault = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备故障分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Fault Detection & Diagnostics')}</BreadcrumbItem><BreadcrumbItem active>{t('Combined Equipment Faults')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

@@ -129,7 +129,7 @@ const AdvacnedReporting = ({ t }) => {
           </CardBody>
       </Card>
       <Card>
-        <FalconCardHeader title="高级报表">
+        <FalconCardHeader title={t('Advanced Reporting')}>
           {isIterableArray(eventCategories) && (
             <Form inline>
               <CustomInput type="select" id="customSelectCategory" name="customSelectCategory" bsSize="sm">

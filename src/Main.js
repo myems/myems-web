@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AppContext from './context/Context';
 import toggleStylesheet from './helpers/toggleStylesheet';
 import { getItemFromStore, setItemToStore, themeColors } from './helpers/utils';
+import i18n from "i18next";
 
 const Main = props => {
   const [isFluid, setIsFluid] = useState(getItemFromStore('isFluid', true));
@@ -17,6 +18,7 @@ const Main = props => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isOpenSidePanel, setIsOpenSidePanel] = useState(false);
   const [navbarStyle, setNavbarStyle] = useState(getItemFromStore('navbarStyle', 'vibrant'));
+  const [language, setLanguage] = useState(getItemFromStore('language', 'zh'));
 
   const toggleModal = () => setIsOpenSidePanel(prevIsOpenSidePanel => !prevIsOpenSidePanel);
 
@@ -35,6 +37,8 @@ const Main = props => {
     setCurrency,
     showBurgerMenu,
     setNavbarStyle,
+    language,
+    setLanguage,
     isOpenSidePanel,
     setShowBurgerMenu,
     setIsOpenSidePanel,
@@ -77,6 +81,12 @@ const Main = props => {
     setItemToStore('navbarStyle', navbarStyle);
     // eslint-disable-next-line
   }, [navbarStyle]);
+
+  useEffect(() => {
+    setItemToStore('language', language);
+    i18n.changeLanguage(language)
+    // eslint-disable-next-line
+  }, [language]);
 
   if (!isLoaded) {
     toggleStylesheet({ isRTL, isDark }, () => setIsLoaded(true));

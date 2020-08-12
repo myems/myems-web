@@ -304,7 +304,7 @@ const CombinedEquipmentSaving = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备节能分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Combined Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Saving')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

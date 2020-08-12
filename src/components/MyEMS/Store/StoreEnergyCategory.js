@@ -307,7 +307,7 @@ const StoreEnergyCategory = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>门店数据</BreadcrumbItem><BreadcrumbItem active>门店能耗分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Category')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

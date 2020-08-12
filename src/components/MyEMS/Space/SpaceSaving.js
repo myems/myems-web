@@ -348,7 +348,7 @@ const SpaceSaving = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间节能分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Space Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Saving')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

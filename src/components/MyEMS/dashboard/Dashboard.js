@@ -93,7 +93,7 @@ const Dashboard = ({ t }) => {
     toast(
       <Fragment>
         {t("Welcome to")} <strong>MyEMS</strong>!<br />
-        {t("the Leading Free and Open Source Energy Management System")}
+        {t("The Leading Free and Open Source Energy Management System")}
       </Fragment>
     );
   }, []);

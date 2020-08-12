@@ -337,7 +337,7 @@ const SpaceLoad = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间负荷分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Space Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Load')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

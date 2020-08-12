@@ -18,8 +18,11 @@ import Flex from '../common/Flex';
 import ScrollBarCustom from '../common/ScrollBarCustom';
 import { createCookie, getCookieValue, getPageName } from '../../helpers/utils';
 import VerticalNavRadioBtn from './VerticalNavStyleRadioBtn';
+import LanguageRadioBtn from './LanguageRadioBtn';
+import { withTranslation } from 'react-i18next';
 
-const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, path }) => {
+
+const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, path, t }) => {
   const {
     isOpenSidePanel,
     toggleModal,
@@ -59,9 +62,9 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
         <div className="py-1 flex-grow-1">
           <h5 className="text-white">
             <FontAwesomeIcon icon="palette" className="mr-2 fs-0" />
-            Settings
+            {t('Settings')}
           </h5>
-          <p className="mb-0 fs--1 text-white opacity-75">Set your own customized style</p>
+          <p className="mb-0 fs--1 text-white opacity-75">{t('Set your own customized style')}</p>
         </div>
       </ModalHeader>
       <ScrollBarCustom
@@ -76,8 +79,8 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
           )
         }}
       >
-        <h5 className="fs-0">Color Scheme</h5>
-        <p className="fs--1">Choose the perfect color mode for your app.</p>
+        <h5 className="fs-0">{t('Color Scheme')}</h5>
+        <p className="fs--1">{t('Choose the perfect color mode for your app.')}</p>
         <ButtonGroup className="btn-group-toggle btn-block">
           <Button color="theme-default" className={classNames('custom-radio-success', { active: !isDark })}>
             <Label for="theme-mode-default" className="cursor-pointer hover-overlay">
@@ -86,7 +89,7 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
             <CustomInput
               type="radio"
               id="theme-mode-default"
-              label="Light"
+              label={t('Light')}
               checked={!isDark}
               onChange={({ target }) => setIsDark(!target.checked)}
             />
@@ -98,7 +101,7 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
             <CustomInput
               type="radio"
               id="theme-mode-dark"
-              label="Dark"
+              label={t('Dark')}
               checked={isDark}
               onChange={({ target }) => setIsDark(target.checked)}
             />
@@ -109,8 +112,8 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
           <Media className="flex-grow-1">
             <img src={leftArrowFromLeft} alt="" width={20} className="mr-2" />
             <Media body>
-              <h5 className="fs-0">RTL Mode</h5>
-              <p className="fs--1 mb-0">Switch your language direction </p>
+              <h5 className="fs-0">{t('RTL Mode')}</h5>
+              <p className="fs--1 mb-0">{t('Switch your language direction')} </p>
             </Media>
           </Media>
           <CustomInput
@@ -127,8 +130,8 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
               <Media className="flex-grow-1">
                 <img src={arrowsH} alt="" width={20} className="mr-2" />
                 <Media body>
-                  <h5 className="fs-0">Fluid Layout</h5>
-                  <p className="fs--1 mb-0">Toggle container layout system</p>
+                  <h5 className="fs-0">{t('Fluid Layout')}</h5>
+                  <p className="fs--1 mb-0">{t('Toggle container layout system')}</p>
                 </Media>
               </Media>
               <CustomInput
@@ -145,16 +148,16 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
           <img src={paragraph} alt="" width={20} className="mr-2" />
           <Media body>
             <Flex align="center" tag="h5" className="fs-0">
-              Navigation Position
+              {t('Navigation Position')}
               <Badge color="success" pill className="badge-soft-success fs--2 ml-2">
                 New
               </Badge>
             </Flex>
-            <p className="fs--1 mb-2">Select a suitable navigation system for your web application</p>
+            <p className="fs--1 mb-2">{t('Select a suitable navigation system for your web application')}</p>
             <CustomInput
               type="radio"
               id="verticalNav-radio"
-              label="Vertical Nav"
+              label={t('Vertical Nav')}
               checked={!isTopNav}
               onChange={({ target }) => setIsTopNav(!target.checked)}
               inline
@@ -162,7 +165,7 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
             <CustomInput
               type="radio"
               id="topNav-radio"
-              label="Top Nav"
+              label={t('Top Nav')}
               checked={isTopNav}
               onChange={({ target }) => setIsTopNav(target.checked)}
               inline
@@ -171,12 +174,12 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
         </Media>
         <hr />
         <h5 className="fs-0 d-flex align-items-center">
-          Vertical Navbar Style{' '}
+          {t('Vertical Navbar Style')}{' '}
           <Badge pill color="soft-success" className="fs--2 ml-2">
             new
           </Badge>
         </h5>
-        <p className="fs--1">Switch between styles for your vertical navbar</p>
+        <p className="fs--1">{t('Switch between styles for your vertical navbar')}</p>
         <div className="btn-group-toggle btn-block btn-group-navbar-style">
           <ButtonGroup className="btn-block">
             <VerticalNavRadioBtn img={transparent} btnName={'transparent'} />
@@ -188,15 +191,29 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
           </ButtonGroup>
         </div>
         <hr />
+        <h5 className="fs-0 d-flex align-items-center">
+          {t('Language')}{' '}
+          <Badge pill color="soft-success" className="fs--2 ml-2">
+            new
+          </Badge>
+        </h5>
+        <p className="fs--1">{t('Switch between languages')}</p>
+        <div className="btn-group-toggle btn-block btn-group-navbar-style">
+          <ButtonGroup className="btn-block">
+            <LanguageRadioBtn btnName={'zh'} />
+            <LanguageRadioBtn btnName={'en'} />
+          </ButtonGroup>
+        </div>
+        <hr />
         <div className="text-center mt-5">
           <img src={settings} alt="settings" width={120} className="mb-4" />
-          <h5>Like What You See?</h5>
-          <p className="fs--1">Get MyEMS now.</p>
+          <h5>{t('Like What You See?')}</h5>
+          <p className="fs--1">{t('Get MyEMS now.')}</p>
           <Button
             color="primary"
             href="https://meyms.io"
           >
-            Purchase
+            {t('Purchase')}
           </Button>
         </div>
       </ScrollBarCustom>
@@ -218,4 +235,4 @@ SidePanelModal.defaultProps = {
   cookieExpireTime: 7200000
 };
 
-export default SidePanelModal;
+export default withTranslation()(SidePanelModal);

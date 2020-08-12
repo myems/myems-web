@@ -309,7 +309,7 @@ const TenantCost = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>租户数据</BreadcrumbItem><BreadcrumbItem active>租户成本分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Tenant Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Cost')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

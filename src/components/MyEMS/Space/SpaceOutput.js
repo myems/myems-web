@@ -314,7 +314,7 @@ const SpaceOutput = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>空间数据</BreadcrumbItem><BreadcrumbItem active>空间产出分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Space Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Output')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

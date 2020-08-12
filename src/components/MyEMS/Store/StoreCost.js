@@ -309,7 +309,7 @@ const StoreCost = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>门店数据</BreadcrumbItem><BreadcrumbItem active>门店成本分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Cost')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

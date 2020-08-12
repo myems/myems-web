@@ -276,7 +276,7 @@ const CombinedEquipmentOutput = ({t}) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>组合设备数据</BreadcrumbItem><BreadcrumbItem active>组合设备产出分析</BreadcrumbItem>
+          <BreadcrumbItem>{t('Combined Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Output')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

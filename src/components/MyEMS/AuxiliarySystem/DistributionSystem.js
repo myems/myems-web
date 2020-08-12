@@ -165,7 +165,7 @@ const DistributionSystem = ({ t }) => {
     <Fragment>
         <div>
             <Breadcrumb>
-            <BreadcrumbItem>辅助系统数据</BreadcrumbItem><BreadcrumbItem active>配电系统</BreadcrumbItem>
+            <BreadcrumbItem>{t('Auxiliary System')}</BreadcrumbItem><BreadcrumbItem active>{t('Distribution System')}</BreadcrumbItem>
             </Breadcrumb>
         </div>
         <Card className="bg-light mb-3">

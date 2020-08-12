@@ -74,7 +74,7 @@ const KnowledgeBase = ({t}) => {
   const { loading, data: files } = useFakeFetch(rawFiles);
   return (
     <Card>
-      <FalconCardHeader title="知识库">
+      <FalconCardHeader title={t('Knowledge Base')}>
         {isIterableArray(knowledgeCategories) && (
           <Form inline>
             <CustomInput type="select" id="customSelectCategory" name="customSelectCategory" bsSize="sm">
