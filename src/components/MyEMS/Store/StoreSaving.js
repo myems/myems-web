@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
 import { withTranslation } from 'react-i18next';
@@ -29,10 +29,10 @@ const StoreSaving = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [store, setStore] = useState(undefined);
-  const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
-  const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   
   const cascaderOptions = [{
@@ -345,35 +345,35 @@ const StoreSaving = ({t}) => {
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
+                <Label className={labelClasses} for="basePeriodBeginsDatetime">
                 {t('Base Period Begins')}
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
+                <Label className={labelClasses} for="basePeriodEndsDatetime">
                 {t('Base Period Ends')}
                 </Label>
                 
-                <Datetime id='baselineEndDatetime' />
+                <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -403,19 +403,19 @@ const StoreSaving = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期节约电量(基线值-实际值) (kWh)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期节约电量(基线值-实际值) (kWh)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={764.39} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期节约自来水量(基线值-实际值) (M3)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期节约自来水量(基线值-实际值) (M3)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期节约天然气量(基线值-实际值) (M3)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期节约天然气量(基线值-实际值) (M3)" color="info" footnote="" footvalue="" footunit="">
         <CountUp end={87} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期节约吨标准煤量(基线值-实际值)(TCE)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期节约吨标准煤量(基线值-实际值)(TCE)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={764.39/8135.56+87/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期减少二氧化碳排放量(基线值-实际值) (T)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期减少二氧化碳排放量(基线值-实际值) (T)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={(764.39/8135.56+87/751.8)*0.67} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -434,14 +434,14 @@ const StoreSaving = ({t}) => {
         options={storeLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
       
     </Fragment>

@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import { withTranslation } from 'react-i18next';
 
@@ -28,10 +28,10 @@ const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 const SpaceEfficiency = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
-  const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
-  const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
@@ -378,35 +378,35 @@ const SpaceEfficiency = ({t}) => {
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
+                <Label className={labelClasses} for="basePeriodBeginsDatetime">
                 {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
+                <Label className={labelClasses} for="basePeriodEndsDatetime">
                 {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
                 
-                <Datetime id='baselineEndDatetime' />
+                <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col  xs="auto">
@@ -436,13 +436,13 @@ const SpaceEfficiency = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总冷量 (kWh/kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="报告期总冷量 (kWh/kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -452,16 +452,16 @@ const SpaceEfficiency = ({t}) => {
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable data={childSpacesTableData} title='子空间报告期数据' columns={childSpacesTableColumns}>
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
       
     </Fragment>

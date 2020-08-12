@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import { withTranslation } from 'react-i18next';
 
@@ -27,10 +27,10 @@ const CombinedEquipmentEfficiency = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
-  const [baselineStartDatetime, setBaselineStartDatetime] = useState(null);
-  const [baselineEndDatetime, setBaselineEndDatetime] = useState(null);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   const [fractionParameter, setFractionParameter] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
@@ -346,35 +346,35 @@ const CombinedEquipmentEfficiency = ({ t }) => {
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineStartDatetime">
+                <Label className={labelClasses} for="basePeriodBeginsDatetime">
                 {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
-                <Datetime id='baselineStartDatetime' value={baselineStartDatetime} />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="baselineEndDatetime">
+                <Label className={labelClasses} for="basePeriodEndsDatetime">
                 {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
                 
-                <Datetime id='baselineEndDatetime' />
+                <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col  xs="auto">
@@ -404,86 +404,86 @@ const CombinedEquipmentEfficiency = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷站报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷站报告期累计综合能效比EER (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷站报告期累计综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站瞬时综合能效比EER (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷站瞬时综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#1报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={12988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#1报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷机#1报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#1瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#2报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={22988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#2报告期累计电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷机#2报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2瞬时电制冷效率COP (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷机#2瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷冻泵报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷冻泵报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷冻泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷冻泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却泵报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却泵报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷却泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却塔报告期总冷量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔报告期总冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔报告期总电量 (kWh)" color="info" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔报告期总电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却塔报告期累计输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+2.0%" title="冷却塔报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔瞬时输送系数WTF (kW/kW)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="0.0%" title="冷却塔瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -493,14 +493,14 @@ const CombinedEquipmentEfficiency = ({ t }) => {
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
       </LineChart>
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
       
     </Fragment>

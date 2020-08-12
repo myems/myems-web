@@ -17,7 +17,7 @@ import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
 import { withTranslation } from 'react-i18next';
@@ -29,8 +29,8 @@ const EnergyLoss = ({t}) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
   
   const cascaderOptions = [{
@@ -294,18 +294,18 @@ const EnergyLoss = ({t}) => {
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -335,13 +335,13 @@ const EnergyLoss = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总损耗电量 (kWh)" color="success" linkText="详情" to="#" >
+        <CardSummary rate="-0.23%" title="报告期总损耗电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={589} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总损耗吨标准煤量 (TCE)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期总损耗吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={589/8135.56} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总损耗二氧化碳排放量 (T)" color="warning" linkText="详情" to="#">
+        <CardSummary rate="+9.54%" title="报告期总损耗二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={(589/8135.56)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
@@ -352,14 +352,14 @@ const EnergyLoss = ({t}) => {
         options={meterLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle='相关参数' 
+      <LineChart reportingTitle={t('Related Parameters')} 
         baselineTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title='详细数据' columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
       
     </Fragment>

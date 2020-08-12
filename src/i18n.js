@@ -88,7 +88,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "Switch between styles for your vertical navbar",
       "Language": "Language",
       "Switch between languages": "Switch between languages",
-      "language-zh": "简体中文",
+      "language-zh_cn": "简体中文",
       "language-en": "English",
       "Like What You See?": "Like What You See?",
       "Get MyEMS now.": "Get MyEMS now.",
@@ -105,12 +105,22 @@ const resources = {
       "Daily": "Daily",
       "Hourly": "Hourly",
       "Submit": "Submit",
+      //Data Summary
+      "Per Unit Area": "Per Unit Area",
+      //Data Panels
+      "Related Parameters": "Related Parameters",
+      "Detailed Data": "Detailed Data",
+      "Child Spaces Data": "Child Spaces Data",
+      "This Year": "This Year",
+      "This Month": "This Month",
+      "This Day": "This Day",
+      "Total": "Total",
     }
   },
-  zh: {
+  zh_cn: {
     translation: {
       // routes
-      "Dashboard": "概览",
+      "Dashboard": "总览",
       "Space Data": "空间数据",
       "Equipment Data": "设备数据",
       "Meter Data": "计量表数据",
@@ -192,7 +202,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "切换垂直导航栏的样式",
       "Language": "语言",
       "Switch between languages": "切换语言",
-      "language-zh": "简体中文",
+      "language-zh_cn": "简体中文",
       "language-en": "English",
       "Like What You See?": "喜欢这个系统?",
       "Get MyEMS now.": "立即获取MyEMS。",
@@ -209,6 +219,16 @@ const resources = {
       "Daily": "日",
       "Hourly": "时",
       "Submit": "提交",
+      //Data Summary
+      "Per Unit Area": "单位面积值",
+      //Data Panels
+      "Related Parameters": "相关参数",
+      "Detailed Data": "详细数据",
+      "Child Spaces Data": "子空间数据",
+      "This Year": "本年",
+      "This Month": "本月",
+      "This Day": "本日",
+      "Total": "总",
     }
   }
 };
@@ -217,7 +237,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "zh",
+    lng: "zh_cn",
 
     keySeparator: false, // we do not use keys in form messages.welcome
 

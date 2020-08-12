@@ -25,8 +25,8 @@ import { withTranslation } from 'react-i18next';
 
 const AdvacnedReporting = ({ t }) => {
 
-  const [reportingStartDatetime, setReportingStartDatetime] = useState(null);
-  const [reportingEndDatetime, setReportingEndDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
@@ -103,18 +103,18 @@ const AdvacnedReporting = ({ t }) => {
             <Row form>
               <Col >
                 <FormGroup className="form-group">
-                  <Label className={labelClasses} for="reportingStartDatetime">
+                  <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                   </Label>
-                  <Datetime id='reportingStartDatetime' />
+                  <Datetime id='reportingPeriodBeginsDatetime' />
                 </FormGroup>
               </Col>
               <Col >
                 <FormGroup className="form-group">
-                  <Label className={labelClasses} for="reportingEndDatetime">
+                  <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                   </Label>
-                  <Datetime id='reportingEndDatetime' />
+                  <Datetime id='reportingPeriodEndsDatetime' />
                 </FormGroup>
               </Col>
               <Col xs="auto">

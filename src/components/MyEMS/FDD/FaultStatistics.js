@@ -18,7 +18,7 @@ import {
   Label,
   CustomInput,
   UncontrolledDropdown } from 'reactstrap';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import Datetime from 'react-datetime';
 import CountUp from 'react-countup';
 import LineChart from '../common/LineChart';
@@ -585,18 +585,18 @@ const FaultStatistics = ({t}) => {
           <Row form>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingStartDatetime">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                 {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingStartDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingEndDatetime">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                 {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingEndDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -616,22 +616,22 @@ const FaultStatistics = ({t}) => {
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594" rate="9.54%" title="全部故障" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="全部故障" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="空间" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="空间" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="设备" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="设备" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="租户" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="租户" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="门店" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="门店" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="车间" color="success" linkText="详情" to="#">
+        <CardSummary content="43,594" rate="9.54%" title="车间" color="success" footnote="" footvalue="" footunit="">
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
       </div>
