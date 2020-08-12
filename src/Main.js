@@ -18,7 +18,7 @@ const Main = props => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isOpenSidePanel, setIsOpenSidePanel] = useState(false);
   const [navbarStyle, setNavbarStyle] = useState(getItemFromStore('navbarStyle', 'vibrant'));
-  const [language, setLanguage] = useState(getItemFromStore('language', 'zhcn'));
+  const [language, setLanguage] = useState(getItemFromStore('language', 'zh_cn'));
 
   const toggleModal = () => setIsOpenSidePanel(prevIsOpenSidePanel => !prevIsOpenSidePanel);
 

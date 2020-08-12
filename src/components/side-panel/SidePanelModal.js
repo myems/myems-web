@@ -200,7 +200,7 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
         <p className="fs--1">{t('Switch between languages')}</p>
         <div className="btn-group-toggle btn-block btn-group-navbar-style">
           <ButtonGroup className="btn-block">
-            <LanguageRadioBtn btnName={'zhcn'} />
+            <LanguageRadioBtn btnName={'zh_cn'} />
             <LanguageRadioBtn btnName={'en'} />
           </ButtonGroup>
         </div>

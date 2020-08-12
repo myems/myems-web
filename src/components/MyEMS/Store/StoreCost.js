@@ -16,7 +16,7 @@ import {
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import Cascader from 'rc-cascader';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
 import loadable from '@loadable/component';

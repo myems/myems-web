@@ -88,7 +88,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "Switch between styles for your vertical navbar",
       "Language": "Language",
       "Switch between languages": "Switch between languages",
-      "language-zhcn": "简体中文",
+      "language-zh_cn": "简体中文",
       "language-en": "English",
       "Like What You See?": "Like What You See?",
       "Get MyEMS now.": "Get MyEMS now.",
@@ -115,7 +115,7 @@ const resources = {
       "Total": "Total",
     }
   },
-  zhcn: {
+  zh_cn: {
     translation: {
       // routes
       "Dashboard": "概览",
@@ -200,7 +200,7 @@ const resources = {
       "Switch between styles for your vertical navbar": "切换垂直导航栏的样式",
       "Language": "语言",
       "Switch between languages": "切换语言",
-      "language-zhcn": "简体中文",
+      "language-zh_cn": "简体中文",
       "language-en": "English",
       "Like What You See?": "喜欢这个系统?",
       "Get MyEMS now.": "立即获取MyEMS。",
@@ -233,7 +233,7 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: "zhcn",
+    lng: "zh_cn",
 
     keySeparator: false, // we do not use keys in form messages.welcome
 

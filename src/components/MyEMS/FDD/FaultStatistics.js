@@ -18,7 +18,7 @@ import {
   Label,
   CustomInput,
   UncontrolledDropdown } from 'reactstrap';
-import CardSummary from '../../dashboard/CardSummary';
+import CardSummary from '../common/CardSummary';
 import Datetime from 'react-datetime';
 import CountUp from 'react-countup';
 import LineChart from '../common/LineChart';
