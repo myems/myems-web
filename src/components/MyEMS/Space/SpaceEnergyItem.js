@@ -418,16 +418,16 @@ const SpaceEnergyItem = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总空调水电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期总空调水电量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总空调风电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期总空调风电量 (kWh)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(kWh/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总照明及插座电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期总照明及插座电量 (kWh)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(kWh/M2)">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总电梯电量 (kWh)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期总电梯电量 (kWh)" color="warning" footnote={t('Per Unit Area')} footvalue={43594/1000} footunit="(kWh/M2)">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

@@ -397,13 +397,13 @@ const SpaceOutput = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总冷量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期总冷量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总热量 (GJ)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期总热量 (GJ)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(GJ/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总蒸汽量 (T)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期总蒸汽量 (T)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(T/M2)">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
