@@ -107,6 +107,8 @@ const resources = {
       "Submit": "Submit",
       //Data Summary
       "Per Unit Area": "Per Unit Area",
+      "Per Unit Production": "Per Unit Production",
+      "Baseline Value - Actual Value": "Baseline - Actual",
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
@@ -221,6 +223,8 @@ const resources = {
       "Submit": "提交",
       //Data Summary
       "Per Unit Area": "单位面积值",
+      "Per Unit Production": "单位产品值",
+      "Baseline Value - Actual Value": "基线值-实际值",
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
