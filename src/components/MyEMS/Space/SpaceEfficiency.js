@@ -447,13 +447,13 @@ const SpaceEfficiency = ({t}) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
-        baselineTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
+        baseTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

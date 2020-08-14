@@ -402,13 +402,13 @@ const CombinedEquipmentIncome = ({t}) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
-        baselineTitle='基准期总冷收入 684.87 (RMB)' 
+        baseTitle='基准期总冷收入 684.87 (RMB)' 
         labels={combinedEquipmentLineChartLabels} 
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

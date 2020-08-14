@@ -387,14 +387,14 @@ const OfflineMeterEnergy = ({t}) => {
       </div>
 
       <LineChart reportingTitle='报告期总电量 764.39 (kWh)' 
-        baselineTitle='基准期总电量 684.87 (kWh)' 
+        baseTitle='基准期总电量 684.87 (kWh)' 
         labels={offlineMeterLineChartLabels} 
         data={offlineMeterLineChartData}
         options={offlineMeterLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

@@ -421,13 +421,13 @@ const EquipmentEfficiency = ({t}) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期累计电制冷效率COP 5.609 (kWh/kWh)' 
-        baselineTitle='基准期累计电制冷效率COP 4.321 (kWh/kWh)' 
+        baseTitle='基准期累计电制冷效率COP 4.321 (kWh/kWh)' 
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

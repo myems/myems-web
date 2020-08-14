@@ -384,13 +384,13 @@ const CombinedEquipmentOutput = ({t}) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期总冷量 764.39 (kWh)' 
-        baselineTitle='基准期总冷量 684.87 (kWh)' 
+        baseTitle='基准期总冷量 684.87 (kWh)' 
         labels={combinedEquipmentLineChartLabels} 
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

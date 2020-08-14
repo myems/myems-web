@@ -488,13 +488,13 @@ const CombinedEquipmentEfficiency = ({ t }) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='冷站报告期累计综合能效比EER 5.609 (kWh/kWh)' 
-        baselineTitle='冷站基准期累计综合能效比EER 4.321 (kWh/kWh)' 
+        baseTitle='冷站基准期累计综合能效比EER 4.321 (kWh/kWh)' 
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

@@ -387,14 +387,14 @@ const OfflineMeterCost = ({t}) => {
       </div>
 
       <LineChart reportingTitle='报告期总成本 764.39 (RMB)' 
-        baselineTitle='基准期总成本 684.87 (RMB)' 
+        baseTitle='基准期总成本 684.87 (RMB)' 
         labels={offlineMeterLineChartLabels} 
         data={offlineMeterLineChartData}
         options={offlineMeterLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

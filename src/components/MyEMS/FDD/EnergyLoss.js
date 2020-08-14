@@ -353,7 +353,7 @@ const EnergyLoss = ({t}) => {
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

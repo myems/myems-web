@@ -436,14 +436,14 @@ const StoreLoad = ({t}) => {
         </CardSummary>
       </div>
       <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baselineTitle='基准期电平均负荷 6.848 (kW)' 
+        baseTitle='基准期电平均负荷 6.848 (kW)' 
         labels={storeLineChartLabels} 
         data={storeLineChartData}
         options={storeLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

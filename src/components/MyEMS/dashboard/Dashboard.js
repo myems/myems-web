@@ -140,14 +140,14 @@ const Dashboard = ({ t }) => {
         </Col>
       </Row>
       <LineChart reportingTitle='本月总电量 764.39 (kWh)' 
-        baselineTitle='' 
+        baseTitle='' 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
