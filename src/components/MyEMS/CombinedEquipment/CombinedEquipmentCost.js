@@ -431,8 +431,8 @@ const CombinedEquipmentCost = ({ t }) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period') + ' ' + t('Total') + '电' + '费' + 764.39 +  '(RMB)'} 
-        baseTitle={t('Base Period') + ' ' + t('Total') + '电' + '费' + 684.87 +  '(RMB)'} 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)'})} 
+        baseTitle={t('Base Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)'})} 
         labels={combinedEquipmentLineChartLabels} 
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>

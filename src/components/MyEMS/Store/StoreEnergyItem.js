@@ -406,8 +406,8 @@ const StoreEnergyItem = ({t}) => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期空调水电量 764.39 (kWh)' 
-        baseTitle='基准期空调水电量 684.87 (kWh)' 
+      <LineChart reportingTitle={t('Reporting Period ITEM CATEGORY Input VALUE UNIT', {'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})} 
+        baseTitle={t('Base Period ITEM CATEGORY Input VALUE UNIT', {'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})}
         labels={storeLineChartLabels} 
         data={storeLineChartData}
         options={storeLineChartOptions}>

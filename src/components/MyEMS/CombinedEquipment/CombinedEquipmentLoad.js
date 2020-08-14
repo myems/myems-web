@@ -433,8 +433,8 @@ const CombinedEquipmentLoad = ({t}) => {
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期电平均负荷 7.139 (kW)' 
-        baseTitle='基准期电平均负荷 6.848 (kW)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', {'CATEGORY': '电', 'VALUE': 7.139, 'UNIT': '(kW)'})}
+        baseTitle={t('Base Period CATEGORY Average Load VALUE UNIT', {'CATEGORY': '电', 'VALUE': 6.848, 'UNIT': '(kW)'})}
         labels={combinedEquipmentLineChartLabels} 
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>

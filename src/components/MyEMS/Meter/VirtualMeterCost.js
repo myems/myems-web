@@ -386,8 +386,8 @@ const VirtualMeterCost = ({t}) => {
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle='报告期成本 764.39 (RMB)' 
-        baseTitle='基准期成本 684.87 (RMB)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)'})} 
+        baseTitle={t('Base Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)'})} 
         labels={virtualMeterLineChartLabels} 
         data={virtualMeterLineChartData}
         options={virtualMeterLineChartOptions}>
