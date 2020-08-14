@@ -460,8 +460,8 @@ const SpaceCost = ({t}) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle='报告期电费 764.39 (RMB)' 
-        baseTitle='基准期电费 684.87 (RMB)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)'})} 
+        baseTitle={t('Base Period CATEGORY Cost VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)'})} 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>

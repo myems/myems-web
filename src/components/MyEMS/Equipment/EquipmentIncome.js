@@ -403,8 +403,8 @@ const EquipmentIncome = ({t}) => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期冷收入 764.39 (RMB)' 
-        baseTitle='基准期冷收入 684.87 (RMB)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Income VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(RMB)'})}
+        baseTitle={t('Base Period CATEGORY Income VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(RMB)'})}
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>

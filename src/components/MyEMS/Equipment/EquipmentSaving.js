@@ -427,8 +427,8 @@ const EquipmentSaving = ({t}) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle='报告期节约电量 764.39 (kWh) (基线值-实际值)' 
-        baseTitle='基准期节约电量 684.87 (kWh)(基线值-实际值)' 
+      <LineChart reportingTitle={t('Reporting Period Saved CATEGORY VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})}
+        baseTitle={t('Base Period Saved CATEGORY VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})}
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>

@@ -387,8 +387,8 @@ const MeterEnergy = ({t}) => {
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle='报告期电量 764.39 (kWh)' 
-        baseTitle='基准期电量 684.87 (kWh)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})} 
+        baseTitle={t('Base Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})} 
         labels={meterLineChartLabels} 
         data={meterLineChartData}
         options={meterLineChartOptions}>

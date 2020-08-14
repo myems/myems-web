@@ -474,8 +474,8 @@ const SpaceLoad = ({t}) => {
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period') + " " + "电" + " " + t('Average Load') + 7.139 + "(kW)"}
-        baseTitle={t('Base Period') + " " + "电" + " " + t('Average Load') + 6.848 + "(kW)"}
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', {'CATEGORY': '电', 'VALUE': 7.139, 'UNIT': '(kW)'})}
+        baseTitle={t('Base Period CATEGORY Average Load VALUE UNIT', {'CATEGORY': '电', 'VALUE': 6.848, 'UNIT': '(kW)'})}
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>

@@ -428,8 +428,8 @@ const ShopfloorEnergyCategory = ({t}) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle='报告期电量 764.39 (kWh)' 
-        baseTitle='基准期电量 684.87 (kWh)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})} 
+        baseTitle={t('Base Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})} 
         labels={shopfloorLineChartLabels} 
         data={shopfloorLineChartData}
         options={shopfloorLineChartOptions}>
