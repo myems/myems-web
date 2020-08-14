@@ -6,7 +6,7 @@ import AppContext from '../../../context/Context';
 
 const LineChart = ({
   reportingTitle, 
-  baselineTitle,
+  baseTitle,
   labels,
   data,
   options
@@ -81,7 +81,7 @@ const LineChart = ({
           <Col>
             <h4 className="text-white mb-0">{reportingTitle}</h4>
             <p className="fs--1 font-weight-semi-bold">
-            {baselineTitle}
+            {baseTitle}
             </p>
           </Col>
           <Col xs="auto" className="d-none d-sm-block">

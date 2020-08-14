@@ -37,9 +37,7 @@ const CardSummary = ({ title, rate, color, children, footnote, footvalue, footun
         </h6>
         <div className={getContentClassNames(color)}>{children}</div>
         <h7 className="font-weight-semi-bold fs--1 text-nowrap">
-          {footnote} 
-          {footvalue && <CountUp end={footvalue} duration={2} prefix="" separator="," decimal="." decimals={2} />} 
-          {footunit}
+          {footnote} {footvalue && <CountUp end={footvalue} duration={2} prefix="" separator="," decimal="." decimals={2} />} {footunit}
         </h7>
       </CardBody>
     </Card>

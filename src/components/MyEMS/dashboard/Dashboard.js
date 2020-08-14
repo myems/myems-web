@@ -101,30 +101,30 @@ const Dashboard = ({ t }) => {
   return (
     <Fragment>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="本年总电量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
+        <CardSummary rate="-0.23%" title="本年电量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="0.0%" title="本年总自来水量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(M3/M2)" >
+        <CardSummary rate="0.0%" title="本年自来水量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(M3/M2)" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="0.0%" title="本年总天然气量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(M3/M2)" >
+        <CardSummary rate="0.0%" title="本年天然气量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(M3/M2)" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="本年总吨标准煤量 (TCE)" color="warning" footnote={t('Per Unit Area')} footvalue={(5890863/8135.56+9887/751.8)/1000} footunit="(TCE/M2)" >
+        <CardSummary rate="+9.54%" title="本年吨标准煤量 (TCE)" color="warning" footnote={t('Per Unit Area')} footvalue={(5890863/8135.56+9887/751.8)/1000} footunit="(TCE/M2)" >
           <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="本年总二氧化碳排放量 (T)" color="warning" footnote={t('Per Unit Area')} footvalue={((5890863/8135.56+9887/751.8)*0.67)/1000} footunit="(T/M2)" >
+        <CardSummary rate="+9.54%" title="本年二氧化碳排放量 (T)" color="warning" footnote={t('Per Unit Area')} footvalue={((5890863/8135.56+9887/751.8)*0.67)/1000} footunit="(T/M2)" >
           <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="本年总电费 (RMB)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(RMB/M2)" >
+        <CardSummary rate="-0.23%" title="本年电费 (RMB)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(RMB/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="本年总自来水费 (RMB)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(RMB/M2)" >
+        <CardSummary rate="0.0%" title="本年自来水费 (RMB)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(RMB/M2)" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="本年总天然气费 (RMB)" color="warning" footnote={t('Per Unit Area')} footvalue={43594/1000} footunit="(RMB/M2)" >
+        <CardSummary rate="+9.54%" title="本年天然气费 (RMB)" color="warning" footnote={t('Per Unit Area')} footvalue={43594/1000} footunit="(RMB/M2)" >
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
@@ -139,15 +139,15 @@ const Dashboard = ({ t }) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle='本月总电量 764.39 (kWh)' 
-        baselineTitle='' 
+      <LineChart reportingTitle='本月电量 764.39 (kWh)' 
+        baseTitle='' 
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

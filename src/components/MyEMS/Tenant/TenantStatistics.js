@@ -425,15 +425,15 @@ const TenantStatistics = ({t}) => {
         <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总电量 98720 (kWh)' 
-        baselineTitle='基准期总电量 68487 (kWh)' 
+      <LineChart reportingTitle='报告期电量 98720 (kWh)' 
+        baseTitle='基准期电量 68487 (kWh)' 
         labels={tenantLineChartLabels} 
         data={tenantLineChartData}
         options={tenantLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

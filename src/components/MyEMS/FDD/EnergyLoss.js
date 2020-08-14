@@ -335,25 +335,25 @@ const EnergyLoss = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总损耗电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期损耗电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={589} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总损耗吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期损耗吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={589/8135.56} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总损耗二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期损耗二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={(589/8135.56)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle='报告期总损耗电量 589 (kWh)' 
+      <LineChart reportingTitle='报告期损耗电量 589 (kWh)' 
         labels={meterLineChartLabels} 
         data={meterLineChartData}
         options={meterLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

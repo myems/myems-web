@@ -429,14 +429,14 @@ const TenantSaving = ({t}) => {
         </Col>
       </Row>
       <LineChart reportingTitle='报告期节约电量 764.39 (kWh) (基线值-实际值)' 
-        baselineTitle='基准期节约电量 684.87 (kWh)(基线值-实际值)' 
+        baseTitle='基准期节约电量 684.87 (kWh)(基线值-实际值)' 
         labels={tenantLineChartLabels} 
         data={tenantLineChartData}
         options={tenantLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

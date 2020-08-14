@@ -306,14 +306,14 @@ const MeterTrend = ({t}) => {
       </Card>
       
       <LineChart reportingTitle='能耗值点' 
-        baselineTitle='' 
+        baseTitle='' 
         labels={meterLineChartLabels} 
         data={meterLineChartData}
         options={meterLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')} 
-        baselineTitle='' 
+        baseTitle='' 
         labels={parameterLineChartLabels} 
         data={parameterLineChartData}
         options={parameterLineChartOptions}>

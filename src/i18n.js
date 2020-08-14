@@ -106,7 +106,15 @@ const resources = {
       "Hourly": "Hourly",
       "Submit": "Submit",
       //Data Summary
+      "Base Period": "Base Period",
+      "Reporting Period": "Reporting Period",
       "Per Unit Area": "Per Unit Area",
+      "Per Unit Production": "Per Unit Production",
+      "Baseline Value - Actual Value": "Baseline - Actual",
+      "Average Load": "Average Load",
+      "Maximum Load": "Maximum Load",
+      "Load Factor": "Load Factor",
+      "Ratio of Average Load to Maximum Load": "Ratio of Average Load to Maximum Load",
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
@@ -220,7 +228,15 @@ const resources = {
       "Hourly": "时",
       "Submit": "提交",
       //Data Summary
+      "Base Period": "基准期",
+      "Reporting Period": "报告期",
       "Per Unit Area": "单位面积值",
+      "Per Unit Production": "单位产品值",
+      "Baseline Value - Actual Value": "基线值-实际值",
+      "Average Load": "平均负荷",
+      "Maximum Load": "最大负荷",
+      "Load Factor": "负荷系数",
+      "Ratio of Average Load to Maximum Load": "平均负荷与最大负荷的比值",
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
