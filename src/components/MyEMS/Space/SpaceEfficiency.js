@@ -436,10 +436,10 @@ const SpaceEfficiency = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总冷量 (kWh/kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期冷量 (kWh/kWh)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" footnote="" footvalue="" footunit="">

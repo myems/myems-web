@@ -610,7 +610,7 @@ const FaultStatistics = ({t}) => {
           </Row> 
         </CardBody>
       </Card>
-      <LineChart reportingTitle='报告期故障总数 206' 
+      <LineChart reportingTitle='报告期故障数 206' 
         labels={faultLineChartLabels} 
         data={faultLineChartData}
         options={faultLineChartOptions}>

@@ -388,21 +388,21 @@ const CombinedEquipmentIncome = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总冷收入 (RMB)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期冷收入 (RMB)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总热收入 (RMB)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期热收入 (RMB)" color="info" footnote="" footvalue="" footunit="">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总蒸汽收入 (RMB)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title="报告期蒸汽收入 (RMB)" color="info" footnote="" footvalue="" footunit="">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总收入 (RMB)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期收入 (RMB)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期总冷收入 764.39 (RMB)' 
-        baseTitle='基准期总冷收入 684.87 (RMB)' 
+      <LineChart reportingTitle='报告期冷收入 764.39 (RMB)' 
+        baseTitle='基准期冷收入 684.87 (RMB)' 
         labels={combinedEquipmentLineChartLabels} 
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>

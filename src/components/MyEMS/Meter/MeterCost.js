@@ -375,19 +375,19 @@ const MeterCost = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总成本 (RBM)" color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title="报告期成本 (RBM)" color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title="报告期二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle='报告期总成本 764.39 (RMB)' 
-        baseTitle='基准期总成本 684.87 (RMB)' 
+      <LineChart reportingTitle='报告期成本 764.39 (RMB)' 
+        baseTitle='基准期成本 684.87 (RMB)' 
         labels={meterLineChartLabels} 
         data={meterLineChartData}
         options={meterLineChartOptions}>

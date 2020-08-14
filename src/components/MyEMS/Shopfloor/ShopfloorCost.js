@@ -407,19 +407,19 @@ const ShopfloorCost = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期总电费 (RMB)" color="success" footnote={t('Per Unit Production')} footvalue={5890863/1000} footunit="(RMB/PC)" >
+        <CardSummary rate="-0.23%" title="报告期电费 (RMB)" color="success" footnote={t('Per Unit Production')} footvalue={5890863/1000} footunit="(RMB/PC)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总自来水费 (RMB)" color="info" footnote={t('Per Unit Production')} footvalue={29878/1000} footunit="(RMB/PC)">
+        <CardSummary rate="0.0%" title="报告期自来水费 (RMB)" color="info" footnote={t('Per Unit Production')} footvalue={29878/1000} footunit="(RMB/PC)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期总天然气费 (RMB)" color="info" footnote={t('Per Unit Production')} footvalue={9887/1000} footunit="(RMB/PC)">
+        <CardSummary rate="0.0%" title="报告期天然气费 (RMB)" color="info" footnote={t('Per Unit Production')} footvalue={9887/1000} footunit="(RMB/PC)">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总吨标准煤量 (TCE)" color="warning" footnote={t('Per Unit Production')} footvalue={(5890863/8135.56+9887/751.8)/1000} footunit="(TCE/PC)">
+        <CardSummary rate="+9.54%" title="报告期吨标准煤量 (TCE)" color="warning" footnote={t('Per Unit Production')} footvalue={(5890863/8135.56+9887/751.8)/1000} footunit="(TCE/PC)">
           <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期总二氧化碳排放量 (T)" color="warning" footnote={t('Per Unit Production')} footvalue={((5890863/8135.56+9887/751.8)*0.67)/1000} footunit="(T/PC)">
+        <CardSummary rate="+9.54%" title="报告期二氧化碳排放量 (T)" color="warning" footnote={t('Per Unit Production')} footvalue={((5890863/8135.56+9887/751.8)*0.67)/1000} footunit="(T/PC)">
           <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
@@ -434,8 +434,8 @@ const ShopfloorCost = ({t}) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle='报告期总电费 764.39 (RMB)' 
-        baseTitle='基准期总电费 684.87 (RMB)' 
+      <LineChart reportingTitle='报告期电费 764.39 (RMB)' 
+        baseTitle='基准期电费 684.87 (RMB)' 
         labels={shopfloorLineChartLabels} 
         data={shopfloorLineChartData}
         options={shopfloorLineChartOptions}>
