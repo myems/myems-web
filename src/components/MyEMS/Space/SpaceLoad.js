@@ -419,58 +419,58 @@ const SpaceLoad = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "电" + " " + t('Maximum Load') + " " + "(kW)"} color="success" 
-        footnote={t('Per Unit Area')} footvalue={89.038/1000} footunit="(kW/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Load UNIT', {'CATEGORY': '电', 'UNIT': '(kW)'})} 
+        color="success" footnote={t('Per Unit Area')} footvalue={89.038/1000} footunit="(kW/M2)" >
           <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "电" + " " + t('Average Load') + " " + "(kW)"} color="success" 
-        footnote={t('Per Unit Area')} footvalue={63.101/1000} footunit="(kW/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Average Load UNIT', {'CATEGORY': '电', 'UNIT': '(kW)'})}  
+        color="success" footnote={t('Per Unit Area')} footvalue={63.101/1000} footunit="(kW/M2)" >
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "电" + " " + t('Load Factor')} color="success" 
-        footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', {'CATEGORY': '电'})}  
+        color="success" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "自来水" + " " + t('Maximum Load') + " " + "(M3/h)"} color="info" 
-        footnote={t('Per Unit Area')} footvalue={39.088/1000} footunit="(M3/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Maximum Load UNIT', {'CATEGORY': '自来水', 'UNIT': '(M3/h)'})}
+         color="info" footnote={t('Per Unit Area')} footvalue={39.088/1000} footunit="(M3/M2)">
           <CountUp end={39.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "自来水" + " " + t('Average Load') + " " + "(M3/h)"} color="info" 
-        footnote={t('Per Unit Area')} footvalue={28.088/1000} footunit="(M3/h/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Load UNIT', {'CATEGORY': '自来水', 'UNIT': '(M3/h)'})} 
+        color="info" footnote={t('Per Unit Area')} footvalue={28.088/1000} footunit="(M3/h/M2)">
           <CountUp end={28.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "自来水" + " " + t('Load Factor')} color="info" 
-        footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', {'CATEGORY': '自来水'})} 
+        color="info" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="">
           <CountUp end={0.708} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "天然气" + " " + t('Maximum Load') + " " + "(M3/h)"} color="warning" 
-        footnote={t('Per Unit Area')} footvalue={12.031/1000} footunit="(M3/h/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Maximum Load UNIT', {'CATEGORY': '天然气', 'UNIT': '(M3/h)'})}
+         color="warning" footnote={t('Per Unit Area')} footvalue={12.031/1000} footunit="(M3/h/M2)">
         <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "天然气" + " " + t('Average Load') + " " + "(M3/h)"} color="warning" 
-        footnote={t('Per Unit Area')} footvalue={8.131/1000} footunit="(M3/h/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Load UNIT', {'CATEGORY': '天然气', 'UNIT': '(M3/h)'})} 
+        color="warning" footnote={t('Per Unit Area')} footvalue={8.131/1000} footunit="(M3/h/M2)">
         <CountUp end={8.131} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period') + " " + "天然气" + " " + t('Load Factor')} color="warning"
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', {'CATEGORY': '天然气'})} color="warning"
         footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="">
         <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "冷" + " " + t('Maximum Load') + " " + "(kW)"} color="success" 
-        footnote={t('Per Unit Area')} footvalue={89.038/1000} footunit="(kW/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Load UNIT', {'CATEGORY': '冷', 'UNIT': '(kW)'})}
+         color="success" footnote={t('Per Unit Area')} footvalue={89.038/1000} footunit="(kW/M2)" >
           <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "冷" + " " + t('Average Load') + " " + "(kW)"} color="success" 
-        footnote={t('Per Unit Area')} footvalue={63.101/1000} footunit="(kW/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Average Load UNIT', {'CATEGORY': '冷', 'UNIT': '(kW)'})}
+        color="success" footnote={t('Per Unit Area')} footvalue={63.101/1000} footunit="(kW/M2)" >
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period') + " " + "冷" + " " + t('Load Factor')} color="success" 
-        footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', {'CATEGORY': '冷'})}
+         color="success" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

@@ -397,18 +397,21 @@ const SpaceOutput = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期冷量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '冷', 'UNIT': '(kWh)'})}
+         color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期热量 (GJ)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(GJ/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '热', 'UNIT': '(GJ)'})}
+         color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(GJ/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期蒸汽量 (T)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(T/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '蒸汽', 'UNIT': '(M3)'})}
+         color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(T/M2)">
         <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期冷量 764.39 (kWh)' 
-        baseTitle='基准期冷量 684.87 (kWh)' 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 764.39,  'UNIT':'(kWh)'})} 
+        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 684.87,  'UNIT':'(kWh)'})}
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
