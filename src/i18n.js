@@ -129,6 +129,8 @@ const resources = {
       "Reporting Period Total Income UNIT": "Reporting Period Total Income {{UNIT}}",
       "Reporting Period CATEGORY Average Load VALUE UNIT": "Reporting Period {{CATEGORY}} Average Load {{VALUE}} {{UNIT}}",
       "Base Period CATEGORY Average Load VALUE UNIT": "Base Period {{CATEGORY}} Average Load {{VALUE}} {{UNIT}}",
+      "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "Reporting Period Saved {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
+      "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "Reporting Period Decreased {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "Reporting Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Saved CATEGORY VALUE UNIT": "Base Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
       //Data Panels
@@ -268,6 +270,8 @@ const resources = {
       "Reporting Period Total Income UNIT": "报告期总收入 {{UNIT}}",
       "Reporting Period CATEGORY Average Load VALUE UNIT": "报告期 {{CATEGORY}} 平均负荷 {{VALUE}} {{UNIT}}",
       "Base Period CATEGORY Average Load VALUE UNIT": "基准期 {{CATEGORY}} 平均负荷 {{VALUE}} {{UNIT}}",
+      "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "报告期节约 {{CATEGORY}} (基线-实际) {{UNIT}}",
+      "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Saved CATEGORY VALUE UNIT": "基准期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       //Data Panels
