@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -27,7 +27,7 @@ const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
 
-const SpaceEnergyCategory = ({t}) => {
+const SpaceEnergyCategory = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
@@ -35,7 +35,7 @@ const SpaceEnergyCategory = ({t}) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -97,25 +97,25 @@ const SpaceEnergyCategory = ({t}) => {
       }]
     }],
   }];
-  
+
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const tceshare = [
-    { id: 1, value: 5890863/8135.56, name: '电', color: '#2c7be5' },
-    { id: 2, value: 29878/1000, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: 9887/751.8, name: '天然气', color: '#d8e2ef' }
+    { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
+    { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
+    { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
   ];
   const co2share = [
-    { id: 1, value: (5890863/8135.56)*0.67, name: '电', color: '#2c7be5' },
-    { id: 2, value: (29878/1000)*0.67, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: (9887/751.8)*0.67, name: '天然气', color: '#d8e2ef' }
+    { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
+    { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
+    { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
   ];
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
+  const childSpacesTableData = [
     {
       id: 1,
       name: '公区',
@@ -177,7 +177,7 @@ const SpaceEnergyCategory = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-  
+
   const spaceLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -185,12 +185,12 @@ const SpaceEnergyCategory = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  
+
   const spaceLineChartOptions = [
-    { value: 'a', label: '电'},
-    { value: 'b', label: '自来水'},
-    { value: 'c', label: '天然气'},
-    { value: 'd', label: '二氧化碳排放'}];
+    { value: 'a', label: '电' },
+    { value: 'b', label: '自来水' },
+    { value: 'c', label: '天然气' },
+    { value: 'd', label: '二氧化碳排放' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -206,7 +206,7 @@ const SpaceEnergyCategory = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -214,15 +214,15 @@ const SpaceEnergyCategory = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
-  const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
 
-  const  detailedDataTableData =[
+  const parameterLineChartOptions = [
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
@@ -340,10 +340,10 @@ const SpaceEnergyCategory = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
 
-  
+
   return (
     <Fragment>
       <div>
@@ -357,13 +357,13 @@ const SpaceEnergyCategory = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -373,7 +373,7 @@ const SpaceEnergyCategory = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                {t('Base Period Begins')}{t('(Optional)')}
+                  {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
                 <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
@@ -381,16 +381,16 @@ const SpaceEnergyCategory = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
-                {t('Base Period Ends')}{t('(Optional)')}
+                  {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
-                
+
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
@@ -398,7 +398,7 @@ const SpaceEnergyCategory = ({t}) => {
             <Col >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
@@ -406,15 +406,15 @@ const SpaceEnergyCategory = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                {t('Period Types')}
+                  {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {t(periodType.label)}
-                      </option>
-                    ))}
+                  {periodTypeOptions.map((periodType, index) => (
+                    <option value={periodType.value} key={periodType.value}>
+                      {t(periodType.label)}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
@@ -426,24 +426,29 @@ const SpaceEnergyCategory = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电量 (kWh)" color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期自来水量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(M3/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(M3/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="报告期天然气量 (M3)" color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(M3/M2)">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(M3/M2)">
+          <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期吨标准煤量 (TCE)" color="warning" footnote={t('Per Unit Area')} footvalue={(5890863/8135.56+9887/751.8)/1000} footunit="(TCE/M2)">
-          <CountUp end={5890863/8135.56+9887/751.8} duration={2} prefix="" separator="," decimal="." decimals={2}  />
+        <CardSummary rate="+9.54%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+          color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)">
+          <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title="报告期二氧化碳排放量 (T)" color="warning" footnote={t('Per Unit Area')} footvalue={((5890863/8135.56+9887/751.8)*0.67)/1000} footunit="(T/M2)">
-          <CountUp end={(5890863/8135.56+9887/751.8)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
+        <CardSummary rate="+9.54%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '二氧化碳排放量', 'UNIT': '(T)' })}
+          color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)">
+          <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
       <Row noGutters>
@@ -454,16 +459,16 @@ const SpaceEnergyCategory = ({t}) => {
           <SharePie data={co2share} title={'二氧化碳排放比例'} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})} 
-        baseTitle={t('Base Period CATEGORY Input VALUE UNIT', {'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})}
-        labels={spaceLineChartLabels} 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Input VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period CATEGORY Input VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+        labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
@@ -473,7 +478,7 @@ const SpaceEnergyCategory = ({t}) => {
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

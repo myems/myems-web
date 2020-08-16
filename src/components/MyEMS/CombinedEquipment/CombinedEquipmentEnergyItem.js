@@ -97,16 +97,16 @@ const CombinedEquipmentEnergyItem = ({ t }) => {
     }],
   }];
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   const combinedEquipmentList = [
-    { value: 1, label: '冷站'},
-    { value: 2, label: '锅炉房'}];
+    { value: 1, label: '冷站' },
+    { value: 2, label: '锅炉房' }];
 
   const combinedEquipmentLineChartLabels = [
     '2020-07-01',
@@ -302,7 +302,7 @@ const CombinedEquipmentEnergyItem = ({ t }) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
 
                 <br />
@@ -319,7 +319,7 @@ const CombinedEquipmentEnergyItem = ({ t }) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="combinedEquipment">
-                {t('Combined Equipment')}
+                  {t('Combined Equipment')}
                 </Label>
                 <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
@@ -391,25 +391,25 @@ const CombinedEquipmentEnergyItem = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period ITEM CATEGORY Input UNIT', {'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)'})} color="success" 
-        footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', {'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)'})} color="info" 
-        footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="info" footnote="" footvalue="" footunit="">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', {'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)'})} color="info" 
-        footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="info" footnote="" footvalue="" footunit="">
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period ITEM CATEGORY Input UNIT', {'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)'})} color="warning" 
-        footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period ITEM CATEGORY Input VALUE UNIT', {'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})} 
-        baseTitle={t('Base Period ITEM CATEGORY Input VALUE UNIT', {'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)'})}
+      <LineChart reportingTitle={t('Reporting Period ITEM CATEGORY Input VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period ITEM CATEGORY Input VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
         labels={combinedEquipmentLineChartLabels}
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>
