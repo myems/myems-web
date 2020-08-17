@@ -102,7 +102,7 @@ const AdvacnedReporting = ({ t }) => {
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Row form>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
@@ -110,7 +110,7 @@ const AdvacnedReporting = ({ t }) => {
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
@@ -158,7 +158,7 @@ const AdvacnedReporting = ({ t }) => {
             </Row>
           ) : (
                 <Alert color="info" className="mb-0">
-                  No reports found!
+                  {t('No data found')}
                 </Alert>
               )}
         </CardBody>
