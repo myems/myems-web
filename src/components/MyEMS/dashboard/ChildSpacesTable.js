@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-
+import FalconCardHeader from '../../common/FalconCardHeader';
+import ButtonIcon from '../../common/ButtonIcon';
 import { Button, Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
+import { withTranslation } from 'react-i18next';
+
 const childSpacesData = [
   {
     id: 1,
@@ -55,13 +58,17 @@ const defaultSorted = [{
   order: 'desc'
 }];
 
-const ChildSpacesTable = () => {
+const ChildSpacesTable = ({t}) => {
   return (
     <Fragment>
       <Card>
-        <CardHeader className="bg-light">
-          <h4 className="mb-0">子空间本月能耗</h4>
-        </CardHeader>
+        <FalconCardHeader title='子空间本月能耗' className="bg-light">
+          <Fragment>
+            <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
+              {t('Export')}
+            </ButtonIcon>
+          </Fragment>
+        </FalconCardHeader>
         <CardBody>
           <Row>
             <Col>
@@ -80,4 +87,4 @@ const ChildSpacesTable = () => {
   );
 };
 
-export default ChildSpacesTable;
+export default withTranslation()(ChildSpacesTable);
