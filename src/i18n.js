@@ -158,6 +158,8 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "Reporting Period Decreased {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "Reporting Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Saved CATEGORY VALUE UNIT": "Base Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      "Reporting Period Lost CATEGORY UNIT": "Reporting Period Lost {{CATEGORY}} {{UNIT}}",
+      "Reporting Period Lost CATEGORY VALUE UNIT": "Reporting Period Lost {{CATEGORY}} {{VALUE}} {{UNIT}}",
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
@@ -166,6 +168,7 @@ const resources = {
       "This Month": "This Month",
       "This Day": "This Day",
       "Total": "Total",
+      "No data found": "No data found",
     }
   },
   zh_cn: {
@@ -331,6 +334,8 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Saved CATEGORY VALUE UNIT": "基准期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      "Reporting Period Lost CATEGORY UNIT": "报告期损耗{{CATEGORY}}量 {{UNIT}}",
+      "Reporting Period Lost CATEGORY VALUE UNIT": "报告期损耗{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
@@ -339,6 +344,7 @@ const resources = {
       "This Month": "本月",
       "This Day": "本日",
       "Total": "总",
+      "No data found": "没有数据",
     }
   }
 };
