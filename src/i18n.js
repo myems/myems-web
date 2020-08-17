@@ -59,6 +59,12 @@ const resources = {
       "Related Parameters": "Related Parameters",
       "Welcome to": "Welcome to",
       "The Leading Free and Open Source Energy Management System": "The Leading Free and Open Source Energy Management System",
+      "Cost by Energy Category": "Cost by Energy Category",
+      "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
+      "Carbon Dioxide Emissions by Energy Category": "Carbon Dioxide Emissions by Energy Category",
+      "CATEGORY Input VALUE UNIT of This Month": "{{CATEGORY}} Input {{VALUE}} {{UNIT}} of This Month",
+      "CATEGORY Cost of This Year UNIT": "{{CATEGORY}} Cost of This Year {{UNIT}}",
+      "CATEGORY Input of This Year UNIT": "{{CATEGORY}} Input of This Year {{UNIT}}",
       // Entities
       "Space": "Space",
       "Equipment": "Equipment",
@@ -218,6 +224,13 @@ const resources = {
       "Related Parameters": "相关参数",
       "Welcome to": '欢迎使用',
       "The Leading Free and Open Source Energy Management System": "领先的免费开源能源管理系统",
+      "Cost by Energy Category": "成本占比",
+      "Ton of Standard Coal by Energy Category": "吨标准煤占比",
+      "Carbon Dioxide Emissions by Energy Category": "二氧化碳排放占比",
+      "CATEGORY Input VALUE UNIT of This Month": "本月{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
+      "CATEGORY Cost of This Year UNIT": "本年{{CATEGORY}}费 {{UNIT}}",
+      "CATEGORY Input of This Year UNIT": "本年{{CATEGORY}}量 {{UNIT}}",
+      
       // Entities
       "Space": "空间",
       "Equipment": "设备",
