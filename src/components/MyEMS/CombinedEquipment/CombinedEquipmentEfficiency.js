@@ -21,7 +21,8 @@ import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import { withTranslation } from 'react-i18next';
 
-const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
+
+const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const CombinedEquipmentEfficiency = ({ t }) => {
   // State

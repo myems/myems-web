@@ -157,8 +157,9 @@ const resources = {
       "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "Reporting Period Saved {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "Reporting Period Decreased {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "Reporting Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
-      // FDD EnergyLoss
       "Base Period Saved CATEGORY VALUE UNIT": "Base Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      //FDD
+      "Fault List": "Fault List",
       "Reporting Period Lost CATEGORY UNIT": "Reporting Period Lost {{CATEGORY}} {{UNIT}}",
       "Reporting Period Lost CATEGORY VALUE UNIT": "Reporting Period Lost {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Upstream Meter": "Upstream Meter",
@@ -171,6 +172,7 @@ const resources = {
       "This Day": "This Day",
       "Total": "Total",
       "No data found": "No data found",
+      "Export": "Export"
     }
   },
   zh_cn: {
@@ -335,7 +337,8 @@ const resources = {
       "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "报告期节约 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
-      //FDD EnergyLoss
+      //FDD
+      "Fault List": "Fault List",
       "Base Period Saved CATEGORY VALUE UNIT": "基准期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Reporting Period Lost CATEGORY UNIT": "报告期损耗{{CATEGORY}}量 {{UNIT}}",
       "Reporting Period Lost CATEGORY VALUE UNIT": "报告期损耗{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
@@ -349,6 +352,7 @@ const resources = {
       "This Day": "本日",
       "Total": "总",
       "No data found": "没有数据",
+      "Export": "导出"
     }
   }
 };

@@ -22,7 +22,7 @@ import loadable from '@loadable/component';
 import { withTranslation } from 'react-i18next';
 
 
-const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
+const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const TenantEnergyItem = ({ t }) => {
   // State

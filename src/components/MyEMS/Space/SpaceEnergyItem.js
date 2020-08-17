@@ -23,7 +23,7 @@ import { withTranslation } from 'react-i18next';
 
 
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
-const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
+const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const SpaceEnergyItem = ({ t }) => {
   // State

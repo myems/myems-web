@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
+import FalconCardHeader from '../../common/FalconCardHeader';
+import ButtonIcon from '../../common/ButtonIcon';
+import { withTranslation } from 'react-i18next';
 
 
 const defaultSorted = [{
@@ -8,13 +11,17 @@ const defaultSorted = [{
   order: 'asc'
 }];
 
-const DetailedDataTable = ({ title, data, columns }) => {
+const DetailedDataTable = ({ title, data, columns, t }) => {
   return (
     <Fragment>
       <Card>
-        <CardHeader className="bg-light">
-          <h4 className="mb-0">{title}</h4>
-        </CardHeader>
+        <FalconCardHeader title={title} className="bg-light">
+          <Fragment>
+            <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
+              {t('Export')}
+            </ButtonIcon>
+          </Fragment>
+        </FalconCardHeader>
         <CardBody>
           <Row>
             <Col>
@@ -33,4 +40,4 @@ const DetailedDataTable = ({ title, data, columns }) => {
   );
 };
 
-export default DetailedDataTable;
+export default withTranslation()(DetailedDataTable);

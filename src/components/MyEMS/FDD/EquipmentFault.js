@@ -697,7 +697,7 @@ const EquipmentFault = ({ t }) => {
         </CardBody>
       </Card>
       <Card className="mb-3">
-        <FalconCardHeader title="设备故障" light={false}>
+        <FalconCardHeader title={t('Fault List')} light={false}>
           {isSelected ? (
             <InputGroup size="sm" className="input-group input-group-sm">
               <CustomInput type="select" id="bulk-select">
@@ -713,7 +713,7 @@ const EquipmentFault = ({ t }) => {
           ) : (
               <Fragment>
                 <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  导出
+                {t('Export')}
                 </ButtonIcon>
               </Fragment>
             )}
