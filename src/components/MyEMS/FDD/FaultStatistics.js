@@ -611,29 +611,39 @@ const FaultStatistics = ({ t }) => {
           </Row>
         </CardBody>
       </Card>
-      <LineChart reportingTitle='报告期故障数 206'
+      <LineChart reportingTitle={t('Reporting Period Number of Fault VALUE', {'VALUE': 206})}
         labels={faultLineChartLabels}
         data={faultLineChartData}
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594" rate="9.54%" title="全部故障" color="success" footnote="" footvalue="" footunit="">
+        <CardSummary content="43,594" rate="9.54%" title={t('All Faults')}
+         color="success" footnote="" footvalue="" footunit="">
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="空间" color="success" footnote="" footvalue="" footunit="">
+        <CardSummary content="43,594" rate="9.54%" title={t('Space Faults')}
+         color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="设备" color="success" footnote="" footvalue="" footunit="">
+        <CardSummary content="43,594" rate="9.54%" title={t('Equipment Faults')}
+         color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="租户" color="success" footnote="" footvalue="" footunit="">
+        <CardSummary content="43,594" rate="9.54%" title={t('Tenant Faults')}
+         color="success" footnote="" footvalue="" footunit="">
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="门店" color="success" footnote="" footvalue="" footunit="">
+        <CardSummary content="43,594" rate="9.54%" title={t('Store Faults')}
+         color="success" footnote="" footvalue="" footunit="">
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title="车间" color="success" footnote="" footvalue="" footunit="">
-          <CountUp end={11} duration={5} separator="," decimal="." />
+        <CardSummary content="43,594" rate="9.54%" title={t('Shopfloor Faults')}
+         color="success" footnote="" footvalue="" footunit="">
+          <CountUp end={6} duration={5} separator="," decimal="." />
+        </CardSummary>
+        <CardSummary content="43,594" rate="9.54%" title={t('Combined Equipment Faults')}
+         color="success" footnote="" footvalue="" footunit="">
+          <CountUp end={5} duration={5} separator="," decimal="." />
         </CardSummary>
       </div>
       <Card className="mb-3">
