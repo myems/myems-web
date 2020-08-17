@@ -436,18 +436,21 @@ const SpaceEfficiency = ({t}) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title="报告期电量 (kWh)" color="success" footnote="" footvalue="" footunit="" >
-          <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title="报告期冷量 (kWh/kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '冷', 'UNIT': '(kWh)'})}
+         color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="报告期综合效率 (T/M3)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Input UNIT', {'CATEGORY': '电', 'UNIT': '(kWh)'})}
+         color="success" footnote="" footvalue="" footunit="" >
+          <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        </CardSummary>
+        <CardSummary rate="+2.0%" title={t('Reporting Period Cumulative Efficiency UNIT', {'UNIT': '(kWh/kWh)'})} 
+         color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='报告期电制冷效率 5.609 (kWh/kWh)' 
-        baseTitle='基准期电制冷效率 4.321 (kWh/kWh)' 
+      <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', {'VALUE': 5.609, 'UNIT': '(kWh/kWh)'})} 
+        baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', {'VALUE': 4.321, 'UNIT': '(kWh/kWh)'})}
         labels={spaceLineChartLabels} 
         data={spaceLineChartData}
         options={spaceLineChartOptions}>

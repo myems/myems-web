@@ -404,91 +404,115 @@ const CombinedEquipmentEfficiency = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷站报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period CATEGORY Output UNIT', {'COMBINED_EQUIPMENT':'冷站', 'CATEGORY':'冷', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period CATEGORY Input UNIT', {'COMBINED_EQUIPMENT':'冷站', 'CATEGORY':'电', 'UNIT': '(kWh)'})} 
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷站报告期累计综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('COMBINED_EQUIPMENT Reporting Period Cumulative Comprehensive Efficiency UNIT', {'COMBINED_EQUIPMENT': '冷站', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷站瞬时综合能效比EER (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Instantaneous Comprehensive Efficiency UNIT', {'COMBINED_EQUIPMENT': '冷站', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/5880.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#1报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', {'EQUIPMENT':'冷机#1', 'CATEGORY':'冷', 'UNIT': '(kWh)'})} 
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={12988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', {'EQUIPMENT':'冷机#1', 'CATEGORY':'电', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#1报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('EQUIPMENT Reporting Period Cumulative Efficiency UNIT', {'EQUIPMENT': '冷机#1', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#1瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Instantaneous Efficiency UNIT', {'EQUIPMENT': '冷机#1', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={12988.833/2000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷机#2报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', {'EQUIPMENT':'冷机#2', 'CATEGORY':'冷', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={22988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', {'EQUIPMENT':'冷机#2', 'CATEGORY':'电', 'UNIT': '(kWh)'})} 
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷机#2报告期累计电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('EQUIPMENT Reporting Period Cumulative Efficiency UNIT', {'EQUIPMENT': '冷机#2', 'UNIT': '(kWh/kWh)'})}  
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷机#2瞬时电制冷效率COP (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Instantaneous Efficiency UNIT', {'EQUIPMENT': '冷机#2', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={22988.833/3000 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷冻泵报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', {'EQUIPMENT':'冷冻泵', 'CATEGORY':'冷', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', {'EQUIPMENT':'冷冻泵', 'CATEGORY':'电', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷冻泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('EQUIPMENT Reporting Period Cumulative Efficiency UNIT', {'EQUIPMENT': '冷冻泵', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷冻泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Instantaneous Efficiency UNIT', {'EQUIPMENT': '冷冻泵', 'UNIT': '(kWh/kWh)'})}
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/200 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却泵报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', {'EQUIPMENT':'冷却泵', 'CATEGORY':'冷', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', {'EQUIPMENT':'冷却泵', 'CATEGORY':'电', 'UNIT': '(kWh)'})} 
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却泵报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('EQUIPMENT Reporting Period Cumulative Efficiency UNIT', {'EQUIPMENT': '冷却泵', 'UNIT': '(kWh/kWh)'})}
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却泵瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Instantaneous Efficiency UNIT', {'EQUIPMENT': '冷却泵', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/300 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title="冷却塔报告期冷量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', {'EQUIPMENT':'冷却塔', 'CATEGORY':'冷', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔报告期电量 (kWh)" color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', {'EQUIPMENT':'冷却塔', 'CATEGORY':'电', 'UNIT': '(kWh)'})}
+        color="info" footnote="" footvalue="" footunit="">
           <CountUp end={380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title="冷却塔报告期累计输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+2.0%" title={t('EQUIPMENT Reporting Period Cumulative Efficiency UNIT', {'EQUIPMENT': '冷却塔', 'UNIT': '(kWh/kWh)'})}
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title="冷却塔瞬时输送系数WTF (kW/kW)" color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Instantaneous Efficiency UNIT', {'EQUIPMENT': '冷却塔', 'UNIT': '(kWh/kWh)'})} 
+        color="warning" footnote="" footvalue="" footunit="">
         <CountUp end={32988.833/380.36 + 1} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle='冷站报告期累计综合能效比EER 5.609 (kWh/kWh)' 
-        baseTitle='冷站基准期累计综合能效比EER 4.321 (kWh/kWh)' 
+      <LineChart reportingTitle={t('COMBINED_EQUIPMENT Reporting Period Cumulative Comprehensive Efficiency VALUE UNIT', {'COMBINED_EQUIPMENT':'冷站', 'VALUE': 5.609, 'UNIT': '(kWh/kWh)'})} 
+        baseTitle={t('COMBINED_EQUIPMENT Base Period Cumulative Comprehensive Efficiency VALUE UNIT', {'COMBINED_EQUIPMENT':'冷站', 'VALUE': 4.321, 'UNIT': '(kWh/kWh)'})} 
         labels={equipmentLineChartLabels} 
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
