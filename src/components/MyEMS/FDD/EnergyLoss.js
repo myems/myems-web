@@ -278,9 +278,7 @@ const EnergyLoss = ({ t }) => {
           <Row form>
             <Col xs="auto">
               <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                  上游计量表
-                </Label>
+                <Label className={labelClasses} for="space">{t('Upstream Meter')}</Label>
                 <br />
                 <Cascader options={cascaderOptions}
                   onChange={onCascaderChange}
@@ -335,21 +333,21 @@ const EnergyLoss = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Lost CATEGORY UNIT', {'CATEGORY': '电', 'UNIT': '(kWh)'})} 
-        color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={589} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', {'CATEGORY': '吨标准煤', 'UNIT': '(TCE)'})} 
-        color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+          color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={589 / 8135.56} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', {'CATEGORY': '二氧化碳排', 'UNIT': '(T)'})}
-        color="warning" footnote="" footvalue="" footunit="">
+        <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '二氧化碳排', 'UNIT': '(T)' })}
+          color="warning" footnote="" footvalue="" footunit="">
           <CountUp end={(589 / 8135.56) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle={t('Reporting Period Lost CATEGORY VALUE UNIT', {'CATEGORY': '电', 'VALUE': 589, 'UNIT': '(kWh)'})}
+      <LineChart reportingTitle={t('Reporting Period Lost CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 589, 'UNIT': '(kWh)' })}
         labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>

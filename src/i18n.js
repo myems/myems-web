@@ -157,9 +157,11 @@ const resources = {
       "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "Reporting Period Saved {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "Reporting Period Decreased {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "Reporting Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      // FDD EnergyLoss
       "Base Period Saved CATEGORY VALUE UNIT": "Base Period Saved {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Reporting Period Lost CATEGORY UNIT": "Reporting Period Lost {{CATEGORY}} {{UNIT}}",
       "Reporting Period Lost CATEGORY VALUE UNIT": "Reporting Period Lost {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      "Upstream Meter": "Upstream Meter",
       //Data Panels
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
@@ -333,9 +335,11 @@ const resources = {
       "Reporting Period Saved CATEGORY (Baseline - Actual) UNIT": "报告期节约 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      //FDD EnergyLoss
       "Base Period Saved CATEGORY VALUE UNIT": "基准期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Reporting Period Lost CATEGORY UNIT": "报告期损耗{{CATEGORY}}量 {{UNIT}}",
       "Reporting Period Lost CATEGORY VALUE UNIT": "报告期损耗{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
+      "Upstream Meter": "上游计量表",
       //Data Panels
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
