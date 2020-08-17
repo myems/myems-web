@@ -5,7 +5,7 @@ import { rgbaColor, themeColors, isIterableArray } from '../../../helpers/utils'
 import AppContext from '../../../context/Context';
 
 const LineChart = ({
-  reportingTitle, 
+  reportingTitle,
   baseTitle,
   labels,
   data,
@@ -13,7 +13,7 @@ const LineChart = ({
 }) => {
   const [option, setOption] = useState('a');
   const { isDark } = useContext(AppContext);
-  
+
   const config = {
     data(canvas) {
       const ctx = canvas.getContext('2d');
@@ -81,7 +81,7 @@ const LineChart = ({
           <Col>
             <h4 className="text-white mb-0">{reportingTitle}</h4>
             <p className="fs--1 font-weight-semi-bold">
-            {baseTitle}
+              {baseTitle}
             </p>
           </Col>
           <Col xs="auto" className="d-none d-sm-block">

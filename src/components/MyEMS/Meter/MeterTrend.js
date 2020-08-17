@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -23,13 +23,13 @@ import { withTranslation } from 'react-i18next';
 
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const MeterTrend = ({t}) => {
+const MeterTrend = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -91,15 +91,15 @@ const MeterTrend = ({t}) => {
       }]
     }],
   }];
-  
+
   const meterList = [
-    { value: 1, label: 'P3PW_D36_009'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
+    { value: 1, label: 'P3PW_D36_009' },
+    { value: 2, label: '71AL6-1' },
+    { value: 3, label: 'CH-CCHWS' },
+    { value: 4, label: '1#冷冻泵' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   const meterLineChartLabels = [
     '2020-07-01 00:00:00AM',
     '2020-07-02 00:00:00AM',
@@ -114,14 +114,14 @@ const MeterTrend = ({t}) => {
     '2020-07-11 00:00:00AM',
     '2020-07-12 00:00:00AM'
   ];
-  
+
   const meterLineChartData = {
     a: [4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18, 19],
   };
 
-  
+
   const meterLineChartOptions = [
-    { value: 'a', label: '有功功率 (kWh)'},];
+    { value: 'a', label: '有功功率 (kWh)' },];
 
   const parameterLineChartLabels = [
     '2020-07-01 00:00:00AM',
@@ -137,7 +137,7 @@ const MeterTrend = ({t}) => {
     '2020-07-11 00:00:00AM',
     '2020-07-12 00:00:00AM'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -145,15 +145,15 @@ const MeterTrend = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
-  const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
 
-  const  detailedDataTableData =[
+  const parameterLineChartOptions = [
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01 00:00:00AM',
@@ -231,10 +231,10 @@ const MeterTrend = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
 
-  
+
   return (
     <Fragment>
       <div>
@@ -248,13 +248,13 @@ const MeterTrend = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -264,31 +264,31 @@ const MeterTrend = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="meter">
-                {t('Meter')}
+                  {t('Meter')}
                 </Label>
-                <CustomInput type="select" id="计量表" name="meter" value={meter} onChange={({ target }) => setMeter(target.value)}
+                <CustomInput type="select" id="meter" name="meter" value={meter} onChange={({ target }) => setMeter(target.value)}
                 >
-                  { meterList.map((meter, index) => (
-                      <option value={meter.value} key={meter.value}>
-                        {meter.label}
-                      </option>
-                    ))}
+                  {meterList.map((meter, index) => (
+                    <option value={meter.value} key={meter.value}>
+                      {meter.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            
-            <Col >
+
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
@@ -301,27 +301,27 @@ const MeterTrend = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
-      
-      <LineChart reportingTitle='能耗值点' 
-        baseTitle='' 
-        labels={meterLineChartLabels} 
+
+      <LineChart reportingTitle='能耗值点'
+        baseTitle=''
+        labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

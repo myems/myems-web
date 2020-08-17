@@ -1,20 +1,21 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Button, 
-  ButtonGroup, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  ButtonGroup,
+  Row,
+  Col,
+  Card,
+  CardBody,
   CardFooter,
   FormGroup,
   Input,
   Label,
   CustomInput,
-  Table, } from 'reactstrap';
+  Table,
+} from 'reactstrap';
 import Loader from '../../common/Loader';
 import ButtonIcon from '../../common/ButtonIcon';
 import createMarkup from '../../../helpers/createMarkup';
@@ -81,7 +82,7 @@ InvoiceHeader.propTypes = {
   address: PropTypes.string
 };
 
-const Invoice = ({t}) => {
+const Invoice = ({ t }) => {
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
@@ -152,13 +153,13 @@ const Invoice = ({t}) => {
   }];
 
   const tenantList = [
-    { value: 1, label: '海上捞火锅(北京王府井店)'},
-    { value: 2, label: 'Longines浪琴'},
-    { value: 3, label: 'Starbucks星巴克'},
-    { value: 4, label: 'Versace/范思哲'}];
-    
+    { value: 1, label: '海上捞火锅(北京王府井店)' },
+    { value: 2, label: 'Longines浪琴' },
+    { value: 3, label: 'Starbucks星巴克' },
+    { value: 4, label: 'Versace/范思哲' }];
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
@@ -235,13 +236,13 @@ const Invoice = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -251,36 +252,36 @@ const Invoice = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="tenant">
-                {t('Tenant')}
+                  {t('Tenant')}
                 </Label>
-                <CustomInput type="select" id="租户" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
+                <CustomInput type="select" id="tenant" name="tenant" value={tenant} onChange={({ target }) => setTenant(target.value)}
                 >
-                  { tenantList.map((tenant, index) => (
-                      <option value={tenant.value} key={tenant.value}>
-                        {tenant.label}
-                      </option>
-                    ))}
+                  {tenantList.map((tenant, index) => (
+                    <option value={tenant.value} key={tenant.value}>
+                      {tenant.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            
-            <Col >
+
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
-           
+
             <Col xs="auto">
               <FormGroup>
                 <br></br>
@@ -289,7 +290,7 @@ const Invoice = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <Card className="mb-3">
@@ -300,12 +301,12 @@ const Invoice = ({t}) => {
             </Col>
             <Col xs="auto">
               <ButtonIcon color="falcon-default" size="sm" icon="arrow-down" className="mr-2 mb-2 mb-sm-0">
-              下载 (.pdf)
+                下载 (.pdf)
               </ButtonIcon>
               <ButtonIcon color="falcon-default" size="sm" icon="print" className="mr-2 mb-2 mb-sm-0">
-              打印
+                打印
               </ButtonIcon>
-              
+
             </Col>
           </Row>
         </CardBody>
@@ -316,101 +317,101 @@ const Invoice = ({t}) => {
           {invoiceLoading ? (
             <Loader />
           ) : (
-            <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} />
-          )}
+              <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} />
+            )}
 
           {invoiceLoading ? (
             <Loader />
           ) : (
-            <Row className="justify-content-between align-items-center">
-              <Col>
-                <h6 className="text-500">致</h6>
-                <h5>{invoice.user.name}</h5>
-                <p className="fs--1" dangerouslySetInnerHTML={createMarkup(invoice.user.address)} />
-                <p className="fs--1">
-                  <a href={`mailto:${invoice.user.email}`}>{invoice.user.email}</a>
-                  <br />
-                  <a href={`tel:${invoice.user.cell.split('-').join('')}`}>{invoice.user.cell}</a>
-                </p>
-              </Col>
-              <Col sm="auto" className="ml-auto">
-                <div className="table-responsive">
-                  <Table size="sm" borderless className="fs--1">
+              <Row className="justify-content-between align-items-center">
+                <Col>
+                  <h6 className="text-500">致</h6>
+                  <h5>{invoice.user.name}</h5>
+                  <p className="fs--1" dangerouslySetInnerHTML={createMarkup(invoice.user.address)} />
+                  <p className="fs--1">
+                    <a href={`mailto:${invoice.user.email}`}>{invoice.user.email}</a>
+                    <br />
+                    <a href={`tel:${invoice.user.cell.split('-').join('')}`}>{invoice.user.cell}</a>
+                  </p>
+                </Col>
+                <Col sm="auto" className="ml-auto">
+                  <div className="table-responsive">
+                    <Table size="sm" borderless className="fs--1">
+                      <tbody>
+                        <tr>
+                          <th className="text-sm-right">账单号码:</th>
+                          <td>{invoice.summary.invoice_no}</td>
+                        </tr>
+                        <tr>
+                          <th className="text-sm-right">租赁合同号码:</th>
+                          <td>{invoice.summary.order_number}</td>
+                        </tr>
+                        <tr>
+                          <th className="text-sm-right">账单日期:</th>
+                          <td>{invoice.summary.invoice_date}</td>
+                        </tr>
+                        <tr>
+                          <th className="text-sm-right">付款到期日:</th>
+                          <td>{invoice.summary.payment_due}</td>
+                        </tr>
+                        <tr className="alert-success font-weight-bold">
+                          <th className="text-sm-right">应付款金额:</th>
+                          <td>{formatCurrency(invoice.summary.amount_due, invoice.currency)}</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                </Col>
+              </Row>
+            )}
+
+          {invoiceLoading ? (
+            <Loader />
+          ) : (
+              <div className="table-responsive mt-4 fs--1">
+                <Table striped className="border-bottom">
+                  <thead>
+                    <tr className="bg-primary text-white">
+                      <th className="border-0">能耗分类</th>
+                      <th className="border-0 text-center">开始日期</th>
+                      <th className="border-0 text-center">结束日期</th>
+                      <th className="border-0 text-center">数量</th>
+                      <th className="border-0 text-right">费率</th>
+                      <th className="border-0 text-right">金额</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {isIterableArray(invoice.products) &&
+                      invoice.products.map((product, index) => <ProductTr {...product} key={index} />)}
+                  </tbody>
+                </Table>
+              </div>
+            )}
+
+          {invoiceLoading ? (
+            <Loader />
+          ) : (
+              <Row noGutters className="justify-content-end">
+                <Col xs="auto">
+                  <Table size="sm" borderless className="fs--1 text-right">
                     <tbody>
                       <tr>
-                        <th className="text-sm-right">账单号码:</th>
-                        <td>{invoice.summary.invoice_no}</td>
+                        <th className="text-900">小计:</th>
+                        <td className="font-weight-semi-bold">{formatCurrency(subtotal, invoice.currency)}</td>
                       </tr>
                       <tr>
-                        <th className="text-sm-right">租赁合同号码:</th>
-                        <td>{invoice.summary.order_number}</td>
+                        <th className="text-900">VAT 增值税销项税金 13%:</th>
+                        <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
                       </tr>
-                      <tr>
-                        <th className="text-sm-right">账单日期:</th>
-                        <td>{invoice.summary.invoice_date}</td>
-                      </tr>
-                      <tr>
-                        <th className="text-sm-right">付款到期日:</th>
-                        <td>{invoice.summary.payment_due}</td>
-                      </tr>
-                      <tr className="alert-success font-weight-bold">
-                        <th className="text-sm-right">应付款金额:</th>
-                        <td>{formatCurrency(invoice.summary.amount_due, invoice.currency)}</td>
+                      <tr className="border-top">
+                        <th className="text-900">应付金额合计:</th>
+                        <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
                       </tr>
                     </tbody>
                   </Table>
-                </div>
-              </Col>
-            </Row>
-          )}
-
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-            <div className="table-responsive mt-4 fs--1">
-              <Table striped className="border-bottom">
-                <thead>
-                  <tr className="bg-primary text-white">
-                    <th className="border-0">能耗分类</th>
-                    <th className="border-0 text-center">开始日期</th>
-                    <th className="border-0 text-center">结束日期</th>
-                    <th className="border-0 text-center">数量</th>
-                    <th className="border-0 text-right">费率</th>
-                    <th className="border-0 text-right">金额</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {isIterableArray(invoice.products) &&
-                    invoice.products.map((product, index) => <ProductTr {...product} key={index} />)}
-                </tbody>
-              </Table>
-            </div>
-          )}
-
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-            <Row noGutters className="justify-content-end">
-              <Col xs="auto">
-                <Table size="sm" borderless className="fs--1 text-right">
-                  <tbody>
-                    <tr>
-                      <th className="text-900">小计:</th>
-                      <td className="font-weight-semi-bold">{formatCurrency(subtotal, invoice.currency)}</td>
-                    </tr>
-                    <tr>
-                      <th className="text-900">VAT 增值税销项税金 13%:</th>
-                      <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
-                    </tr>
-                    <tr className="border-top">
-                      <th className="text-900">应付金额合计:</th>
-                      <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Col>
-            </Row>
-          )}
+                </Col>
+              </Row>
+            )}
         </CardBody>
         <CardFooter className="bg-light">
           <p className="fs--1 mb-0">

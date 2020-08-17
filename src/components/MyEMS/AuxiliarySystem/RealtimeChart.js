@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import range from 'lodash/range';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, CardHeader, CardBody, CustomInput, ListGroup, ListGroupItem, CardFooter } from 'reactstrap';
-import { rgbaColor, isIterableArray} from '../../../helpers/utils';
+import { rgbaColor, isIterableArray } from '../../../helpers/utils';
 
 const energyTrendLog = [
   11183,
@@ -123,20 +123,20 @@ class RealtimeChart extends Component {
       <Card className="h-100 bg-gradient">
         <CardHeader className="bg-transparent">
           <CustomInput type="select" id="exampleCustomSelect" bsSize="sm">
-          {isIterableArray(this.props.options) &&
-                this.props.options.map(({ value, label }) => (
-                  <option value={value}>{label}</option>
-                ))}
-            
+            {isIterableArray(this.props.options) &&
+              this.props.options.map(({ value, label }) => (
+                <option value={value}>{label}</option>
+              ))}
+
           </CustomInput>
           <h5 className="text-white">{this.props.title}</h5>
-          
+
           <div className="real-time-user display-1 font-weight-normal text-white">{this.state.currentEnergyValue}</div>
-          
+
         </CardHeader>
         <CardBody className="text-white fs--1">
           <p className="pb-2" style={{ borderBottom: dividerBorder }}>
-          能耗值点实时值 (kWh)
+            能耗值点实时值 (kWh)
           </p>
           <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">

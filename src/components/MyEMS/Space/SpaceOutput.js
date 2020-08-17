@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -25,7 +25,7 @@ import { withTranslation } from 'react-i18next';
 const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const SpaceOutput = ({t}) => {
+const SpaceOutput = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
@@ -33,7 +33,7 @@ const SpaceOutput = ({t}) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -95,15 +95,15 @@ const SpaceOutput = ({t}) => {
       }]
     }],
   }];
-  
+
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const  childSpacesTableData =[
+  const childSpacesTableData = [
     {
       id: 1,
       name: '公区',
@@ -161,7 +161,7 @@ const SpaceOutput = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-  
+
   const spaceLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -170,10 +170,10 @@ const SpaceOutput = ({t}) => {
   };
 
   const spaceLineChartOptions = [
-    { value: 'a', label: '冷'},
-    { value: 'b', label: '热'},
-    { value: 'c', label: '蒸汽'}];
-  
+    { value: 'a', label: '冷' },
+    { value: 'b', label: '热' },
+    { value: 'c', label: '蒸汽' }];
+
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -188,7 +188,7 @@ const SpaceOutput = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -196,15 +196,15 @@ const SpaceOutput = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
+
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
-  
-  const  detailedDataTableData =[
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
@@ -308,9 +308,9 @@ const SpaceOutput = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
-  
+
   return (
     <Fragment>
       <div>
@@ -324,68 +324,68 @@ const SpaceOutput = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
                 </Cascader>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto" >
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                {t('Base Period Begins')}{t('(Optional)')}
+                  {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
                 <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
-                {t('Base Period Ends')}{t('(Optional)')}
+                  {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
-                
+
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                {t('Period Types')}
+                  {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {t(periodType.label)}
-                      </option>
-                    ))}
+                  {periodTypeOptions.map((periodType, index) => (
+                    <option value={periodType.value} key={periodType.value}>
+                      {t(periodType.label)}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
@@ -393,32 +393,32 @@ const SpaceOutput = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '冷', 'UNIT': '(kWh)'})}
-         color="success" footnote={t('Per Unit Area')} footvalue={5890863/1000} footunit="(kWh/M2)" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '热', 'UNIT': '(GJ)'})}
-         color="info" footnote={t('Per Unit Area')} footvalue={29878/1000} footunit="(GJ/M2)">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(GJ/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '蒸汽', 'UNIT': '(M3)'})}
-         color="info" footnote={t('Per Unit Area')} footvalue={9887/1000} footunit="(T/M2)">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(T/M2)">
+          <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 764.39,  'UNIT':'(kWh)'})} 
-        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 684.87,  'UNIT':'(kWh)'})}
-        labels={spaceLineChartLabels} 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+        labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
       </LineChart>
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
@@ -427,7 +427,7 @@ const SpaceOutput = ({t}) => {
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

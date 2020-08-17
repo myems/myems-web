@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 
 import { Button, Card, CardBody, CardHeader, Row, Col } from 'reactstrap';
-const  childSpacesData =[
+const childSpacesData = [
   {
     id: 1,
     name: '公区',
@@ -65,13 +65,13 @@ const ChildSpacesTable = () => {
         <CardBody>
           <Row>
             <Col>
-            <BootstrapTable
-              bootstrap4
-              keyField="id"
-              data={ childSpacesData }
-              columns={ columns }
-              defaultSorted={ defaultSorted } 
-            />
+              <BootstrapTable
+                bootstrap4
+                keyField="id"
+                data={childSpacesData}
+                columns={columns}
+                defaultSorted={defaultSorted}
+              />
             </Col>
           </Row>
         </CardBody>

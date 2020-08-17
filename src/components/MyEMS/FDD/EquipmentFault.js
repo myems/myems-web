@@ -1,15 +1,15 @@
 import React, { createRef, Fragment, useEffect, useState } from 'react';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
@@ -499,7 +499,7 @@ const SelectRowInput = ({ indeterminate, rowIndex, ...rest }) => (
     <input
       className="custom-control-input"
       {...rest}
-      onChange={() => {}}
+      onChange={() => { }}
       ref={input => {
         if (input) input.indeterminate = indeterminate;
       }}
@@ -518,13 +518,13 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const EquipmentFault = ({t}) => {
+const EquipmentFault = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -586,24 +586,24 @@ const EquipmentFault = ({t}) => {
       }]
     }],
   }];
-  
+
   const equipmentList = [
-    { value: 1, label: 'P3PW_D36_009'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
-  
+    { value: 1, label: 'P3PW_D36_009' },
+    { value: 2, label: '71AL6-1' },
+    { value: 3, label: 'CH-CCHWS' },
+    { value: 4, label: '1#冷冻泵' }];
+
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   // State
   let table = createRef();
-  
+
   const [isSelected, setIsSelected] = useState(false);
   const handleNextPage = ({ page, onPageChange }) => () => {
     onPageChange(page + 1);
@@ -624,10 +624,10 @@ const EquipmentFault = ({t}) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
   useEffect(() => {
-    
+
   }, []);
 
-  
+
   return (
     <Fragment>
       <div>
@@ -641,13 +641,13 @@ const EquipmentFault = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -657,30 +657,30 @@ const EquipmentFault = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="equipment">
-                {t('Equipment')}
+                  {t('Equipment')}
                 </Label>
-                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                <CustomInput type="select" id="equipment" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { equipmentList.map((equipment, index) => (
-                      <option value={equipment.value} key={equipment.value}>
-                        {equipment.label}
-                      </option>
-                    ))}
+                  {equipmentList.map((equipment, index) => (
+                    <option value={equipment.value} key={equipment.value}>
+                      {equipment.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
@@ -693,92 +693,92 @@ const EquipmentFault = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
-          <Card className="mb-3">
-          <FalconCardHeader title="设备故障" light={false}>
-            {isSelected ? (
-              <InputGroup size="sm" className="input-group input-group-sm">
-                <CustomInput type="select" id="bulk-select">
-                  <option>Bulk actions</option>
-                  <option value="Refund">Refund</option>
-                  <option value="Delete">Delete</option>
-                  <option value="Archive">Archive</option>
-                </CustomInput>
-                <Button color="falcon-default" size="sm" className="ml-2">
-                  Apply
+      <Card className="mb-3">
+        <FalconCardHeader title="设备故障" light={false}>
+          {isSelected ? (
+            <InputGroup size="sm" className="input-group input-group-sm">
+              <CustomInput type="select" id="bulk-select">
+                <option>Bulk actions</option>
+                <option value="Refund">Refund</option>
+                <option value="Delete">Delete</option>
+                <option value="Archive">Archive</option>
+              </CustomInput>
+              <Button color="falcon-default" size="sm" className="ml-2">
+                Apply
                 </Button>
-              </InputGroup>
-            ) : (
+            </InputGroup>
+          ) : (
               <Fragment>
                 <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                导出
+                  导出
                 </ButtonIcon>
               </Fragment>
             )}
-          </FalconCardHeader>
-          <CardBody className="p-0">
-            <PaginationProvider pagination={paginationFactory(options)}>
-              {({ paginationProps, paginationTableProps }) => {
-                const lastIndex = paginationProps.page * paginationProps.sizePerPage;
+        </FalconCardHeader>
+        <CardBody className="p-0">
+          <PaginationProvider pagination={paginationFactory(options)}>
+            {({ paginationProps, paginationTableProps }) => {
+              const lastIndex = paginationProps.page * paginationProps.sizePerPage;
 
-                return (
-                  <Fragment>
-                    <div className="table-responsive">
-                      <BootstrapTable
-                        ref={table}
-                        bootstrap4
-                        keyField="id"
-                        data={orders}
-                        columns={columns}
-                        selectRow={selectRow(onSelect)}
-                        bordered={false}
-                        classes="table-dashboard table-striped table-sm fs--1 border-bottom mb-0 table-dashboard-th-nowrap"
-                        rowClasses="btn-reveal-trigger"
-                        headerClasses="bg-200 text-900"
-                        {...paginationTableProps}
-                      />
-                    </div>
-                    <Row noGutters className="px-1 py-3 flex-center">
-                      <Col xs="auto">
+              return (
+                <Fragment>
+                  <div className="table-responsive">
+                    <BootstrapTable
+                      ref={table}
+                      bootstrap4
+                      keyField="id"
+                      data={orders}
+                      columns={columns}
+                      selectRow={selectRow(onSelect)}
+                      bordered={false}
+                      classes="table-dashboard table-striped table-sm fs--1 border-bottom mb-0 table-dashboard-th-nowrap"
+                      rowClasses="btn-reveal-trigger"
+                      headerClasses="bg-200 text-900"
+                      {...paginationTableProps}
+                    />
+                  </div>
+                  <Row noGutters className="px-1 py-3 flex-center">
+                    <Col xs="auto">
+                      <Button
+                        color="falcon-default"
+                        size="sm"
+                        onClick={handlePrevPage(paginationProps)}
+                        disabled={paginationProps.page === 1}
+                      >
+                        <FontAwesomeIcon icon="chevron-left" />
+                      </Button>
+                      {getPaginationArray(paginationProps.totalSize, paginationProps.sizePerPage).map(pageNo => (
                         <Button
-                          color="falcon-default"
-                          size="sm"
-                          onClick={handlePrevPage(paginationProps)}
-                          disabled={paginationProps.page === 1}
-                        >
-                          <FontAwesomeIcon icon="chevron-left" />
-                        </Button>
-                        {getPaginationArray(paginationProps.totalSize, paginationProps.sizePerPage).map(pageNo => (
-                          <Button
-                            color={paginationProps.page === pageNo ? 'falcon-primary' : 'falcon-default'}
-                            size="sm"
-                            className="ml-2"
-                            onClick={() => paginationProps.onPageChange(pageNo)}
-                            key={pageNo}
-                          >
-                            {pageNo}
-                          </Button>
-                        ))}
-                        <Button
-                          color="falcon-default"
+                          color={paginationProps.page === pageNo ? 'falcon-primary' : 'falcon-default'}
                           size="sm"
                           className="ml-2"
-                          onClick={handleNextPage(paginationProps)}
-                          disabled={lastIndex >= paginationProps.totalSize}
+                          onClick={() => paginationProps.onPageChange(pageNo)}
+                          key={pageNo}
                         >
-                          <FontAwesomeIcon icon="chevron-right" />
+                          {pageNo}
                         </Button>
-                      </Col>
-                    </Row>
-                  </Fragment>
-                );
-              }}
-            </PaginationProvider>
-          </CardBody>
-        </Card>
-      
+                      ))}
+                      <Button
+                        color="falcon-default"
+                        size="sm"
+                        className="ml-2"
+                        onClick={handleNextPage(paginationProps)}
+                        disabled={lastIndex >= paginationProps.totalSize}
+                      >
+                        <FontAwesomeIcon icon="chevron-right" />
+                      </Button>
+                    </Col>
+                  </Row>
+                </Fragment>
+              );
+            }}
+          </PaginationProvider>
+        </CardBody>
+      </Card>
+
     </Fragment>
   );
 };

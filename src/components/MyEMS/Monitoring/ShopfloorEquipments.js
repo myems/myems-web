@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { 
-  Breadcrumb, 
+import {
+  Breadcrumb,
   BreadcrumbItem,
-  Button, 
-  ButtonGroup, 
-  Card, 
-  CardBody, 
-  Col, 
-  CustomInput, 
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  CustomInput,
   Row,
   FormGroup,
   Input,
-  Label  } from 'reactstrap';
+  Label
+} from 'reactstrap';
 import Loader from '../../common/Loader';
 import useFakeFetch from '../../../hooks/useFakeFetch';
 import { isIterableArray } from '../../../helpers/utils';
@@ -26,8 +27,8 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const TenantEquipments = ({t}) => {
-  
+const TenantEquipments = ({ t }) => {
+
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [shopfloor, setShopfloor] = useState(undefined);
@@ -95,11 +96,11 @@ const TenantEquipments = ({t}) => {
   }];
 
   const shopfloorList = [
-    { value: 1, label: '铸造'},
-    { value: 2, label: '冲压'},
-    { value: 3, label: '焊接'},
-    { value: 4, label: '喷涂'},
-    { value: 5, label: '总装'}];
+    { value: 1, label: '铸造' },
+    { value: 2, label: '冲压' },
+    { value: 3, label: '焊接' },
+    { value: 4, label: '喷涂' },
+    { value: 5, label: '总装' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -115,7 +116,7 @@ const TenantEquipments = ({t}) => {
 
   const isList = true;
   const isGrid = false;
-  
+
   useEffect(() => {
     setEquipmentIds(equipments.map(equipment => equipment.id));
   }, [equipments, setEquipmentIds]);
@@ -133,13 +134,13 @@ const TenantEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -149,15 +150,15 @@ const TenantEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="shopfloor">
-                {t('Shopfloor')}
+                  {t('Shopfloor')}
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="shopfloor" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
                 >
-                  { shopfloorList.map((shopfloor, index) => (
-                      <option value={shopfloor.value} key={shopfloor.value}>
-                        {shopfloor.label}
-                      </option>
-                    ))}
+                  {shopfloorList.map((shopfloor, index) => (
+                    <option value={shopfloor.value} key={shopfloor.value}>
+                      {shopfloor.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
@@ -169,23 +170,23 @@ const TenantEquipments = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
-      
+
 
       <Card>
         <CardBody className={classNames({ 'p-0  overflow-hidden': isList, 'pb-0': isGrid })}>
           {loading ? (
             <Loader />
           ) : (
-            <Row noGutters={isList}>
-              {isIterableArray(equipments) &&
-                equipments
-                  .filter(equipment => paginationData.includes(equipment.id))
-                  .map((equipment, index) => <EquipmentList {...equipment} key={equipment.id} index={index} />)}
-            </Row>
-          )}
+              <Row noGutters={isList}>
+                {isIterableArray(equipments) &&
+                  equipments
+                    .filter(equipment => paginationData.includes(equipment.id))
+                    .map((equipment, index) => <EquipmentList {...equipment} key={equipment.id} index={index} />)}
+              </Row>
+            )}
         </CardBody>
         <EquipmentFooter meta={paginationMeta} handler={paginationHandler} />
       </Card>
@@ -206,10 +207,10 @@ const TenantEquipments = ({t}) => {
                 <option value={total}>All</option>
               </CustomInput>
               <h6 className="mb-0 text-nowrap ml-2">
-              显示 {from}-{to}, 共{total}台设备
+                显示 {from}-{to}, 共{total}台设备
               </h6>
             </Col>
-            
+
           </Row>
         </CardBody>
       </Card>

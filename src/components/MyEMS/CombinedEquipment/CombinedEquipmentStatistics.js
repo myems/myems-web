@@ -320,7 +320,7 @@ const CombinedEquipmentStatistics = ({ t }) => {
                 <Label className={labelClasses} for="combinedEquipment">
                   {t('Combined Equipment')}
                 </Label>
-                <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
+                <CustomInput type="select" id="combinedEquipment" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
                   {combinedEquipmentList.map((combinedEquipment, index) => (
                     <option value={combinedEquipment.value} key={combinedEquipment.value}>
@@ -330,7 +330,7 @@ const CombinedEquipmentStatistics = ({ t }) => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
@@ -338,7 +338,7 @@ const CombinedEquipmentStatistics = ({ t }) => {
                 <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
                   {t('Base Period Ends')}{t('(Optional)')}
@@ -347,7 +347,7 @@ const CombinedEquipmentStatistics = ({ t }) => {
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
@@ -355,7 +355,7 @@ const CombinedEquipmentStatistics = ({ t }) => {
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}

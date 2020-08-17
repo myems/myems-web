@@ -11,7 +11,7 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const KnowledgeBase = ({t}) => {
+const KnowledgeBase = ({ t }) => {
   const knowledgeCategories = [
     '选择分类',
     '法律法规',
@@ -101,10 +101,10 @@ const KnowledgeBase = ({t}) => {
             ))}
           </Row>
         ) : (
-          <Alert color="info" className="mb-0">
-            No files found!
-          </Alert>
-        )}
+              <Alert color="info" className="mb-0">
+                No files found!
+              </Alert>
+            )}
       </CardBody>
     </Card>
   );

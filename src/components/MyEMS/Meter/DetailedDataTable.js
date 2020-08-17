@@ -8,7 +8,7 @@ const defaultSorted = [{
   order: 'asc'
 }];
 
-const DetailedDataTable = ({title, data, columns}) => {
+const DetailedDataTable = ({ title, data, columns }) => {
   return (
     <Fragment>
       <Card>
@@ -18,13 +18,13 @@ const DetailedDataTable = ({title, data, columns}) => {
         <CardBody>
           <Row>
             <Col>
-            <BootstrapTable
-              bootstrap4
-              keyField="id"
-              data={ data }
-              columns={ columns }
-              defaultSorted={ defaultSorted } 
-            />
+              <BootstrapTable
+                bootstrap4
+                keyField="id"
+                data={data}
+                columns={columns}
+                defaultSorted={defaultSorted}
+              />
             </Col>
           </Row>
         </CardBody>
