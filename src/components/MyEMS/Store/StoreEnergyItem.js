@@ -323,7 +323,7 @@ const StoreEnergyItem = ({ t }) => {
                 <Label className={labelClasses} for="store">
                   {t('Store')}
                 </Label>
-                <CustomInput type="select" id="门店" name="store" value={store} onChange={({ target }) => setStore(target.value)}
+                <CustomInput type="select" id="store" name="store" value={store} onChange={({ target }) => setStore(target.value)}
                 >
                   {storeList.map((store, index) => (
                     <option value={store.value} key={store.value}>
@@ -333,7 +333,7 @@ const StoreEnergyItem = ({ t }) => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
@@ -341,7 +341,7 @@ const StoreEnergyItem = ({ t }) => {
                 <Datetime id='basePeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
                   {t('Base Period Ends')}{t('(Optional)')}
@@ -350,7 +350,7 @@ const StoreEnergyItem = ({ t }) => {
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
@@ -358,7 +358,7 @@ const StoreEnergyItem = ({ t }) => {
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}

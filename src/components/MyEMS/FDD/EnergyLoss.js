@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -25,14 +25,14 @@ import { withTranslation } from 'react-i18next';
 
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const EnergyLoss = ({t}) => {
+const EnergyLoss = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [meter, setMeter] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  
+
   const cascaderOptions = [{
     label: '低压柜主进线#1',
     value: 1,
@@ -79,15 +79,15 @@ const EnergyLoss = ({t}) => {
       }]
     }],
   }];
-  
+
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   const meterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -102,18 +102,18 @@ const EnergyLoss = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-  
+
   const meterLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  
+
   const meterLineChartOptions = [
-    { value: 'a', label: '电'},
-    { value: 'b', label: '吨标准煤'},
-    { value: 'c', label: '二氧化碳排放'}];
+    { value: 'a', label: '电' },
+    { value: 'b', label: '吨标准煤' },
+    { value: 'c', label: '二氧化碳排放' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -129,7 +129,7 @@ const EnergyLoss = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -137,104 +137,104 @@ const EnergyLoss = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
-  const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
 
-  const  detailedDataTableData =[
+  const parameterLineChartOptions = [
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 11,
       startdatetime: '2020-07-11',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 12,
       startdatetime: '2020-07-12',
       a: 49.083,
-      b: (3.382*0.67).toFixed(2),
+      b: (3.382 * 0.67).toFixed(2),
       c: 3.382,
     },
     {
       id: 13,
       startdatetime: '总计',
       a: 589,
-      b: 33.829*0.67,
+      b: 33.829 * 0.67,
       c: 33.829,
     }
   ];
@@ -262,10 +262,10 @@ const EnergyLoss = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
 
-  
+
   return (
     <Fragment>
       <div>
@@ -279,31 +279,31 @@ const EnergyLoss = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                上游计量表
+                  上游计量表
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
                 </Cascader>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
@@ -311,15 +311,15 @@ const EnergyLoss = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                {t('Period Types')}
+                  {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {t(periodType.label)}
-                      </option>
-                    ))}
+                  {periodTypeOptions.map((periodType, index) => (
+                    <option value={periodType.value} key={periodType.value}>
+                      {t(periodType.label)}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
@@ -331,7 +331,7 @@ const EnergyLoss = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <div className="card-deck">
@@ -339,29 +339,29 @@ const EnergyLoss = ({t}) => {
           <CountUp end={589} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title="报告期损耗吨标准煤量 (TCE)" color="warning" footnote="" footvalue="" footunit="">
-          <CountUp end={589/8135.56} duration={2} prefix="" separator="," decimal="." decimals={2}  />
+          <CountUp end={589 / 8135.56} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
         <CardSummary rate="+9.54%" title="报告期损耗二氧化碳排放量 (T)" color="warning" footnote="" footvalue="" footunit="">
-          <CountUp end={(589/8135.56)*0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          <CountUp end={(589 / 8135.56) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle='报告期损耗电量 589 (kWh)' 
-        labels={meterLineChartLabels} 
+      <LineChart reportingTitle='报告期损耗电量 589 (kWh)'
+        labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>
       </LineChart>
 
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

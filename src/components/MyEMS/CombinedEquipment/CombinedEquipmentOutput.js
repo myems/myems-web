@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -24,7 +24,7 @@ import { withTranslation } from 'react-i18next';
 
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const CombinedEquipmentOutput = ({t}) => {
+const CombinedEquipmentOutput = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
@@ -33,7 +33,7 @@ const CombinedEquipmentOutput = ({t}) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const [periodType, setPeriodType] = useState('hourly');
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -95,19 +95,19 @@ const CombinedEquipmentOutput = ({t}) => {
       }]
     }],
   }];
-  
+
   const combinedEquipmentList = [
-    { value: 1, label: '冷站'},
-    { value: 2, label: '锅炉房'}];
+    { value: 1, label: '冷站' },
+    { value: 2, label: '锅炉房' }];
 
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   const combinedEquipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -122,7 +122,7 @@ const CombinedEquipmentOutput = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-  
+
   const combinedEquipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -131,10 +131,10 @@ const CombinedEquipmentOutput = ({t}) => {
   };
 
   const combinedEquipmentLineChartOptions = [
-    { value: 'a', label: '冷'},
-    { value: 'b', label: '热'},
-    { value: 'c', label: '蒸汽'}];
-  
+    { value: 'a', label: '冷' },
+    { value: 'b', label: '热' },
+    { value: 'c', label: '蒸汽' }];
+
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -149,7 +149,7 @@ const CombinedEquipmentOutput = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -157,15 +157,15 @@ const CombinedEquipmentOutput = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
+
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
-  
-  const  detailedDataTableData =[
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
@@ -269,9 +269,9 @@ const CombinedEquipmentOutput = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
-  
+
   return (
     <Fragment>
       <div>
@@ -285,13 +285,13 @@ const CombinedEquipmentOutput = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -301,67 +301,67 @@ const CombinedEquipmentOutput = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="combinedEquipment">
-                {t('Combined Equipment')}
+                  {t('Combined Equipment')}
                 </Label>
-                <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
+                <CustomInput type="select" id="combinedEquipment" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
-                  { combinedEquipmentList.map((combinedEquipment, index) => (
-                      <option value={combinedEquipment.value} key={combinedEquipment.value}>
-                        {combinedEquipment.label}
-                      </option>
-                    ))}
+                  {combinedEquipmentList.map((combinedEquipment, index) => (
+                    <option value={combinedEquipment.value} key={combinedEquipment.value}>
+                      {combinedEquipment.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                {t('Base Period Begins')}{t('(Optional)')}
+                  {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
                 <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
-                {t('Base Period Ends')}{t('(Optional)')}
+                  {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
-                
+
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                {t('Period Types')}
+                  {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {t(periodType.label)}
-                      </option>
-                    ))}
+                  {periodTypeOptions.map((periodType, index) => (
+                    <option value={periodType.value} key={periodType.value}>
+                      {t(periodType.label)}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
@@ -369,39 +369,39 @@ const CombinedEquipmentOutput = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '冷', 'UNIT': '(kWh)'})} 
-         color="success" footnote="" footvalue="" footunit="" >
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+          color="success" footnote="" footvalue="" footunit="" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '热', 'UNIT': '(GJ)'})}
-         color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
+          color="info" footnote="" footvalue="" footunit="">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '蒸汽', 'UNIT': '(M3)'})}
-         color="info" footnote="" footvalue="" footunit="">
-        <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
+          color="info" footnote="" footvalue="" footunit="">
+          <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 764.39,  'UNIT':'(kWh)'})} 
-        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', {'CATEGORY': '冷', 'VALUE': 684.87,  'UNIT':'(kWh)'})}  
-        labels={combinedEquipmentLineChartLabels} 
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+        labels={combinedEquipmentLineChartLabels}
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>
       </LineChart>
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

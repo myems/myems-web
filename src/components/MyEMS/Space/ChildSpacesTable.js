@@ -8,7 +8,7 @@ const defaultSorted = [{
   order: 'desc'
 }];
 
-const ChildSpacesTable = ({title, data, columns}) => {
+const ChildSpacesTable = ({ title, data, columns }) => {
   return (
     <Fragment>
       <Card>
@@ -18,13 +18,13 @@ const ChildSpacesTable = ({title, data, columns}) => {
         <CardBody>
           <Row>
             <Col>
-            <BootstrapTable
-              bootstrap4
-              keyField="id"
-              data={ data }
-              columns={ columns }
-              defaultSorted={ defaultSorted } 
-            />
+              <BootstrapTable
+                bootstrap4
+                keyField="id"
+                data={data}
+                columns={columns}
+                defaultSorted={defaultSorted}
+              />
             </Col>
           </Row>
         </CardBody>

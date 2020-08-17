@@ -1,17 +1,18 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Alert, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Alert,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   Form,
   FormGroup,
   Input,
   Label,
-  CustomInput} from 'reactstrap';
+  CustomInput
+} from 'reactstrap';
 import Summary from './Summary';
 import Loader from '../../common/Loader';
 import FalconCardHeader from '../../common/FalconCardHeader';
@@ -29,7 +30,7 @@ const AdvacnedReporting = ({ t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   const eventCategories = [
     '选择分类',
     '空间数据日报',
@@ -95,38 +96,38 @@ const AdvacnedReporting = ({ t }) => {
     }
   ];
   const { loading, data: reports } = useFakeFetch(rawReports);
-  
+
   return (
     <Fragment>
       <Card className="bg-light mb-3">
-          <CardBody className="p-3">
-            <Row form>
-              <Col >
-                <FormGroup className="form-group">
-                  <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+        <CardBody className="p-3">
+          <Row form>
+            <Col >
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
-                  </Label>
-                  <Datetime id='reportingPeriodBeginsDatetime' />
-                </FormGroup>
-              </Col>
-              <Col >
-                <FormGroup className="form-group">
-                  <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                </Label>
+                <Datetime id='reportingPeriodBeginsDatetime' />
+              </FormGroup>
+            </Col>
+            <Col >
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
-                  </Label>
-                  <Datetime id='reportingPeriodEndsDatetime' />
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
-                <FormGroup>
-                  <br></br>
-                  <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                  </ButtonGroup>
-                </FormGroup>
-              </Col>
-            </Row> 
-          </CardBody>
+                </Label>
+                <Datetime id='reportingPeriodEndsDatetime' />
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <br></br>
+                <ButtonGroup id="submit">
+                  <Button color="success" >{t('Submit')}</Button>
+                </ButtonGroup>
+              </FormGroup>
+            </Col>
+          </Row>
+        </CardBody>
       </Card>
       <Card>
         <FalconCardHeader title={t('Advanced Reporting')}>
@@ -156,10 +157,10 @@ const AdvacnedReporting = ({ t }) => {
               ))}
             </Row>
           ) : (
-            <Alert color="info" className="mb-0">
-              No reports found!
-            </Alert>
-          )}
+                <Alert color="info" className="mb-0">
+                  No reports found!
+                </Alert>
+              )}
         </CardBody>
       </Card>
     </Fragment>

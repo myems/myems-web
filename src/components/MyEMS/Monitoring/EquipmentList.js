@@ -51,19 +51,19 @@ const EquipmentList = ({
             <div className="position-relative h-sm-100">
               {isIterableArray(files) && files.length === 1 && (
                 <img
-                className="img-fluid fit-cover w-sm-100 h-sm-100 rounded absolute-sm-centered"
-                src={files[0]['src'] || files[0]['base64']}
-                alt={files[0].path}
-              />
+                  className="img-fluid fit-cover w-sm-100 h-sm-100 rounded absolute-sm-centered"
+                  src={files[0]['src'] || files[0]['base64']}
+                  alt={files[0].path}
+                />
               )}
               {isIterableArray(files) && files.length > 1 && (
                 <Slider {...sliderSettings}>
                   {files.map(file => (
                     <img
-                    className="img-fluid fit-cover w-sm-100 h-sm-100 rounded"
-                    src={file['src'] || file['base64']}
-                    alt={file.path}
-                  />
+                      className="img-fluid fit-cover w-sm-100 h-sm-100 rounded"
+                      src={file['src'] || file['base64']}
+                      alt={file.path}
+                    />
                   ))}
                 </Slider>
               )}
@@ -79,7 +79,7 @@ const EquipmentList = ({
             <Row>
               <Col lg={8}>
                 <h5 className="mt-3 mt-sm-0">
-                {title}
+                  {title}
                 </h5>
                 <p className="fs--1 mb-2 mb-md-3">
                   <a className="text-500" href="#!">
@@ -100,7 +100,7 @@ const EquipmentList = ({
               <Col lg={4} tag={Flex} justify="between" column>
                 <div>
                   <h4 className="fs-1 fs-md-2 text-warning mb-0">
-                  瞬时效率:{parameter1} kW/kW
+                    瞬时效率:{parameter1} kW/kW
                   </h4>
                   <div className="d-none d-lg-block">
                     <p className="fs--1 mb-1">累计效率:<strong>{parameter2} kW/kW</strong></p>
@@ -116,7 +116,7 @@ const EquipmentList = ({
                       </strong>
                     </p>
                     <p className="fs--1 mb-1">
-                    设备状态:{' '}
+                      设备状态:{' '}
                       <strong className={classNames({ 'text-success': isRunning, 'text-danger': !isRunning })}>
                         {isRunning ? '运行' : '停机'}
                       </strong>
@@ -152,17 +152,17 @@ const EquipmentList = ({
                       Processing
                     </ButtonIcon>
                   ) : (
-                    <ButtonIcon
-                      color="primary"
-                      size="sm"
-                      icon="users"
-                      iconClassName="ml-2 d-none d-md-inline-block"
-                      className="w-lg-100 mt-2"
-                      onClick={handleAddToCart}
-                    >
-                      执行命令
-                    </ButtonIcon>
-                  )}
+                      <ButtonIcon
+                        color="primary"
+                        size="sm"
+                        icon="users"
+                        iconClassName="ml-2 d-none d-md-inline-block"
+                        className="w-lg-100 mt-2"
+                        onClick={handleAddToCart}
+                      >
+                        执行命令
+                      </ButtonIcon>
+                    )}
                 </div>
               </Col>
             </Row>

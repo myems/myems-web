@@ -1,17 +1,17 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { 
-  Breadcrumb, 
-  BreadcrumbItem, 
-  Row, 
-  Col, 
-  Card, 
-  CardBody, 
-  Button, 
-  ButtonGroup, 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  Button,
+  ButtonGroup,
   FormGroup,
   Input,
   Label,
-  CustomInput 
+  CustomInput
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -24,7 +24,7 @@ import { withTranslation } from 'react-i18next';
 
 const DetailedDataTable = loadable(() => import('./DetailedDataTable'));
 
-const EquipmentEfficiency = ({t}) => {
+const EquipmentEfficiency = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [equipment, setEquipment] = useState(undefined);
@@ -35,7 +35,7 @@ const EquipmentEfficiency = ({t}) => {
   const [periodType, setPeriodType] = useState('hourly');
   const [fractionParameter, setFractionParameter] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -97,24 +97,24 @@ const EquipmentEfficiency = ({t}) => {
       }]
     }],
   }];
-  
+
   const equipmentList = [
-    { value: 1, label: 'P3PW_D36_009'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
+    { value: 1, label: 'P3PW_D36_009' },
+    { value: 2, label: '71AL6-1' },
+    { value: 3, label: 'CH-CCHWS' },
+    { value: 4, label: '1#冷冻泵' }];
 
   const fractionParameterOptions = [
-    { value: 1, label: '电制冷效率COP'},];
-    
+    { value: 1, label: '电制冷效率COP' },];
+
   const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly'},
-    { value: 'monthly', label: 'Monthly'},
-    { value: 'daily', label: 'Daily'},
-    { value: 'hourly', label: 'Hourly'}];
+    { value: 'yearly', label: 'Yearly' },
+    { value: 'monthly', label: 'Monthly' },
+    { value: 'daily', label: 'Daily' },
+    { value: 'hourly', label: 'Hourly' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  
+
   const equipmentLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -129,7 +129,7 @@ const EquipmentEfficiency = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-  
+
   const equipmentLineChartData = {
     a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -138,8 +138,8 @@ const EquipmentEfficiency = ({t}) => {
   };
 
   const equipmentLineChartOptions = [
-    { value: 'a', label: '电制冷效率'},];
-  
+    { value: 'a', label: '电制冷效率' },];
+
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -154,7 +154,7 @@ const EquipmentEfficiency = ({t}) => {
     '2020-07-11',
     '2020-07-12'
   ];
-    
+
   const parameterLineChartData = {
     a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
     b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
@@ -162,15 +162,15 @@ const EquipmentEfficiency = ({t}) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-  
+
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度'},
-    { value: 'b', label: '相对湿度'},
-    { value: 'c', label: '电费率'},
-    { value: 'd', label: '自来水费率'},
-    { value: 'e', label: '天然气费率'}];
-  
-  const  detailedDataTableData =[
+    { value: 'a', label: '室外温度' },
+    { value: 'b', label: '相对湿度' },
+    { value: 'c', label: '电费率' },
+    { value: 'd', label: '自来水费率' },
+    { value: 'e', label: '天然气费率' }];
+
+  const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
@@ -288,9 +288,9 @@ const EquipmentEfficiency = ({t}) => {
   }
 
   useEffect(() => {
-    
+
   }, []);
-  
+
   return (
     <Fragment>
       <div>
@@ -304,13 +304,13 @@ const EquipmentEfficiency = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -320,37 +320,37 @@ const EquipmentEfficiency = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="equipment">
-                {t('Equipment')}
+                  {t('Equipment')}
                 </Label>
-                <CustomInput type="select" id="设备" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                <CustomInput type="select" id="equipment" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
                 >
-                  { equipmentList.map((equipment, index) => (
-                      <option value={equipment.value} key={equipment.value}>
-                        {equipment.label}
-                      </option>
-                    ))}
+                  {equipmentList.map((equipment, index) => (
+                    <option value={equipment.value} key={equipment.value}>
+                      {equipment.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="fractionParameter">
-                效率参数(分式参数)
+                  效率参数(分式参数)
                 </Label>
                 <CustomInput type="select" id="fractionParameter" name="fractionParameter" value={fractionParameter} onChange={({ target }) => setFractionParameter(target.value)}
                 >
-                  { fractionParameterOptions.map((fractionParameter, index) => (
-                      <option value={fractionParameter.value} key={fractionParameter.value}>
-                        {fractionParameter.label}
-                      </option>
-                    ))}
+                  {fractionParameterOptions.map((fractionParameter, index) => (
+                    <option value={fractionParameter.value} key={fractionParameter.value}>
+                      {fractionParameter.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                {t('Base Period Begins')}{t('(Optional)')}
+                  {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
                 <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
@@ -358,16 +358,16 @@ const EquipmentEfficiency = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
-                {t('Base Period Ends')}{t('(Optional)')}
+                  {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
-                
+
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                {t('Reporting Period Begins')}
+                  {t('Reporting Period Begins')}
                 </Label>
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
@@ -375,27 +375,27 @@ const EquipmentEfficiency = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                {t('Reporting Period Ends')}
+                  {t('Reporting Period Ends')}
                 </Label>
                 <Datetime id='reportingPeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
-                {t('Period Types')}
+                  {t('Period Types')}
                 </Label>
                 <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
                 >
-                  { periodTypeOptions.map((periodType, index) => (
-                      <option value={periodType.value} key={periodType.value}>
-                        {t(periodType.label)}
-                      </option>
-                    ))}
+                  {periodTypeOptions.map((periodType, index) => (
+                    <option value={periodType.value} key={periodType.value}>
+                      {t(periodType.label)}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col  xs="auto">
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">
@@ -403,43 +403,43 @@ const EquipmentEfficiency = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', {'CATEGORY': '冷', 'UNIT': '(kWh)'})}
-        color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+          color="info" footnote="" footvalue="" footunit="">
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Input UNIT', {'CATEGORY': '电', 'UNIT': '(kWh)'})}
-        color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="info" footnote="" footvalue="" footunit="">
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+2.0%" title={t('Reporting Period Cumulative Efficiency UNIT', {'UNIT': '(kWh/kWh)'})} 
-        color="warning" footnote="" footvalue="" footunit="">
-        <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="+2.0%" title={t('Reporting Period Cumulative Efficiency UNIT', { 'UNIT': '(kWh/kWh)' })}
+          color="warning" footnote="" footvalue="" footunit="">
+          <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Instantaneous Efficiency UNIT', {'UNIT': '(kWh/kWh)'})} 
-        color="warning" footnote="" footvalue="" footunit="">
-        <CountUp end={6.201} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        <CardSummary rate="0.0%" title={t('Instantaneous Efficiency UNIT', { 'UNIT': '(kWh/kWh)' })}
+          color="warning" footnote="" footvalue="" footunit="">
+          <CountUp end={6.201} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', {'VALUE': 5.609, 'UNIT': '(kWh/kWh)'})} 
-        baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', {'VALUE': 4.321, 'UNIT': '(kWh/kWh)'})}
-        labels={equipmentLineChartLabels} 
+      <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
+        baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
+        labels={equipmentLineChartLabels}
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>
       </LineChart>
-      <LineChart reportingTitle={t('Related Parameters')} 
-        baseTitle='' 
-        labels={parameterLineChartLabels} 
+      <LineChart reportingTitle={t('Related Parameters')}
+        baseTitle=''
+        labels={parameterLineChartLabels}
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
       </DetailedDataTable>
-      
+
     </Fragment>
   );
 };

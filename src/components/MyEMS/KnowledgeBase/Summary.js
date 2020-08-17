@@ -22,7 +22,7 @@ const Summary = ({ calendar, title, badge, uploader, divider, to, children, t })
         <Link to={to}>{title}</Link> {badge && <FileBadge {...badge} className="ml-1" />}
       </h6>
       <p className="mb-1">
-      上传者{' '}
+        上传者{' '}
         <Link to="#!" className="text-700">
           {uploader}
         </Link>

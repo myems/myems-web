@@ -324,7 +324,7 @@ const ShopfloorEnergyItem = ({ t }) => {
                 <Label className={labelClasses} for="shopfloor">
                   {t('Shopfloor')}
                 </Label>
-                <CustomInput type="select" id="车间" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                <CustomInput type="select" id="shopfloor" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
                 >
                   {shopfloorList.map((shopfloor, index) => (
                     <option value={shopfloor.value} key={shopfloor.value}>
@@ -334,7 +334,7 @@ const ShopfloorEnergyItem = ({ t }) => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
@@ -342,7 +342,7 @@ const ShopfloorEnergyItem = ({ t }) => {
                 <Datetime id='basePeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodEndsDatetime">
                   {t('Base Period Ends')}{t('(Optional)')}
@@ -351,7 +351,7 @@ const ShopfloorEnergyItem = ({ t }) => {
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
@@ -359,7 +359,7 @@ const ShopfloorEnergyItem = ({ t }) => {
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}

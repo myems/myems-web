@@ -1,23 +1,23 @@
 import React, { createRef, Fragment, useState } from 'react';
-import { 
-    Breadcrumb, 
-    BreadcrumbItem, 
-    Button,
-    ButtonGroup, 
-    Card,
-    CardBody,
-    Col,
-    CustomInput,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    FormGroup,
-    Input,
-    InputGroup,
-    Label,
-    Media,
-    Row,
-    UncontrolledDropdown,
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  CustomInput,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  FormGroup,
+  Input,
+  InputGroup,
+  Label,
+  Media,
+  Row,
+  UncontrolledDropdown,
 } from 'reactstrap';
 import uuid from 'uuid/v1';
 import Cascader from 'rc-cascader';
@@ -64,13 +64,13 @@ const actionFormatter = (dataField, { id }) => (
 );
 
 
-const MeterRealtime = ({t}) => {
+const MeterRealtime = ({ t }) => {
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
 
-  
-const cascaderOptions = [{
+
+  const cascaderOptions = [{
     label: '成都项目',
     value: 1,
     children: [{
@@ -132,9 +132,9 @@ const cascaderOptions = [{
     }],
   }];
 
-const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
+  const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-let onCascaderChange = (value, selectedOptions) => {
+  let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
@@ -149,62 +149,62 @@ let onCascaderChange = (value, selectedOptions) => {
 
   return (
     <Fragment>
-        <div>
-            <Breadcrumb>
-            <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Realtime')}</BreadcrumbItem>
-            </Breadcrumb>
-        </div>
-        <Card className="bg-light mb-3">
-            <CardBody className="p-3">
-            <Row form>
-                <Col xs="auto">
-                <FormGroup className="form-group">
-                    <Label className={labelClasses} for="space">
-                    {t('Space')}
-                    </Label>
-                    <br />
-                    <Cascader options={cascaderOptions} 
-                            onChange={onCascaderChange}
-                            changeOnSelect
-                            expandTrigger="hover">
-                    <Input
-                        value={selectedSpace}
-                    />
-                    </Cascader>
-                </FormGroup>
-                </Col>
-                
-                <Col xs="auto">
-                <FormGroup>
-                    <br></br>
-                    <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                    </ButtonGroup>
-                </FormGroup>
-                </Col>
-            </Row> 
-            </CardBody>
-        </Card>
-        <Row noGutters>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'CW_TOTA_M01_001'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P1PR_D13_003'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P2PR_D24_003'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P1OF_D15_005'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'EL_P3HP_D40_005'}/>
-          </Col>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart title={'AP_P1AC_D12_003'}/>
-          </Col>
-        </Row>
+      <div>
+        <Breadcrumb>
+          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Realtime')}</BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+      <Card className="bg-light mb-3">
+        <CardBody className="p-3">
+          <Row form>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="space">
+                  {t('Space')}
+                </Label>
+                <br />
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
+                  <Input
+                    value={selectedSpace}
+                  />
+                </Cascader>
+              </FormGroup>
+            </Col>
+
+            <Col xs="auto">
+              <FormGroup>
+                <br></br>
+                <ButtonGroup id="submit">
+                  <Button color="success" >{t('Submit')}</Button>
+                </ButtonGroup>
+              </FormGroup>
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
+      <Row noGutters>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'CW_TOTA_M01_001'} />
+        </Col>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'EL_P1PR_D13_003'} />
+        </Col>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'EL_P2PR_D24_003'} />
+        </Col>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'EL_P1OF_D15_005'} />
+        </Col>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'EL_P3HP_D40_005'} />
+        </Col>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart title={'AP_P1AC_D12_003'} />
+        </Col>
+      </Row>
     </Fragment>
   );
 };

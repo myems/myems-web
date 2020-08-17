@@ -1,17 +1,18 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { 
-  Breadcrumb, 
+import {
+  Breadcrumb,
   BreadcrumbItem,
-  Button, 
-  ButtonGroup, 
-  Card, 
-  CardBody, 
-  Col, 
-  CustomInput, 
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  CustomInput,
   Row,
   FormGroup,
   Input,
-  Label  } from 'reactstrap';
+  Label
+} from 'reactstrap';
 import Loader from '../../common/Loader';
 import useFakeFetch from '../../../hooks/useFakeFetch';
 import { isIterableArray } from '../../../helpers/utils';
@@ -26,8 +27,8 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const CombinedEquipments = ({t}) => {
-  
+const CombinedEquipments = ({ t }) => {
+
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
@@ -95,10 +96,10 @@ const CombinedEquipments = ({t}) => {
   }];
 
   const combinedEquipmentList = [
-    { value: 1, label: '冷站'},
-    { value: 2, label: '锅炉房'}];
+    { value: 1, label: '冷站' },
+    { value: 2, label: '锅炉房' }];
 
-    
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   let onCascaderChange = (value, selectedOptions) => {
@@ -113,7 +114,7 @@ const CombinedEquipments = ({t}) => {
 
   const isList = true;
   const isGrid = false;
-  
+
   useEffect(() => {
     setEquipmentIds(equipments.map(equipment => equipment.id));
   }, [equipments, setEquipmentIds]);
@@ -131,13 +132,13 @@ const CombinedEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="space">
-                {t('Space')}
+                  {t('Space')}
                 </Label>
                 <br />
-                <Cascader options={cascaderOptions} 
-                          onChange={onCascaderChange}
-                          changeOnSelect
-                          expandTrigger="hover">
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
                   <Input
                     value={selectedSpace}
                   />
@@ -147,15 +148,15 @@ const CombinedEquipments = ({t}) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="combinedEquipment">
-                {t('Combined Equipment')}
+                  {t('Combined Equipment')}
                 </Label>
-                <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
+                <CustomInput type="select" id="combinedEquipment" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
                 >
-                  { combinedEquipmentList.map((combinedEquipment, index) => (
-                      <option value={combinedEquipment.value} key={combinedEquipment.value}>
-                        {combinedEquipment.label}
-                      </option>
-                    ))}
+                  {combinedEquipmentList.map((combinedEquipment, index) => (
+                    <option value={combinedEquipment.value} key={combinedEquipment.value}>
+                      {combinedEquipment.label}
+                    </option>
+                  ))}
                 </CustomInput>
               </FormGroup>
             </Col>
@@ -167,23 +168,23 @@ const CombinedEquipments = ({t}) => {
                 </ButtonGroup>
               </FormGroup>
             </Col>
-          </Row> 
+          </Row>
         </CardBody>
       </Card>
-      
+
 
       <Card>
         <CardBody className={classNames({ 'p-0  overflow-hidden': isList, 'pb-0': isGrid })}>
           {loading ? (
             <Loader />
           ) : (
-            <Row noGutters={isList}>
-              {isIterableArray(equipments) &&
-                equipments
-                  .filter(equipment => paginationData.includes(equipment.id))
-                  .map((equipment, index) => <EquipmentList {...equipment} key={equipment.id} index={index} />)}
-            </Row>
-          )}
+              <Row noGutters={isList}>
+                {isIterableArray(equipments) &&
+                  equipments
+                    .filter(equipment => paginationData.includes(equipment.id))
+                    .map((equipment, index) => <EquipmentList {...equipment} key={equipment.id} index={index} />)}
+              </Row>
+            )}
         </CardBody>
         <EquipmentFooter meta={paginationMeta} handler={paginationHandler} />
       </Card>
@@ -204,10 +205,10 @@ const CombinedEquipments = ({t}) => {
                 <option value={total}>All</option>
               </CustomInput>
               <h6 className="mb-0 text-nowrap ml-2">
-              显示 {from}-{to}, 共{total}台设备
+                显示 {from}-{to}, 共{total}台设备
               </h6>
             </Col>
-            
+
           </Row>
         </CardBody>
       </Card>

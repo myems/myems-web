@@ -1,23 +1,23 @@
 import React, { createRef, Fragment, useState } from 'react';
-import { 
-    Breadcrumb, 
-    BreadcrumbItem, 
-    Button,
-    ButtonGroup, 
-    Card,
-    CardBody,
-    Col,
-    CustomInput,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    FormGroup,
-    Input,
-    InputGroup,
-    Label,
-    Media,
-    Row,
-    UncontrolledDropdown,
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  Col,
+  CustomInput,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  FormGroup,
+  Input,
+  InputGroup,
+  Label,
+  Media,
+  Row,
+  UncontrolledDropdown,
 } from 'reactstrap';
 import uuid from 'uuid/v1';
 import Cascader from 'rc-cascader';
@@ -69,7 +69,7 @@ const DistributionSystem = ({ t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(null);
   const [distributionsystem, setDistributionSystem] = useState(undefined);
-  
+
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -149,90 +149,90 @@ const DistributionSystem = ({ t }) => {
   const images = [img1];
 
   const distributionSystemList = [
-    { value: 1, label: '10kV变电所配电图'},
-    { value: 2, label: '71AL6-1'},
-    { value: 3, label: 'CH-CCHWS'},
-    { value: 4, label: '1#冷冻泵'}];
+    { value: 1, label: '10kV变电所配电图' },
+    { value: 2, label: '71AL6-1' },
+    { value: 3, label: 'CH-CCHWS' },
+    { value: 4, label: '1#冷冻泵' }];
 
   const realtimeChartOptions = [
-    { value: 'a', label: '主进线'},
-    { value: 'b', label: '地源热泵空调总表'},
-    { value: 'c', label: '消防栓机械泵2路'},
-    { value: 'd', label: '一层南'},
-    { value: 'e', label: '一层北'}];
+    { value: 'a', label: '主进线' },
+    { value: 'b', label: '地源热泵空调总表' },
+    { value: 'c', label: '消防栓机械泵2路' },
+    { value: 'd', label: '一层南' },
+    { value: 'e', label: '一层北' }];
 
   return (
     <Fragment>
-        <div>
-            <Breadcrumb>
-            <BreadcrumbItem>{t('Auxiliary System')}</BreadcrumbItem><BreadcrumbItem active>{t('Distribution System')}</BreadcrumbItem>
-            </Breadcrumb>
-        </div>
-        <Card className="bg-light mb-3">
-            <CardBody className="p-3">
-            <Row form>
-                <Col xs="auto">
-                  <FormGroup className="form-group">
-                      <Label className={labelClasses} for="space">
-                      {t('Space')}
-                      </Label>
-                      <br />
-                      <Cascader options={cascaderOptions} 
-                              onChange={onCascaderChange}
-                              changeOnSelect
-                              expandTrigger="hover">
-                      <Input
-                          value={selectedSpace}
-                      />
-                      </Cascader>
-                  </FormGroup>
-                </Col>
-                <Col xs="auto">
-                  <FormGroup>
-                    <Label className={labelClasses} for="distributionsystem">
-                    {t('Distribution System')}
-                    </Label>
-                    <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
-                    >
-                      { distributionSystemList.map((distributionsystem, index) => (
-                          <option value={distributionsystem.value} key={distributionsystem.value}>
-                            {distributionsystem.label}
-                          </option>
-                        ))}
-                    </CustomInput>
-                  </FormGroup>
-                </Col>
-                <Col xs="auto">
-                <FormGroup>
-                    <br></br>
-                    <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                    </ButtonGroup>
-                </FormGroup>
-                </Col>
-            </Row> 
-            </CardBody>
-        </Card>
-        <Row noGutters>
-          <Col lg="3" className="pr-lg-2">
-            <RealtimeChart options={realtimeChartOptions}/>
-          </Col>
-          <Col lg="9" className="pr-lg-2">
-            <LightBoxGallery images={images}>
-              {openImgIndex => (
-                <img
-                  className="rounded w-100 cursor-pointer"
-                  src={images[0]}
-                  alt=""
-                  onClick={() => {
-                    openImgIndex(0);
-                  }}
-                />
-              )}
-            </LightBoxGallery>
-          </Col>
-          
-        </Row>
+      <div>
+        <Breadcrumb>
+          <BreadcrumbItem>{t('Auxiliary System')}</BreadcrumbItem><BreadcrumbItem active>{t('Distribution System')}</BreadcrumbItem>
+        </Breadcrumb>
+      </div>
+      <Card className="bg-light mb-3">
+        <CardBody className="p-3">
+          <Row form>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="space">
+                  {t('Space')}
+                </Label>
+                <br />
+                <Cascader options={cascaderOptions}
+                  onChange={onCascaderChange}
+                  changeOnSelect
+                  expandTrigger="hover">
+                  <Input
+                    value={selectedSpace}
+                  />
+                </Cascader>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="distributionsystem">
+                  {t('Distribution System')}
+                </Label>
+                <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
+                >
+                  {distributionSystemList.map((distributionsystem, index) => (
+                    <option value={distributionsystem.value} key={distributionsystem.value}>
+                      {distributionsystem.label}
+                    </option>
+                  ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup>
+                <br></br>
+                <ButtonGroup id="submit">
+                  <Button color="success" >{t('Submit')}</Button>
+                </ButtonGroup>
+              </FormGroup>
+            </Col>
+          </Row>
+        </CardBody>
+      </Card>
+      <Row noGutters>
+        <Col lg="3" className="pr-lg-2">
+          <RealtimeChart options={realtimeChartOptions} />
+        </Col>
+        <Col lg="9" className="pr-lg-2">
+          <LightBoxGallery images={images}>
+            {openImgIndex => (
+              <img
+                className="rounded w-100 cursor-pointer"
+                src={images[0]}
+                alt=""
+                onClick={() => {
+                  openImgIndex(0);
+                }}
+              />
+            )}
+          </LightBoxGallery>
+        </Col>
+
+      </Row>
     </Fragment>
   );
 };

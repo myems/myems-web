@@ -127,7 +127,7 @@ class RealtimeChart extends Component {
         </CardHeader>
         <CardBody className="text-white fs--1">
           <p className="pb-2" style={{ borderBottom: dividerBorder }}>
-          能耗值点实时值 (kWh)
+            能耗值点实时值 (kWh)
           </p>
           <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">
