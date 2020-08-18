@@ -186,7 +186,10 @@ const resources = {
       "This Day": "This Day",
       "Total": "Total",
       "No data found": "No data found",
-      "Export": "Export"
+      "Export": "Export",
+      //Realtime Chart
+      "Realtime Value of Energy Value Point UNIT": "Realtime Value of Energy Value Point {{UNIT}}",
+      "Realtime Value": "Realtime Value",
     }
   },
   zh_cn: {
@@ -371,7 +374,10 @@ const resources = {
       "This Day": "本日",
       "Total": "总",
       "No data found": "没有数据",
-      "Export": "导出"
+      "Export": "导出",
+      //Realtime Chart
+      "Realtime Value of Energy Value Point UNIT": "能耗值点实时值 {{UNIT}}",
+      "Realtime Value": "实时值",
     }
   }
 };
