@@ -345,7 +345,7 @@ const CombinedEquipmentIncome = ({ t, format }) => {
                 <Datetime id='basePeriodEndsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
@@ -353,7 +353,7 @@ const CombinedEquipmentIncome = ({ t, format }) => {
                 <Datetime id='reportingPeriodBeginsDatetime' />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}

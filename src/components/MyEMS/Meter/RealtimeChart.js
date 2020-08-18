@@ -5,6 +5,8 @@ import range from 'lodash/range';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, CardFooter } from 'reactstrap';
 import { rgbaColor } from '../../../helpers/utils';
+import { withTranslation } from 'react-i18next';
+
 
 const energyTrendLog = [
   11183,
@@ -109,6 +111,7 @@ class RealtimeChart extends Component {
   }
 
   render() {
+    const { t } = this.props;
     const chartData = {
       ...this.state.chartData,
       datasets: [
@@ -127,7 +130,7 @@ class RealtimeChart extends Component {
         </CardHeader>
         <CardBody className="text-white fs--1">
           <p className="pb-2" style={{ borderBottom: dividerBorder }}>
-            能耗值点实时值 (kWh)
+          {t('Realtime Value of Energy Value Point UNIT', {'UNIT': 'kWh'})}
           </p>
           <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">
@@ -135,8 +138,8 @@ class RealtimeChart extends Component {
               className="bg-transparent d-flex justify-content-between px-0 py-1 font-weight-semi-bold border-top-0"
               style={{ borderColor: listItemBorderColor }}
             >
-              <p className="mb-0">相关参数</p>
-              <p className="mb-0">实时值</p>
+              <p className="mb-0">{t('Related Parameters')}</p>
+              <p className="mb-0">{t('Realtime Value')}</p>
             </ListGroupItem>
             <ListGroupItem
               className="bg-transparent d-flex justify-content-between px-0 py-1"
@@ -187,4 +190,4 @@ class RealtimeChart extends Component {
   }
 }
 
-export default RealtimeChart;
+export default  withTranslation()(RealtimeChart);
