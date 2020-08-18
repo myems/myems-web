@@ -355,7 +355,7 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       //FDD
-      "Fault List": "Fault List",
+      "Fault List": "故障列表",
       "All Faults": "全部故障",
       "Space Faults": "空间故障",
       "Equipment Faults": "设备故障",
