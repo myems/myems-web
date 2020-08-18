@@ -430,13 +430,13 @@ const ShopfloorCost = ({ t }) => {
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={costshare} title={'成本比例'} />
+          <SharePie data={costshare} title={t('Cost by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={tceshare} title={'吨标准煤比例'} />
+          <SharePie data={tceshare} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={co2share} title={'二氧化碳排放比例'} />
+          <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
       <LineChart reportingTitle={t('Reporting Period CATEGORY Cost VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
