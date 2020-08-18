@@ -7,13 +7,11 @@ import {
   Card,
   CardBody,
   Col,
-  CustomInput,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
   FormGroup,
   Input,
-  InputGroup,
   Label,
   Media,
   Row,
@@ -21,16 +19,14 @@ import {
 } from 'reactstrap';
 import uuid from 'uuid/v1';
 import Cascader from 'rc-cascader';
-import FalconCardHeader from '../../common/FalconCardHeader';
-import ButtonIcon from '../../common/ButtonIcon';
-import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
-import BootstrapTable from 'react-bootstrap-table-next';
+import loadable from '@loadable/component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import Flex from '../../common/Flex';
-import { getPaginationArray } from '../../../helpers/utils';
 import { withTranslation } from 'react-i18next';
 
+
+const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const nameFormatter = (dataField, { name }) => (
   <Link to="/pages/customer-details">
@@ -41,9 +37,6 @@ const nameFormatter = (dataField, { name }) => (
     </Media>
   </Link>
 );
-
-const emailFormatter = email => <a href={`mailto:${email}`}>{email}</a>;
-const phoneFormatter = phone => <a href={`tel:${phone}`}>{phone}</a>;
 
 const actionFormatter = (dataField, { id }) => (
   // Control your row with this id
@@ -323,12 +316,6 @@ const equipments = [
   }
 ];
 
-const options = {
-  custom: true,
-  sizePerPage: 12,
-  totalSize: equipments.length
-};
-
 const EquipmentTracking = ({ t }) => {
   let table = createRef();
   // State
@@ -404,14 +391,6 @@ const EquipmentTracking = ({ t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  const handleNextPage = ({ page, onPageChange }) => () => {
-    onPageChange(page + 1);
-  };
-
-  const handlePrevPage = ({ page, onPageChange }) => () => {
-    onPageChange(page - 1);
-  };
-
   return (
     <Fragment>
       <div>
@@ -450,72 +429,9 @@ const EquipmentTracking = ({ t }) => {
           </Row>
         </CardBody>
       </Card>
-      <Card className="mb-3">
-        <FalconCardHeader title="设备列表" light={false}>
-          <Fragment>
-            <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-              导出
-            </ButtonIcon>
-          </Fragment>
-        </FalconCardHeader>
-        <CardBody className="p-0">
-          <PaginationProvider pagination={paginationFactory(options)}>
-            {({ paginationProps, paginationTableProps }) => {
-              const lastIndex = paginationProps.page * paginationProps.sizePerPage;
-              return (
-                <Fragment>
-                  <div className="table-responsive">
-                    <BootstrapTable
-                      ref={table}
-                      bootstrap4
-                      keyField="id"
-                      data={equipments}
-                      columns={columns}
-                      bordered={false}
-                      classes="table-dashboard table-striped table-sm fs--1 border-bottom border-200 mb-0 table-dashboard-th-nowrap"
-                      rowClasses="btn-reveal-trigger border-top border-200"
-                      headerClasses="bg-200 text-900 border-y border-200"
-                      {...paginationTableProps}
-                    />
-                  </div>
-                  <Row noGutters className="px-1 py-3 flex-center">
-                    <Col xs="auto">
-                      <Button
-                        color="falcon-default"
-                        size="sm"
-                        onClick={handlePrevPage(paginationProps)}
-                        disabled={paginationProps.page === 1}
-                      >
-                        <FontAwesomeIcon icon="chevron-left" />
-                      </Button>
-                      {getPaginationArray(paginationProps.totalSize, paginationProps.sizePerPage).map(pageNo => (
-                        <Button
-                          color={paginationProps.page === pageNo ? 'falcon-primary' : 'falcon-default'}
-                          size="sm"
-                          className="ml-2"
-                          onClick={() => paginationProps.onPageChange(pageNo)}
-                          key={pageNo}
-                        >
-                          {pageNo}
-                        </Button>
-                      ))}
-                      <Button
-                        color="falcon-default"
-                        size="sm"
-                        className="ml-2"
-                        onClick={handleNextPage(paginationProps)}
-                        disabled={lastIndex >= paginationProps.totalSize}
-                      >
-                        <FontAwesomeIcon icon="chevron-right" />
-                      </Button>
-                    </Col>
-                  </Row>
-                </Fragment>
-              );
-            }}
-          </PaginationProvider>
-        </CardBody>
-      </Card>
+      <DetailedDataTable data={equipments} title={t('Equipment List')} columns={columns}>
+      </DetailedDataTable>
+      
     </Fragment>
   );
 };
