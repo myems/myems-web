@@ -63,7 +63,7 @@ const resources = {
       "Cost by Energy Category": "Cost by Energy Category",
       "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
       "Carbon Dioxide Emissions by Energy Category": "Carbon Dioxide Emissions by Energy Category",
-      "CATEGORY Input VALUE UNIT of This Month": "{{CATEGORY}} Input {{VALUE}} {{UNIT}} of This Month",
+      "Input of This Month CATEGORY VALUE UNIT": "Input of This Month {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "CATEGORY Cost of This Year UNIT": "{{CATEGORY}} Cost of This Year {{UNIT}}",
       "CATEGORY Input of This Year UNIT": "{{CATEGORY}} Input of This Year {{UNIT}}",
       // Entities
@@ -181,6 +181,7 @@ const resources = {
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
       "Child Spaces Data": "Child Spaces Data",
+      "Child Spaces Data of This Month": "Child Spaces Data of This Month",
       "This Year": "This Year",
       "This Month": "This Month",
       "This Day": "This Day",
@@ -190,6 +191,8 @@ const resources = {
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "Realtime Value of Energy Value Point {{UNIT}}",
       "Realtime Value": "Realtime Value",
+      //Meter Tracking
+      "Meter List": "Meter List",
     }
   },
   zh_cn: {
@@ -252,7 +255,7 @@ const resources = {
       "Cost by Energy Category": "成本占比",
       "Ton of Standard Coal by Energy Category": "吨标准煤占比",
       "Carbon Dioxide Emissions by Energy Category": "二氧化碳排放占比",
-      "CATEGORY Input VALUE UNIT of This Month": "本月{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
+      "Input of This Month CATEGORY VALUE UNIT": "本月{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
       "CATEGORY Cost of This Year UNIT": "本年{{CATEGORY}}费 {{UNIT}}",
       "CATEGORY Input of This Year UNIT": "本年{{CATEGORY}}量 {{UNIT}}",
       // Entities
@@ -369,6 +372,7 @@ const resources = {
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
       "Child Spaces Data": "子空间数据",
+      "Child Spaces Data of This Month": "本月子空间数据",
       "This Year": "本年",
       "This Month": "本月",
       "This Day": "本日",
@@ -378,6 +382,8 @@ const resources = {
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "能耗值点实时值 {{UNIT}}",
       "Realtime Value": "实时值",
+      //Meter Tracking
+      "Meter List": "计量表列表",
     }
   }
 };

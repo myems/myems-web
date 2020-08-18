@@ -9,7 +9,7 @@ import loadable from '@loadable/component';
 import { withTranslation } from 'react-i18next';
 
 
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
+const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 
 const Dashboard = ({ t }) => {
   // State
@@ -89,6 +89,53 @@ const Dashboard = ({ t }) => {
     { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
   ];
 
+  const childSpacesTableData = [
+    {
+      id: 1,
+      name: '公区',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    },
+    {
+      id: 2,
+      name: '车库',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    },
+    {
+      id: 3,
+      name: '租区',
+      electricity: '9872',
+      water: '3457',
+      naturalgas: '567',
+      co2: '567',
+    }
+  ];
+  const childSpacesTableColumns = [{
+    dataField: 'name',
+    text: '子空间',
+    sort: true
+  }, {
+    dataField: 'electricity',
+    text: '电 (kWh)',
+    sort: true
+  }, {
+    dataField: 'water',
+    text: '自来水 (M3)',
+    sort: true
+  }, {
+    dataField: 'naturalgas',
+    text: '天然气 (M3)',
+    sort: true
+  }, {
+    dataField: 'co2',
+    text: '二氧化碳排放 (T)',
+    sort: true
+  }];
   useEffect(() => {
     toast(
       <Fragment>
@@ -147,7 +194,7 @@ const Dashboard = ({ t }) => {
           <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('CATEGORY Input VALUE UNIT of This Month', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})}
+      <LineChart reportingTitle={t('Input of This Month CATEGORY VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})}
         baseTitle=''
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
@@ -160,7 +207,8 @@ const Dashboard = ({ t }) => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable />
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data of This Month')} columns={childSpacesTableColumns}>
+      </ChildSpacesTable>
 
     </Fragment>
   );
