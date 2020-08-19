@@ -1,15 +1,15 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { Col, Row } from 'reactstrap';
-import CardSummary from './common/CardSummary';
-import LineChart from './common/LineChart';
+import CardSummary from '../common/CardSummary';
+import LineChart from '../common/LineChart';
 import { toast } from 'react-toastify';
-import SharePie from './common/SharePie';
+import SharePie from '../common/SharePie';
 import loadable from '@loadable/component';
 import { withTranslation } from 'react-i18next';
 
 
-const ChildSpacesTable = loadable(() => import('./common/ChildSpacesTable'));
+const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 
 const Dashboard = ({ t }) => {
   // State
