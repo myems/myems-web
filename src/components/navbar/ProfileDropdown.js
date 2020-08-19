@@ -26,7 +26,8 @@ const ProfileDropdown = ({ t }) => {
       }}
     >
       <DropdownToggle nav className="pr-0">
-        <Avatar src={team3} />
+        {/* <Avatar src={team3} /> */}
+        <Avatar />
       </DropdownToggle>
       <DropdownMenu right className="dropdown-menu-card">
         <div className="bg-white rounded-soft py-2">
@@ -41,8 +42,8 @@ const ProfileDropdown = ({ t }) => {
           </DropdownItem> */}
           <DropdownItem href="https://myems.io">{t('Feedback')}</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/pages/settings">
-            {t('Account Settings')}
+          <DropdownItem tag={Link} to="/authentication/basic/change-password">
+            {t('Change Password')}
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem tag={Link} to="/authentication/basic/logout">

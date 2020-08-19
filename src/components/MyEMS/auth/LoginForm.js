@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import AppContext from '../../../context/Context';
 import { Button, Form, Row, Col, FormGroup, Input, CustomInput, Label } from 'reactstrap';
+import { getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   // State
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(getItemFromStore('email', ''));
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(true);
   const [isDisabled, setIsDisabled] = useState(true);
+  // Context
+  const { language, setLanguage } = useContext(AppContext);
 
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
     toast.success(t('Logged in as ') + `${email}`);
+    if (remember) {
+      setItemToStore('email', email);
+    } else {
+      setItemToStore('email', '');
+    }
     setRedirect(true);
   };
 
@@ -65,6 +74,17 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
         {t('Log in')}
         </Button>
       </FormGroup>
+      <CustomInput
+          type="select"
+          id="language"
+          name="language"
+          className="mb-3"
+          value={language}
+          onChange={({ target }) => setLanguage(target.value)}
+        >
+          <option value="zh_cn">{t('language-zh_cn')}</option>
+          <option value="en">{t('language-en')}</option>
+        </CustomInput>
     </Form>
   );
 };
