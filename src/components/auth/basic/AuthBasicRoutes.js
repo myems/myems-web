@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import Login from './Login';
-import Logout from './Logout';
+// import Login from './Login';
+import Login from '../../MyEMS/auth/basic/Login';
+// import Logout from './Logout';
+import Logout from '../../MyEMS/auth/basic/Logout';
 import Registration from './Registration';
-import ForgetPassword from './ForgetPassword';
+// import ForgetPassword from './ForgetPassword';
+import ForgetPassword from '../../MyEMS/auth/basic/ForgetPassword';
 import PasswordReset from './PasswordReset';
-import ConfirmMail from './ConfirmMail';
+// import ConfirmMail from './ConfirmMail';
+import ConfirmMail from '../../MyEMS/auth/basic/ConfirmMail';
 import LockScreen from './LockScreen';
 
 const AuthBasicRoutes = ({ match: { url } }) => (

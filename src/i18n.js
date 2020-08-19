@@ -197,6 +197,23 @@ const resources = {
       "Feedback": "Feedback",
       "Account Settings": "Account Settings",
       "Logout": "Logout",
+      //Authentication
+      "Log in": "Log in",
+      "Email address": "Email address",
+      "Password": "Password",
+      "Remember me": "Remember me",
+      "Logged in as ": "Logged in as ",
+      "Forget Password?": "Forget Password?",
+      "Forgot your password?": "Forgot your password?",
+      "Enter your email and we'll send you a reset link.": "Enter your email and we'll send you a reset link.",
+      "Send reset link": "Send reset link",
+      "Thanks for using MyEMS!": "Thanks for using MyEMS!",
+      "You are now successfully signed out.": "You are now successfully signed out.",
+      "Return to Login": "Return to Login",
+      "Please check your email!": "Please check your email!",
+      "An email has been sent to ": "An email has been sent to ",
+      "Please click on the included link to reset your password.": "Please click on the included link to reset your password.",
+      "An email with password reset link is sent to ": "An email with password reset link is sent to ",
     }
   },
   zh_cn: {
@@ -392,6 +409,23 @@ const resources = {
       "Feedback": "反馈",
       "Account Settings": "账号设置",
       "Logout": "退出",
+      //Authentication
+      "Log in": "登录",
+      "Email address": "电子邮件地址",
+      "Password": "密码",
+      "Remember me": "记住我",
+      "Logged in as ": "已登录 ",
+      "Forget Password?": "忘记密码?",
+      "Forgot your password?": "忘记你的密码?",
+      "Enter your email and we'll send you a reset link.": "输入电子邮件地址，我们会把重置链接发送给您。",
+      "Send reset link": "发送重置连接",
+      "Thanks for using MyEMS!": "感谢您使用MyEMS!",
+      "You are now successfully signed out.": "您已成功退出。",
+      "Return to Login": "返回登录",
+      "Please check your email!": "请查收您的电子邮件!",
+      "An email has been sent to ": "一封电子邮件已经发送至 ",
+      "Please click on the included link to reset your password.": "请点击里面的链接重置您的密码。",
+      "An email with password reset link is sent to ": "一封包含密码重置链接的电子邮件已经发送至 ",
     }
   }
 };
