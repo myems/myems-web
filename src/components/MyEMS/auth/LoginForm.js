@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AppContext from '../../../context/Context';
 import { Button, Form, Row, Col, FormGroup, Input, CustomInput, Label } from 'reactstrap';
+import { getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   // State
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(getItemFromStore('email', ''));
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(true);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -20,6 +21,11 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     toast.success(t('Logged in as ') + `${email}`);
+    if (remember) {
+      setItemToStore('email', email);
+    } else {
+      setItemToStore('email', '');
+    }
     setRedirect(true);
   };
 
