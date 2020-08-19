@@ -193,6 +193,10 @@ const resources = {
       "Realtime Value": "Realtime Value",
       //Meter Tracking
       "Meter List": "Meter List",
+      //Profile Dropdown
+      "Feedback": "Feedback",
+      "Account Settings": "Account Settings",
+      "Logout": "Logout",
     }
   },
   zh_cn: {
@@ -384,6 +388,10 @@ const resources = {
       "Realtime Value": "实时值",
       //Meter Tracking
       "Meter List": "计量表列表",
+      //Profile Dropdown
+      "Feedback": "反馈",
+      "Account Settings": "账号设置",
+      "Logout": "退出",
     }
   }
 };

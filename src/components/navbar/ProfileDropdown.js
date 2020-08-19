@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { DropdownItem, DropdownMenu, DropdownToggle, Dropdown } from 'reactstrap';
 import team3 from '../../assets/img/team/3.jpg';
 import Avatar from '../common/Avatar';
+import { withTranslation } from 'react-i18next';
 
-const ProfileDropdown = () => {
+
+const ProfileDropdown = ({ t }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
   return (
@@ -28,7 +30,7 @@ const ProfileDropdown = () => {
       </DropdownToggle>
       <DropdownMenu right className="dropdown-menu-card">
         <div className="bg-white rounded-soft py-2">
-          <DropdownItem className="font-weight-bold text-warning" href="#!">
+          {/* <DropdownItem className="font-weight-bold text-warning" href="#!">
             <FontAwesomeIcon icon="crown" className="mr-1" />
             <span>Go Pro</span>
           </DropdownItem>
@@ -36,14 +38,15 @@ const ProfileDropdown = () => {
           <DropdownItem href="#!">Set status</DropdownItem>
           <DropdownItem tag={Link} to="/pages/profile">
             Profile &amp; account
-          </DropdownItem>
-          <DropdownItem href="#!">Feedback</DropdownItem>
+          </DropdownItem> */}
+          <DropdownItem href="https://myems.io">{t('Feedback')}</DropdownItem>
           <DropdownItem divider />
           <DropdownItem tag={Link} to="/pages/settings">
-            Settings
+            {t('Account Settings')}
           </DropdownItem>
+          <DropdownItem divider />
           <DropdownItem tag={Link} to="/authentication/basic/logout">
-            Logout
+            {t('Logout')}
           </DropdownItem>
         </div>
       </DropdownMenu>
@@ -51,4 +54,4 @@ const ProfileDropdown = () => {
   );
 };
 
-export default ProfileDropdown;
+export default  withTranslation()(ProfileDropdown);
