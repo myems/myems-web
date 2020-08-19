@@ -189,7 +189,6 @@ import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedRep
 import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
 
 
-
 const InboxRoutes = ({ match: { url } }) => (
   <InboxProvider>
     <Switch>

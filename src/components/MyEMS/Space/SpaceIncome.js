@@ -22,7 +22,7 @@ import LineChart from '../common/LineChart';
 import { withTranslation } from 'react-i18next';
 
 
-const ChildSpacesTable = loadable(() => import('./ChildSpacesTable'));
+const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const SpaceIncome = ({ t }) => {

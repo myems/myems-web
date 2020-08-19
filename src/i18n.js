@@ -63,7 +63,7 @@ const resources = {
       "Cost by Energy Category": "Cost by Energy Category",
       "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
       "Carbon Dioxide Emissions by Energy Category": "Carbon Dioxide Emissions by Energy Category",
-      "CATEGORY Input VALUE UNIT of This Month": "{{CATEGORY}} Input {{VALUE}} {{UNIT}} of This Month",
+      "Input of This Month CATEGORY VALUE UNIT": "Input of This Month {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "CATEGORY Cost of This Year UNIT": "{{CATEGORY}} Cost of This Year {{UNIT}}",
       "CATEGORY Input of This Year UNIT": "{{CATEGORY}} Input of This Year {{UNIT}}",
       // Entities
@@ -181,6 +181,7 @@ const resources = {
       "Related Parameters": "Related Parameters",
       "Detailed Data": "Detailed Data",
       "Child Spaces Data": "Child Spaces Data",
+      "Child Spaces Data of This Month": "Child Spaces Data of This Month",
       "This Year": "This Year",
       "This Month": "This Month",
       "This Day": "This Day",
@@ -190,6 +191,29 @@ const resources = {
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "Realtime Value of Energy Value Point {{UNIT}}",
       "Realtime Value": "Realtime Value",
+      //Meter Tracking
+      "Meter List": "Meter List",
+      //Profile Dropdown
+      "Feedback": "Feedback",
+      "Account Settings": "Account Settings",
+      "Logout": "Logout",
+      //Authentication
+      "Log in": "Log in",
+      "Email address": "Email address",
+      "Password": "Password",
+      "Remember me": "Remember me",
+      "Logged in as ": "Logged in as ",
+      "Forget Password?": "Forget Password?",
+      "Forgot your password?": "Forgot your password?",
+      "Enter your email and we'll send you a reset link.": "Enter your email and we'll send you a reset link.",
+      "Send reset link": "Send reset link",
+      "Thanks for using MyEMS!": "Thanks for using MyEMS!",
+      "You are now successfully signed out.": "You are now successfully signed out.",
+      "Return to Login": "Return to Login",
+      "Please check your email!": "Please check your email!",
+      "An email has been sent to ": "An email has been sent to ",
+      "Please click on the included link to reset your password.": "Please click on the included link to reset your password.",
+      "An email with password reset link is sent to ": "An email with password reset link is sent to ",
     }
   },
   zh_cn: {
@@ -252,7 +276,7 @@ const resources = {
       "Cost by Energy Category": "成本占比",
       "Ton of Standard Coal by Energy Category": "吨标准煤占比",
       "Carbon Dioxide Emissions by Energy Category": "二氧化碳排放占比",
-      "CATEGORY Input VALUE UNIT of This Month": "本月{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
+      "Input of This Month CATEGORY VALUE UNIT": "本月{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
       "CATEGORY Cost of This Year UNIT": "本年{{CATEGORY}}费 {{UNIT}}",
       "CATEGORY Input of This Year UNIT": "本年{{CATEGORY}}量 {{UNIT}}",
       // Entities
@@ -352,7 +376,7 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Saved CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       //FDD
-      "Fault List": "Fault List",
+      "Fault List": "故障列表",
       "All Faults": "全部故障",
       "Space Faults": "空间故障",
       "Equipment Faults": "设备故障",
@@ -369,6 +393,7 @@ const resources = {
       "Related Parameters": "相关参数",
       "Detailed Data": "详细数据",
       "Child Spaces Data": "子空间数据",
+      "Child Spaces Data of This Month": "本月子空间数据",
       "This Year": "本年",
       "This Month": "本月",
       "This Day": "本日",
@@ -378,6 +403,29 @@ const resources = {
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "能耗值点实时值 {{UNIT}}",
       "Realtime Value": "实时值",
+      //Meter Tracking
+      "Meter List": "计量表列表",
+      //Profile Dropdown
+      "Feedback": "反馈",
+      "Account Settings": "账号设置",
+      "Logout": "退出",
+      //Authentication
+      "Log in": "登录",
+      "Email address": "电子邮件地址",
+      "Password": "密码",
+      "Remember me": "记住我",
+      "Logged in as ": "已登录 ",
+      "Forget Password?": "忘记密码?",
+      "Forgot your password?": "忘记你的密码?",
+      "Enter your email and we'll send you a reset link.": "输入电子邮件地址，我们会把重置链接发送给您。",
+      "Send reset link": "发送重置连接",
+      "Thanks for using MyEMS!": "感谢您使用MyEMS!",
+      "You are now successfully signed out.": "您已成功退出。",
+      "Return to Login": "返回登录",
+      "Please check your email!": "请查收您的电子邮件!",
+      "An email has been sent to ": "一封电子邮件已经发送至 ",
+      "Please click on the included link to reset your password.": "请点击里面的链接重置您的密码。",
+      "An email with password reset link is sent to ": "一封包含密码重置链接的电子邮件已经发送至 ",
     }
   }
 };
