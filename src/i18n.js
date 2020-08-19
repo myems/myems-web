@@ -214,6 +214,12 @@ const resources = {
       "An email has been sent to ": "An email has been sent to ",
       "Please click on the included link to reset your password.": "Please click on the included link to reset your password.",
       "An email with password reset link is sent to ": "An email with password reset link is sent to ",
+      "Change Password": "Change Password",
+      "Old Password": "Old Password",
+      "New Password": "New Password",
+      "Confirm Password": "Confirm Password",
+      "Update Password": "Update Password",
+      "Password has been changed!": "Password has been changed!",
     }
   },
   zh_cn: {
@@ -426,6 +432,12 @@ const resources = {
       "An email has been sent to ": "一封电子邮件已经发送至 ",
       "Please click on the included link to reset your password.": "请点击里面的链接重置您的密码。",
       "An email with password reset link is sent to ": "一封包含密码重置链接的电子邮件已经发送至 ",
+      "Change Password": "修改密码",
+      "Old Password": "原密码",
+      "New Password": "新密码",
+      "Confirm Password": "重复新密码",
+      "Update Password": "更新密码",
+      "Password has been changed!": "密码已修改!",
     }
   }
 };

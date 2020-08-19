@@ -41,8 +41,8 @@ const ProfileDropdown = ({ t }) => {
           </DropdownItem> */}
           <DropdownItem href="https://myems.io">{t('Feedback')}</DropdownItem>
           <DropdownItem divider />
-          <DropdownItem tag={Link} to="/pages/settings">
-            {t('Account Settings')}
+          <DropdownItem tag={Link} to="/authentication/basic/change-password">
+            {t('Change Password')}
           </DropdownItem>
           <DropdownItem divider />
           <DropdownItem tag={Link} to="/authentication/basic/logout">
