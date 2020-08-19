@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import withRedirect from '../../../hoc/withRedirect';
+import { getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import { withTranslation } from 'react-i18next';
 
 const ForgetPasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
   // State
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(getItemFromStore('email', ''));
 
   // Handler
   const handleSubmit = e => {
@@ -22,6 +23,11 @@ const ForgetPasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
   useEffect(() => {
     setRedirectUrl(`/authentication/${layout}/confirm-mail`);
   }, [setRedirectUrl, layout]);
+
+  useEffect(() => {
+    setItemToStore('email', email);
+    // eslint-disable-next-line
+  }, [email]);
 
   return (
     <Form className="mt-4" onSubmit={handleSubmit}>
