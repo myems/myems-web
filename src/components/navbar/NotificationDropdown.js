@@ -10,8 +10,9 @@ import { isIterableArray } from '../../helpers/utils';
 import useFakeFetch from '../../hooks/useFakeFetch';
 import FalconCardHeader from '../common/FalconCardHeader';
 import Notification from '../notification/Notification';
+import { withTranslation } from 'react-i18next';
 
-const NotificationDropdown = () => {
+const NotificationDropdown = ({ t }) => {
   // State
   const { data: newNotifications, setData: setNewNotifications } = useFakeFetch(rawNewNotifications);
   const { data: earlierNotifications, setData: setEarlierNotifications } = useFakeFetch(rawEarlierNotifications);
@@ -75,20 +76,20 @@ const NotificationDropdown = () => {
       </DropdownToggle>
       <DropdownMenu right className="dropdown-menu-card">
         <Card className="card-notification shadow-none" style={{ maxWidth: '20rem' }}>
-          <FalconCardHeader className="card-header" title="Notifications" titleTag="h6" light={false}>
+          <FalconCardHeader className="card-header" title={t('Notifications')} titleTag="h6" light={false}>
             <Link className="card-link font-weight-normal" to="#!" onClick={markAsRead}>
-              Mark all as read
+              {t('Mark all as read')}
             </Link>
           </FalconCardHeader>
           <ListGroup flush className="font-weight-normal fs--1">
-            <div className="list-group-title">NEW</div>
+            <div className="list-group-title">{t('notification_NEW')}</div>
             {isIterableArray(newNotifications) &&
               newNotifications.map((notification, index) => (
                 <ListGroupItem key={index} onClick={handleToggle}>
                   <Notification {...notification} flush />
                 </ListGroupItem>
               ))}
-            <div className="list-group-title">EARLIER</div>
+            <div className="list-group-title">{t('notification_EARLIER')}</div>
             {isIterableArray(earlierNotifications) &&
               earlierNotifications.map((notification, index) => (
                 <ListGroupItem key={index} onClick={handleToggle}>
@@ -98,7 +99,7 @@ const NotificationDropdown = () => {
           </ListGroup>
           <div className="card-footer text-center border-top-0" onClick={handleToggle}>
             <Link className="card-link d-block" to="/pages/notifications">
-              View all
+              {t('View all')}
             </Link>
           </div>
         </Card>
@@ -107,4 +108,4 @@ const NotificationDropdown = () => {
   );
 };
 
-export default NotificationDropdown;
+export default withTranslation()(NotificationDropdown);

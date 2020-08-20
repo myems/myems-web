@@ -220,6 +220,12 @@ const resources = {
       "Confirm Password": "Confirm Password",
       "Update Password": "Update Password",
       "Password has been changed!": "Password has been changed!",
+      //notification
+      "Notifications": "Notifications",
+      "Mark all as read": "Mark all as read",
+      "View all": "View all",
+      "notification_NEW": "NEW",
+      "notification_EARLIER": "EARLIER",
     }
   },
   zh_cn: {
@@ -438,6 +444,12 @@ const resources = {
       "Confirm Password": "重复新密码",
       "Update Password": "更新密码",
       "Password has been changed!": "密码已修改!",
+      //notification
+      "Notifications": "通知",
+      "Mark all as read": "全部设为已读",
+      "View all": "查看全部",
+      "notification_NEW": "新的",
+      "notification_EARLIER": "更早的",
     }
   }
 };
