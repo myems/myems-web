@@ -142,7 +142,7 @@ const SpaceIncome = ({ t }) => {
     text: '热 (RMB)',
     sort: true
   }, {
-    dataField: 'd',
+    dataField: 'c',
     text: '蒸汽 (RMB)',
     sort: true
   }, {
