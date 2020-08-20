@@ -437,15 +437,15 @@ const SpaceEfficiency = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success"  >
           <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+2.0%" title={t('Reporting Period Cumulative Efficiency UNIT', { 'UNIT': '(kWh/kWh)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" >
           <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

@@ -404,24 +404,24 @@ const TenantSaving = ({ t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+      <CardSummary rate="-0.23%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="success" footnote={t('Per Unit Area')} footvalue={764.39 / 1000} footunit="(kWh/M2)" >
           <CountUp end={764.39} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" footnote={t('Per Unit Area')} footvalue={878 / 1000} footunit="(M3/M2)">
           <CountUp end={878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" footnote={t('Per Unit Area')} footvalue={87 / 1000} footunit="(M3/M2)">
           <CountUp end={87} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" footnote={t('Per Unit Area')} footvalue={(764.39 / 8135.56 + 87 / 751.8) / 1000} footunit="(TCE/M2)">
           <CountUp end={764.39 / 8135.56 + 87 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" footnote={t('Per Unit Area')} footvalue={((764.39 / 8135.56 + 87 / 751.8) * 0.67) / 1000} footunit="(T/M2)">
           <CountUp end={(764.39 / 8135.56 + 87 / 751.8) * 0.67} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

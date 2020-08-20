@@ -334,15 +334,15 @@ const EnergyLoss = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success"  >
           <CountUp end={589} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" >
           <CountUp end={589 / 8135.56} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period Lost CATEGORY UNIT', { 'CATEGORY': '二氧化碳排', 'UNIT': '(T)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" >
           <CountUp end={(589 / 8135.56) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>

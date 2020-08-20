@@ -376,14 +376,15 @@ const EquipmentOutput = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })} color="info" footnote="" footvalue="" footunit="">
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
+          color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
