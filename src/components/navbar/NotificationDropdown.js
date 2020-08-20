@@ -98,7 +98,7 @@ const NotificationDropdown = ({ t }) => {
               ))}
           </ListGroup>
           <div className="card-footer text-center border-top-0" onClick={handleToggle}>
-            <Link className="card-link d-block" to="/pages/notifications">
+            <Link className="card-link d-block" to="/notification">
               {t('View all')}
             </Link>
           </div>
