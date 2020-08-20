@@ -235,6 +235,10 @@ const resources = {
       "Communication Offline": "Offline",
       "Equipment Running": "Running",
       "Equipment Stopped": "Stopped",
+      //Advanced Reporting
+      "Created Datetime": "Created Datetime",
+      "File Format": "File Format",
+      "File Size": "File Size",
     }
   },
   zh_cn: {
@@ -259,7 +263,7 @@ const resources = {
       "Output": "产出分析",
       "Income": "收入分析",
       "Efficiency": "效率分析",
-      "Load": "负荷分析",
+      "Load": "负荷分f析",
       "Statistics": "统计分析",
       "Saving": "节能分析",
       "Equipment Tracking": "设备台账",
@@ -470,6 +474,10 @@ const resources = {
       "Communication Offline": "离线",
       "Equipment Running": "运行",
       "Equipment Stopped": "停机",
+      //Advanced Reporting
+      "Created Datetime": "生成时间",
+      "File Format": "文件格式",
+      "File Size": "文件大小",
     }
   }
 };

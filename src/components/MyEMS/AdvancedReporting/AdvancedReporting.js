@@ -31,48 +31,29 @@ const AdvacnedReporting = ({ t }) => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  const eventCategories = [
-    '选择分类',
-    '空间数据日报',
-    '设备数据日报',
-    '租户数据日报',
-    '门店数据日报',
-    '车间数据日报',
-    '辅助系统数据日报',
-    '空间数据周报',
-    '设备数据周报',
-    '租户数据周报',
-    '门店数据周报',
-    '车间数据周报',
-    '辅助系统数据周报',
-    '空间数据月报',
-    '设备数据月报',
-    '租户数据月报',
-    '门店数据月报',
-    '车间数据月报',
-    '辅助系统数据月报',
-    '其它',
-  ];
   const rawReports = [
     {
       id: uuid(),
       calendar: { month: 'Mar', day: '26' },
       title: "空间数据日报",
-      additional: '生成时间: 2020-03-26 11:00AM<br/>文件格式: XLSX <br/>文件大小: 1.3 MB',
+      additional: t('Created Datetime') + ': ' + '2020-03-26 11:00AM' + '<br/>' +
+        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '21' },
       title: '设备数据日报',
-      additional: '生成时间: 2020-07-21 11:00AM<br/>文件格式: DOCX <br/>文件大小: 1.3 MB',
+      additional: t('Created Datetime') + ': ' + '2020-07-21 11:00AM' + '<br/>' +
+        t('File Format') + ': ' + 'DOCX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '21' },
       title: '租户数据日报',
-      additional: '生成时间: 2020-07-21 11:00AM<br/>文件格式: DOCX <br/>文件大小: 1.3 MB',
+      additional: t('Created Datetime') + ': ' + '2020-07-21 11:00AM' + '<br/>' +
+        t('File Format') + ': ' + 'DOCX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
       to: '#',
       badge: {
         text: 'New',
@@ -84,14 +65,16 @@ const AdvacnedReporting = ({ t }) => {
       id: uuid(),
       calendar: { month: 'Jul', day: '31' },
       title: '门店数据日报',
-      additional: '生成时间: 2020-07-31 11:00AM<br/>文件格式: XLSX <br/>文件大小: 1.3 MB',
+      additional: t('Created Datetime') + ': ' + '2020-07-31 11:00AM' + '<br/>' +
+        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '16' },
       title: '车间数据日报',
-      additional: '生成时间: 2020-07-16 11:00AM<br/>文件格式: XLSX <br/>文件大小: 1.3 MB',
+      additional: t('Created Datetime') + ': ' + '2020-07-16 11:00AM' + '<br/>' +
+        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
       to: '#'
     }
   ];
@@ -130,19 +113,7 @@ const AdvacnedReporting = ({ t }) => {
         </CardBody>
       </Card>
       <Card>
-        <FalconCardHeader title={t('Advanced Reporting')}>
-          {isIterableArray(eventCategories) && (
-            <Form inline>
-              <CustomInput type="select" id="customSelectCategory" name="customSelectCategory" bsSize="sm">
-                {eventCategories.map((option, index) => (
-                  <option value={index} key={index}>
-                    {option}
-                  </option>
-                ))}
-              </CustomInput>
-            </Form>
-          )}
-        </FalconCardHeader>
+        <FalconCardHeader title={t('Advanced Reporting')}></FalconCardHeader>
         <CardBody className="fs--1">
           {loading ? (
             <Loader />
