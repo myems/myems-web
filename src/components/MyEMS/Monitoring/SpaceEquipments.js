@@ -30,7 +30,7 @@ import { withTranslation } from 'react-i18next';
 const SpaceEquipments = ({ t }) => {
 
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{
     label: '成都项目',

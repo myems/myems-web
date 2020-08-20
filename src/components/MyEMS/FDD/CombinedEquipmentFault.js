@@ -519,7 +519,7 @@ const selectRow = onSelect => ({
 
 const CombinedEquipmentFault = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);

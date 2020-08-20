@@ -520,7 +520,7 @@ const selectRow = onSelect => ({
 
 const TenantFault = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [tenant, setTenant] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);

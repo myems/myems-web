@@ -519,7 +519,7 @@ const selectRow = onSelect => ({
 
 const ShopfloorFault = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [shopfloor, setShopfloor] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
