@@ -100,7 +100,7 @@ const EquipmentList = ({
               <Col lg={4} tag={Flex} justify="between" column>
                 <div>
                   <h4 className="fs-1 fs-md-2 text-warning mb-0">
-                    瞬时效率:{parameter1} kW/kW
+                    {t('Instantaneous Efficiency VALUE UNIT', {'VALUE': parameter1, 'UNIT': '(kWh/kWh)'} )}
                   </h4>
                   <div className="d-none d-lg-block">
                     <p className="fs--1 mb-1">累计效率:<strong>{parameter2} kW/kW</strong></p>
@@ -110,15 +110,15 @@ const EquipmentList = ({
                     <p className="fs--1 mb-1">冷冻水出水温度:<strong>{parameter6} degree C</strong></p>
                     <p className="fs--1 mb-1">冷冻水回水温度:<strong>{parameter7} degree C</strong></p>
                     <p className="fs--1 mb-1">
-                      通信状态:{' '}
+                      {t('Communication Status')}:{' '}
                       <strong className={classNames({ 'text-success': isOnline, 'text-danger': !isOnline })}>
-                        {isOnline ? '在线' : '离线'}
+                        {isOnline ? t('Communication Online') : t('Communication Offline')}
                       </strong>
                     </p>
                     <p className="fs--1 mb-1">
-                      设备状态:{' '}
+                      {t('Equipment Status')}:{' '}
                       <strong className={classNames({ 'text-success': isRunning, 'text-danger': !isRunning })}>
-                        {isRunning ? '运行' : '停机'}
+                        {isRunning ? t('Equipment Running') : t('Equipment Stopped')}
                       </strong>
                     </p>
                   </div>
@@ -137,7 +137,7 @@ const EquipmentList = ({
                         : favouriteItemsDispatch({ type: 'ADD', payload: { id } })
                     }
                   >
-                    故障报警({alarms.length})
+                    {t('Fault Alarms')}({alarms.length})
                   </ButtonIcon>
                   {cartLoading ? (
                     <ButtonIcon
@@ -160,7 +160,7 @@ const EquipmentList = ({
                         className="w-lg-100 mt-2"
                         onClick={handleAddToCart}
                       >
-                        执行命令
+                        {t('Run Commands')}
                       </ButtonIcon>
                     )}
                 </div>

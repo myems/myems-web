@@ -227,6 +227,14 @@ const resources = {
       "notification_NEW": "NEW",
       "notification_EARLIER": "EARLIER",
       "Notification List": "Notification List",
+      //Monitoring
+      "Run Commands": "Run Commands",
+      "Fault Alarms": "Fault Alarms",
+      "Instantaneous Efficiency VALUE UNIT": "Instantaneous Efficiency {{VALUE}} {{UNIT}}",
+      "Communication Online": "Online",
+      "Communication Offline": "Offline",
+      "Equipment Running": "Running",
+      "Equipment Stopped": "Stopped",
     }
   },
   zh_cn: {
@@ -452,6 +460,16 @@ const resources = {
       "notification_NEW": "新的",
       "notification_EARLIER": "更早的",
       "Notification List": "通知列表",
+      //Monitoring
+      "Run Commands": "运行命令",
+      "Fault Alarms": "故障报警",
+      "Instantaneous Efficiency VALUE UNIT": "瞬时效率 {{VALUE}} {{UNIT}}",
+      "Communication Status": "通信状态",
+      "Equipment Status": "设备状态",
+      "Communication Online": "在线",
+      "Communication Offline": "离线",
+      "Equipment Running": "运行",
+      "Equipment Stopped": "停机",
     }
   }
 };
