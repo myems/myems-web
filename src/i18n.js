@@ -349,6 +349,7 @@ const resources = {
       "Reporting Period ITEM CATEGORY Input UNIT": "报告期 {{ITEM}} {{CATEGORY}} 量 {{UNIT}}",
       "Reporting Period ITEM CATEGORY Input VALUE UNIT": "报告期 {{ITEM}} {{CATEGORY}} 量 {{VALUE}} {{UNIT}}",
       "Base Period ITEM CATEGORY Input VALUE UNIT": "基准期 {{ITEM}} {{CATEGORY}} 量 {{VALUE}} {{UNIT}}",
+      "Reporting Period CATEGORY Cost UNIT": "报告期 {{CATEGORY}} 费 {{UNIT}}",
       "Reporting Period CATEGORY Cost VALUE UNIT": "报告期 {{CATEGORY}} 费 {{VALUE}} {{UNIT}}",
       "Base Period CATEGORY Cost VALUE UNIT": "基准期 {{CATEGORY}} 费 {{VALUE}} {{UNIT}}",
       "Reporting Period CATEGORY Output UNIT": "报告期产出 {{CATEGORY}} 量 {{UNIT}}",
