@@ -102,6 +102,13 @@ const CombinedEquipments = ({ t }) => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
+  const sliderSettings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
+  
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
@@ -182,7 +189,7 @@ const CombinedEquipments = ({ t }) => {
                 {isIterableArray(equipments) &&
                   equipments
                     .filter(equipment => paginationData.includes(equipment.id))
-                    .map((equipment, index) => <EquipmentList {...equipment} key={equipment.id} index={index} />)}
+                    .map((equipment, index) => <EquipmentList {...equipment} sliderSettings={sliderSettings} key={equipment.id} index={index} />)}
               </Row>
             )}
         </CardBody>

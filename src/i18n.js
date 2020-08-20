@@ -227,6 +227,18 @@ const resources = {
       "notification_NEW": "NEW",
       "notification_EARLIER": "EARLIER",
       "Notification List": "Notification List",
+      //Monitoring
+      "Run Commands": "Run Commands",
+      "Fault Alarms": "Fault Alarms",
+      "Instantaneous Efficiency VALUE UNIT": "Instantaneous Efficiency {{VALUE}} {{UNIT}}",
+      "Communication Online": "Online",
+      "Communication Offline": "Offline",
+      "Equipment Running": "Running",
+      "Equipment Stopped": "Stopped",
+      //Advanced Reporting
+      "Created Datetime": "Created Datetime",
+      "File Format": "File Format",
+      "File Size": "File Size",
     }
   },
   zh_cn: {
@@ -251,7 +263,7 @@ const resources = {
       "Output": "产出分析",
       "Income": "收入分析",
       "Efficiency": "效率分析",
-      "Load": "负荷分析",
+      "Load": "负荷分f析",
       "Statistics": "统计分析",
       "Saving": "节能分析",
       "Equipment Tracking": "设备台账",
@@ -452,6 +464,20 @@ const resources = {
       "notification_NEW": "新的",
       "notification_EARLIER": "更早的",
       "Notification List": "通知列表",
+      //Monitoring
+      "Run Commands": "运行命令",
+      "Fault Alarms": "故障报警",
+      "Instantaneous Efficiency VALUE UNIT": "瞬时效率 {{VALUE}} {{UNIT}}",
+      "Communication Status": "通信状态",
+      "Equipment Status": "设备状态",
+      "Communication Online": "在线",
+      "Communication Offline": "离线",
+      "Equipment Running": "运行",
+      "Equipment Stopped": "停机",
+      //Advanced Reporting
+      "Created Datetime": "生成时间",
+      "File Format": "文件格式",
+      "File Size": "文件大小",
     }
   }
 };

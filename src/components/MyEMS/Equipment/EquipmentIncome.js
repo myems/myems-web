@@ -391,19 +391,19 @@ const EquipmentIncome = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '冷', 'UNIT': '(RMB)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '热', 'UNIT': '(RMB)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(RMB)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period Total Income UNIT', { 'UNIT': '(RMB)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" >
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

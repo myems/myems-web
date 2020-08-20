@@ -399,7 +399,7 @@ const CombinedEquipmentLoad = ({ t }) => {
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '电' })}
-          color="success" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
+          color="success" footnote={t('Ratio of Average Load to Maximum Load')}  >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -413,7 +413,7 @@ const CombinedEquipmentLoad = ({ t }) => {
           <CountUp end={28.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '自来水' })}
-          color="info" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="">
+          color="info" footnote={t('Ratio of Average Load to Maximum Load')} >
           <CountUp end={0.708} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -427,7 +427,7 @@ const CombinedEquipmentLoad = ({ t }) => {
           <CountUp end={8.131} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '天然气' })} color="warning"
-          footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="">
+          footnote={t('Ratio of Average Load to Maximum Load')} >
           <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
@@ -441,7 +441,7 @@ const CombinedEquipmentLoad = ({ t }) => {
           <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '冷' })}
-          color="success" footnote={t('Ratio of Average Load to Maximum Load')} footvalue="" footunit="" >
+          color="success" footnote={t('Ratio of Average Load to Maximum Load')}  >
           <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

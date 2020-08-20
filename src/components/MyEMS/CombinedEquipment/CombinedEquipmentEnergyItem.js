@@ -392,19 +392,19 @@ const CombinedEquipmentEnergyItem = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" >
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
