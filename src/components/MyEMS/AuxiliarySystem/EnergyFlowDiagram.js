@@ -14,7 +14,7 @@ import {
   CustomInput
 } from 'reactstrap';
 import Datetime from 'react-datetime';
-import ReactEchartsCore from 'echarts-for-react/lib/core';
+import ReactEchartsCore from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
 import AppContext from '../../../context/Context';
 import { themeColors, getPosition, getGrays, rgbaColor } from '../../../helpers/utils';
@@ -24,7 +24,7 @@ import { withTranslation } from 'react-i18next';
 
 const EnergyFlowDiagram = ({ t }) => {
   // State
-  const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(null);
+  const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
   const { isDark } = useContext(AppContext);
@@ -169,6 +169,7 @@ const EnergyFlowDiagram = ({ t }) => {
       },
       series: [
         {
+          name: 'sankey',
           type: 'sankey',
           data: data.nodes,
           links: data.links,
@@ -206,10 +207,11 @@ const EnergyFlowDiagram = ({ t }) => {
                 <Label className={labelClasses} for="selectedEnergyFlowDiagram">
                   {t('Energy Flow Diagram')}
                 </Label>
-                <CustomInput type="select" id="selectedEnergyFlowDiagram" name="selectedEnergyFlowDiagram" value={selectedEnergyFlowDiagram} onChange={({ target }) => setSelectedEnergyFlowDiagram(target.value)}
+                <CustomInput type="select" id="selectedEnergyFlowDiagram" name="selectedEnergyFlowDiagram" 
+                value={selectedEnergyFlowDiagram} onChange={({ target }) => setSelectedEnergyFlowDiagram(target.value)}
                 >
                   {energyFlowDiagramOptions.map((selectedEnergyFlowDiagram, index) => (
-                    <option value={selectedEnergyFlowDiagram.value} key={selectedEnergyFlowDiagram.value}>
+                    <option value={selectedEnergyFlowDiagram.value} key={index}>
                       {selectedEnergyFlowDiagram.label}
                     </option>
                   ))}
