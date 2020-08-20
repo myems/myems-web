@@ -27,7 +27,7 @@ const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const MeterEnergy = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [meter, setMeter] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);

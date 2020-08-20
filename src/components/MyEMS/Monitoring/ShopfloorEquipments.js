@@ -30,7 +30,7 @@ import { withTranslation } from 'react-i18next';
 const TenantEquipments = ({ t }) => {
 
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [shopfloor, setShopfloor] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{

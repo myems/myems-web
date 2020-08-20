@@ -30,7 +30,7 @@ import { withTranslation } from 'react-i18next';
 const CombinedEquipments = ({ t }) => {
 
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const cascaderOptions = [{

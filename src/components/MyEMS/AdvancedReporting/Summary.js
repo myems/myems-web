@@ -27,7 +27,6 @@ const Summary = ({ calendar, title, badge, divider, to, children }) => (
 Summary.propTypes = {
   calendar: PropTypes.shape(Calendar.propTypes).isRequired,
   title: PropTypes.string.isRequired,
-  organizer: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   badge: PropTypes.shape(ReportBadge.propTypes),
   children: PropTypes.node,

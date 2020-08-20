@@ -28,7 +28,7 @@ const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const SpaceLoad = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);

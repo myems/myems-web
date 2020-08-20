@@ -27,7 +27,7 @@ const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 const StoreEnergyItem = ({ t }) => {
   // State
 
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [store, setStore] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
@@ -394,19 +394,19 @@ const StoreEnergyItem = ({ t }) => {
       </Card>
       <div className="card-deck">
         <CardSummary rate="-0.23%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote="" footvalue="" footunit="" >
+          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(kWh/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="info" footnote="" footvalue="" footunit="">
+          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(kWh/M2)">
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
         <CardSummary rate="+9.54%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="warning" footnote="" footvalue="" footunit="">
+          color="warning" footnote={t('Per Unit Area')} footvalue={43594 / 1000} footunit="(kWh/M2)">
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>

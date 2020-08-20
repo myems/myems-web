@@ -95,7 +95,7 @@ const LineChart = ({
             >
               {isIterableArray(options) &&
                 options.map(({ value, label }) => (
-                  <option value={value}>{label}</option>
+                  <option key={value} value={value}>{label}</option>
                 ))}
             </CustomInput>
           </Col>

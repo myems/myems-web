@@ -36,9 +36,9 @@ const CardSummary = ({ title, rate, color, children, footnote, footvalue, footun
           <span className={`badge badge-soft-${color} rounded-capsule ml-2`}>{rate}</span>
         </h6>
         <div className={getContentClassNames(color)}>{children}</div>
-        <h7 className="font-weight-semi-bold fs--1 text-nowrap">
+        <h6 className="font-weight-semi-bold fs--1 text-nowrap">
           {footnote} {footvalue && <CountUp end={footvalue} duration={2} prefix="" separator="," decimal="." decimals={2} />} {footunit}
-        </h7>
+        </h6>
       </CardBody>
     </Card>
   );
@@ -50,7 +50,7 @@ CardSummary.propTypes = {
   color: PropTypes.string,
   children: PropTypes.node,
   footnote: PropTypes.string,
-  footvalue: PropTypes.string,
+  footvalue: PropTypes.number,
   footunit: PropTypes.string,
 };
 

@@ -29,7 +29,7 @@ const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const SpaceEnergyCategory = ({ t }) => {
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
@@ -446,7 +446,7 @@ const SpaceEnergyCategory = ({ t }) => {
           color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)">
           <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '二氧化碳排放量', 'UNIT': '(T)' })}
+        <CardSummary rate="+9.54%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
           color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)">
           <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>

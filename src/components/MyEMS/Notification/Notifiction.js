@@ -9,10 +9,6 @@ import {
   Card,
   CardBody,
   Button,
-  ButtonGroup,
-  FormGroup,
-  Input,
-  Label,
   CustomInput,
   DropdownItem,
   DropdownMenu,
@@ -20,8 +16,6 @@ import {
   InputGroup,
   UncontrolledDropdown
 } from 'reactstrap';
-import Datetime from 'react-datetime';
-import Cascader from 'rc-cascader';
 import ButtonIcon from '../../common/ButtonIcon';
 import { Link } from 'react-router-dom';
 import Badge from 'reactstrap/es/Badge';
@@ -87,15 +81,6 @@ const badgeFormatter = status => {
       {text}
       <FontAwesomeIcon icon={icon} transform="shrink-2" className="ml-1" />
     </Badge>
-  );
-};
-
-const amountFormatter = amount => {
-  return (
-    <Fragment>
-      {'$'}
-      {amount}
-    </Fragment>
   );
 };
 
@@ -518,83 +503,7 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const StoreFault = ({ t }) => {
-  // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
-  const [store, setStore] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-
-  const cascaderOptions = [{
-    label: '成都项目',
-    value: 1,
-    children: [{
-      label: '租区',
-      value: 2,
-      children: [{
-        label: '大租户',
-        value: 9,
-      }, {
-        label: '餐饮租户',
-        value: 10,
-      }, {
-        label: '零售租户',
-        value: 11,
-      }],
-    }, {
-      label: '公区商场',
-      value: 3,
-      children: [{
-        label: '给排水',
-        value: 12,
-      }, {
-        label: '扶梯直梯',
-        value: 13,
-      }, {
-        label: '照明及插座',
-        value: 14,
-      }, {
-        label: '空调水',
-        value: 15,
-      }, {
-        label: '空调风',
-        value: 16,
-      }, {
-        label: '特殊功能房间',
-        value: 17,
-      }, {
-        label: '其他用电设备',
-        value: 18,
-      }]
-    }, {
-      label: '公区车库',
-      value: 4,
-      children: [{
-        label: '车库通风',
-        value: 5,
-      }, {
-        label: '车库照明',
-        value: 6,
-        children: [{
-          label: '应急照明',
-          value: 7,
-        }, {
-          label: '普通照明',
-          value: 8,
-        }
-        ]
-      }]
-    }],
-  }];
-
-  const storeList = [
-    { value: 1, label: '麦肯鸡(崇文门店)' },
-    { value: 2, label: '麦肯鸡(新世界店)' },
-    { value: 3, label: '麦肯鸡(祈年大街得来速店)' },
-    { value: 4, label: '麦肯鸡(灯市口店)' }];
-
-  const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
+const Notification = ({ t }) => {
   // State
   let table = createRef();
 
@@ -613,10 +522,6 @@ const StoreFault = ({ t }) => {
     });
   };
 
-  let onCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
-    setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
-  }
   useEffect(() => {
 
   }, []);
@@ -624,74 +529,8 @@ const StoreFault = ({ t }) => {
 
   return (
     <Fragment>
-      <div>
-        <Breadcrumb>
-          <BreadcrumbItem>{t('Fault Detection & Diagnostics')}</BreadcrumbItem><BreadcrumbItem active>{t('Store Faults')}</BreadcrumbItem>
-        </Breadcrumb>
-      </div>
-      <Card className="bg-light mb-3">
-        <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                  {t('Space')}
-                </Label>
-                <br />
-                <Cascader options={cascaderOptions}
-                  onChange={onCascaderChange}
-                  changeOnSelect
-                  expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
-                </Cascader>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="store">
-                  {t('Store')}
-                </Label>
-                <CustomInput type="select" id="store" name="store" value={store} onChange={({ target }) => setStore(target.value)}
-                >
-                  {storeList.map((store, index) => (
-                    <option value={store.value} key={store.value}>
-                      {store.label}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
-        </CardBody>
-      </Card>
       <Card className="mb-3">
-        <FalconCardHeader title={t('Fault List')} light={false}>
+        <FalconCardHeader title={t('Notification List')} light={false}>
           {isSelected ? (
             <InputGroup size="sm" className="input-group input-group-sm">
               <CustomInput type="select" id="bulk-select">
@@ -777,4 +616,4 @@ const StoreFault = ({ t }) => {
   );
 };
 
-export default withTranslation()(StoreFault);
+export default withTranslation()(Notification);

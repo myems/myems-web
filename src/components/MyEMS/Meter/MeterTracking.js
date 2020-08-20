@@ -321,7 +321,7 @@ const meters = [
 const MeterTracking = ({ t }) => {
   let table = createRef();
   // State
-  const [selectedSpace, setSelectedSpace] = useState(null);
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
 
 
   const cascaderOptions = [{

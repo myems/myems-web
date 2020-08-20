@@ -226,6 +226,7 @@ const resources = {
       "View all": "View all",
       "notification_NEW": "NEW",
       "notification_EARLIER": "EARLIER",
+      "Notification List": "Notification List",
     }
   },
   zh_cn: {
@@ -450,6 +451,7 @@ const resources = {
       "View all": "查看全部",
       "notification_NEW": "新的",
       "notification_EARLIER": "更早的",
+      "Notification List": "通知列表",
     }
   }
 };
