@@ -55,7 +55,9 @@ const ProductTr = ({ name, description, startdate, enddate, quantity, rate }) =>
 
 ProductTr.propTypes = {
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  startdate: PropTypes.string.isRequired,
+  enddate: PropTypes.string.isRequired,
+  description: PropTypes.string,
   quantity: PropTypes.number.isRequired,
   rate: PropTypes.number.isRequired
 };
