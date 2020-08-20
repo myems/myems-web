@@ -617,31 +617,31 @@ const FaultStatistics = ({ t }) => {
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594" rate="9.54%" title={t('All Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of All Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Space Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Space Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Equipment Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Equipment Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Tenant Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Tenant Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Store Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Store Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Shopfloor Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Shopfloor Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={6} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Combined Equipment Faults')}
+        <CardSummary content="43,594" rate="9.54%" title={t('Number of Combined Equipment Faults')}
          color="success" footnote="" footvalue="" footunit="">
           <CountUp end={5} duration={5} separator="," decimal="." />
         </CardSummary>
