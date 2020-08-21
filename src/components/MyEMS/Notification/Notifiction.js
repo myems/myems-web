@@ -23,10 +23,49 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FalconCardHeader from '../../common/FalconCardHeader';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 
 
+
+const Notification = ({ setRedirect, setRedirectUrl,  t }) => {
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000*60*60*8);
+      createCookie('user_name', user_name, 1000*60*60*8);
+      createCookie('user_uuid', user_uuid, 1000*60*60*8);
+      createCookie('user_token', user_token, 1000*60*60*8);
+    }
+  }, []);
+  // State
+  let table = createRef();
+
+  const [isSelected, setIsSelected] = useState(false);
+  const handleNextPage = ({ page, onPageChange }) => () => {
+    onPageChange(page + 1);
+  };
+
+  const handlePrevPage = ({ page, onPageChange }) => () => {
+    onPageChange(page - 1);
+  };
+
+  const onSelect = () => {
+    setImmediate(() => {
+      setIsSelected(!!table.current.selectionContext.selected.length);
+    });
+  };
+
+  
 const orderFormatter = (dataField, { id, name, email }) => (
   <Fragment>
     <Link to="/e-commerce/order-details">
@@ -503,29 +542,6 @@ const selectRow = onSelect => ({
   onSelectAll: onSelect
 });
 
-const Notification = ({ t }) => {
-  // State
-  let table = createRef();
-
-  const [isSelected, setIsSelected] = useState(false);
-  const handleNextPage = ({ page, onPageChange }) => () => {
-    onPageChange(page + 1);
-  };
-
-  const handlePrevPage = ({ page, onPageChange }) => () => {
-    onPageChange(page - 1);
-  };
-
-  const onSelect = () => {
-    setImmediate(() => {
-      setIsSelected(!!table.current.selectionContext.selected.length);
-    });
-  };
-
-  useEffect(() => {
-
-  }, []);
-
 
   return (
     <Fragment>
@@ -616,4 +632,4 @@ const Notification = ({ t }) => {
   );
 };
 
-export default withTranslation()(Notification);
+export default withTranslation()(withRedirect(Notification));

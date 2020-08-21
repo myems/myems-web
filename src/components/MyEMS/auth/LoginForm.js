@@ -32,10 +32,11 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
     } else {
       setItemToStore('email', '');
     }
+    
     createCookie('user_name', user_name, 1000*60*60*8);
     createCookie('user_uuid', user_uuid, 1000*60*60*8);
     createCookie('user_token', user_token, 1000*60*60*8);
-    createCookie('isLoggedIn', true, 1000*60*60*8);
+    createCookie('is_logged_in', true, 1000*60*60*8);
     
     setRedirect(true);
   };

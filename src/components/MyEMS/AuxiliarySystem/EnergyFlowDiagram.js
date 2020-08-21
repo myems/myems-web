@@ -9,7 +9,6 @@ import {
   Button,
   ButtonGroup,
   FormGroup,
-  Input,
   Label,
   CustomInput
 } from 'reactstrap';
@@ -17,12 +16,28 @@ import Datetime from 'react-datetime';
 import ReactEchartsCore from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
 import AppContext from '../../../context/Context';
-import { themeColors, getPosition, getGrays, rgbaColor } from '../../../helpers/utils';
-import { title } from 'echarts/lib/theme/dark';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 
-const EnergyFlowDiagram = ({ t }) => {
+const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl,  t }) => {
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000*60*60*8);
+      createCookie('user_name', user_name, 1000*60*60*8);
+      createCookie('user_uuid', user_uuid, 1000*60*60*8);
+      createCookie('user_token', user_token, 1000*60*60*8);
+    }
+  }, []);
   // State
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
@@ -259,4 +274,4 @@ const EnergyFlowDiagram = ({ t }) => {
   );
 };
 
-export default withTranslation()(EnergyFlowDiagram);
+export default withTranslation()(withRedirect(EnergyFlowDiagram));

@@ -12,7 +12,7 @@ const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
     createCookie('user_name', '', 0);
     createCookie('user_uuid', '', 0);
     createCookie('user_token', '', 0);
-    createCookie('isLoggedIn', false, 0);
+    createCookie('is_logged_in', false, 0);
   }, []);
   return (
     <Fragment>

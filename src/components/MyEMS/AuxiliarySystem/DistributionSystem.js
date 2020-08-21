@@ -1,4 +1,4 @@
-import React, { createRef, Fragment, useState } from 'react';
+import React, { createRef, Fragment, useState, useEffect } from 'react';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,63 +8,38 @@ import {
   CardBody,
   Col,
   CustomInput,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
   FormGroup,
   Input,
-  InputGroup,
   Label,
-  Media,
   Row,
-  UncontrolledDropdown,
 } from 'reactstrap';
-import uuid from 'uuid/v1';
 import Cascader from 'rc-cascader';
-import FalconCardHeader from '../../common/FalconCardHeader';
-import ButtonIcon from '../../common/ButtonIcon';
-import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
-import BootstrapTable from 'react-bootstrap-table-next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import Flex from '../../common/Flex';
-import { getPaginationArray } from '../../../helpers/utils';
-import loadable from '@loadable/component';
 import RealtimeChart from './RealtimeChart';
 import LightBoxGallery from '../../common/LightBoxGallery';
 import img1 from './distribution.svg';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
-const nameFormatter = (dataField, { name }) => (
-  <Link to="/pages/customer-details">
-    <Media tag={Flex} align="center">
-      <Media body className="ml-2">
-        <h5 className="mb-0 fs--1">{name}</h5>
-      </Media>
-    </Media>
-  </Link>
-);
 
-const emailFormatter = email => <a href={`mailto:${email}`}>{email}</a>;
-const phoneFormatter = phone => <a href={`tel:${phone}`}>{phone}</a>;
+const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
-const actionFormatter = (dataField, { id }) => (
-  // Control your row with this id
-  <UncontrolledDropdown>
-    <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
-      <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
-    </DropdownToggle>
-    <DropdownMenu right className="border py-2">
-      <DropdownItem onClick={() => console.log('Edit: ', id)}>Edit</DropdownItem>
-      <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">
-        Delete
-      </DropdownItem>
-    </DropdownMenu>
-  </UncontrolledDropdown>
-);
-
-
-const DistributionSystem = ({ t }) => {
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
+    }
+  }, []); 
   let table = createRef();
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
@@ -139,13 +114,6 @@ const DistributionSystem = ({ t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  const handleNextPage = ({ page, onPageChange }) => () => {
-    onPageChange(page + 1);
-  };
-
-  const handlePrevPage = ({ page, onPageChange }) => () => {
-    onPageChange(page - 1);
-  };
   const images = [img1];
 
   const distributionSystemList = [
@@ -237,4 +205,4 @@ const DistributionSystem = ({ t }) => {
   );
 };
 
-export default withTranslation()(DistributionSystem);
+export default withTranslation()(withRedirect(DistributionSystem));
