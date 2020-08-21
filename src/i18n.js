@@ -239,6 +239,15 @@ const resources = {
       "Created Datetime": "Created Datetime",
       "File Format": "File Format",
       "File Size": "File Size",
+      //Error
+      "The page you're looking for is not found.": "The page you're looking for is not found.",
+      "Make sure the address is correct and that the page hasn't moved. ": "Make sure the address is correct and that the page hasn't moved. ",
+      "If you think this is a mistake,": "If you think this is a mistake,",
+      "contact us": "contact us",
+      "Take me home": "Take me home",
+      "Whoops, something went wrong!": "Whoops, something went wrong!",
+      "Try refreshing the page, or going back and attempting the action again. ": "Try refreshing the page, or going back and attempting the action again. ",
+      "If this problem persists,": "If this problem persists,",
     }
   },
   zh_cn: {
@@ -478,6 +487,15 @@ const resources = {
       "Created Datetime": "生成时间",
       "File Format": "文件格式",
       "File Size": "文件大小",
+      //Error
+      "The page you're looking for is not found.": "您要找的页面不存在。",
+      "Make sure the address is correct and that the page hasn't moved. ": "请确认地址正确且页面没有被移动。",
+      "If you think this is a mistake,": "如果您认为这是一个错误,",
+      "contact us": "联系我们",
+      "Take me home": "带我回首页",
+      "Whoops, something went wrong!": "哦, 出错了！!",
+      "Try refreshing the page, or going back and attempting the action again. ": "请尝试刷新页面, 或回退并再次尝试执行这个操作。 ",
+      "If this problem persists,": "如果问题依然存在,",
     }
   }
 };
