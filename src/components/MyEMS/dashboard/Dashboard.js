@@ -6,14 +6,39 @@ import LineChart from '../common/LineChart';
 import { toast } from 'react-toastify';
 import SharePie from '../common/SharePie';
 import loadable from '@loadable/component';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 
-const Dashboard = ({ t }) => {
-  // State
+const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
 
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    console.log(is_logged_in);
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000*60*60*8);
+      createCookie('user_name', user_name, 1000*60*60*8);
+      createCookie('user_uuid', user_uuid, 1000*60*60*8);
+      createCookie('user_token', user_token, 1000*60*60*8);
+      toast(
+        <Fragment>
+          {t("Welcome to")} <strong>MyEMS</strong>!<br />
+          {t("The Leading Free and Open Source Energy Management System")}
+        </Fragment>
+      );
+    }
+  }, []);
+  // State
   const spaceLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -136,50 +161,42 @@ const Dashboard = ({ t }) => {
     text: '二氧化碳排放 (T)',
     sort: true
   }];
-  useEffect(() => {
-    toast(
-      <Fragment>
-        {t("Welcome to")} <strong>MyEMS</strong>!<br />
-        {t("The Leading Free and Open Source Energy Management System")}
-      </Fragment>
-    );
-  }, []);
 
   return (
     <Fragment>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('CATEGORY Input of This Year UNIT', {'CATEGORY': '电', 'UNIT': '(kWh)'})} 
-        color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
+        <CardSummary rate="-0.23%" title={t('CATEGORY Input of This Year UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('CATEGORY Input of This Year UNIT', {'CATEGORY': '自来水', 'UNIT': '(M3)'})}
-         color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(M3/M2)" >
+        <CardSummary rate="0.0%" title={t('CATEGORY Input of This Year UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(M3/M2)" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('CATEGORY Input of This Year UNIT', {'CATEGORY': '天然气', 'UNIT': '(M3)'})}
-         color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(M3/M2)" >
+        <CardSummary rate="0.0%" title={t('CATEGORY Input of This Year UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(M3/M2)" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('CATEGORY Input of This Year UNIT', {'CATEGORY': '吨标准煤', 'UNIT': '(TCE)'})} 
-        color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)" >
+        <CardSummary rate="+9.54%" title={t('CATEGORY Input of This Year UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+          color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)" >
           <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('CATEGORY Input of This Year UNIT', {'CATEGORY': '二氧化碳排放', 'UNIT': '(T)'})}
-         color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)" >
+        <CardSummary rate="+9.54%" title={t('CATEGORY Input of This Year UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+          color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)" >
           <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('CATEGORY Cost of This Year UNIT', {'CATEGORY': '电', 'UNIT': '(RMB)'})}
-         color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(RMB/M2)" >
+        <CardSummary rate="-0.23%" title={t('CATEGORY Cost of This Year UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
+          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(RMB/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('CATEGORY Cost of This Year UNIT', {'CATEGORY': '自来水', 'UNIT': '(RMB)'})}
-         color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(RMB/M2)" >
+        <CardSummary rate="0.0%" title={t('CATEGORY Cost of This Year UNIT', { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
+          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(RMB/M2)" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('CATEGORY Cost of This Year UNIT', {'CATEGORY': '天然气', 'UNIT': '(RMB)'})}
-         color="warning" footnote={t('Per Unit Area')} footvalue={43594 / 1000} footunit="(RMB/M2)" >
+        <CardSummary rate="+9.54%" title={t('CATEGORY Cost of This Year UNIT', { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
+          color="warning" footnote={t('Per Unit Area')} footvalue={43594 / 1000} footunit="(RMB/M2)" >
           <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
         </CardSummary>
       </div>
@@ -194,7 +211,7 @@ const Dashboard = ({ t }) => {
           <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Input of This Month CATEGORY VALUE UNIT', {'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)'})}
+      <LineChart reportingTitle={t('Input of This Month CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
         baseTitle=''
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
@@ -214,4 +231,4 @@ const Dashboard = ({ t }) => {
   );
 };
 
-export default withTranslation()(Dashboard);
+export default withTranslation()(withRedirect(Dashboard));

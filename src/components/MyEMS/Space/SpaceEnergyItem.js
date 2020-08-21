@@ -19,15 +19,32 @@ import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import loadable from '@loadable/component';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
-const SpaceEnergyItem = ({ t }) => {
+const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000*60*60*8);
+      createCookie('user_name', user_name, 1000*60*60*8);
+      createCookie('user_uuid', user_uuid, 1000*60*60*8);
+      createCookie('user_token', user_token, 1000*60*60*8);
+    }
+  }, []);
   // State
-
   const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
@@ -456,4 +473,4 @@ const SpaceEnergyItem = ({ t }) => {
   );
 };
 
-export default withTranslation()(SpaceEnergyItem);
+export default withTranslation()(withRedirect(SpaceEnergyItem));

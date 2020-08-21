@@ -21,10 +21,29 @@ import uuid from 'uuid/v1';
 import Datetime from 'react-datetime';
 import createMarkup from '../../../helpers/createMarkup';
 import { isIterableArray } from '../../../helpers/utils';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
 
-const AdvacnedReporting = ({ t }) => {
+const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
+  
+  useEffect(() => {
+    let is_logged_in = getCookieValue('is_logged_in');
+    let user_name = getCookieValue('user_name');
+    let user_uuid = getCookieValue('user_uuid');
+    let user_token = getCookieValue('user_token');
+    if (is_logged_in === null || !is_logged_in) {
+      setRedirectUrl(`/authentication/basic/login`);
+      setRedirect(true);
+    } else {
+      //update expires time of cookies
+      createCookie('is_logged_in', true, 1000*60*60*8);
+      createCookie('user_name', user_name, 1000*60*60*8);
+      createCookie('user_uuid', user_uuid, 1000*60*60*8);
+      createCookie('user_token', user_token, 1000*60*60*8);
+    }
+  }, []);
 
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
@@ -138,4 +157,4 @@ const AdvacnedReporting = ({ t }) => {
   );
 };
 
-export default withTranslation()(AdvacnedReporting);
+export default withTranslation()(withRedirect(AdvacnedReporting));

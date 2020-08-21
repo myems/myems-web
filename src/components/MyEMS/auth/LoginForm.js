@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AppContext from '../../../context/Context';
 import { Button, Form, Row, Col, FormGroup, Input, CustomInput, Label } from 'reactstrap';
-import { getItemFromStore, setItemToStore } from '../../../helpers/utils';
+import { createCookie, getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 
@@ -20,12 +20,24 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
+    // todo: call login api
+    var user_name = 'administrator';
+    var user_uuid = 'dcdb67d1-6116-4987-916f-6fc6cf2bc0e4';
+    var user_token = 'b849ecdd-d335-428f-a6e5-760a431867a8';
+
     toast.success(t('Logged in as ') + `${email}`);
+
     if (remember) {
       setItemToStore('email', email);
     } else {
       setItemToStore('email', '');
     }
+    
+    createCookie('user_name', user_name, 1000*60*60*8);
+    createCookie('user_uuid', user_uuid, 1000*60*60*8);
+    createCookie('user_token', user_token, 1000*60*60*8);
+    createCookie('is_logged_in', true, 1000*60*60*8);
+    
     setRedirect(true);
   };
 

@@ -1,12 +1,19 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { createCookie } from '../../../helpers/utils';
 import rocket from '../../../assets/img/illustrations/rocket.png';
 import { withTranslation } from 'react-i18next';
 
 const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
+  useEffect(() => {
+    createCookie('user_name', '', 0);
+    createCookie('user_uuid', '', 0);
+    createCookie('user_token', '', 0);
+    createCookie('is_logged_in', false, 0);
+  }, []);
   return (
     <Fragment>
       <img className="d-block mx-auto mb-4" src={rocket} alt="shield" width={70} />
