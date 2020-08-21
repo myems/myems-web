@@ -128,7 +128,7 @@ class RealtimeChart extends Component {
           <CustomInput type="select" id="exampleCustomSelect" bsSize="sm">
             {isIterableArray(this.props.options) &&
               this.props.options.map(({ value, label }) => (
-                <option value={value}>{label}</option>
+                <option key={value} value={value}>{label}</option>
               ))}
 
           </CustomInput>
