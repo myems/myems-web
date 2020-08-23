@@ -425,7 +425,7 @@ const EquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Input UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Input CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
