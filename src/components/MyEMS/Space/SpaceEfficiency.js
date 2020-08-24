@@ -482,7 +482,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
       <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
       </ChildSpacesTable>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns}>
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
       </DetailedDataTable>
 
     </Fragment>
