@@ -45,8 +45,8 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     }
   }, []);
 
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -109,7 +109,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -117,7 +117,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">

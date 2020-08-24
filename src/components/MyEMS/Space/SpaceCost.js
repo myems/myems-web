@@ -47,10 +47,10 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
   const [periodType, setPeriodType] = useState('hourly');
   const cascaderOptions = [{
     label: '成都项目',
@@ -395,7 +395,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
-                <Datetime id='basePeriodBeginsDatetime' locale="fr-ca" />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -404,7 +404,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
                   {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
 
-                <Datetime id='basePeriodEndsDatetime' />
+                <Datetime id='basePeriodEndsDatetime' value={basePeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -412,7 +412,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -420,7 +420,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
