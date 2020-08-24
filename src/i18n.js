@@ -235,10 +235,11 @@ const resources = {
       "Communication Offline": "Offline",
       "Equipment Running": "Running",
       "Equipment Stopped": "Stopped",
-      //Advanced Reporting
+      //Advanced Reporting & Knowledge base
       "Created Datetime": "Created Datetime",
       "File Format": "File Format",
       "File Size": "File Size",
+      "Uploader": "Uploader",
       //Error
       "The page you're looking for is not found.": "The page you're looking for is not found.",
       "Make sure the address is correct and that the page hasn't moved. ": "Make sure the address is correct and that the page hasn't moved. ",
@@ -483,10 +484,11 @@ const resources = {
       "Communication Offline": "离线",
       "Equipment Running": "运行",
       "Equipment Stopped": "停机",
-      //Advanced Reporting
+      //Advanced Reporting & Knowledge Base
       "Created Datetime": "生成时间",
       "File Format": "文件格式",
       "File Size": "文件大小",
+      "Uploader": "上传者",
       //Error
       "The page you're looking for is not found.": "您要找的页面不存在。",
       "Make sure the address is correct and that the page hasn't moved. ": "请确认地址正确且页面没有被移动。",
