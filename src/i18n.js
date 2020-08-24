@@ -164,6 +164,7 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "Reporting Period Decreased {{CATEGORY}} (Baseline - Actual) {{UNIT}}",
       "Reporting Period Savings CATEGORY VALUE UNIT": "Reporting Period Savings {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Savings CATEGORY VALUE UNIT": "Base Period Savings {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      "Trend Values": "Trend Values",
       //FDD
       "Fault List": "Fault List",
       "Reporting Period Number of Fault VALUE": "Reporting Period Number of Fault {{VALUE}}",
@@ -414,6 +415,7 @@ const resources = {
       "Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT": "报告期减少 {{CATEGORY}} (基线-实际) {{UNIT}}",
       "Reporting Period Savings CATEGORY VALUE UNIT": "报告期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Base Period Savings CATEGORY VALUE UNIT": "基准期节约 {{CATEGORY}} {{VALUE}} {{UNIT}}",
+      "Trend Values": "趋势值",
       //FDD
       "Fault List": "故障列表",
       "Reporting Period Number of Fault VALUE": "报告期故障数: {{VALUE}}",
