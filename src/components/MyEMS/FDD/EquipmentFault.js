@@ -608,6 +608,12 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'daily', label: 'Daily' },
     { value: 'hourly', label: 'Hourly' }];
 
+  const comparisonTypeOptions = [
+    { value: 'year-to-year', label: 'Year-to-Year' },
+    { value: 'month-to-month', label: 'Month-to-Month' },
+    { value: 'free', label: 'Free' },
+    { value: 'none', label: 'None' }];
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   // State

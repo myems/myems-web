@@ -106,6 +106,11 @@ const resources = {
       // Query Panel
       "Base Period Begins": "Base Period Begins",
       "Base Period Ends": "Base Period Ends",
+      "Comparison Types": "Comparison Types",
+      "Year-to-Year": "Year-to-Year",
+      "Month-to-Month": "Month-to-Month",
+      "Free": "Free",
+      "None": "None",
       "Reporting Period Begins": "Reporting Period Begins",
       "Reporting Period Ends": "Reporting Period Ends",
       "(Optional)": "(Optional)",
@@ -360,6 +365,11 @@ const resources = {
       // Query Panel
       "Base Period Begins": "基准期开始",
       "Base Period Ends": "基准期结束",
+      "Comparison Types": "比较类型",
+      "Year-to-Year": "上年同比",
+      "Month-to-Month": "上月环比",
+      "Free": "自由比",
+      "None": "不比",
       "Reporting Period Begins": "报告期开始",
       "Reporting Period Ends": "报告期结束",
       "(Optional)": "(可选)",

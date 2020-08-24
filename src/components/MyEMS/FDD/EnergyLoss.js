@@ -45,10 +45,11 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [comparisonType, setComparisonType] = useState(undefined);
   const [meter, setMeter] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
-  const [periodType, setPeriodType] = useState('hourly');
+  const [periodType, setPeriodType] = useState(undefined);
 
   const cascaderOptions = [{
     label: '低压柜主进线#1',
@@ -102,6 +103,12 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'monthly', label: 'Monthly' },
     { value: 'daily', label: 'Daily' },
     { value: 'hourly', label: 'Hourly' }];
+
+  const comparisonTypeOptions = [
+    { value: 'year-to-year', label: 'Year-to-Year' },
+    { value: 'month-to-month', label: 'Month-to-Month' },
+    { value: 'free', label: 'Free' },
+    { value: 'none', label: 'None' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -323,7 +330,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
                 </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value="daily" onChange={({ target }) => setPeriodType(target.value)}
+                <CustomInput type="select" id="periodType" name="periodType" defaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
                 >
                   {periodTypeOptions.map((periodType, index) => (
                     <option value={periodType.value} key={periodType.value}>
