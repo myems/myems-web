@@ -29,7 +29,7 @@ const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 
-const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
+const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -40,19 +40,20 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-  const [periodType, setPeriodType] = useState('hourly');
+  const [comparisonType, setComparisonType] = useState(undefined);
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [periodType, setPeriodType] = useState(undefined);
 
   const cascaderOptions = [{
     label: '成都项目',
@@ -121,6 +122,12 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'monthly', label: 'Monthly' },
     { value: 'daily', label: 'Daily' },
     { value: 'hourly', label: 'Hourly' }];
+
+  const comparisonTypeOptions = [
+    { value: 'year-to-year', label: 'Year-to-Year' },
+    { value: 'month-to-month', label: 'Month-to-Month' },
+    { value: 'free', label: 'Free' },
+    { value: 'none', label: 'None' }];
 
   const tceshare = [
     { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
@@ -384,6 +391,21 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
               </FormGroup>
             </Col>
             <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="comparisonType">
+                  {t('Comparison Types')}
+                </Label>
+                <CustomInput type="select" id="comparisonType" name="comparisonType" defaultValue="month-to-month" onChange={({ target }) => setComparisonType(target.value)}
+                >
+                  {comparisonTypeOptions.map((comparisonType, index) => (
+                    <option value={comparisonType.value} key={comparisonType.value} >
+                      {t(comparisonType.label)}
+                    </option>
+                  ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
@@ -397,7 +419,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
                   {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
 
-                <Datetime id='basePeriodEndsDatetime' />
+                <Datetime id='basePeriodEndsDatetime' value={basePeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -405,7 +427,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -413,7 +435,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -421,7 +443,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
                 </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value="daily" onChange={({ target }) => setPeriodType(target.value)}
+                <CustomInput type="select" id="periodType" name="periodType" defaultdefaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
                 >
                   {periodTypeOptions.map((periodType, index) => (
                     <option value={periodType.value} key={periodType.value} >

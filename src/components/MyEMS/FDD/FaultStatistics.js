@@ -54,6 +54,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
   let table = createRef();
   const [isSelected, setIsSelected] = useState(false);
   const handleNextPage = ({ page, onPageChange }) => () => {
@@ -594,7 +596,7 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -602,7 +604,7 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">

@@ -46,12 +46,13 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [comparisonType, setComparisonType] = useState(undefined);
   const [tenant, setTenant] = useState(undefined);
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-  const [periodType, setPeriodType] = useState('hourly');
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [periodType, setPeriodType] = useState(undefined);
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -125,6 +126,12 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'monthly', label: 'Monthly' },
     { value: 'daily', label: 'Daily' },
     { value: 'hourly', label: 'Hourly' }];
+
+  const comparisonTypeOptions = [
+    { value: 'year-to-year', label: 'Year-to-Year' },
+    { value: 'month-to-month', label: 'Month-to-Month' },
+    { value: 'free', label: 'Free' },
+    { value: 'none', label: 'None' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -364,11 +371,26 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
               </FormGroup>
             </Col>
             <Col xs="auto">
+              <FormGroup>
+                <Label className={labelClasses} for="comparisonType">
+                  {t('Comparison Types')}
+                </Label>
+                <CustomInput type="select" id="comparisonType" name="comparisonType" defaultValue="month-to-month" onChange={({ target }) => setComparisonType(target.value)}
+                >
+                  {comparisonTypeOptions.map((comparisonType, index) => (
+                    <option value={comparisonType.value} key={comparisonType.value} >
+                      {t(comparisonType.label)}
+                    </option>
+                  ))}
+                </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="basePeriodBeginsDatetime">
                   {t('Base Period Begins')}{t('(Optional)')}
                 </Label>
-                <Datetime id='basePeriodBeginsDatetime' />
+                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -377,7 +399,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
                   {t('Base Period Ends')}{t('(Optional)')}
                 </Label>
 
-                <Datetime id='basePeriodEndsDatetime' />
+                <Datetime id='basePeriodEndsDatetime' value={basePeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -385,7 +407,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -393,7 +415,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -401,7 +423,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
                 </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value="daily" onChange={({ target }) => setPeriodType(target.value)}
+                <CustomInput type="select" id="periodType" name="periodType" defaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
                 >
                   {periodTypeOptions.map((periodType, index) => (
                     <option value={periodType.value} key={periodType.value}>

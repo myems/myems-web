@@ -54,12 +54,13 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [comparisonType, setComparisonType] = useState(undefined);
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(null);
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(null);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(null);
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(null);
-  const [periodType, setPeriodType] = useState('hourly');
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [periodType, setPeriodType] = useState(undefined);
 
   const orderFormatter = (dataField, { id, name, email }) => (
     <Fragment>
@@ -608,6 +609,12 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'daily', label: 'Daily' },
     { value: 'hourly', label: 'Hourly' }];
 
+  const comparisonTypeOptions = [
+    { value: 'year-to-year', label: 'Year-to-Year' },
+    { value: 'month-to-month', label: 'Month-to-Month' },
+    { value: 'free', label: 'Free' },
+    { value: 'none', label: 'None' }];
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   // State
@@ -683,7 +690,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' />
+                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
               </FormGroup>
             </Col>
             <Col >
@@ -691,7 +698,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' />
+                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
               </FormGroup>
             </Col>
             <Col xs="auto">
