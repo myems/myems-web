@@ -393,21 +393,21 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
           color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
           color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Output CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period Output CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
         labels={equipmentLineChartLabels}
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>

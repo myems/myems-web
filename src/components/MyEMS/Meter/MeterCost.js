@@ -393,7 +393,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Costs CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
           color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -407,8 +407,8 @@ const MeterCost = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
-        baseTitle={t('Base Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
+      <LineChart reportingTitle={t('Reporting Period Costs CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
+        baseTitle={t('Base Period Costs CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
         labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>
