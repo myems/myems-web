@@ -427,7 +427,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={5880.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -445,7 +445,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={12988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'EQUIPMENT': '冷机#1', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'EQUIPMENT': '冷机#1', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={2000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -463,7 +463,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={22988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'EQUIPMENT': '冷机#2', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'EQUIPMENT': '冷机#2', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={3000} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -481,7 +481,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'EQUIPMENT': '冷冻泵', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'EQUIPMENT': '冷冻泵', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={200} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -499,7 +499,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'EQUIPMENT': '冷却泵', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'EQUIPMENT': '冷却泵', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={300} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -517,7 +517,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Input UNIT', { 'EQUIPMENT': '冷却塔', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Consumption CATEGORY UNIT', { 'EQUIPMENT': '冷却塔', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={380.36} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>

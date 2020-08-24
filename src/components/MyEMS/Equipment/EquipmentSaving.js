@@ -421,19 +421,19 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="success"  >
           <CountUp end={764.39} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
           color="info" >
           <CountUp end={878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
           color="info" >
           <CountUp end={87} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Saved CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        <CardSummary rate="+9.54%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
           color="warning" >
           <CountUp end={764.39 / 8135.56 + 87 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
@@ -450,8 +450,8 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl,  t }) => {
           <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period Saved CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Saved CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Savings CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period Savings CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
         labels={equipmentLineChartLabels}
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>

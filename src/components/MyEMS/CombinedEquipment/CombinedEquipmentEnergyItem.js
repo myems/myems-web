@@ -408,25 +408,25 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption ITEM CATEGORY UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Consumption ITEM CATEGORY UNIT', { 'ITEM': '空调风', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Consumption ITEM CATEGORY UNIT', { 'ITEM': '照明及插座', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period ITEM CATEGORY Input UNIT', { 'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption ITEM CATEGORY UNIT', { 'ITEM': '电梯', 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="warning" >
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period ITEM CATEGORY Input VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period ITEM CATEGORY Input VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Consumption ITEM CATEGORY VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period Consumption ITEM CATEGORY VALUE UNIT', { 'ITEM': '空调水', 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
         labels={combinedEquipmentLineChartLabels}
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>

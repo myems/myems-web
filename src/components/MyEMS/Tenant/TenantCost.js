@@ -423,30 +423,30 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-      <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Cost UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
+      <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
           color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(RMB/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Cost UNIT', { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
           color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(RMB/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Cost UNIT', { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
           color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(RMB/M2)">
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Input CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
           color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)">
           <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Input CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
           color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)">
           <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={costshare} title={t('Cost by Energy Category')} />
+          <SharePie data={costshare} title={t('Costs by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
           <SharePie data={tceshare} title={t('Ton of Standard Coal by Energy Category')} />
@@ -455,8 +455,8 @@ const TenantCost = ({ setRedirect, setRedirectUrl,  t }) => {
           <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Cost VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
-        baseTitle={t('Base Period CATEGORY Cost VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
+        baseTitle={t('Base Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
         labels={tenantLineChartLabels}
         data={tenantLineChartData}
         options={tenantLineChartOptions}>
