@@ -478,8 +478,8 @@ const SpaceStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
           <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Input VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 98720, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period CATEGORY Input VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 68487, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 98720, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 68487, 'UNIT': '(kWh)' })}
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>

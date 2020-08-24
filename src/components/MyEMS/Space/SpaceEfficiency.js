@@ -458,7 +458,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period Input CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="success"  >
           <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
