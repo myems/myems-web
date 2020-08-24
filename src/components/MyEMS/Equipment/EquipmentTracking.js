@@ -398,7 +398,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
           </Row>
         </CardBody>
       </Card>
-      <DetailedDataTable data={equipments} title={t('Equipment List')} columns={columns}>
+      <DetailedDataTable data={equipments} title={t('Equipment List')} columns={columns} pagesize={10} >
       </DetailedDataTable>
 
     </Fragment>

@@ -20,11 +20,11 @@ const defaultSorted = [{
 }];
 
 
-const DetailedDataTable = ({ title, data, columns, t }) => {
+const DetailedDataTable = ({ title, data, columns, pagesize, t }) => {
 
   const options = {
     custom: true,
-    sizePerPage: 31,
+    sizePerPage: pagesize,
     totalSize: data.length
   };
   const handleNextPage = ({ page, onPageChange }) => () => {
