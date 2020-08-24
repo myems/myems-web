@@ -408,15 +408,15 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '冷', 'UNIT': '(RMB)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Income CATEGORY UNIT', { 'CATEGORY': '冷', 'UNIT': '(RMB)' })}
           color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '热', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Income CATEGORY UNIT', { 'CATEGORY': '热', 'UNIT': '(RMB)' })}
           color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Income UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Income CATEGORY UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(RMB)' })}
           color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -425,8 +425,8 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl,  t }) => {
           <CountUp end={43594} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Income VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
-        baseTitle={t('Base Period CATEGORY Income VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
+      <LineChart reportingTitle={t('Reporting Period Income CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
+        baseTitle={t('Base Period Income CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
         labels={equipmentLineChartLabels}
         data={equipmentLineChartData}
         options={equipmentLineChartOptions}>

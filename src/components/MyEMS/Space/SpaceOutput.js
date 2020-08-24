@@ -415,21 +415,21 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '热', 'UNIT': '(GJ)' })}
           color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(GJ/M2)">
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '蒸汽', 'UNIT': '(M3)' })}
           color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(T/M2)">
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period CATEGORY Output VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Output CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+        baseTitle={t('Base Period Output CATEGORY VALUE UNIT', { 'CATEGORY': '冷', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>

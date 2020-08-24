@@ -422,15 +422,15 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period Costs CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
           color="success"  >
           <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Costs CATEGORY UNIT', { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
           color="info" >
           <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Costs UNIT', { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Costs CATEGORY UNIT', { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
           color="info" >
           <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -454,8 +454,8 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl,  t }) => {
           <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
-        baseTitle={t('Base Period CATEGORY Costs VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
+      <LineChart reportingTitle={t('Reporting Period Costs CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
+        baseTitle={t('Base Period Costs CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(RMB)' })}
         labels={combinedEquipmentLineChartLabels}
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>

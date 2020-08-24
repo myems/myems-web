@@ -423,7 +423,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('COMBINED_EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -441,7 +441,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'EQUIPMENT': '冷机#1', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'EQUIPMENT': '冷机#1', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={12988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -459,7 +459,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'EQUIPMENT': '冷机#2', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'EQUIPMENT': '冷机#2', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={22988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -477,7 +477,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'EQUIPMENT': '冷冻泵', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'EQUIPMENT': '冷冻泵', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -495,7 +495,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'EQUIPMENT': '冷却泵', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'EQUIPMENT': '冷却泵', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
@@ -513,7 +513,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period CATEGORY Output UNIT', { 'EQUIPMENT': '冷却塔', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('EQUIPMENT Reporting Period Output CATEGORY UNIT', { 'EQUIPMENT': '冷却塔', 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>

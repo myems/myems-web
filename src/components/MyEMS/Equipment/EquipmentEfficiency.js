@@ -421,7 +421,7 @@ const EquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Output UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>

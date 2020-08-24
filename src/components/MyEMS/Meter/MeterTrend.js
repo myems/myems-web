@@ -323,7 +323,7 @@ const MeterTrend = ({ setRedirect, setRedirectUrl,  t }) => {
         </CardBody>
       </Card>
 
-      <LineChart reportingTitle='能耗值点'
+      <LineChart reportingTitle={t('Trend Values')}
         baseTitle=''
         labels={meterLineChartLabels}
         data={meterLineChartData}
