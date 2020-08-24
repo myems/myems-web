@@ -29,7 +29,7 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const TenantEquipments = ({ setRedirect, setRedirectUrl,  t }) => {
+const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -40,10 +40,10 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
   // State
@@ -126,7 +126,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl,  t }) => {
     slidesToShow: 1,
     slidesToScroll: 1
   };
-  
+
   let onCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
@@ -217,6 +217,9 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl,  t }) => {
         <CardBody>
           <Row className="justify-content-between align-items-center">
             <Col sm="auto" className="mb-2 mb-sm-0" tag={Flex} align="center">
+              <h6 className="mb-0 text-nowrap ml-2">
+                {t('Show Up to')}
+              </h6>
               <CustomInput
                 id="itemsPerPage"
                 type="select"
@@ -227,10 +230,10 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl,  t }) => {
                 <option value={2}>2</option>
                 <option value={4}>4</option>
                 <option value={6}>6</option>
-                <option value={total}>All</option>
+                <option value={total}>{t('All')}</option>
               </CustomInput>
               <h6 className="mb-0 text-nowrap ml-2">
-                显示 {from}-{to}, 共{total}台设备
+                {t('FROM - TO of TOTAL Equipments', { 'FROM': from, 'TO': to, 'TOTAL': total })}
               </h6>
             </Col>
 
