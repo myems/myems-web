@@ -75,6 +75,9 @@ const resources = {
       "Store": "Store",
       "Shopfloor": "Shopfloor",
       "Combined Equipment": "Combined Equipment",
+      "Cost Center": "Cost Center",
+      "Name": "Name",
+      "Description": "Description",
       // SidePanelModal
       "Settings": "Settings",
       "Set your own customized style": "Set your own customized style",
@@ -326,6 +329,9 @@ const resources = {
       "Store": "门店",
       "Shopfloor": "车间",
       "Combined Equipment": "组合设备",
+      "Cost Center": "成本中心",
+      "Name": "名称",
+      "Description": "描述",
       // SidePanelModal
       "Settings": "设置",
       "Set your own customized style": "设置您的自定义样式",

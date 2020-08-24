@@ -51,7 +51,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
   const nameFormatter = (dataField, { name }) => (
-    <Link to="/pages/customer-details">
+    <Link to="#">
       <Media tag={Flex} align="center">
         <Media body className="ml-2">
           <h5 className="mb-0 fs--1">{name}</h5>
@@ -68,9 +68,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       </DropdownToggle>
       <DropdownMenu right className="border py-2">
         <DropdownItem onClick={() => console.log('Edit: ', id)}>Edit</DropdownItem>
-        <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">
-          Delete
-        </DropdownItem>
+        <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">Delete</DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>
   );
@@ -78,9 +76,8 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const columns = [
     {
       dataField: 'name',
-
-      text: '名称',
       headerClasses: 'border-0',
+      text: t('Name'),
       classes: 'border-0 py-2 align-middle',
       formatter: nameFormatter,
       sort: true
@@ -88,28 +85,21 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
     {
       dataField: 'costcenter',
       headerClasses: 'border-0',
-      text: '成本中心',
+      text: t('Cost Center'),
       classes: 'border-0 py-2 align-middle',
       sort: true
     },
     {
       dataField: 'space',
       headerClasses: 'border-0',
-      text: '空间',
+      text: t('Space'),
       classes: 'border-0 py-2 align-middle',
       sort: true
     },
     {
-      dataField: 'location',
+      dataField: 'description',
       headerClasses: 'border-0',
-      text: '位置',
-      classes: 'border-0 py-2 align-middle',
-      sort: true
-    },
-    {
-      dataField: 'address',
-      headerClasses: 'border-0',
-      text: '描述',
+      text: t('Description'),
       classes: 'border-0 py-2 align-middle',
       sort: true
     },
@@ -129,212 +119,175 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       name: '锅炉#1',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/锅炉房',
-      location: '设备间',
-      address: '2392 Main Avenue, Penasauka, New Jersey 02139',
-      joined: '30/03/2018'
+      description: '2392 Main Avenue',
     },
     {
       id: uuid(),
       name: '锅炉#2',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/锅炉房',
-      location: '设备间',
-      address: '2289 5th Avenue, New York, New York, 10037',
-      joined: '11/07/2017'
+      description: '2289 5th Avenue',
     },
     {
       id: uuid(),
       name: '锅炉#3',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/锅炉房',
-      location: '设备间',
-      address: '112 Bostwick Avenue, Jersey City, New Jersey, 0730',
-      joined: '05/04/2016'
+      description: '112 Bostwick Avenue',
     },
     {
       id: uuid(),
       name: '锅炉#4',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/锅炉房',
-      location: '设备间',
-      address: '3448 Ile De France St #242, Fort Wainwright, Alaska, 99703',
-      joined: '05/04/2018'
+      description: '3448 Ile De France St #242',
     },
     {
       id: uuid(),
       name: '锅炉#5',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/锅炉房',
-      location: '设备间',
-      address: '659 Hannah Street, Charlotte, NC 28273',
-      joined: '17/03/2016'
+      description: '659 Hannah Street',
     },
     {
       id: uuid(),
       name: '高压制冷机CH-ZL-01',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/空调水',
-      location: 'B3-L2_B1',
-      address: '2298 Locust Court, Artesia, CA 90701',
-      joined: '12/07/2014'
+      description: '2298 Locust Court',
     },
     {
       id: uuid(),
       name: '高压制冷机CH-ZL-02',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/空调水',
-      location: 'B3-L2_B1',
-      address: '4678 Maud Street, Philadelphia, DE 19103',
-      joined: '15/06/2014'
+      description: '4678 Maud Street',
     },
     {
       id: uuid(),
       name: '高压制冷机CH-ZL-03',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/空调水',
-      location: 'B3-L2_B1',
-      address: '3412 Crestview Manor, Indianapolis, IN 46234',
-      joined: '15/04/2015'
+      description: '3412 Crestview Manor',
     },
     {
       id: uuid(),
       name: '高压制冷机CH-ZL-04',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/空调水',
-      location: 'B3-L2_B1',
-      address: '4895 Farnum Road, New York, NY 10004',
-      joined: '15/04/2016'
+      description: '4895 Farnum Road',
     },
     {
       id: uuid(),
       name: '高压制冷机CH-ZL-05',
       costcenter: '成本中心1',
       space: '成都项目/公区商场/空调水',
-      location: 'B3-L2_B1',
-      address: '3291 Hillside Street, Mesa, AZ 85201',
-      joined: '25/08/2016'
+      description: '3291 Hillside Street',
     },
     {
       id: uuid(),
       name: '空压机#1',
       costcenter: '成本中心1',
       space: '成都项目/动力中心/空压站',
-      location: '动力中心1号楼',
-      address: '162 Hillhaven Drive, Los Angeles, CA 90063',
-      joined: '20/12/2016'
+      description: '162 Hillhaven Drive',
     },
     {
       id: uuid(),
       name: '空压机#2',
       costcenter: '成本中心1',
       space: '成都项目/动力中心/空压站',
-      location: '动力中心1号楼',
-      address: '2551 Ocala Street, Orlando, FL 32805',
-      joined: '12/01/2015'
+      description: '2551 Ocala Street',
     },
     {
       id: uuid(),
       name: '空压机#3',
       costcenter: '成本中心1',
       space: '成都项目/动力中心/空压站',
-      location: '动力中心1号楼',
-      address: '13572 Kurt Mews South Merritt, IA 52491'
+      description: '13572 Kurt Mews South Merritt'
     },
     {
       id: uuid(),
       name: '空压机#4',
       costcenter: '成本中心1',
       space: '成都项目/动力中心/空压站',
-      location: '动力中心1号楼',
-      address: '91979 Kohler Place Waelchiborough, CT 41291'
+      description: '91979 Kohler Place Waelchiborough'
     },
     {
       id: uuid(),
       name: '空压机#5',
       costcenter: '成本中心1',
       space: '成都项目/动力中心/空压站',
-      location: '动力中心1号楼',
-      address: '6757 Giuseppe Meadows Geraldinemouth, MO 48819-4970'
+      description: '6757 Giuseppe Meadows Geraldinemouth'
     },
     {
       id: uuid(),
       name: '注塑机#1',
       costcenter: '成本中心1',
       space: '成都项目/二期厂/空压站',
-      location: '动力中心1号楼',
-      address: '2327 Kaylee Mill East Citlalli, AZ 89582-3143'
+      description: '2327 Kaylee Mill East Citlalli'
     },
     {
       id: uuid(),
       name: '注塑机#2',
       costcenter: '成本中心1',
       space: '成都项目/二期厂/空压站',
-      location: '动力中心1号楼',
-      address: '25156 Isaac Crossing Apt. 810 Lonborough, CO 83774-5999'
+      description: '25156 Isaac Crossing Apt.'
     },
     {
       id: uuid(),
       name: '注塑机#3',
       costcenter: '成本中心1',
       space: '成都项目/二期厂/空压站',
-      location: '动力中心1号楼',
-      address: '71603 Wolff Plains Apt. 885 Johnstonton, MI 01581'
+      description: '71603 Wolff Plains Apt'
     },
     {
       id: uuid(),
       name: '注塑机#4',
       costcenter: '成本中心1',
       space: '成都项目/二期厂/空压站',
-      location: '动力中心1号楼',
-      address: '431 Steuber Mews Apt. 252 Germanland, AK 25882'
+      description: '431 Steuber Mews'
     },
     {
       id: uuid(),
       name: '注塑机#5',
       costcenter: '成本中心1',
       space: '成都项目/二期厂/空压站',
-      location: '动力中心1号楼',
-      address: '4167 Laverna Manor Marysemouth, NV 74590'
+      description: '4167 Laverna Manor Marysemouth'
     },
     {
       id: uuid(),
       name: '清洗机#1',
       costcenter: '成本中心1',
       space: '成都项目/发动机厂',
-      location: '缸体线',
-      address: '829 Lavonne Valley Apt. 074 Stehrfort, RI 77914-0379'
+      description: '829 Lavonne Valley'
     },
     {
       id: uuid(),
       name: '清洗机#2',
       costcenter: '成本中心1',
       space: '成都项目/发动机厂',
-      location: '缸体线',
-      address: '53150 Thad Squares Apt. 263 Archibaldfort, MO 00837'
+      description: '53150 Thad Squares'
     },
     {
       id: uuid(),
       name: '清洗机#3',
       costcenter: '成本中心1',
       space: '成都项目/发动机厂',
-      location: '缸体线',
-      address: "9198 O'Kon Harbors Morarborough, IA 75409-7383"
+      description: "9198 O'Kon Harbors"
     },
     {
       id: uuid(),
       name: "清洗机#4",
       costcenter: '成本中心1',
       space: '成都项目/发动机厂',
-      location: '缸体线',
-      address: '1478 Kaitlin Haven Apt. 061 Lake Muhammadmouth, SC 35848'
+      description: '1478 Kaitlin Haven'
     },
     {
       id: uuid(),
       name: '清洗机#5',
       costcenter: '成本中心1',
       space: '成都项目/发动机厂',
-      location: '缸体线',
-      address: 'Garry Brainstrow, 13572 Kurt Mews South Merritt, IA 52491'
+      description: 'Garry Brainstrow'
     }
   ];
 
