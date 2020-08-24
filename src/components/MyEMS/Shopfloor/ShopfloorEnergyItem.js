@@ -389,7 +389,7 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
                 </Label>
-                <CustomInput type="select" id="periodType" name="periodType" value={periodType} onChange={({ target }) => setPeriodType(target.value)}
+                <CustomInput type="select" id="periodType" name="periodType" value="daily" onChange={({ target }) => setPeriodType(target.value)}
                 >
                   {periodTypeOptions.map((periodType, index) => (
                     <option value={periodType.value} key={periodType.value}>
