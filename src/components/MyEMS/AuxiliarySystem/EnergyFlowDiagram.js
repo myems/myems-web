@@ -13,6 +13,7 @@ import {
   CustomInput
 } from 'reactstrap';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import ReactEchartsCore from 'echarts-for-react';
 import echarts from 'echarts/lib/echarts';
 import AppContext from '../../../context/Context';
@@ -40,8 +41,9 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  let current_moment = moment(); 
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
 
   const energyFlowDiagramOptions = [
@@ -202,9 +204,21 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl,  t }) => {
     };
   };
 
-  useEffect(() => {
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+  }
 
-  }, []);
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
 
 
   return (
@@ -233,23 +247,31 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl,  t }) => {
                 </CustomInput>
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
-            <Col >
+            <Col xs="auto">
               <FormGroup>
                 <br></br>
                 <ButtonGroup id="submit">

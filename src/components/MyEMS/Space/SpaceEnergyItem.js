@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
@@ -46,11 +47,14 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
-  const [comparisonType, setComparisonType] = useState(undefined);
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  const [comparisonType, setComparisonType] = useState('month-on-month');
+  let current_moment = moment(); 
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
+  const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
+  const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
 
   const cascaderOptions = [{
@@ -122,10 +126,10 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'hourly', label: 'Hourly' }];
 
   const comparisonTypeOptions = [
-    { value: 'year-to-year', label: 'Year-to-Year' },
-    { value: 'month-to-month', label: 'Month-to-Month' },
-    { value: 'free', label: 'Free' },
-    { value: 'none', label: 'None' }];
+    { value: 'year-over-year', label: 'Year-Over-Year' },
+    { value: 'month-on-month', label: 'Month-On-Month' },
+    { value: 'free-comparison', label: 'Free Comparison' },
+    { value: 'none-comparison', label: 'None Comparison' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   const childSpacesTableData = [
@@ -352,9 +356,72 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  useEffect(() => {
+  
+  let onComparisonTypeChange = ({ target }) => {
+    console.log(target.value);
+    setComparisonType(target.value);
+    if (target.value == 'year-over-year') {
+      setBasePeriodBeginsDatetimeDisabled(true);
+      setBasePeriodEndsDatetimeDisabled(true);
+      setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'years'));
+      setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'years'));
+    } else if (target.value == 'month-on-month') {
+      setBasePeriodBeginsDatetimeDisabled(true);
+      setBasePeriodEndsDatetimeDisabled(true);
+      setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'months'));
+      setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'months'));
+    } else if (target.value == 'free-comparison') {
+      setBasePeriodBeginsDatetimeDisabled(false);
+      setBasePeriodEndsDatetimeDisabled(false);
+    } else if (target.value == 'none-comparison') {
+      setBasePeriodBeginsDatetime(undefined);
+      setBasePeriodEndsDatetime(undefined);
+      setBasePeriodBeginsDatetimeDisabled(true);
+      setBasePeriodEndsDatetimeDisabled(true);
+    }
+  }
 
-  }, []);
+  let onBasePeriodBeginsDatetimeChange = (newDateTime) => {
+    setBasePeriodBeginsDatetime(newDateTime);
+  }
+
+  let onBasePeriodEndsDatetimeChange = (newDateTime) => {
+    setBasePeriodEndsDatetime(newDateTime);
+  }
+
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+    if (comparisonType == 'year-over-year') {
+      setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'years'));
+    } else if (comparisonType == 'month-on-month') {
+      setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'months'));
+    }
+  }
+
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+    if (comparisonType == 'year-over-year') {
+      setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'years'));
+    } else if (comparisonType == 'month-on-month') {
+      setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'months'));
+    }
+  }
+
+  var getValidBasePeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(basePeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidBasePeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(basePeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
 
   return (
     <Fragment>
@@ -387,7 +454,9 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="comparisonType">
                   {t('Comparison Types')}
                 </Label>
-                <CustomInput type="select" id="comparisonType" name="comparisonType" defaultValue="month-to-month" onChange={({ target }) => setComparisonType(target.value)}
+                <CustomInput type="select" id="comparisonType" name="comparisonType"
+                  defaultValue="month-on-month"
+                  onChange={onComparisonTypeChange}
                 >
                   {comparisonTypeOptions.map((comparisonType, index) => (
                     <option value={comparisonType.value} key={comparisonType.value} >
@@ -398,39 +467,6 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
               </FormGroup>
             </Col>
             <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                  {t('Base Period Begins')}{t('(Optional)')}
-                </Label>
-                <Datetime id='basePeriodBeginsDatetime' value={basePeriodBeginsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="basePeriodEndsDatetime">
-                  {t('Base Period Ends')}{t('(Optional)')}
-                </Label>
-
-                <Datetime id='basePeriodEndsDatetime' value={basePeriodEndsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
@@ -438,11 +474,61 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
                 <CustomInput type="select" id="periodType" name="periodType" defaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
                 >
                   {periodTypeOptions.map((periodType, index) => (
-                    <option value={periodType.value} key={periodType.value}>
+                    <option value={periodType.value} key={periodType.value} >
                       {t(periodType.label)}
                     </option>
                   ))}
                 </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="basePeriodBeginsDatetime">
+                  {t('Base Period Begins')}{t('(Optional)')}
+                </Label>
+                <Datetime id='basePeriodBeginsDatetime'
+                  value={basePeriodBeginsDatetime}
+                  inputProps={{ disabled: basePeriodBeginsDatetimeDisabled }}
+                  onChange={onBasePeriodBeginsDatetimeChange}
+                  isValidDate={getValidBasePeriodBeginsDatetimes}
+                  closeOnSelect={true} />
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="basePeriodEndsDatetime">
+                  {t('Base Period Ends')}{t('(Optional)')}
+                </Label>
+                <Datetime id='basePeriodEndsDatetime'
+                  value={basePeriodEndsDatetime}
+                  inputProps={{ disabled: basePeriodEndsDatetimeDisabled }}
+                  onChange={onBasePeriodEndsDatetimeChange}
+                  isValidDate={getValidBasePeriodEndsDatetimes}
+                  closeOnSelect={true} />
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+                  {t('Reporting Period Begins')}
+                </Label>
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                  {t('Reporting Period Ends')}
+                </Label>
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">

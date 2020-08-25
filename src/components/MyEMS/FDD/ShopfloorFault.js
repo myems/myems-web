@@ -21,6 +21,7 @@ import {
   UncontrolledDropdown
 } from 'reactstrap';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import Cascader from 'rc-cascader';
 import ButtonIcon from '../../common/ButtonIcon';
 import { Link } from 'react-router-dom';
@@ -54,8 +55,9 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [shopfloor, setShopfloor] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  let current_moment = moment(); 
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
 
   const orderFormatter = (dataField, { id, name, email }) => (
     <Fragment>
@@ -626,9 +628,21 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
-  useEffect(() => {
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+  }
 
-  }, []);
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
 
 
   return (
@@ -677,7 +691,11 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -685,7 +703,11 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
