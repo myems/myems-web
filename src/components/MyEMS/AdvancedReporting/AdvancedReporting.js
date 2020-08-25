@@ -16,9 +16,9 @@ import {
 import Summary from './Summary';
 import Loader from '../../common/Loader';
 import FalconCardHeader from '../../common/FalconCardHeader';
-import useFakeFetch from '../../../hooks/useFakeFetch';
 import uuid from 'uuid/v1';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import createMarkup from '../../../helpers/createMarkup';
 import { isIterableArray } from '../../../helpers/utils';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
@@ -27,7 +27,7 @@ import { withTranslation } from 'react-i18next';
 
 
 const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
-  
+
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -38,19 +38,20 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
 
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  let current_moment = moment();
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  const rawReports = [
+  const reports = [
     {
       id: uuid(),
       calendar: { month: 'Mar', day: '26' },
@@ -97,8 +98,22 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       to: '#'
     }
   ];
-  const { loading, data: reports } = useFakeFetch(rawReports);
 
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+  }
+
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
   return (
     <Fragment>
       <Card className="bg-light mb-3">
@@ -109,7 +124,11 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -117,7 +136,11 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -134,9 +157,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       <Card>
         <FalconCardHeader title={t('Advanced Reporting')}></FalconCardHeader>
         <CardBody className="fs--1">
-          {loading ? (
-            <Loader />
-          ) : isIterableArray(reports) ? (
+          {isIterableArray(reports) ? (
             <Row>
               {reports.map(({ additional, ...rest }, index) => (
                 <Col md={6} className="h-100" key={index}>
@@ -147,10 +168,10 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
               ))}
             </Row>
           ) : (
-                <Alert color="info" className="mb-0">
-                  {t('No data found')}
-                </Alert>
-              )}
+              <Alert color="info" className="mb-0">
+                {t('No data found')}
+              </Alert>
+            )}
         </CardBody>
       </Card>
     </Fragment>

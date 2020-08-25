@@ -20,9 +20,9 @@ import Loader from '../../common/Loader';
 import ButtonIcon from '../../common/ButtonIcon';
 import createMarkup from '../../../helpers/createMarkup';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import Cascader from 'rc-cascader';
 import { isIterableArray } from '../../../helpers/utils';
-import useFakeFetch from '../../../hooks/useFakeFetch';
 import logoInvoice from '../../../assets/img/logos/myems.png';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
@@ -86,7 +86,7 @@ InvoiceHeader.propTypes = {
   address: PropTypes.string
 };
 
-const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
+const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -97,10 +97,10 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
   //State
@@ -109,8 +109,9 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
   const [total, setTotal] = useState(0);
   const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [tenant, setTenant] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  let current_moment = moment();
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months').endOf('month'));
   const cascaderOptions = [{
     label: '成都项目',
     value: 1,
@@ -186,7 +187,7 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  const rawInvoice = {
+  const invoice = {
     institution: 'MyEMS商场有限公司',
     logo: logoInvoice,
     address: '王府井大街<br />北京市东城区',
@@ -229,7 +230,7 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
       }
     ]
   };
-  const { loading: invoiceLoading, data: invoice } = useFakeFetch(rawInvoice);
+
   useEffect(() => {
     if (isIterableArray(invoice.products)) {
       setSubtotal(calculateSubtotal(invoice.products));
@@ -244,6 +245,21 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
     setTotal(subtotal + tax);
   }, [subtotal, tax]);
 
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+  }
+
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
   return (
     <Fragment>
       <div>
@@ -285,13 +301,16 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
                 </CustomInput>
               </FormGroup>
             </Col>
-
             <Col xs="auto">
               <FormGroup className="form-group">
                 <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
                   {t('Reporting Period Begins')}
                 </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
@@ -299,10 +318,13 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
                 <Label className={labelClasses} for="reportingPeriodEndsDatetime">
                   {t('Reporting Period Ends')}
                 </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
-
             <Col xs="auto">
               <FormGroup>
                 <br></br>
@@ -318,7 +340,7 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
         <CardBody>
           <Row className="justify-content-between align-items-center">
             <Col md>
-              <h5 className="mb-2 mb-md-0">租赁合同号码: {invoiceLoading ? '' : invoice.summary.order_number}</h5>
+              <h5 className="mb-2 mb-md-0">租赁合同号码: {invoice.summary.order_number}</h5>
             </Col>
             <Col xs="auto">
               <ButtonIcon color="falcon-default" size="sm" icon="arrow-down" className="mr-2 mb-2 mb-sm-0">
@@ -335,104 +357,95 @@ const Invoice = ({ setRedirect, setRedirectUrl,  t }) => {
 
       <Card>
         <CardBody>
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-              <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} />
-            )}
 
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-              <Row className="justify-content-between align-items-center">
-                <Col>
-                  <h6 className="text-500">致</h6>
-                  <h5>{invoice.user.name}</h5>
-                  <p className="fs--1" dangerouslySetInnerHTML={createMarkup(invoice.user.address)} />
-                  <p className="fs--1">
-                    <a href={`mailto:${invoice.user.email}`}>{invoice.user.email}</a>
-                    <br />
-                    <a href={`tel:${invoice.user.cell.split('-').join('')}`}>{invoice.user.cell}</a>
-                  </p>
-                </Col>
-                <Col sm="auto" className="ml-auto">
-                  <div className="table-responsive">
-                    <Table size="sm" borderless className="fs--1">
-                      <tbody>
-                        <tr>
-                          <th className="text-sm-right">账单号码:</th>
-                          <td>{invoice.summary.invoice_no}</td>
-                        </tr>
-                        <tr>
-                          <th className="text-sm-right">租赁合同号码:</th>
-                          <td>{invoice.summary.order_number}</td>
-                        </tr>
-                        <tr>
-                          <th className="text-sm-right">账单日期:</th>
-                          <td>{invoice.summary.invoice_date}</td>
-                        </tr>
-                        <tr>
-                          <th className="text-sm-right">付款到期日:</th>
-                          <td>{invoice.summary.payment_due}</td>
-                        </tr>
-                        <tr className="alert-success font-weight-bold">
-                          <th className="text-sm-right">应付款金额:</th>
-                          <td>{formatCurrency(invoice.summary.amount_due, invoice.currency)}</td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                  </div>
-                </Col>
-              </Row>
-            )}
+          <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} />
 
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-              <div className="table-responsive mt-4 fs--1">
-                <Table striped className="border-bottom">
-                  <thead>
-                    <tr className="bg-primary text-white">
-                      <th className="border-0">能耗分类</th>
-                      <th className="border-0 text-center">开始日期</th>
-                      <th className="border-0 text-center">结束日期</th>
-                      <th className="border-0 text-center">数量</th>
-                      <th className="border-0 text-right">费率</th>
-                      <th className="border-0 text-right">金额</th>
-                    </tr>
-                  </thead>
+
+          <Row className="justify-content-between align-items-center">
+            <Col>
+              <h6 className="text-500">致</h6>
+              <h5>{invoice.user.name}</h5>
+              <p className="fs--1" dangerouslySetInnerHTML={createMarkup(invoice.user.address)} />
+              <p className="fs--1">
+                <a href={`mailto:${invoice.user.email}`}>{invoice.user.email}</a>
+                <br />
+                <a href={`tel:${invoice.user.cell.split('-').join('')}`}>{invoice.user.cell}</a>
+              </p>
+            </Col>
+            <Col sm="auto" className="ml-auto">
+              <div className="table-responsive">
+                <Table size="sm" borderless className="fs--1">
                   <tbody>
-                    {isIterableArray(invoice.products) &&
-                      invoice.products.map((product, index) => <ProductTr {...product} key={index} />)}
+                    <tr>
+                      <th className="text-sm-right">账单号码:</th>
+                      <td>{invoice.summary.invoice_no}</td>
+                    </tr>
+                    <tr>
+                      <th className="text-sm-right">租赁合同号码:</th>
+                      <td>{invoice.summary.order_number}</td>
+                    </tr>
+                    <tr>
+                      <th className="text-sm-right">账单日期:</th>
+                      <td>{invoice.summary.invoice_date}</td>
+                    </tr>
+                    <tr>
+                      <th className="text-sm-right">付款到期日:</th>
+                      <td>{invoice.summary.payment_due}</td>
+                    </tr>
+                    <tr className="alert-success font-weight-bold">
+                      <th className="text-sm-right">应付款金额:</th>
+                      <td>{formatCurrency(invoice.summary.amount_due, invoice.currency)}</td>
+                    </tr>
                   </tbody>
                 </Table>
               </div>
-            )}
+            </Col>
+          </Row>
 
-          {invoiceLoading ? (
-            <Loader />
-          ) : (
-              <Row noGutters className="justify-content-end">
-                <Col xs="auto">
-                  <Table size="sm" borderless className="fs--1 text-right">
-                    <tbody>
-                      <tr>
-                        <th className="text-900">小计:</th>
-                        <td className="font-weight-semi-bold">{formatCurrency(subtotal, invoice.currency)}</td>
-                      </tr>
-                      <tr>
-                        <th className="text-900">VAT 增值税销项税金 13%:</th>
-                        <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
-                      </tr>
-                      <tr className="border-top">
-                        <th className="text-900">应付金额合计:</th>
-                        <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Col>
-              </Row>
-            )}
+
+
+          <div className="table-responsive mt-4 fs--1">
+            <Table striped className="border-bottom">
+              <thead>
+                <tr className="bg-primary text-white">
+                  <th className="border-0">能耗分类</th>
+                  <th className="border-0 text-center">开始日期</th>
+                  <th className="border-0 text-center">结束日期</th>
+                  <th className="border-0 text-center">数量</th>
+                  <th className="border-0 text-right">费率</th>
+                  <th className="border-0 text-right">金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                {isIterableArray(invoice.products) &&
+                  invoice.products.map((product, index) => <ProductTr {...product} key={index} />)}
+              </tbody>
+            </Table>
+          </div>
+
+
+
+          <Row noGutters className="justify-content-end">
+            <Col xs="auto">
+              <Table size="sm" borderless className="fs--1 text-right">
+                <tbody>
+                  <tr>
+                    <th className="text-900">小计:</th>
+                    <td className="font-weight-semi-bold">{formatCurrency(subtotal, invoice.currency)}</td>
+                  </tr>
+                  <tr>
+                    <th className="text-900">VAT 增值税销项税金 13%:</th>
+                    <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
+                  </tr>
+                  <tr className="border-top">
+                    <th className="text-900">应付金额合计:</th>
+                    <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+          </Row>
+
         </CardBody>
         <CardFooter className="bg-light">
           <p className="fs--1 mb-0">

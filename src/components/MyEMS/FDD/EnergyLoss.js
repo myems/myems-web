@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
+import moment from 'moment';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
@@ -45,10 +46,11 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   // State
   const [selectedSpace, setSelectedSpace] = useState(undefined);
-  const [comparisonType, setComparisonType] = useState(undefined);
+  const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meter, setMeter] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(new Date().toLocaleString());
-  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(new Date().toLocaleString());
+  let current_moment = moment(); 
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
 
   const cascaderOptions = [{
@@ -105,10 +107,10 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 'hourly', label: 'Hourly' }];
 
   const comparisonTypeOptions = [
-    { value: 'year-to-year', label: 'Year-to-Year' },
-    { value: 'month-to-month', label: 'Month-to-Month' },
-    { value: 'free', label: 'Free' },
-    { value: 'none', label: 'None' }];
+    { value: 'year-over-year', label: 'Year-Over-Year' },
+    { value: 'month-on-month', label: 'Month-On-Month' },
+    { value: 'free-comparison', label: 'Free Comparison' },
+    { value: 'none-comparison', label: 'None Comparison' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -284,7 +286,21 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
+  let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
+    setReportingPeriodBeginsDatetime(newDateTime);
+  }
 
+  let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
+    setReportingPeriodEndsDatetime(newDateTime);
+  }
+
+  var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
+    return currentDate.isBefore(moment(reportingPeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
+
+  var getValidReportingPeriodEndsDatetimes = function (currentDate) {
+    return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
+  }
   return (
     <Fragment>
       <div>
@@ -310,22 +326,6 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
               </FormGroup>
             </Col>
             <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime' value={reportingPeriodBeginsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime' value={reportingPeriodEndsDatetime} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="periodType">
                   {t('Period Types')}
@@ -338,6 +338,30 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
                     </option>
                   ))}
                 </CustomInput>
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+                  {t('Reporting Period Begins')}
+                </Label>
+                <Datetime id='reportingPeriodBeginsDatetime'
+                  value={reportingPeriodBeginsDatetime}
+                  onChange={onReportingPeriodBeginsDatetimeChange}
+                  isValidDate={getValidReportingPeriodBeginsDatetimes}
+                  closeOnSelect={true} />
+              </FormGroup>
+            </Col>
+            <Col xs="auto">
+              <FormGroup className="form-group">
+                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                  {t('Reporting Period Ends')}
+                </Label>
+                <Datetime id='reportingPeriodEndsDatetime'
+                  value={reportingPeriodEndsDatetime}
+                  onChange={onReportingPeriodEndsDatetimeChange}
+                  isValidDate={getValidReportingPeriodEndsDatetimes}
+                  closeOnSelect={true} />
               </FormGroup>
             </Col>
             <Col xs="auto">
