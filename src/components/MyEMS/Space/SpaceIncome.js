@@ -160,7 +160,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const childSpacesTableColumns = [{
     dataField: 'name',
-    text: '子空间',
+    text: t('Child Spaces'),
     sort: true
   }, {
     dataField: 'a',
@@ -330,7 +330,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',

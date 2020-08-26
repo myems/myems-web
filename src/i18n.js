@@ -79,6 +79,7 @@ const resources = {
       "Name": "Name",
       "Description": "Description",
       "Energy Category": "Energy Category",
+      "Child Spaces": "Child Spaces",
       // SidePanelModal
       "Settings": "Settings",
       "Set your own customized style": "Set your own customized style",
@@ -121,6 +122,8 @@ const resources = {
       "Daily": "Daily",
       "Hourly": "Hourly",
       "Submit": "Submit",
+      "Input Energy Category": "Input Energy Category",
+      "Output Energy Category": "Output Energy Category",
       //Card Summaries and Line Charts
       "Base Period": "Base Period",
       "Reporting Period": "Reporting Period",
@@ -205,6 +208,7 @@ const resources = {
       "Total": "Total",
       "No data found": "No data found",
       "Export": "Export",
+      "Datetime": "Datetime",
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "Realtime Value of Energy Value Point {{UNIT}}",
       "Realtime Value": "Realtime Value",
@@ -370,6 +374,7 @@ const resources = {
       "Name": "名称",
       "Description": "描述",
       "Energy Category": "能耗分类",
+      "Child Spaces": "子空间",
       // SidePanelModal
       "Settings": "设置",
       "Set your own customized style": "设置您的自定义样式",
@@ -395,7 +400,7 @@ const resources = {
       "Like What You See?": "喜欢这个系统?",
       "Get MyEMS now.": "立即获取MyEMS。",
       "Purchase": "购买",
-      // Query Panel
+      // Query Panels
       "Base Period Begins": "基准期开始",
       "Base Period Ends": "基准期结束",
       "Comparison Types": "比较类型",
@@ -412,6 +417,8 @@ const resources = {
       "Daily": "日",
       "Hourly": "时",
       "Submit": "提交",
+      "Input Energy Category": "消耗能源分类",
+      "Output Energy Category": "产出能源分类",
       //Card Summaries and Line Charts
       "Base Period": "基准期",
       "Reporting Period": "报告期",
@@ -496,6 +503,7 @@ const resources = {
       "Total": "总",
       "No data found": "没有数据",
       "Export": "导出",
+      "Datetime": "日期时间",
       //Realtime Chart
       "Realtime Value of Energy Value Point UNIT": "能耗值点实时值 {{UNIT}}",
       "Realtime Value": "实时值",

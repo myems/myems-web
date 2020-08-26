@@ -288,7 +288,7 @@ const CombinedEquipmentLoad = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',

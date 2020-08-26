@@ -169,7 +169,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const childSpacesTableColumns = [{
     dataField: 'name',
-    text: '子空间',
+    text: t('Child Spaces'),
     sort: true
   }, {
     dataField: 'a',
@@ -206,11 +206,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-
-  const spaceLineChartOptions = [
-    { value: 'a', label: '电制冷效率' },
-    { value: 'b', label: '电制热效率' },
-    { value: 'c', label: '天然气制蒸汽效率' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -323,7 +318,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',
@@ -441,7 +436,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="inputEnergyCategory">
-                  消耗能源分类
+                  {t('Input Energy Category')}
                 </Label>
                 <CustomInput type="select" id="inputEnergyCategory" name="inputEnergyCategory" value={inputEnergyCategory} onChange={({ target }) => setInputEnergyCategory(target.value)}
                 >
@@ -456,7 +451,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="outputEnergyCategory">
-                  产出能源分类
+                {t('Output Energy Category')}
                 </Label>
                 <CustomInput type="select" id="outputEnergyCategory" name="outputEnergyCategory" value={outputEnergyCategory} onChange={({ target }) => setOutputEnergyCategory(target.value)}
                 >
@@ -578,8 +573,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
       <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
         baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
         labels={spaceLineChartLabels}
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        data={spaceLineChartData} >
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')}
         baseTitle=''
