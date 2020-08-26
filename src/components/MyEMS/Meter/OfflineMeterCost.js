@@ -48,7 +48,7 @@ const OfflineMeterCost = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [offlineMeter, setOfflineMeter] = useState(undefined);
   let current_moment = moment(); 
@@ -316,9 +316,7 @@ const OfflineMeterCost = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

@@ -28,6 +28,7 @@ import { cascaderOptions } from '../common/cascaderOptions';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
+
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
@@ -49,8 +50,9 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
+
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   let current_moment = moment(); 
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
@@ -60,7 +62,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
-
+  
   const tceshare = [
     { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
@@ -382,9 +384,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

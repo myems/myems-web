@@ -54,7 +54,7 @@ const TenantFault = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [tenant, setTenant] = useState(undefined);
   let current_moment = moment(); 
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
@@ -602,9 +602,7 @@ const TenantFault = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

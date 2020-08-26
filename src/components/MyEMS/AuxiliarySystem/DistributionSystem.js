@@ -43,7 +43,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   }, []); 
   let table = createRef();
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [distributionsystem, setDistributionSystem] = useState(undefined);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
@@ -88,9 +88,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

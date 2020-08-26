@@ -49,7 +49,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl,  t }) => {
   }, []);
   let table = createRef();
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
 
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
@@ -321,9 +321,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>
