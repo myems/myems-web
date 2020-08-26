@@ -23,6 +23,8 @@ import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -45,7 +47,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meter, setMeter] = useState(undefined);
   let current_moment = moment(); 
@@ -99,18 +101,6 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
       }]
     }],
   }];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -258,7 +248,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     },
     {
       id: 13,
-      startdatetime: '总计',
+      startdatetime: t('Total'),
       a: 589,
       b: 33.829 * 0.67,
       c: 33.829,
@@ -266,7 +256,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',
@@ -319,9 +309,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

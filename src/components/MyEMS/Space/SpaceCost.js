@@ -24,6 +24,9 @@ import loadable from '@loadable/component';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { cascaderOptions } from '../common/cascaderOptions';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
@@ -47,7 +50,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   let current_moment = moment(); 
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
@@ -57,80 +60,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
-  const cascaderOptions = [{
-    label: '成都项目',
-    value: 1,
-    children: [{
-      label: '租区',
-      value: 2,
-      children: [{
-        label: '大租户',
-        value: 9,
-      }, {
-        label: '餐饮租户',
-        value: 10,
-      }, {
-        label: '零售租户',
-        value: 11,
-      }],
-    }, {
-      label: '公区商场',
-      value: 3,
-      children: [{
-        label: '给排水',
-        value: 12,
-      }, {
-        label: '扶梯直梯',
-        value: 13,
-      }, {
-        label: '照明及插座',
-        value: 14,
-      }, {
-        label: '空调水',
-        value: 15,
-      }, {
-        label: '空调风',
-        value: 16,
-      }, {
-        label: '特殊功能房间',
-        value: 17,
-      }, {
-        label: '其他用电设备',
-        value: 18,
-      }]
-    }, {
-      label: '公区车库',
-      value: 4,
-      children: [{
-        label: '车库通风',
-        value: 5,
-      }, {
-        label: '车库照明',
-        value: 6,
-        children: [{
-          label: '应急照明',
-          value: 7,
-        }, {
-          label: '普通照明',
-          value: 8,
-        }
-        ]
-      }]
-    }],
-  }];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
-
+  
   const costshare = [
     { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
@@ -176,7 +106,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const childSpacesTableColumns = [{
     dataField: 'name',
-    text: '子空间',
+    text: t('Child Spaces'),
     sort: true
   }, {
     dataField: 'electricity',
@@ -337,7 +267,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
     },
     {
       id: 11,
-      startdatetime: '总计',
+      startdatetime: t('Total'),
       a: '98720',
       b: '34570',
       c: '5670',
@@ -346,7 +276,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',
@@ -458,9 +388,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>

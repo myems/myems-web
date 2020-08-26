@@ -84,21 +84,22 @@ const LineChart = ({
               {baseTitle}
             </p>
           </Col>
-          <Col xs="auto" className="d-none d-sm-block">
-            <CustomInput
-              id="ddd"
-              type="select"
-              bsSize="sm"
-              className="mb-3 shadow"
-              value={option}
-              onChange={({ target }) => setOption(target.value)}
-            >
-              {isIterableArray(options) &&
-                options.map(({ value, label }) => (
-                  <option key={value} value={value}>{label}</option>
-                ))}
-            </CustomInput>
-          </Col>
+          {isIterableArray(options) &&
+            <Col xs="auto" className="d-none d-sm-block">
+              <CustomInput
+                id="ddd"
+                type="select"
+                bsSize="sm"
+                className="mb-3 shadow"
+                value={option}
+                onChange={({ target }) => setOption(target.value)}
+              >
+                {options.map(({ value, label }) => (
+                    <option key={value} value={value}>{label}</option>
+                  ))}
+              </CustomInput>
+            </Col>
+          }   
         </Row>
         <Line data={config.data} options={config.options} width={1618} height={375} />
       </CardBody>

@@ -23,6 +23,9 @@ import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { cascaderOptions } from '../common/cascaderOptions';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
@@ -46,7 +49,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   let current_moment = moment(); 
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
@@ -59,68 +62,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
   const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
 
-  const cascaderOptions = [{
-    label: '成都项目',
-    value: 1,
-    children: [{
-      label: '租区',
-      value: 2,
-      children: [{
-        label: '大租户',
-        value: 9,
-      }, {
-        label: '餐饮租户',
-        value: 10,
-      }, {
-        label: '零售租户',
-        value: 11,
-      }],
-    }, {
-      label: '公区商场',
-      value: 3,
-      children: [{
-        label: '给排水',
-        value: 12,
-      }, {
-        label: '扶梯直梯',
-        value: 13,
-      }, {
-        label: '照明及插座',
-        value: 14,
-      }, {
-        label: '空调水',
-        value: 15,
-      }, {
-        label: '空调风',
-        value: 16,
-      }, {
-        label: '特殊功能房间',
-        value: 17,
-      }, {
-        label: '其他用电设备',
-        value: 18,
-      }]
-    }, {
-      label: '公区车库',
-      value: 4,
-      children: [{
-        label: '车库通风',
-        value: 5,
-      }, {
-        label: '车库照明',
-        value: 6,
-        children: [{
-          label: '应急照明',
-          value: 7,
-        }, {
-          label: '普通照明',
-          value: 8,
-        }
-        ]
-      }]
-    }],
-  }];
-
   const inputEnergyCategoryOptions = [
     { value: 1, label: '电' },
     { value: 2, label: '自来水' },
@@ -130,18 +71,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     { value: 4, label: '冷' },
     { value: 5, label: '热' },
     { value: 6, label: '蒸汽' },];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   const childSpacesTableData = [
@@ -169,7 +98,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
   ];
   const childSpacesTableColumns = [{
     dataField: 'name',
-    text: '子空间',
+    text: t('Child Spaces'),
     sort: true
   }, {
     dataField: 'a',
@@ -206,11 +135,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
-
-  const spaceLineChartOptions = [
-    { value: 'a', label: '电制冷效率' },
-    { value: 'b', label: '电制热效率' },
-    { value: 'c', label: '天然气制蒸汽效率' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -315,15 +239,15 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     },
     {
       id: 11,
-      startdatetime: '综合',
+      startdatetime: t('Total'),
       a: '98720',
       b: '34570',
-      c: '5670',
+      c: '5.67',
     }
   ];
   const detailedDataTableColumns = [{
     dataField: 'startdatetime',
-    text: '日期时间',
+    text: t('Datetime'),
     sort: true
   }, {
     dataField: 'a',
@@ -432,16 +356,14 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
                   onChange={onCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input
-                    value={selectedSpace}
-                  />
+                  <Input value={selectedSpace} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="inputEnergyCategory">
-                  消耗能源分类
+                  {t('Input Energy Category')}
                 </Label>
                 <CustomInput type="select" id="inputEnergyCategory" name="inputEnergyCategory" value={inputEnergyCategory} onChange={({ target }) => setInputEnergyCategory(target.value)}
                 >
@@ -456,7 +378,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="outputEnergyCategory">
-                  产出能源分类
+                {t('Output Energy Category')}
                 </Label>
                 <CustomInput type="select" id="outputEnergyCategory" name="outputEnergyCategory" value={outputEnergyCategory} onChange={({ target }) => setOutputEnergyCategory(target.value)}
                 >
@@ -578,8 +500,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
       <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
         baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
         labels={spaceLineChartLabels}
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        data={spaceLineChartData} >
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')}
         baseTitle=''

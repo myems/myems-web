@@ -142,7 +142,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
   ];
   const childSpacesTableColumns = [{
     dataField: 'name',
-    text: '子空间',
+    text: t('Child Spaces'),
     sort: true
   }, {
     dataField: 'electricity',
