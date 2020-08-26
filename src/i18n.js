@@ -559,7 +559,7 @@ const resources = {
       "Payment Due Date": "付款到期日",
       "Amount Payable": "应付款金额",
       "Billing Period Start": "结算期开始日期",
-      "Billing Period End": "结算结束日期",
+      "Billing Period End": "结算期结束日期",
       "Quantity": "数量",
       "Price": "价格",
       "Amount": "金额",
