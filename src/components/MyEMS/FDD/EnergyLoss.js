@@ -258,7 +258,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
     },
     {
       id: 13,
-      startdatetime: '总计',
+      startdatetime: t('Total'),
       a: 589,
       b: 33.829 * 0.67,
       c: 33.829,

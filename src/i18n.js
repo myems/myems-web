@@ -500,7 +500,7 @@ const resources = {
       "This Year": "本年",
       "This Month": "本月",
       "This Day": "本日",
-      "Total": "总",
+      "Total": "总计",
       "No data found": "没有数据",
       "Export": "导出",
       "Datetime": "日期时间",
