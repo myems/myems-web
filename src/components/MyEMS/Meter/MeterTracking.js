@@ -12,7 +12,6 @@ import {
   DropdownToggle,
   FormGroup,
   Input,
-  InputGroup,
   Label,
   Media,
   Row,
