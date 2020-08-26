@@ -64,13 +64,13 @@ ProductTr.propTypes = {
   rate: PropTypes.number.isRequired
 };
 
-const InvoiceHeader = ({ institution, logo, address }) => (
+const InvoiceHeader = ({ institution, logo, address, t }) => (
   <Row className="align-items-center text-center mb-3">
     <Col sm={6} className="text-sm-left">
       <img src={logo} alt="invoice" width={150} />
     </Col>
     <Col className="text-sm-right mt-3 mt-sm-0">
-      <h2 className="mb-3">付款通知书</h2>
+      <h2 className="mb-3">{t('Payment Notice')}</h2>
       <h5>{institution}</h5>
       {address && <p className="fs--1 mb-0" dangerouslySetInnerHTML={createMarkup(address)} />}
     </Col>
@@ -340,14 +340,14 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
         <CardBody>
           <Row className="justify-content-between align-items-center">
             <Col md>
-              <h5 className="mb-2 mb-md-0">租赁合同号码: {invoice.summary.order_number}</h5>
+              <h5 className="mb-2 mb-md-0">{t('Lease Contract Number')}: {invoice.summary.order_number}</h5>
             </Col>
             <Col xs="auto">
               <ButtonIcon color="falcon-default" size="sm" icon="arrow-down" className="mr-2 mb-2 mb-sm-0">
-                下载 (.pdf)
+                {t('Download')} (.pdf)
               </ButtonIcon>
               <ButtonIcon color="falcon-default" size="sm" icon="print" className="mr-2 mb-2 mb-sm-0">
-                打印
+                {t('Print')}
               </ButtonIcon>
 
             </Col>
@@ -357,13 +357,10 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
 
       <Card>
         <CardBody>
-
-          <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} />
-
-
+          <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} t={t} />
           <Row className="justify-content-between align-items-center">
             <Col>
-              <h6 className="text-500">致</h6>
+              <h6 className="text-500">{t('Bill To')}</h6>
               <h5>{invoice.user.name}</h5>
               <p className="fs--1" dangerouslySetInnerHTML={createMarkup(invoice.user.address)} />
               <p className="fs--1">
@@ -377,23 +374,23 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
                 <Table size="sm" borderless className="fs--1">
                   <tbody>
                     <tr>
-                      <th className="text-sm-right">账单号码:</th>
+                      <th className="text-sm-right">{t('Bill Number')}:</th>
                       <td>{invoice.summary.invoice_no}</td>
                     </tr>
                     <tr>
-                      <th className="text-sm-right">租赁合同号码:</th>
+                      <th className="text-sm-right">{t('Lease Contract Number')}:</th>
                       <td>{invoice.summary.order_number}</td>
                     </tr>
                     <tr>
-                      <th className="text-sm-right">账单日期:</th>
+                      <th className="text-sm-right">{t('Bill Date')}:</th>
                       <td>{invoice.summary.invoice_date}</td>
                     </tr>
                     <tr>
-                      <th className="text-sm-right">付款到期日:</th>
+                      <th className="text-sm-right">{t('Payment Due Date')}:</th>
                       <td>{invoice.summary.payment_due}</td>
                     </tr>
                     <tr className="alert-success font-weight-bold">
-                      <th className="text-sm-right">应付款金额:</th>
+                      <th className="text-sm-right">{t('Amount Payable')}:</th>
                       <td>{formatCurrency(invoice.summary.amount_due, invoice.currency)}</td>
                     </tr>
                   </tbody>
@@ -401,19 +398,16 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
               </div>
             </Col>
           </Row>
-
-
-
           <div className="table-responsive mt-4 fs--1">
             <Table striped className="border-bottom">
               <thead>
                 <tr className="bg-primary text-white">
-                  <th className="border-0">能耗分类</th>
-                  <th className="border-0 text-center">开始日期</th>
-                  <th className="border-0 text-center">结束日期</th>
-                  <th className="border-0 text-center">数量</th>
-                  <th className="border-0 text-right">费率</th>
-                  <th className="border-0 text-right">金额</th>
+                  <th className="border-0">{t('Energy Category')}</th>
+                  <th className="border-0 text-center">{t('Billing Period Start')}</th>
+                  <th className="border-0 text-center">{t('Billing Period End')}</th>
+                  <th className="border-0 text-center">{t('Quantity')}</th>
+                  <th className="border-0 text-right">{t('Price')}</th>
+                  <th className="border-0 text-right">{t('Amount')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -422,38 +416,34 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
               </tbody>
             </Table>
           </div>
-
-
-
           <Row noGutters className="justify-content-end">
             <Col xs="auto">
               <Table size="sm" borderless className="fs--1 text-right">
                 <tbody>
                   <tr>
-                    <th className="text-900">小计:</th>
+                    <th className="text-900">{t('Subtotal')}:</th>
                     <td className="font-weight-semi-bold">{formatCurrency(subtotal, invoice.currency)}</td>
                   </tr>
                   <tr>
-                    <th className="text-900">VAT 增值税销项税金 13%:</th>
+                    <th className="text-900">{t('VAT Output Tax')}:</th>
                     <td className="font-weight-semi-bold">{formatCurrency(tax, invoice.currency)}</td>
                   </tr>
                   <tr className="border-top">
-                    <th className="text-900">应付金额合计:</th>
+                    <th className="text-900">{t('Total Amount Payable')}:</th>
                     <td className="font-weight-semi-bold">{formatCurrency(total, invoice.currency)}</td>
                   </tr>
                 </tbody>
               </Table>
             </Col>
           </Row>
-
         </CardBody>
         <CardFooter className="bg-light">
           <p className="fs--1 mb-0">
-            <strong>请确保在上述付款到期日或之前付款, 汇款至以下账户:</strong><br />
-            账户名称: MyEMS商场有限公司<br />
-            开户银行: 中国银行股份有限公司北京王府井支行<br />
-            银行地址: 中国北京市东城区王府井大街<br />
-            人民币账户: 1188228822882288<br />
+            <strong>{t('Please make sure to pay on or before the payment due date above')}, {t('Send money to the following account')}:</strong><br />
+            {t('Acount Name')}: MyEMS商场有限公司<br />
+            {t('Bank Name')}: 中国银行股份有限公司北京王府井支行<br />
+            {t('Bank Address')}: 中国北京市东城区王府井大街<br />
+            {t('RMB Account')}: 1188228822882288<br />
           </p>
         </CardFooter>
       </Card>
