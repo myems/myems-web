@@ -387,7 +387,7 @@ const StoreEnergyItem = ({ setRedirect, setRedirectUrl,  t }) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Item')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Store Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Item Data')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">

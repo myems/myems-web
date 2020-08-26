@@ -396,7 +396,7 @@ const CombinedEquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) =>
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Combined Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Category')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Combined Equipment Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Energy Category Data')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
