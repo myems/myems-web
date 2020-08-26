@@ -574,12 +574,12 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
   };
 
   const faultLineChartOptions = [
-    { value: 'a', label: '全部故障' },
-    { value: 'b', label: '空间' },
-    { value: 'c', label: '设备' },
-    { value: 'd', label: '租户' },
-    { value: 'e', label: '门店' },
-    { value: 'f', label: '车间' },];
+    { value: 'a', label: t('All Faults') },
+    { value: 'b', label: t('Space Faults') },
+    { value: 'c', label: t('Equipment Faults') },
+    { value: 'd', label: t('Tenant Faults') },
+    { value: 'e', label: t('Store Faults') },
+    { value: 'f', label: t('Shopfloor Faults') },];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {

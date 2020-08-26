@@ -438,12 +438,12 @@ export const fddRoutes = {
   icon: 'chart-pie',
   children: [
     { to: '/fdd/statistics', name: 'Fault Statistics' },
-    { to: '/fdd/space', name: 'Space Faults' },
-    { to: '/fdd/equipment', name: 'Equipment Faults' },
-    { to: '/fdd/combinedequipment', name: 'Combined Equipment Faults' },
-    { to: '/fdd/tenant', name: 'Tenant Faults' },
-    { to: '/fdd/store', name: 'Store Faults' },
-    { to: '/fdd/shopfloor', name: 'Shopfloor Faults' },
+    { to: '/fdd/space', name: 'Space Faults Data' },
+    { to: '/fdd/equipment', name: 'Equipment Faults Data' },
+    { to: '/fdd/combinedequipment', name: 'Combined Equipment Faults Data' },
+    { to: '/fdd/tenant', name: 'Tenant Faults Data' },
+    { to: '/fdd/store', name: 'Store Faults Data' },
+    { to: '/fdd/shopfloor', name: 'Shopfloor Faults Data' },
     { to: '/fdd/energyloss', name: 'Energy Loss' },
   ]
 };
