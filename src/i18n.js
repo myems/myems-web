@@ -124,6 +124,7 @@ const resources = {
       "Submit": "Submit",
       "Input Energy Category": "Input Energy Category",
       "Output Energy Category": "Output Energy Category",
+      "Fraction Parameter": "Fraction Parameter",
       //Card Summaries and Line Charts
       "Base Period": "Base Period",
       "Reporting Period": "Reporting Period",
@@ -419,6 +420,7 @@ const resources = {
       "Submit": "提交",
       "Input Energy Category": "消耗能源分类",
       "Output Energy Category": "产出能源分类",
+      "Fraction Parameter": "分式参数",
       //Card Summaries and Line Charts
       "Base Period": "基准期",
       "Reporting Period": "报告期",

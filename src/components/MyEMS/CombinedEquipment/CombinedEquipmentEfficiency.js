@@ -94,9 +94,6 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
     d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
-  const equipmentLineChartOptions = [
-    { value: 'a', label: '电制冷效率' },];
-
   const parameterLineChartLabels = [
     '2020-07-01',
     '2020-07-02',
@@ -355,7 +352,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
             <Col xs="auto">
               <FormGroup>
                 <Label className={labelClasses} for="fractionParameter">
-                  效率参数(分式参数)
+                  {t('Fraction Parameter')}
                 </Label>
                 <CustomInput type="select" id="fractionParameter" name="fractionParameter" value={fractionParameter} onChange={({ target }) => setFractionParameter(target.value)}
                 >
@@ -571,8 +568,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl,  t }) => {
       <LineChart reportingTitle={t('COMBINED_EQUIPMENT Reporting Period Cumulative Comprehensive Efficiency VALUE UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
         baseTitle={t('COMBINED_EQUIPMENT Base Period Cumulative Comprehensive Efficiency VALUE UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
         labels={equipmentLineChartLabels}
-        data={equipmentLineChartData}
-        options={equipmentLineChartOptions}>
+        data={equipmentLineChartData}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')}
         baseTitle=''
