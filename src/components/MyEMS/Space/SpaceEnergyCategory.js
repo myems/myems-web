@@ -25,7 +25,8 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { cascaderOptions } from '../common/cascaderOptions';
-
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -59,18 +60,6 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
 
   const tceshare = [
     { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },

@@ -25,6 +25,8 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { cascaderOptions } from '../common/cascaderOptions';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
@@ -59,19 +61,6 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
   
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
-
   const costshare = [
     { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },

@@ -23,6 +23,8 @@ import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -99,18 +101,6 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl,  t }) => {
       }]
     }],
   }];
-
-  const periodTypeOptions = [
-    { value: 'yearly', label: 'Yearly' },
-    { value: 'monthly', label: 'Monthly' },
-    { value: 'daily', label: 'Daily' },
-    { value: 'hourly', label: 'Hourly' }];
-
-  const comparisonTypeOptions = [
-    { value: 'year-over-year', label: 'Year-Over-Year' },
-    { value: 'month-on-month', label: 'Month-On-Month' },
-    { value: 'free-comparison', label: 'Free Comparison' },
-    { value: 'none-comparison', label: 'None Comparison' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
