@@ -30,25 +30,13 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_token', user_token, 1000*60*60*8);
     }
   }, []);
-  const knowledgeCategories = [
-    '选择分类',
-    '法律法规',
-    '国家标准',
-    '地方标准',
-    '公司标准',
-    '工作流程',
-    '安全标准',
-    '理论文献',
-    '项目文件',
-    '其它'
-  ];
   const rawFiles = [
     {
       id: uuid(),
       calendar: { month: 'Mar', day: '26' },
       title: "工业节能管理办法",
       uploader: 'Administrator',
-      additional: '上传时间: 2020-03-26 11:00AM<br/>文件类型: PDF <br/>文件大小: 689 KB',
+      additional: t('Upload Datetime') + ': 2020-03-26 11:00AM<br/>' + t('File Format') + ': PDF <br/>' + t('File Size') + ': 689 KB',
       to: '#'
     },
     {
@@ -56,7 +44,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       calendar: { month: 'Feb', day: '26' },
       title: '用能单位能源计量评价技术规范DB11T 858-2012',
       uploader: 'Administrator',
-      additional: '上传时间: 2020-02-26 11:00AM<br/>文件类型: PDF <br/>文件大小: 1.3 MB',
+      additional: t('Upload Datetime') + ': 2020-02-26 11:00AM<br/>' + t('File Format') + ': PDF <br/>' + t('File Size') + ': 1.3 MB',
       to: '#',
     },
     {
@@ -64,7 +52,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       calendar: { month: 'Feb', day: '21' },
       title: '综合能耗计算通则GB-T-2589-2008',
       uploader: 'Administrator',
-      additional: '上传时间: 2020-02-21 11:00AM<br/>文件类型: PDF <br/>文件大小: 2.5 MB',
+      additional: t('Upload Datetime') + ': 2020-02-21 11:00AM<br/>' + t('File Format') + ': PDF <br/>' + t('File Size') + ': 2.5 MB',
       to: '#',
       badge: {
         text: 'New',
@@ -77,7 +65,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       calendar: { month: 'Dec', day: '31' },
       title: '能源管理体系-要求GB-T-23331-2012',
       uploader: 'Administrator',
-      additional: '上传时间: 2019-12-31 11:00AM<br/>文件类型: PDF <br/>文件大小: 3.6 MB',
+      additional: t('Upload Datetime') + ': 2019-12-31 11:00AM<br/>' + t('File Format') + ': PDF <br/>' + t('File Size') + ': 3.6 MB',
       to: '#'
     },
     {
@@ -85,7 +73,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       calendar: { month: 'Dec', day: '16' },
       title: '能源管理体系-实施指南GB-T-29456-2012',
       uploader: 'Administrator',
-      additional: '上传时间: 2019-12-16 11:00AM<br/>文件类型: PDF <br/>文件大小: 8.9 MB',
+      additional: t('Upload Datetime') + ': 2019-12-16 11:00AM<br/>' + t('File Format') + ': PDF <br/>' + t('File Size') + ': 8.9 MB',
       to: '#'
     }
   ];
@@ -93,17 +81,6 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
   return (
     <Card>
       <FalconCardHeader title={t('Knowledge Base')}>
-        {isIterableArray(knowledgeCategories) && (
-          <Form inline>
-            <CustomInput type="select" id="customSelectCategory" name="customSelectCategory" bsSize="sm">
-              {knowledgeCategories.map((option, index) => (
-                <option value={index} key={index}>
-                  {option}
-                </option>
-              ))}
-            </CustomInput>
-          </Form>
-        )}
       </FalconCardHeader>
       <CardBody className="fs--1">
         {loading ? (

@@ -553,6 +553,7 @@ const resources = {
       "File Format": "文件格式",
       "File Size": "文件大小",
       "Uploader": "上传者",
+      "Upload Datetime": "上传时间",
       //Error
       "The page you're looking for is not found.": "您要找的页面不存在。",
       "Make sure the address is correct and that the page hasn't moved. ": "请确认地址正确且页面没有被移动。",
