@@ -26,10 +26,10 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
       toast(
         <Fragment>
           {t("Welcome to")} <strong>MyEMS</strong>!<br />
@@ -98,6 +98,12 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
     { value: 'd', label: '自来水费率' },
     { value: 'e', label: '天然气费率' }];
 
+  const timeofuseshare = [
+    { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
+    { id: 2, value: 1178172.6, name: t('On-Peak'), color: '#27bcfd' },
+    { id: 3, value: 2945431.5, name: t('Mid-Peak'), color: '#d8e2ef' },
+    { id: 4, value: 1178172.6, name: t('Off-Peak'), color: '#1812ef' }
+  ];
   const costshare = [
     { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
@@ -121,7 +127,6 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       electricity: '9872',
       water: '3457',
       naturalgas: '567',
-      co2: '567',
     },
     {
       id: 2,
@@ -129,7 +134,6 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       electricity: '9872',
       water: '3457',
       naturalgas: '567',
-      co2: '567',
     },
     {
       id: 3,
@@ -137,7 +141,6 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       electricity: '9872',
       water: '3457',
       naturalgas: '567',
-      co2: '567',
     }
   ];
   const childSpacesTableColumns = [{
@@ -155,10 +158,6 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
   }, {
     dataField: 'naturalgas',
     text: '天然气 (M3)',
-    sort: true
-  }, {
-    dataField: 'co2',
-    text: '二氧化碳排放 (T)',
     sort: true
   }];
 
@@ -202,6 +201,9 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
+          <SharePie data={timeofuseshare} title={t('Electricity Consumption by Time-Of-Use')} />
+        </Col>
+        <Col className="mb-3 pr-lg-2 mb-3">
           <SharePie data={costshare} title={t('Costs by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
@@ -224,7 +226,10 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data of This Month')} columns={childSpacesTableColumns}>
+
+      <ChildSpacesTable data={childSpacesTableData}
+        title={t('Child Spaces Data of This Month')}
+        columns={childSpacesTableColumns}>
       </ChildSpacesTable>
 
     </Fragment>

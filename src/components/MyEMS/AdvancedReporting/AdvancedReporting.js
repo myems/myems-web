@@ -7,11 +7,8 @@ import {
   CardBody,
   Button,
   ButtonGroup,
-  Form,
   FormGroup,
-  Input,
   Label,
-  CustomInput
 } from 'reactstrap';
 import Summary from './Summary';
 import Loader from '../../common/Loader';
@@ -56,24 +53,24 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       id: uuid(),
       calendar: { month: 'Mar', day: '26' },
       title: "空间数据日报",
-      additional: t('Created Datetime') + ': ' + '2020-03-26 11:00AM' + '<br/>' +
-        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
+      additional: t('Created Datetime') + ': 2020-03-26 11:00AM<br/>' +
+        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '21' },
       title: '设备数据日报',
-      additional: t('Created Datetime') + ': ' + '2020-07-21 11:00AM' + '<br/>' +
-        t('File Format') + ': ' + 'DOCX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
+      additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
+        t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '21' },
       title: '租户数据日报',
-      additional: t('Created Datetime') + ': ' + '2020-07-21 11:00AM' + '<br/>' +
-        t('File Format') + ': ' + 'DOCX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
+      additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
+        t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
       to: '#',
       badge: {
         text: 'New',
@@ -85,16 +82,16 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       id: uuid(),
       calendar: { month: 'Jul', day: '31' },
       title: '门店数据日报',
-      additional: t('Created Datetime') + ': ' + '2020-07-31 11:00AM' + '<br/>' +
-        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
+      additional: t('Created Datetime') + ': 2020-07-31 11:00AM<br/>' +
+        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
       to: '#'
     },
     {
       id: uuid(),
       calendar: { month: 'Jul', day: '16' },
       title: '车间数据日报',
-      additional: t('Created Datetime') + ': ' + '2020-07-16 11:00AM' + '<br/>' +
-        t('File Format') + ': ' + 'XLSX' + '<br/>' + t('File Size') + ': ' + '1.3 MB',
+      additional: t('Created Datetime') + ': 2020-07-16 11:00AM<br/>' +
+        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
       to: '#'
     }
   ];

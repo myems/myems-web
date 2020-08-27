@@ -13,7 +13,6 @@ import {
   Label,
   CustomInput
 } from 'reactstrap';
-import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import loadable from '@loadable/component';

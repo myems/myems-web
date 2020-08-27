@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Alert, Card, CardBody, Col, CustomInput, Form, Row } from 'reactstrap';
 import Summary from './Summary';
 import Loader from '../../common/Loader';
