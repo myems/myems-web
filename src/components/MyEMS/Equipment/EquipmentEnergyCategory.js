@@ -31,7 +31,7 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
-const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
+const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -42,17 +42,17 @@ const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
     }
   }, []);
   // State
-  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
+  const [selectedSpace, setSelectedSpace] = useState([{ label: '成都项目', value: 1 }].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [equipment, setEquipment] = useState(undefined);
-  let current_moment = moment(); 
+  let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -240,6 +240,12 @@ const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
     sort: true
   }];
 
+  const timeofuseshare = [
+    { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
+    { id: 2, value: 1178172.6, name: t('On-Peak'), color: '#27bcfd' },
+    { id: 3, value: 2945431.5, name: t('Mid-Peak'), color: '#d8e2ef' },
+    { id: 4, value: 1178172.6, name: t('Off-Peak'), color: '#1812ef' }
+  ];
   const tceshare = [
     { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
@@ -255,7 +261,7 @@ const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  
+
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
     setComparisonType(target.value);
@@ -479,6 +485,9 @@ const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl,  t }) => {
       </div>
 
       <Row noGutters>
+        <Col className="mb-3 pr-lg-2 mb-3">
+          <SharePie data={timeofuseshare} title={t('Electricity Consumption by Time-Of-Use')} />
+        </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
           <SharePie data={tceshare} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>

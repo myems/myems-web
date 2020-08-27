@@ -22,7 +22,7 @@ const getOption = (data, isDark) => {
       borderColor: grays['300'],
       borderWidth: 1,
       formatter: function (params) {
-        return `<strong>${params.data.name}:</strong> ${params.percent}%`;
+        return `<strong>${params.data.name}:</strong> ${params.value} (${params.percent}%)`;
       }
     },
     position(pos, params, dom, rect, size) {

@@ -8,7 +8,7 @@ import { withTranslation } from 'react-i18next';
 
 const defaultSorted = [{
   dataField: 'name',
-  order: 'desc'
+  order: 'asc'
 }];
 
 const ChildSpacesTable = ({ title, data, columns, t }) => {

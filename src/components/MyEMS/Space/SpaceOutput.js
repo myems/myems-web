@@ -475,11 +475,11 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl,  t }) => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
-      <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
       </DetailedDataTable>
+      <br />
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
+      </ChildSpacesTable>
 
     </Fragment>
   );
