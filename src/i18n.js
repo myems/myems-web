@@ -513,8 +513,8 @@ const resources = {
       //Data Panels
       "Related Parameters": "Verwandte Parameter",
       "Detailed Data": "Detaillierte Daten",
-      "Child Spaces Data": "子空间数据",
-      "Child Spaces Data of This Month": "本月子空间数据",
+      "Child Spaces Data": "Teilplatz Daten",
+      "Child Spaces Data of This Month": "Teilplatz Daten dieses Monats",
       "This Year": "Dieses Jahr",
       "This Month": "Diesen Monat",
       "This Day": "Dieser Tag",
