@@ -96,6 +96,7 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
         >
           <option value="zh_cn">{t('language-zh_cn')}</option>
           <option value="en">{t('language-en')}</option>
+          <option value="de">{t('language-de')}</option>
         </CustomInput>
     </Form>
   );
