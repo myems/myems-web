@@ -8,7 +8,7 @@ const Footer = ({t}) => (
     <Row noGutters className="justify-content-between text-center fs--1 mt-4 mb-3">
       <Col sm="auto">
         <p className="mb-0 text-600">
-          {t('The Leading Free and Open Source Energy Management System')} <span className="d-none d-sm-inline-block">| </span>
+          {t('The Leading Open Source Energy Management System')} <span className="d-none d-sm-inline-block">| </span>
           <br className="d-sm-none" /> {new Date().getFullYear()} &copy; <a href="https://myems.io">MyEMS</a>
         </p>
       </Col>

@@ -33,7 +33,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       toast(
         <Fragment>
           {t("Welcome to")} <strong>MyEMS</strong>!<br />
-          {t("The Leading Free and Open Source Energy Management System")}
+          {t("The Leading Open Source Energy Management System")}
         </Fragment>
       );
     }

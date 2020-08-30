@@ -85,13 +85,6 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
     </Fragment>
   );
 
-  const shippingFormatter = (address, { shippingType }) => (
-    <Fragment>
-      {address}
-      <p className="mb-0 text-500">{shippingType}</p>
-    </Fragment>
-  );
-
   const badgeFormatter = status => {
     let color = '';
     let icon = '';
@@ -484,27 +477,26 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
   const columns = [
     {
       dataField: 'id',
-      text: 'Space',
+      text: t('Space'),
       classes: 'py-2 align-middle',
       formatter: orderFormatter,
       sort: true
     },
     {
       dataField: 'date',
-      text: 'Date',
+      text: t('Datetime'),
       classes: 'py-2 align-middle',
       sort: true
     },
     {
       dataField: 'address',
-      text: 'Description',
+      text: t('Description'),
       classes: 'py-2 align-middle',
-      formatter: shippingFormatter,
       sort: true
     },
     {
       dataField: 'status',
-      text: 'Status',
+      text: t('Status'),
       classes: 'py-2 align-middle',
       formatter: badgeFormatter,
       sort: true
@@ -648,31 +640,31 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of All Faults')}
+        <CardSummary content="43,594"  title={t('Number of All Faults')}
           color="success" >
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Space Faults')}
+        <CardSummary content="43,594"  title={t('Number of Space Faults')}
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Equipment Faults')}
+        <CardSummary content="43,594"  title={t('Number of Equipment Faults')}
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Tenant Faults')}
+        <CardSummary content="43,594"  title={t('Number of Tenant Faults')}
           color="success" >
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Store Faults')}
+        <CardSummary content="43,594"  title={t('Number of Store Faults')}
           color="success" >
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Shopfloor Faults')}
+        <CardSummary content="43,594"  title={t('Number of Shopfloor Faults')}
           color="success" >
           <CountUp end={6} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" rate="9.54%" title={t('Number of Combined Equipment Faults')}
+        <CardSummary content="43,594"  title={t('Number of Combined Equipment Faults')}
           color="success" >
           <CountUp end={5} duration={5} separator="," decimal="." />
         </CardSummary>
