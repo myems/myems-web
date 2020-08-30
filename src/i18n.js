@@ -58,7 +58,7 @@ const resources = {
       "Shopfloor Equipments": "Shopfloor Equipments",
       // Dashboard
       "Welcome to": "Welcome to",
-      "The Leading Free and Open Source Energy Management System": "The Leading Free and Open Source Energy Management System",
+      "The Leading Open Source Energy Management System": "The Leading Open Source Energy Management System",
       "Costs by Energy Category": "Costs by Energy Category",
       "Electricity Consumption by Time-Of-Use": "Electricity Consumption by Time-Of-Use",
       "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
@@ -365,7 +365,7 @@ const resources = {
       "Shopfloor Equipments": "Werkstatt Ausrüstung",
       // Dashboard
       "Welcome to": 'Willkommen',
-      "The Leading Free and Open Source Energy Management System": "Das führende freie und Open Source Energiemanagementsystem",
+      "The Leading Open Source Energy Management System": "Das führende Open Source Energiemanagementsystem",
       "Costs by Energy Category": "Kosten nach Energiekategorie",
       "Electricity Consumption by Time-Of-Use": "Stromverbrauch nach Nutzungsdauer",
       "Ton of Standard Coal by Energy Category": "Tonne Standardkohle nach Energiekategorie",
@@ -513,8 +513,8 @@ const resources = {
       //Data Panels
       "Related Parameters": "Verwandte Parameter",
       "Detailed Data": "Detaillierte Daten",
-      "Child Spaces Data": "子空间数据",
-      "Child Spaces Data of This Month": "本月子空间数据",
+      "Child Spaces Data": "Teilplatz Daten",
+      "Child Spaces Data of This Month": "Teilplatz Daten dieses Monats",
       "This Year": "Dieses Jahr",
       "This Month": "Diesen Monat",
       "This Day": "Dieser Tag",
@@ -675,7 +675,7 @@ const resources = {
       "Shopfloor Equipments": "车间设备",
       // Dashboard
       "Welcome to": '欢迎使用',
-      "The Leading Free and Open Source Energy Management System": "领先的免费开源能源管理系统",
+      "The Leading Open Source Energy Management System": "领先的开源能源管理系统",
       "Costs by Energy Category": "成本占比",
       "Electricity Consumption by Time-Of-Use": "分时消耗电量",
       "Ton of Standard Coal by Energy Category": "吨标准煤占比",
