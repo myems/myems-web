@@ -7,6 +7,8 @@ import { Button, Form, Row, Col, FormGroup, Input, CustomInput, Label } from 're
 import { createCookie, getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { baseURL } from '../../../config';
+
 
 const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   // State
@@ -14,31 +16,45 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(true);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isResponseOK, setIsResponseOK] = useState(false);
   // Context
   const { language, setLanguage } = useContext(AppContext);
 
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
-    // todo: call login api
-    var user_name = 'administrator';
-    var user_uuid = 'dcdb67d1-6116-4987-916f-6fc6cf2bc0e4';
-    var user_token = 'b849ecdd-d335-428f-a6e5-760a431867a8';
+    fetch(baseURL + '/users/login', {
+      method: 'PUT',
+      body: JSON.stringify({ "data": { "email": email, "password": password } }),
+      headers: { "Content-type": "text/plain" }
+    }).then(response => {
+      console.log(response)
+      if (response.ok) {
+        setIsResponseOK(true);  
+      }
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      if (isResponseOK) {
+        createCookie('user_name', json.name, 1000 * 60 * 60 * 8);
+        createCookie('user_uuid', json.uuid, 1000 * 60 * 60 * 8);
+        createCookie('user_token', json.token, 1000 * 60 * 60 * 8);
+        createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+        toast.success(t('Logged in as ') + `${json.display_name}`);
+        if (remember) {
+          setItemToStore('email', email);
+        } else {
+          setItemToStore('email', '');
+        }
+        setRedirect(true);
+      } else {
+        toast.error(json.description)
+      }
+      
+    }).catch(err => {
+      console.log(err);
+    });
 
-    toast.success(t('Logged in as ') + `${email}`);
-
-    if (remember) {
-      setItemToStore('email', email);
-    } else {
-      setItemToStore('email', '');
-    }
-    
-    createCookie('user_name', user_name, 1000*60*60*8);
-    createCookie('user_uuid', user_uuid, 1000*60*60*8);
-    createCookie('user_token', user_token, 1000*60*60*8);
-    createCookie('is_logged_in', true, 1000*60*60*8);
-    
-    setRedirect(true);
   };
 
   useEffect(() => {
@@ -83,21 +99,21 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
       </Row>
       <FormGroup>
         <Button color="primary" block className="mt-3" disabled={isDisabled}>
-        {t('Log in')}
+          {t('Log in')}
         </Button>
       </FormGroup>
       <CustomInput
-          type="select"
-          id="language"
-          name="language"
-          className="mb-3"
-          value={language}
-          onChange={({ target }) => setLanguage(target.value)}
-        >
-          <option value="zh_cn">{t('language-zh_cn')}</option>
-          <option value="en">{t('language-en')}</option>
-          <option value="de">{t('language-de')}</option>
-        </CustomInput>
+        type="select"
+        id="language"
+        name="language"
+        className="mb-3"
+        value={language}
+        onChange={({ target }) => setLanguage(target.value)}
+      >
+        <option value="zh_cn">{t('language-zh_cn')}</option>
+        <option value="en">{t('language-en')}</option>
+        <option value="de">{t('language-de')}</option>
+      </CustomInput>
     </Form>
   );
 };

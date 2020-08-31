@@ -259,20 +259,20 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl,  t }) => {
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
     setComparisonType(target.value);
-    if (target.value == 'year-over-year') {
+    if (target.value === 'year-over-year') {
       setBasePeriodBeginsDatetimeDisabled(true);
       setBasePeriodEndsDatetimeDisabled(true);
       setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'years'));
       setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'years'));
-    } else if (target.value == 'month-on-month') {
+    } else if (target.value === 'month-on-month') {
       setBasePeriodBeginsDatetimeDisabled(true);
       setBasePeriodEndsDatetimeDisabled(true);
       setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'months'));
       setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'months'));
-    } else if (target.value == 'free-comparison') {
+    } else if (target.value === 'free-comparison') {
       setBasePeriodBeginsDatetimeDisabled(false);
       setBasePeriodEndsDatetimeDisabled(false);
-    } else if (target.value == 'none-comparison') {
+    } else if (target.value === 'none-comparison') {
       setBasePeriodBeginsDatetime(undefined);
       setBasePeriodEndsDatetime(undefined);
       setBasePeriodBeginsDatetimeDisabled(true);
