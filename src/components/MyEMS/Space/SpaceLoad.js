@@ -36,8 +36,9 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
+    let user_display_name = getCookieValue('user_display_name');
     let user_uuid = getCookieValue('user_uuid');
-    let user_token = getCookieValue('user_token');
+    let token = getCookieValue('token');
     if (is_logged_in === null || !is_logged_in) {
       setRedirectUrl(`/authentication/basic/login`);
       setRedirect(true);
@@ -46,7 +47,7 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
       createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
-      createCookie('user_token', user_token, 1000 * 60 * 60 * 8);
+      createCookie('token', token, 1000 * 60 * 60 * 8);
     }
   }, []);
   // State
