@@ -32,8 +32,8 @@ const EquipmentList = ({
   index,
   t
 }) => {
-  const { currency, isDark } = useContext(AppContext);
-  const { isInFavouriteItems, favouriteItemsDispatch } = useContext(ProductContext);
+  const { isDark } = useContext(AppContext);
+  const {  favouriteItemsDispatch } = useContext(ProductContext);
   const [cartLoading, setCartLoading] = useState(false);
 
   const handleAddToCart = () => {

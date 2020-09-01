@@ -51,10 +51,11 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
       //update expires time of cookies
       createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
       createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, []);
+  }, );
   // State
   let current_moment = moment(); 
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));

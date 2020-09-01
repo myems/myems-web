@@ -32,7 +32,7 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
-const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
+const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -44,17 +44,17 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_display_name', user_display_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('token', token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, []);
+  }, );
   // State
-  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
+  const [selectedSpace, setSelectedSpace] = useState([{ label: '成都项目', value: 1 }].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
-  let current_moment = moment(); 
+  let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -62,7 +62,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
-  
+
   const costshare = [
     { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
     { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
@@ -303,7 +303,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  
+
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
     setComparisonType(target.value);
@@ -338,18 +338,18 @@ const SpaceCost = ({ setRedirect, setRedirectUrl,  t }) => {
 
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
-    if (comparisonType == 'year-over-year') {
+    if (comparisonType === 'year-over-year') {
       setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType == 'month-on-month') {
+    } else if (comparisonType === 'month-on-month') {
       setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'months'));
     }
   }
 
   let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
     setReportingPeriodEndsDatetime(newDateTime);
-    if (comparisonType == 'year-over-year') {
+    if (comparisonType === 'year-over-year') {
       setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType == 'month-on-month') {
+    } else if (comparisonType === 'month-on-month') {
       setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'months'));
     }
   }

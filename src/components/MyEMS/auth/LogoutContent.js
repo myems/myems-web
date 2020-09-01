@@ -39,7 +39,7 @@ const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
       console.log(err);
     });
     
-  }, []);
+  }, );
 
   return (
     <Fragment>

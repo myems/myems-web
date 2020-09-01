@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Alert, Card, CardBody, Col, CustomInput, Form, Row } from 'reactstrap';
+import { Alert, Card, CardBody, Col, Row } from 'reactstrap';
 import Summary from './Summary';
 import Loader from '../../common/Loader';
 import FalconCardHeader from '../../common/FalconCardHeader';
@@ -25,13 +25,13 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_display_name', user_display_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('token', token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, []);
+  }, );
   const rawFiles = [
     {
       id: uuid(),

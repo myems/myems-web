@@ -36,7 +36,7 @@ import { withTranslation } from 'react-i18next';
 import { cascaderOptions } from '../common/cascaderOptions';
 
 
-const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
+const ShopfloorFault = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -48,17 +48,17 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_display_name', user_display_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('token', token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, []);
+  }, );
   // State
-  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
+  const [selectedSpace, setSelectedSpace] = useState([{ label: '成都项目', value: 1 }].map(o => o.label).join('/'));
   const [shopfloor, setShopfloor] = useState(undefined);
-  let current_moment = moment(); 
+  let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
 
@@ -72,14 +72,14 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
       <a href={`mailto:${email}`}>{email}</a>
     </Fragment>
   );
-  
+
   const shippingFormatter = (address, { shippingType }) => (
     <Fragment>
       {address}
       <p className="mb-0 text-500">{shippingType}</p>
     </Fragment>
   );
-  
+
   const badgeFormatter = status => {
     let color = '';
     let icon = '';
@@ -110,7 +110,7 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
         icon = 'stream';
         text = 'Pending';
     }
-  
+
     return (
       <Badge color={`soft-${color}`} className="rounded-capsule fs--1 d-block">
         {text}
@@ -118,7 +118,7 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
       </Badge>
     );
   };
-  
+
   const actionFormatter = (dataField, { id }) => (
     // Control your row with this id
     <UncontrolledDropdown>
@@ -505,15 +505,15 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
       align: 'right'
     }
   ];
-  
-  
-  
+
+
+
   const options = {
     custom: true,
     sizePerPage: 10,
     totalSize: orders.length
   };
-  
+
   const SelectRowInput = ({ indeterminate, rowIndex, ...rest }) => (
     <div className="custom-control custom-checkbox">
       <input
@@ -527,7 +527,7 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
       <label className="custom-control-label" />
     </div>
   );
-  
+
   const selectRow = onSelect => ({
     mode: 'checkbox',
     classes: 'py-2 align-middle',
@@ -537,7 +537,7 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
     onSelect: onSelect,
     onSelectAll: onSelect
   });
-  
+
   const shopfloorList = [
     { value: 1, label: '铸造' },
     { value: 2, label: '冲压' },
@@ -677,7 +677,7 @@ const ShopfloorFault = ({ setRedirect, setRedirectUrl,  t }) => {
           ) : (
               <Fragment>
                 <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                {t('Export')}
+                  {t('Export')}
                 </ButtonIcon>
               </Fragment>
             )}

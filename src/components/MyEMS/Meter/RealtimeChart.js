@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 import range from 'lodash/range';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, CardHeader, CardBody, ListGroup, ListGroupItem, CardFooter } from 'reactstrap';
+import { Card, CardHeader, CardBody, ListGroup, ListGroupItem } from 'reactstrap';
 import { rgbaColor } from '../../../helpers/utils';
 import { withTranslation } from 'react-i18next';
 
