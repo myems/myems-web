@@ -30,28 +30,30 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
-const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl,  t }) => {
+const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
+    let user_display_name = getCookieValue('user_display_name');
     let user_uuid = getCookieValue('user_uuid');
-    let user_token = getCookieValue('user_token');
+    let token = getCookieValue('token');
     if (is_logged_in === null || !is_logged_in) {
       setRedirectUrl(`/authentication/basic/login`);
       setRedirect(true);
     } else {
       //update expires time of cookies
-      createCookie('is_logged_in', true, 1000*60*60*8);
-      createCookie('user_name', user_name, 1000*60*60*8);
-      createCookie('user_uuid', user_uuid, 1000*60*60*8);
-      createCookie('user_token', user_token, 1000*60*60*8);
+      createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
+      createCookie('user_name', user_name, 1000 * 60 * 60 * 8);
+      createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
+      createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
+      createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, []);
+  }, );
   // State
-  const [selectedSpace, setSelectedSpace] = useState([{label: '成都项目', value: 1}].map(o => o.label).join('/'));
+  const [selectedSpace, setSelectedSpace] = useState([{ label: '成都项目', value: 1 }].map(o => o.label).join('/'));
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [offlineMeter, setOfflineMeter] = useState(undefined);
-  let current_moment = moment(); 
+  let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -228,7 +230,7 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl,  t }) => {
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
 
-  
+
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
     setComparisonType(target.value);
@@ -263,18 +265,18 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl,  t }) => {
 
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
-    if (comparisonType == 'year-over-year') {
+    if (comparisonType === 'year-over-year') {
       setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType == 'month-on-month') {
+    } else if (comparisonType === 'month-on-month') {
       setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'months'));
     }
   }
 
   let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
     setReportingPeriodEndsDatetime(newDateTime);
-    if (comparisonType == 'year-over-year') {
+    if (comparisonType === 'year-over-year') {
       setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType == 'month-on-month') {
+    } else if (comparisonType === 'month-on-month') {
       setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'months'));
     }
   }

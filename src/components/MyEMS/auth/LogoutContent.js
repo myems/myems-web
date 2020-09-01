@@ -1,19 +1,46 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { createCookie } from '../../../helpers/utils';
+import { toast } from 'react-toastify';
+import { createCookie, getCookieValue } from '../../../helpers/utils';
 import rocket from '../../../assets/img/illustrations/rocket.png';
 import { withTranslation } from 'react-i18next';
+import { baseURL } from '../../../config';
+
 
 const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
+  
   useEffect(() => {
-    createCookie('user_name', '', 0);
-    createCookie('user_uuid', '', 0);
-    createCookie('user_token', '', 0);
-    createCookie('is_logged_in', false, 0);
-  }, []);
+    let isResponseOK = false;
+    fetch(baseURL + '/users/logout', {
+      method: 'PUT',
+      body: JSON.stringify({ "data": { "user_uuid": getCookieValue('user_uuid'), "token": getCookieValue('token') } }),
+      headers: { "Content-type": "text/plain" }
+    }).then(response => {
+      console.log(response)
+      if (response.ok) {
+        isResponseOK = true;  
+      }
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      if (isResponseOK) {
+        createCookie('user_name', '', 0);
+        createCookie('user_display_name', '', 0);
+        createCookie('user_uuid', '', 0);
+        createCookie('token', '', 0);
+        createCookie('is_logged_in', false, 0);
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+    
+  }, );
+
   return (
     <Fragment>
       <img className="d-block mx-auto mb-4" src={rocket} alt="shield" width={70} />

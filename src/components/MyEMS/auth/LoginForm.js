@@ -16,31 +16,34 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(true);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isResponseOK, setIsResponseOK] = useState(false);
   // Context
   const { language, setLanguage } = useContext(AppContext);
 
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
+    let isResponseOK = false;
     fetch(baseURL + '/users/login', {
       method: 'PUT',
       body: JSON.stringify({ "data": { "email": email, "password": password } }),
       headers: { "Content-type": "text/plain" }
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
-        setIsResponseOK(true);  
+        isResponseOK = true;
       }
       return response.json();
     }).then(json => {
-      console.log(json)
+      console.log(json);
+      console.log(isResponseOK);
       if (isResponseOK) {
         createCookie('user_name', json.name, 1000 * 60 * 60 * 8);
+        createCookie('user_display_name', json.display_name, 1000 * 60 * 60 * 8);
         createCookie('user_uuid', json.uuid, 1000 * 60 * 60 * 8);
-        createCookie('user_token', json.token, 1000 * 60 * 60 * 8);
+        createCookie('token', json.token, 1000 * 60 * 60 * 8);
         createCookie('is_logged_in', true, 1000 * 60 * 60 * 8);
-        toast.success(t('Logged in as ') + `${json.display_name}`);
+        console.log("display_name:");
+        toast.success(t('Logged in as ') + json.display_name);
         if (remember) {
           setItemToStore('email', email);
         } else {
@@ -50,7 +53,6 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
       } else {
         toast.error(json.description)
       }
-      
     }).catch(err => {
       console.log(err);
     });
