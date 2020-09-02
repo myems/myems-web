@@ -7,6 +7,8 @@ import FormGroupInput from '../../common/FormGroupInput';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { baseURL } from '../../../config';
+
 
 const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
   useEffect(() => {
@@ -26,7 +28,7 @@ const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, );
+  });
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -40,10 +42,36 @@ const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (true) {
-      toast.success(t('Password has been changed!'));
-      setRedirect(true);
-    }
+    let isResponseOK = false;
+    fetch(baseURL + '/users/changepassword', {
+      method: 'PUT',
+      body: JSON.stringify({
+        "data": {
+          "old_password": oldPassword, "new_password": newPassword
+        }
+      }),
+      headers: {
+        "Content-type": "application/json",
+        "user_uuid": getCookieValue('user_uuid'),
+        "token": getCookieValue('token')
+      }
+    }).then(response => {
+      console.log(response);
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      console.log(isResponseOK);
+      if (isResponseOK) {
+        toast.success(t('Password has been changed!'));
+        setRedirect(true);
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   useEffect(() => {
