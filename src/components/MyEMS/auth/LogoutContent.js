@@ -11,17 +11,21 @@ import { baseURL } from '../../../config';
 
 
 const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
-  
+
   useEffect(() => {
     let isResponseOK = false;
     fetch(baseURL + '/users/logout', {
       method: 'PUT',
       body: JSON.stringify({ "data": { "user_uuid": getCookieValue('user_uuid'), "token": getCookieValue('token') } }),
-      headers: { "Content-type": "text/plain" }
+      headers: {
+        "Content-type": "application/json",
+        "user_uuid": getCookieValue('user_uuid'),
+        "token": getCookieValue('token')
+      }
     }).then(response => {
       console.log(response)
       if (response.ok) {
-        isResponseOK = true;  
+        isResponseOK = true;
       }
       return response.json();
     }).then(json => {
@@ -38,8 +42,8 @@ const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
     }).catch(err => {
       console.log(err);
     });
-    
-  }, );
+
+  });
 
   return (
     <Fragment>
@@ -66,4 +70,4 @@ LogoutContent.defaultProps = {
   titleTag: 'h4'
 };
 
-export default  withTranslation()(LogoutContent);
+export default withTranslation()(LogoutContent);

@@ -47,11 +47,14 @@ const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
       method: 'PUT',
       body: JSON.stringify({
         "data": {
-          "user_uuid": getCookieValue('user_uuid'), "token": getCookieValue('token'),
           "old_password": oldPassword, "new_password": newPassword
         }
       }),
-      headers: { "Content-type": "text/plain" }
+      headers: {
+        "Content-type": "application/json",
+        "user_uuid": getCookieValue('user_uuid'),
+        "token": getCookieValue('token')
+      }
     }).then(response => {
       console.log(response);
       if (response.ok) {
