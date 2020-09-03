@@ -19,8 +19,8 @@ const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
       body: JSON.stringify({ "data": { "user_uuid": getCookieValue('user_uuid'), "token": getCookieValue('token') } }),
       headers: {
         "Content-type": "application/json",
-        "user_uuid": getCookieValue('user_uuid'),
-        "token": getCookieValue('token')
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
       }
     }).then(response => {
       console.log(response)

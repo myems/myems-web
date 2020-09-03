@@ -26,7 +26,7 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
     fetch(baseURL + '/users/login', {
       method: 'PUT',
       body: JSON.stringify({ "data": { "email": email, "password": password } }),
-      headers: { "Content-type": "text/plain" }
+      headers: { "Content-Type": "application/json" }
     }).then(response => {
       console.log(response);
       if (response.ok) {
