@@ -16,12 +16,12 @@ const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
     let isResponseOK = false;
     fetch(baseURL + '/users/logout', {
       method: 'PUT',
-      body: JSON.stringify({ "data": { "user_uuid": getCookieValue('user_uuid'), "token": getCookieValue('token') } }),
       headers: {
         "Content-type": "application/json",
-        "user_uuid": getCookieValue('user_uuid'),
-        "token": getCookieValue('token')
-      }
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
     }).then(response => {
       console.log(response)
       if (response.ok) {
