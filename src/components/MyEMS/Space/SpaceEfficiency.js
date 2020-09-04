@@ -23,7 +23,8 @@ import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
-import { cascaderOptions } from '../common/cascaderOptions';
+import { toast } from 'react-toastify';
+import { baseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
@@ -51,7 +52,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     }
   }, );
   // State
-  const [selectedSpace, setSelectedSpace] = useState([{ label: '成都项目', value: 1 }].map(o => o.label).join('/'));
+  const [selectedSpace, setSelectedSpace] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
   let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
@@ -63,7 +64,40 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [periodType, setPeriodType] = useState(undefined);
   const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
+  const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
+  useEffect(() => {
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/tree', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      console.log(response)
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      console.log(json)
+      if (isResponseOK) {
+        // rename keys 
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        setCascaderOptions(json);
+        setSelectedSpace([json[0]].map(o => o.label))
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+  }, []);
   const inputEnergyCategoryOptions = [
     { value: 1, label: '电' },
     { value: 2, label: '自来水' },
