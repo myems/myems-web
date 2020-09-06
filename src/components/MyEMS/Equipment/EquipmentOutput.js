@@ -259,7 +259,7 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
   }];
 
 
-  let onCascaderChange = (value, selectedOptions) => {
+  let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
@@ -348,7 +348,7 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions}
-                  onChange={onCascaderChange}
+                  onChange={onSpaceCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
                   <Input value={selectedSpace} readOnly />
