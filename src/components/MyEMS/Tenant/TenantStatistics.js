@@ -276,7 +276,7 @@ const TenantStatistics = ({ setRedirect, setRedirectUrl, t }) => {
     sort: true
   }];
 
-  let onCascaderChange = (value, selectedOptions) => {
+  let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
@@ -366,7 +366,7 @@ const TenantStatistics = ({ setRedirect, setRedirectUrl, t }) => {
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions}
-                  onChange={onCascaderChange}
+                  onChange={onSpaceCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
                   <Input value={selectedSpace} readOnly />

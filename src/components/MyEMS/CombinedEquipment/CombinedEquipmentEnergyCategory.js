@@ -291,7 +291,7 @@ const CombinedEquipmentEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => 
     { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
     { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
   ];
-  let onCascaderChange = (value, selectedOptions) => {
+  let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
   }
@@ -381,7 +381,7 @@ const CombinedEquipmentEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => 
                 </Label>
                 <br />
                 <Cascader options={cascaderOptions}
-                  onChange={onCascaderChange}
+                  onChange={onSpaceCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
                   <Input value={selectedSpace} readOnly />
