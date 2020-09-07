@@ -440,7 +440,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
                     onChange={onSpaceCascaderChange}
                     changeOnSelect
                     expandTrigger="hover">
-                    <Input value={selectedSpaceName || ''} readOnly  />
+                    <Input value={selectedSpaceName || ''} readOnly />
                   </Cascader>
                 </FormGroup>
               </Col>

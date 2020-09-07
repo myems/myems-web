@@ -10,6 +10,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Form,
   FormGroup,
   Input,
   Label,
@@ -48,10 +49,10 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, );
+  });
   let table = createRef();
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
@@ -78,7 +79,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpace([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label))
       } else {
         toast.error(json.description)
       }
@@ -332,8 +333,14 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
   }
+
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+  };
 
   return (
     <Fragment>
@@ -344,31 +351,33 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                  {t('Space')}
-                </Label>
-                <br />
-                <Cascader options={cascaderOptions}
-                  onChange={onSpaceCascaderChange}
-                  changeOnSelect
-                  expandTrigger="hover">
-                  <Input value={selectedSpace || ''} readOnly />
-                </Cascader>
-              </FormGroup>
-            </Col>
+          <Form onSubmit={handleSubmit}>
+            <Row form>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="space">
+                    {t('Space')}
+                  </Label>
+                  <br />
+                  <Cascader options={cascaderOptions}
+                    onChange={onSpaceCascaderChange}
+                    changeOnSelect
+                    expandTrigger="hover">
+                    <Input value={selectedSpaceName || ''} readOnly />
+                  </Cascader>
+                </FormGroup>
+              </Col>
 
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <ButtonGroup id="submit">
+                    <Button color="success" >{t('Submit')}</Button>
+                  </ButtonGroup>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
         </CardBody>
       </Card>
       <DetailedDataTable data={equipments} title={t('Equipment List')} columns={columns} pagesize={10} >

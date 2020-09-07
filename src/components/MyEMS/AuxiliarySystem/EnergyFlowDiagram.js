@@ -8,6 +8,7 @@ import {
   CardBody,
   Button,
   ButtonGroup,
+  Form,
   FormGroup,
   Label,
   CustomInput
@@ -40,7 +41,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, );
+  });
   // State
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
   let current_moment = moment();
@@ -222,6 +223,12 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
 
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+  };
+
 
   return (
     <Fragment>
@@ -232,56 +239,58 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="selectedEnergyFlowDiagram">
-                  {t('Energy Flow Diagram')}
-                </Label>
-                <CustomInput type="select" id="selectedEnergyFlowDiagram" name="selectedEnergyFlowDiagram"
-                  value={selectedEnergyFlowDiagram} onChange={({ target }) => setSelectedEnergyFlowDiagram(target.value)}
-                >
-                  {energyFlowDiagramOptions.map((selectedEnergyFlowDiagram, index) => (
-                    <option value={selectedEnergyFlowDiagram.value} key={index}>
-                      {selectedEnergyFlowDiagram.label}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime'
-                  value={reportingPeriodBeginsDatetime}
-                  onChange={onReportingPeriodBeginsDatetimeChange}
-                  isValidDate={getValidReportingPeriodBeginsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime'
-                  value={reportingPeriodEndsDatetime}
-                  onChange={onReportingPeriodEndsDatetimeChange}
-                  isValidDate={getValidReportingPeriodEndsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+          <Form onSubmit={handleSubmit}>
+            <Row form>
+              <Col xs="auto">
+                <FormGroup>
+                  <Label className={labelClasses} for="selectedEnergyFlowDiagram">
+                    {t('Energy Flow Diagram')}
+                  </Label>
+                  <CustomInput type="select" id="selectedEnergyFlowDiagram" name="selectedEnergyFlowDiagram"
+                    value={selectedEnergyFlowDiagram} onChange={({ target }) => setSelectedEnergyFlowDiagram(target.value)}
+                  >
+                    {energyFlowDiagramOptions.map((selectedEnergyFlowDiagram, index) => (
+                      <option value={selectedEnergyFlowDiagram.value} key={index}>
+                        {selectedEnergyFlowDiagram.label}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+                    {t('Reporting Period Begins')}
+                  </Label>
+                  <Datetime id='reportingPeriodBeginsDatetime'
+                    value={reportingPeriodBeginsDatetime}
+                    onChange={onReportingPeriodBeginsDatetimeChange}
+                    isValidDate={getValidReportingPeriodBeginsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                    {t('Reporting Period Ends')}
+                  </Label>
+                  <Datetime id='reportingPeriodEndsDatetime'
+                    value={reportingPeriodEndsDatetime}
+                    onChange={onReportingPeriodEndsDatetimeChange}
+                    isValidDate={getValidReportingPeriodEndsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <ButtonGroup id="submit">
+                    <Button color="success" >{t('Submit')}</Button>
+                  </ButtonGroup>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
         </CardBody>
       </Card>
       <Card className="mb-3 fs--1">
