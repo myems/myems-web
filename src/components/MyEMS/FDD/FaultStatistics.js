@@ -13,6 +13,7 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  Form,
   FormGroup,
   InputGroup,
   Label,
@@ -37,7 +38,7 @@ import { withTranslation } from 'react-i18next';
 
 
 
-const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
+const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -55,9 +56,9 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, );
+  });
   // State
-  let current_moment = moment(); 
+  let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   let table = createRef();
@@ -591,6 +592,13 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
   var getValidReportingPeriodEndsDatetimes = function (currentDate) {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
+
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+  };
+
   return (
     <Fragment>
       <div>
@@ -600,40 +608,42 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime'
-                  value={reportingPeriodBeginsDatetime}
-                  onChange={onReportingPeriodBeginsDatetimeChange}
-                  isValidDate={getValidReportingPeriodBeginsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime'
-                  value={reportingPeriodEndsDatetime}
-                  onChange={onReportingPeriodEndsDatetimeChange}
-                  isValidDate={getValidReportingPeriodEndsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+          <Form onSubmit={handleSubmit}>
+            <Row form>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+                    {t('Reporting Period Begins')}
+                  </Label>
+                  <Datetime id='reportingPeriodBeginsDatetime'
+                    value={reportingPeriodBeginsDatetime}
+                    onChange={onReportingPeriodBeginsDatetimeChange}
+                    isValidDate={getValidReportingPeriodBeginsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                    {t('Reporting Period Ends')}
+                  </Label>
+                  <Datetime id='reportingPeriodEndsDatetime'
+                    value={reportingPeriodEndsDatetime}
+                    onChange={onReportingPeriodEndsDatetimeChange}
+                    isValidDate={getValidReportingPeriodEndsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <ButtonGroup id="submit">
+                    <Button color="success" >{t('Submit')}</Button>
+                  </ButtonGroup>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
         </CardBody>
       </Card>
       <LineChart reportingTitle={t('Reporting Period Number of Fault VALUE', { 'VALUE': 206 })}
@@ -642,31 +652,31 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl,  t }) => {
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594"  title={t('Number of All Faults')}
+        <CardSummary content="43,594" title={t('Number of All Faults')}
           color="success" >
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Space Faults')}
+        <CardSummary content="43,594" title={t('Number of Space Faults')}
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Equipment Faults')}
+        <CardSummary content="43,594" title={t('Number of Equipment Faults')}
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Tenant Faults')}
+        <CardSummary content="43,594" title={t('Number of Tenant Faults')}
           color="success" >
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Store Faults')}
+        <CardSummary content="43,594" title={t('Number of Store Faults')}
           color="success" >
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Shopfloor Faults')}
+        <CardSummary content="43,594" title={t('Number of Shopfloor Faults')}
           color="success" >
           <CountUp end={6} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594"  title={t('Number of Combined Equipment Faults')}
+        <CardSummary content="43,594" title={t('Number of Combined Equipment Faults')}
           color="success" >
           <CountUp end={5} duration={5} separator="," decimal="." />
         </CardSummary>

@@ -8,6 +8,7 @@ import {
   CardBody,
   Col,
   CustomInput,
+  Form,
   FormGroup,
   Input,
   Label,
@@ -43,10 +44,10 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, ); 
+  });
   let table = createRef();
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [distributionsystem, setDistributionSystem] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
@@ -73,7 +74,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpace([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label))
       } else {
         toast.error(json.description)
       }
@@ -86,7 +87,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpace(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
   }
 
   const images = [img1];
@@ -104,6 +105,12 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
     { value: 'd', label: '一层南' },
     { value: 'e', label: '一层北' }];
 
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+  };
+
   return (
     <Fragment>
       <div>
@@ -113,45 +120,47 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                  {t('Space')}
-                </Label>
-                <br />
-                <Cascader options={cascaderOptions}
-                  onChange={onSpaceCascaderChange}
-                  changeOnSelect
-                  expandTrigger="hover">
-                  <Input value={selectedSpace || ''} readOnly />
-                </Cascader>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="distributionsystem">
-                  {t('Distribution System')}
-                </Label>
-                <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
-                >
-                  {distributionSystemList.map((distributionsystem, index) => (
-                    <option value={distributionsystem.value} key={distributionsystem.value}>
-                      {distributionsystem.label}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+          <Form onSubmit={handleSubmit}>
+            <Row form>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="space">
+                    {t('Space')}
+                  </Label>
+                  <br />
+                  <Cascader options={cascaderOptions}
+                    onChange={onSpaceCascaderChange}
+                    changeOnSelect
+                    expandTrigger="hover">
+                    <Input value={selectedSpaceName || ''} readOnly />
+                  </Cascader>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <Label className={labelClasses} for="distributionsystem">
+                    {t('Distribution System')}
+                  </Label>
+                  <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
+                  >
+                    {distributionSystemList.map((distributionsystem, index) => (
+                      <option value={distributionsystem.value} key={distributionsystem.value}>
+                        {distributionsystem.label}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <ButtonGroup id="submit">
+                    <Button color="success" >{t('Submit')}</Button>
+                  </ButtonGroup>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
         </CardBody>
       </Card>
       <Row noGutters>
