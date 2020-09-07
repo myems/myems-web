@@ -8,6 +8,7 @@ import {
   CardBody,
   Button,
   ButtonGroup,
+  Form,
   FormGroup,
   Input,
   Label,
@@ -49,15 +50,15 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
-  }, );
+  });
   // State
-  const [selectedSpace, setSelectedSpace] = useState(undefined);
+  const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [selectedMeterID, setSelectedMeterID] = useState(undefined);
-  let current_moment = moment();
+  const [isDisabled, setIsDisabled] = useState(true);
+  
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -67,6 +68,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
+  let current_moment = moment();
   useEffect(() => {
     let isResponseOK = false;
     fetch(baseURL + '/spaces/tree', {
@@ -90,7 +92,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpace([json[0]].map(o => o.label));
+        setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
         toast.error(json.description);
@@ -258,9 +260,9 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    setSelectedSpace(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
-    
+
     let isResponseOK = false;
     fetch(baseURL + '/spaces/' + value[value.length - 1] + '/meters', {
       method: 'GET',
@@ -281,19 +283,17 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json)
         setMeterList(json[0]);
+        if(json[0].length > 0) {
+          setSelectedMeter(json[0][0].value);
+        } else {
+          setSelectedMeter(undefined);
+        }
       } else {
         toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
-  }
-
-
-  let onMeterChange = ({ target }) => {
-    console.log(target.value);
-    setSelectedMeter(target.value);
-    setSelectedMeterID(target.value);
   }
 
   let onComparisonTypeChange = ({ target }) => {
@@ -361,7 +361,13 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   var getValidReportingPeriodEndsDatetimes = function (currentDate) {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
-
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+    console.log(selectedSpaceID);
+    console.log(selectedMeter);
+  };
 
   return (
     <Fragment>
@@ -372,127 +378,129 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Row form>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="space">
-                  {t('Space')}
-                </Label>
-                <br />
-                <Cascader options={cascaderOptions}
-                  onChange={onSpaceCascaderChange}
-                  changeOnSelect
-                  expandTrigger="hover">
-                  <Input value={selectedSpace} />
-                </Cascader>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="meter">
-                  {t('Meter')}
-                </Label>
-                <CustomInput type="select" id="meter" name="meter" value={selectedMeter} onChange={onMeterChange}
-                >
-                  {meterList.map((meter, index) => (
-                    <option value={meter.value} key={meter.value}>
-                      {meter.label}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="comparisonType">
-                  {t('Comparison Types')}
-                </Label>
-                <CustomInput type="select" id="comparisonType" name="comparisonType"
-                  defaultValue="month-on-month"
-                  onChange={onComparisonTypeChange}
-                >
-                  {comparisonTypeOptions.map((comparisonType, index) => (
-                    <option value={comparisonType.value} key={comparisonType.value} >
-                      {t(comparisonType.label)}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <Label className={labelClasses} for="periodType">
-                  {t('Period Types')}
-                </Label>
-                <CustomInput type="select" id="periodType" name="periodType" defaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
-                >
-                  {periodTypeOptions.map((periodType, index) => (
-                    <option value={periodType.value} key={periodType.value} >
-                      {t(periodType.label)}
-                    </option>
-                  ))}
-                </CustomInput>
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                  {t('Base Period Begins')}{t('(Optional)')}
-                </Label>
-                <Datetime id='basePeriodBeginsDatetime'
-                  value={basePeriodBeginsDatetime}
-                  inputProps={{ disabled: basePeriodBeginsDatetimeDisabled }}
-                  onChange={onBasePeriodBeginsDatetimeChange}
-                  isValidDate={getValidBasePeriodBeginsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="basePeriodEndsDatetime">
-                  {t('Base Period Ends')}{t('(Optional)')}
-                </Label>
-                <Datetime id='basePeriodEndsDatetime'
-                  value={basePeriodEndsDatetime}
-                  inputProps={{ disabled: basePeriodEndsDatetimeDisabled }}
-                  onChange={onBasePeriodEndsDatetimeChange}
-                  isValidDate={getValidBasePeriodEndsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
-                  {t('Reporting Period Begins')}
-                </Label>
-                <Datetime id='reportingPeriodBeginsDatetime'
-                  value={reportingPeriodBeginsDatetime}
-                  onChange={onReportingPeriodBeginsDatetimeChange}
-                  isValidDate={getValidReportingPeriodBeginsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup className="form-group">
-                <Label className={labelClasses} for="reportingPeriodEndsDatetime">
-                  {t('Reporting Period Ends')}
-                </Label>
-                <Datetime id='reportingPeriodEndsDatetime'
-                  value={reportingPeriodEndsDatetime}
-                  onChange={onReportingPeriodEndsDatetimeChange}
-                  isValidDate={getValidReportingPeriodEndsDatetimes}
-                  closeOnSelect={true} />
-              </FormGroup>
-            </Col>
-            <Col xs="auto">
-              <FormGroup>
-                <br></br>
-                <ButtonGroup id="submit">
-                  <Button color="success" >{t('Submit')}</Button>
-                </ButtonGroup>
-              </FormGroup>
-            </Col>
-          </Row>
+          <Form onSubmit={handleSubmit}>
+            <Row form >
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="space">
+                    {t('Space')}
+                  </Label>
+                  <br />
+                  <Cascader options={cascaderOptions}
+                    onChange={onSpaceCascaderChange}
+                    changeOnSelect
+                    expandTrigger="hover">
+                    <Input value={selectedSpaceName} />
+                  </Cascader>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <Label className={labelClasses} for="meterSelect">
+                    {t('Meter')}
+                  </Label>
+                  <CustomInput type="select" id="meterSelect" name="meterSelect" onChange={({ target }) => setSelectedMeter(target.value)}
+                  >
+                    {meterList.map((meter, index) => (
+                      <option value={meter.value} key={meter.value}>
+                        {meter.label}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <Label className={labelClasses} for="comparisonType">
+                    {t('Comparison Types')}
+                  </Label>
+                  <CustomInput type="select" id="comparisonType" name="comparisonType"
+                    defaultValue="month-on-month"
+                    onChange={onComparisonTypeChange}
+                  >
+                    {comparisonTypeOptions.map((comparisonType, index) => (
+                      <option value={comparisonType.value} key={comparisonType.value} >
+                        {t(comparisonType.label)}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <Label className={labelClasses} for="periodType">
+                    {t('Period Types')}
+                  </Label>
+                  <CustomInput type="select" id="periodType" name="periodType" defaultValue="daily" onChange={({ target }) => setPeriodType(target.value)}
+                  >
+                    {periodTypeOptions.map((periodType, index) => (
+                      <option value={periodType.value} key={periodType.value} >
+                        {t(periodType.label)}
+                      </option>
+                    ))}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="basePeriodBeginsDatetime">
+                    {t('Base Period Begins')}{t('(Optional)')}
+                  </Label>
+                  <Datetime id='basePeriodBeginsDatetime'
+                    value={basePeriodBeginsDatetime}
+                    inputProps={{ disabled: basePeriodBeginsDatetimeDisabled }}
+                    onChange={onBasePeriodBeginsDatetimeChange}
+                    isValidDate={getValidBasePeriodBeginsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="basePeriodEndsDatetime">
+                    {t('Base Period Ends')}{t('(Optional)')}
+                  </Label>
+                  <Datetime id='basePeriodEndsDatetime'
+                    value={basePeriodEndsDatetime}
+                    inputProps={{ disabled: basePeriodEndsDatetimeDisabled }}
+                    onChange={onBasePeriodEndsDatetimeChange}
+                    isValidDate={getValidBasePeriodEndsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodBeginsDatetime">
+                    {t('Reporting Period Begins')}
+                  </Label>
+                  <Datetime id='reportingPeriodBeginsDatetime'
+                    value={reportingPeriodBeginsDatetime}
+                    onChange={onReportingPeriodBeginsDatetimeChange}
+                    isValidDate={getValidReportingPeriodBeginsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup className="form-group">
+                  <Label className={labelClasses} for="reportingPeriodEndsDatetime">
+                    {t('Reporting Period Ends')}
+                  </Label>
+                  <Datetime id='reportingPeriodEndsDatetime'
+                    value={reportingPeriodEndsDatetime}
+                    onChange={onReportingPeriodEndsDatetimeChange}
+                    isValidDate={getValidReportingPeriodEndsDatetimes}
+                    closeOnSelect={true} />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <ButtonGroup id="submit">
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                  </ButtonGroup>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
         </CardBody>
       </Card>
       <div className="card-deck">
