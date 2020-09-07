@@ -72,6 +72,7 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
           value={email}
           onChange={({ target }) => setEmail(target.value)}
           type="email"
+          autoFocus 
         />
       </FormGroup>
       <FormGroup>
