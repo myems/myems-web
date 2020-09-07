@@ -33,6 +33,9 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
+
+  let current_moment = moment();
+
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -51,6 +54,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
   });
+
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
@@ -68,7 +72,6 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
-  let current_moment = moment();
   useEffect(() => {
     let isResponseOK = false;
     fetch(baseURL + '/spaces/tree', {
@@ -285,8 +288,10 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setMeterList(json[0]);
         if(json[0].length > 0) {
           setSelectedMeter(json[0][0].value);
+          setIsDisabled(false);
         } else {
           setSelectedMeter(undefined);
+          setIsDisabled(true);
         }
       } else {
         toast.error(json.description)
