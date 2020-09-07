@@ -33,6 +33,7 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -57,8 +58,6 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [selectedMeterID, setSelectedMeterID] = useState(undefined);
-  let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -67,6 +66,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -93,6 +93,41 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Meters by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/meters', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json)
+            setMeterList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedMeter(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedMeter(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Meters by root Space ID
       } else {
         toast.error(json.description);
       }
@@ -283,6 +318,13 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json)
         setMeterList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedMeter(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedMeter(undefined);
+          setIsDisabled(true);
+        }
       } else {
         toast.error(json.description)
       }
@@ -290,14 +332,6 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
   }
-
-
-  let onMeterChange = ({ target }) => {
-    console.log(target.value);
-    setSelectedMeter(target.value);
-    setSelectedMeterID(target.value);
-  }
-
 
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
@@ -369,6 +403,8 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
+    console.log(selectedMeter);
   };
 
 
@@ -399,10 +435,10 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="meter">
+                <Label className={labelClasses} for="meterSelect">
                     {t('Meter')}
                   </Label>
-                  <CustomInput type="select" id="meter" name="meter" value={selectedMeter} onChange={onMeterChange}
+                  <CustomInput type="select" id="meterSelect" name="meterSelect" onChange={({ target }) => setSelectedMeter(target.value)}
                   >
                     {meterList.map((meter, index) => (
                       <option value={meter.value} key={meter.value}>
@@ -498,7 +534,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled}  >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
