@@ -652,31 +652,31 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
         options={faultLineChartOptions}>
       </LineChart>
       <div className="card-deck">
-        <CardSummary content="43,594" title={t('Number of All Faults')}
+        <CardSummary content="43,594" title={t('Number of All Faults') } rate=''
           color="success" >
           <CountUp end={206} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Space Faults')}
+        <CardSummary content="43,594" title={t('Number of Space Faults')} rate=''
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Equipment Faults')}
+        <CardSummary content="43,594" title={t('Number of Equipment Faults')} rate=''
           color="success" >
           <CountUp end={66} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Tenant Faults')}
+        <CardSummary content="43,594" title={t('Number of Tenant Faults')} rate=''
           color="success" >
           <CountUp end={52} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Store Faults')}
+        <CardSummary content="43,594" title={t('Number of Store Faults')} rate=''
           color="success" >
           <CountUp end={11} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Shopfloor Faults')}
+        <CardSummary content="43,594" title={t('Number of Shopfloor Faults')} rate=''
           color="success" >
           <CountUp end={6} duration={5} separator="," decimal="." />
         </CardSummary>
-        <CardSummary content="43,594" title={t('Number of Combined Equipment Faults')}
+        <CardSummary content="43,594" title={t('Number of Combined Equipment Faults')} rate=''
           color="success" >
           <CountUp end={5} duration={5} separator="," decimal="." />
         </CardSummary>
