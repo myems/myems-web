@@ -61,7 +61,6 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
   
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
@@ -71,6 +70,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -395,7 +395,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
                     onChange={onSpaceCascaderChange}
                     changeOnSelect
                     expandTrigger="hover">
-                    <Input value={selectedSpaceName} />
+                    <Input value={selectedSpaceName || ''} readOnly />
                   </Cascader>
                 </FormGroup>
               </Col>

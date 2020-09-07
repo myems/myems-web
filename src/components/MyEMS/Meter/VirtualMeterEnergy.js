@@ -352,7 +352,7 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
                   onChange={onSpaceCascaderChange}
                   changeOnSelect
                   expandTrigger="hover">
-                  <Input value={selectedSpace} readOnly />
+                  <Input value={selectedSpace || ''} readOnly />
                 </Cascader>
               </FormGroup>
             </Col>
