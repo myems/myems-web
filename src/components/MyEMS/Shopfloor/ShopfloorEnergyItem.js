@@ -55,8 +55,9 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
+  const [shopfloorList, setShopfloorList] = useState([]);
+  const [selectedShopfloor, setSelectedShopfloor] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
-  const [shopfloor, setShopfloor] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -92,6 +93,41 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Shopfloors by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/shopfloors', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json);
+            setShopfloorList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedShopfloor(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedShopfloor(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Shopfloors by root Space ID
       } else {
         toast.error(json.description);
       }
@@ -100,6 +136,7 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   const shopfloorLineChartLabels = [
@@ -273,17 +310,43 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     sort: true
   }];
 
-  const shopfloorList = [
-    { value: 1, label: '铸造' },
-    { value: 2, label: '冲压' },
-    { value: 3, label: '焊接' },
-    { value: 4, label: '喷涂' },
-    { value: 5, label: '总装' }];
-
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/shopfloors', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json)
+        setShopfloorList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedShopfloor(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedShopfloor(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
 
@@ -358,6 +421,7 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(selectedShopfloor);
   };
 
   return (
@@ -388,10 +452,10 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="shopfloor">
+                  <Label className={labelClasses} for="shopfloorSelect">
                     {t('Shopfloor')}
                   </Label>
-                  <CustomInput type="select" id="shopfloor" name="shopfloor" value={shopfloor} onChange={({ target }) => setShopfloor(target.value)}
+                  <CustomInput type="select" id="shopfloorSelect" name="shopfloorSelect" onChange={({ target }) => setSelectedShopfloor(target.value)}
                   >
                     {shopfloorList.map((shopfloor, index) => (
                       <option value={shopfloor.value} key={shopfloor.value}>
@@ -487,7 +551,7 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

@@ -380,7 +380,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                  <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
