@@ -61,6 +61,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
+  const [isDisabled, setIsDisabled] = useState(true);
+  
   let table = createRef();
   const [isSelected, setIsSelected] = useState(false);
   const handleNextPage = ({ page, onPageChange }) => () => {

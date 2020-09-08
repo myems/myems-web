@@ -117,6 +117,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months').endOf('month'));
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

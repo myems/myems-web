@@ -55,6 +55,7 @@ const SpaceEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

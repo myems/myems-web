@@ -56,6 +56,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

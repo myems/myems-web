@@ -56,6 +56,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [tenant, setTenant] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

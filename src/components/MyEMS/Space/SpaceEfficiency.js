@@ -67,6 +67,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
