@@ -53,6 +53,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   let table = createRef();
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
+  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
@@ -68,7 +69,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       body: null,
 
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         isResponseOK = true;
       }
@@ -79,9 +80,10 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label));
+        setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
-        toast.error(json.description)
+        toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
@@ -333,13 +335,15 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceID(value[value.length - 1]);
   }
 
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
   };
 
   return (

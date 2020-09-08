@@ -52,6 +52,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   });
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
+  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [store, setStore] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
@@ -79,7 +80,8 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label));
+        setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
         toast.error(json.description)
       }
@@ -106,7 +108,8 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceID(value[value.length - 1]);
   }
   // Hook
   const { loading } = useFakeFetch(equipments);
@@ -125,6 +128,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
   };
 
   return (

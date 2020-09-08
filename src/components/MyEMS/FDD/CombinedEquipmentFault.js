@@ -39,6 +39,7 @@ import { baseURL } from '../../../config';
 
 
 const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -59,9 +60,9 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   });
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
+  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
-  let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
@@ -78,7 +79,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
       body: null,
 
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         isResponseOK = true;
       }
@@ -89,15 +90,17 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label));
+        setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
-        toast.error(json.description)
+        toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
     });
 
   }, []);
+
   const orderFormatter = (dataField, { id, name, email }) => (
     <Fragment>
       <Link to="/e-commerce/order-details">
@@ -147,12 +150,6 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
         text = 'Pending';
     }
 
-    // Handler
-    const handleSubmit = e => {
-      e.preventDefault();
-      console.log('handleSubmit');
-    };
-
     return (
       <Badge color={`soft-${color}`} className="rounded-capsule fs--1 d-block">
         {text}
@@ -179,6 +176,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
       </DropdownMenu>
     </UncontrolledDropdown>
   );
+
   const orders = [
     {
       id: uuid().split('-')[0],
@@ -511,6 +509,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
       amount: 111
     }
   ];
+
   const columns = [
     {
       dataField: 'id',
@@ -548,8 +547,6 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
     }
   ];
 
-
-
   const options = {
     custom: true,
     sizePerPage: 10,
@@ -586,7 +583,6 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  // State
   let table = createRef();
 
   const [isSelected, setIsSelected] = useState(false);
@@ -606,8 +602,10 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceID(value[value.length - 1]);
   }
+
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
   }
@@ -628,6 +626,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
   };
 
 
