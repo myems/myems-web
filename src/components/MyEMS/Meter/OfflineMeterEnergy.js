@@ -93,6 +93,41 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Offline Meters by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/offlinemeters', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json)
+            setOfflineMeterList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedOfflineMeter(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedOfflineMeter(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Offline Meters by root Space ID
       } else {
         toast.error(json.description)
       }
@@ -259,9 +294,42 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/offlinemeters', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json)
+        setOfflineMeterList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedOfflineMeter(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedOfflineMeter(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
 
@@ -336,6 +404,7 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(selectedOfflineMeter);
   };
 
 
