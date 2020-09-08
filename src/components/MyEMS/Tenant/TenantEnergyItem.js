@@ -112,7 +112,7 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
         }).then(json => {
           if (isResponseOK) {
             json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-            console.log(json)
+            console.log(json);
             setTenantList(json[0]);
             if (json[0].length > 0) {
               setSelectedTenant(json[0][0].value);
@@ -136,7 +136,7 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
-  
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   const tenantLineChartLabels = [
@@ -551,7 +551,7 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                  <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

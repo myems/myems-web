@@ -164,7 +164,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
         }).then(json => {
           if (isResponseOK) {
             json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-            console.log(json)
+            console.log(json);
             setTenantList(json[0]);
             if (json[0].length > 0) {
               setSelectedTenant(json[0][0].value);
