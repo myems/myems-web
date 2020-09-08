@@ -55,8 +55,9 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
+  const [virtualMeterList, setVirtualMeterList] = useState([]);
+  const [selectedVirtualMeter, setSelectedVirtualMeter] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
-  const [virtualMeter, setVirtualMeter] = useState(undefined);
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -92,6 +93,41 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Offline Meters by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/virtualmeters', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json);
+            setVirtualMeterList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedVirtualMeter(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedVirtualMeter(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Offline Meters by root Space ID
       } else {
         toast.error(json.description)
       }
@@ -100,12 +136,6 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
-
-  const virtualMeterList = [
-    { value: 1, label: 'P3PW_D36_009' },
-    { value: 2, label: '71AL6-1' },
-    { value: 3, label: 'CH-CCHWS' },
-    { value: 4, label: '1#冷冻泵' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -264,9 +294,42 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/virtualmeters', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json);
+        setVirtualMeterList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedVirtualMeter(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedVirtualMeter(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
 
@@ -341,6 +404,7 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(selectedVirtualMeter);
   };
 
 
@@ -371,10 +435,10 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="virtualMeter">
+                  <Label className={labelClasses} for="virtualMeterSelect">
                     {t('Virtual Meter')}
                   </Label>
-                  <CustomInput type="select" id="virtualMeter" name="virtualMeter" value={virtualMeter} onChange={({ target }) => setVirtualMeter(target.value)}
+                  <CustomInput type="select" id="virtualMeterSelect" name="virtualMeterSelect" value={selectedVirtualMeter} onChange={({ target }) => setSelectedVirtualMeter(target.value)}
                   >
                     {virtualMeterList.map((virtualMeter, index) => (
                       <option value={virtualMeter.value} key={virtualMeter.value}>

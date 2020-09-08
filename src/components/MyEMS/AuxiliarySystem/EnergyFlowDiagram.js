@@ -21,6 +21,8 @@ import AppContext from '../../../context/Context';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { baseURL } from '../../../config';
 
 
 const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
@@ -44,17 +46,50 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  const [energyFlowDiagramList, setEnergyFlowDiagramList] = useState([]);
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
+  const [selectedEnergyFlowDiagramID, setSelectedEnergyFlowDiagramID] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const energyFlowDiagramOptions = [
-    { value: 1, label: '公区商场能流图' },
-    { value: 2, label: '工厂能流图' },
-    { value: 3, label: '租区能流图' },
-    { value: 4, label: '门店能流图' }];
+  useEffect(() => {
+    let isResponseOK = false;
+    fetch(baseURL + '/energyflowdiagrams', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      console.log(response);
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      console.log(json);
+      if (isResponseOK) {
+        // rename keys 
+        json = JSON.parse(JSON.stringify(json).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json);
+        setEnergyFlowDiagramList(json);
+        setSelectedEnergyFlowDiagram([json[0]].map(o => o.label));
+        setSelectedEnergyFlowDiagramID([json[0]].map(o => o.value));
+        setIsDisabled(false);
+      } else {
+        toast.error(json.description);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+  }, []);
+
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   const data = {
@@ -228,6 +263,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedEnergyFlowDiagram);
   };
 
 
@@ -244,15 +280,15 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
             <Row form>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="selectedEnergyFlowDiagram">
+                  <Label className={labelClasses} for="energyFlowDiagramSelect">
                     {t('Energy Flow Diagram')}
                   </Label>
-                  <CustomInput type="select" id="selectedEnergyFlowDiagram" name="selectedEnergyFlowDiagram"
+                  <CustomInput type="select" id="energyFlowDiagramSelect" name="energyFlowDiagramSelect"
                     value={selectedEnergyFlowDiagram} onChange={({ target }) => setSelectedEnergyFlowDiagram(target.value)}
                   >
-                    {energyFlowDiagramOptions.map((selectedEnergyFlowDiagram, index) => (
-                      <option value={selectedEnergyFlowDiagram.value} key={index}>
-                        {selectedEnergyFlowDiagram.label}
+                    {energyFlowDiagramList.map((energyFlowDiagram, index) => (
+                      <option value={energyFlowDiagram.value} key={index}>
+                        {energyFlowDiagram.label}
                       </option>
                     ))}
                   </CustomInput>
@@ -286,7 +322,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
