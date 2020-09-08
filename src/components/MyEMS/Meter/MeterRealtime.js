@@ -47,6 +47,7 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

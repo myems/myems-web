@@ -51,6 +51,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [distributionsystem, setDistributionSystem] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

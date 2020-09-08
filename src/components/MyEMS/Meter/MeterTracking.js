@@ -56,6 +56,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

@@ -56,6 +56,7 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

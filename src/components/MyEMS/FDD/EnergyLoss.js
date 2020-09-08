@@ -55,6 +55,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const cascaderOptions = [{
     label: '低压柜主进线#1',

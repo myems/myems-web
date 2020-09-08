@@ -69,6 +69,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;

@@ -48,6 +48,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const energyFlowDiagramOptions = [
     { value: 1, label: '公区商场能流图' },
