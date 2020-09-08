@@ -53,6 +53,7 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
   });
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
+  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [equipment, setEquipment] = useState(undefined);
   let current_moment = moment();
@@ -77,20 +78,21 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
       body: null,
 
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         isResponseOK = true;
       }
       return response.json();
     }).then(json => {
-      console.log(json)
+      console.log(json);
       if (isResponseOK) {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label));
+        setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
-        toast.error(json.description)
+        toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
@@ -262,7 +264,8 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceID(value[value.length - 1]);
   }
 
 
@@ -336,6 +339,7 @@ const EquipmentOutput = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
   };
 
   return (

@@ -34,6 +34,7 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -54,9 +55,9 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
   });
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
+  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
   const [combinedEquipment, setCombinedEquipment] = useState(undefined);
-  let current_moment = moment();
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
@@ -89,7 +90,8 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label))
+        setSelectedSpaceName([json[0]].map(o => o.label));
+        setSelectedSpaceID([json[0]].map(o => o.value));
       } else {
         toast.error(json.description)
       }
@@ -288,7 +290,8 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
+    setSelectedSpaceID(value[value.length - 1]);
   }
 
 
@@ -362,6 +365,7 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(selectedSpaceID);
   };
 
 

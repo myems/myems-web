@@ -24,6 +24,7 @@ import { withTranslation } from 'react-i18next';
 
 
 const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -44,7 +45,6 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
   });
   // State
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
-  let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
