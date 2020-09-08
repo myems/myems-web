@@ -47,15 +47,14 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   });
   let table = createRef();
   // State
-  const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
-  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
-  const [distributionsystem, setDistributionSystem] = useState(undefined);
-  const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [distributionSystemList, setDistributionSystemList] = useState([]);
+  const [selectedDistributionSystem, setSelectedDistributionSystem] = useState(undefined);
+  const [selectedDistributionSystemID, setSelectedDistributionSystemID] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(baseURL + '/distributionsystems', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -65,42 +64,33 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
       body: null,
 
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         isResponseOK = true;
       }
       return response.json();
     }).then(json => {
-      console.log(json)
+      console.log(json);
       if (isResponseOK) {
         // rename keys 
-        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-        setCascaderOptions(json);
-        setSelectedSpaceName([json[0]].map(o => o.label));
-        setSelectedSpaceID([json[0]].map(o => o.value));
+        json = JSON.parse(JSON.stringify(json).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json);
+        setDistributionSystemList(json);
+        setSelectedDistributionSystem([json[0]].map(o => o.label));
+        setSelectedDistributionSystemID([json[0]].map(o => o.value));
+        setIsDisabled(false);
       } else {
-        toast.error(json.description)
+        toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
     });
 
   }, []);
+
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
-    setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
-    setSelectedSpaceID(value[value.length - 1]);
-  }
-
   const images = [img1];
-
-  const distributionSystemList = [
-    { value: 1, label: '10kV变电所配电图' },
-    { value: 2, label: '71AL6-1' },
-    { value: 3, label: 'CH-CCHWS' },
-    { value: 4, label: '1#冷冻泵' }];
 
   const realtimeChartOptions = [
     { value: 'a', label: '主进线' },
@@ -113,7 +103,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
-    console.log(selectedSpaceID);
+    console.log(selectedDistributionSystem);
   };
 
   return (
@@ -128,29 +118,16 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
           <Form onSubmit={handleSubmit}>
             <Row form>
               <Col xs="auto">
-                <FormGroup className="form-group">
-                  <Label className={labelClasses} for="space">
-                    {t('Space')}
-                  </Label>
-                  <br />
-                  <Cascader options={cascaderOptions}
-                    onChange={onSpaceCascaderChange}
-                    changeOnSelect
-                    expandTrigger="hover">
-                    <Input value={selectedSpaceName || ''} readOnly />
-                  </Cascader>
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="distributionsystem">
+                  <Label className={labelClasses} for="distributionSystemSelect">
                     {t('Distribution System')}
                   </Label>
-                  <CustomInput type="select" id="配电系统" name="distributionsystem" value={distributionsystem} onChange={({ target }) => setDistributionSystem(target.value)}
+                  <CustomInput type="select" id="distributionSystemSelect" name="distributionSystemSelect"
+                    value={selectedDistributionSystem} onChange={({ target }) => setSelectedDistributionSystem(target.value)}
                   >
-                    {distributionSystemList.map((distributionsystem, index) => (
-                      <option value={distributionsystem.value} key={distributionsystem.value}>
-                        {distributionsystem.label}
+                    {distributionSystemList.map((distributionSystem, index) => (
+                      <option value={distributionSystem.value} key={index}>
+                        {distributionSystem.label}
                       </option>
                     ))}
                   </CustomInput>
@@ -160,7 +137,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

@@ -46,12 +46,12 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  const [energyFlowDiagramList, setEnergyFlowDiagramList] = useState([]);
   const [selectedEnergyFlowDiagram, setSelectedEnergyFlowDiagram] = useState(undefined);
   const [selectedEnergyFlowDiagramID, setSelectedEnergyFlowDiagramID] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
-  const [energyFlowDiagramList, setEnergyFlowDiagramList] = useState([]);
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
