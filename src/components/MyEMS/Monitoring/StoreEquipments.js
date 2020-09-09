@@ -53,7 +53,8 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
-  const [store, setStore] = useState(undefined);
+  const [storeList, setStoreList] = useState([]);
+  const [selectedStore, setSelectedStore] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
@@ -83,6 +84,41 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Stores by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/stores', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json);
+            setStoreList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedStore(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedStore(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Stores by root Space ID
       } else {
         toast.error(json.description)
       }
@@ -91,12 +127,6 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
-
-  const storeList = [
-    { value: 1, label: '麦肯鸡(崇文门店)' },
-    { value: 2, label: '麦肯鸡(新世界店)' },
-    { value: 3, label: '麦肯鸡(祈年大街得来速店)' },
-    { value: 4, label: '麦肯鸡(灯市口店)' }];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -108,9 +138,42 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   };
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/stores', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json)
+        setStoreList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedStore(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedStore(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
   // Hook
   const { loading } = useFakeFetch(equipments);
@@ -159,10 +222,10 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="store">
+                  <Label className={labelClasses} for="storeSelect">
                     {t('Store')}
                   </Label>
-                  <CustomInput type="select" id="store" name="store" value={store} onChange={({ target }) => setStore(target.value)}
+                  <CustomInput type="select" id="storeSelect" name="storeSelect" onChange={({ target }) => setSelectedStore(target.value)}
                   >
                     {storeList.map((store, index) => (
                       <option value={store.value} key={store.value}>
@@ -176,7 +239,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
