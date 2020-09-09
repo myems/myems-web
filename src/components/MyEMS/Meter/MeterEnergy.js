@@ -33,9 +33,7 @@ import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
-
   let current_moment = moment();
-
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -56,20 +54,37 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   });
 
   // State
+  //Query From
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
-  const [comparisonType, setComparisonType] = useState('month-on-month');
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
+  const [comparisonType, setComparisonType] = useState('month-on-month');
+  const [periodType, setPeriodType] = useState('daily');
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
   const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
+  const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
+  const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
+  const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
+  const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
+  const [basePeriodEnergyConsumptionInCategory, setBasePeriodEnergyConsumptionInCategory] = useState(0);
+  const [meterLineChartOptions, setMeterLineChartOptions] = useState([]);
+  const [meterLineChartData, setMeterLineChartData] = useState({});
+  const [meterLineChartLabels, setMeterLineChartLabels] = useState([]);
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+
 
   useEffect(() => {
     let isResponseOK = false;
@@ -138,163 +153,15 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
 
+    setDetailedDataTableColumns([{
+      dataField: 'startdatetime',
+      text: t('Datetime'),
+      sort: true
+    }]);
   }, []);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  const meterLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
-
-  const meterLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-
-  const meterLineChartOptions = [
-    { value: 'a', label: '电' },
-    { value: 'b', label: '吨标准煤' },
-    { value: 'c', label: '二氧化碳排放' }];
-
-  const parameterLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
-
-  const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度' },
-    { value: 'b', label: '相对湿度' },
-    { value: 'c', label: '电费率' },
-    { value: 'd', label: '自来水费率' },
-    { value: 'e', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a: 9872,
-      b: (567 * 0.67).toFixed(2),
-      c: 567,
-    },
-    {
-      id: 11,
-      startdatetime: t('Total'),
-      a: 98720,
-      b: 5670 * 0.67,
-      c: 5670,
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '吨标准煤 (TCE)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
@@ -406,6 +273,171 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedSpaceID);
     console.log(selectedMeter);
+    console.log(periodType);
+
+    //todo: call api here
+    setMeterEnergyCategory({ 'name': '电', 'unit': 'kWh' });
+    setReportingPeriodEnergyConsumptionRate('-2.3%');
+    setReportingPeriodEnergyConsumptionInCategory(5890.863);
+    setReportingPeriodEnergyConsumptionInTCE(5890.863 / 8135.56);
+    setReportingPeriodEnergyConsumptionInCO2((5890.863 / 8135.56) * 0.67);
+    setBasePeriodEnergyConsumptionInCategory((5890.863/(1-0.023)).toFixed(2));
+
+    setMeterLineChartOptions([
+      { value: 'a', label: '电' },
+      { value: 'b', label: '吨标准煤' },
+      { value: 'c', label: '二氧化碳排放' }
+    ]);
+
+    setMeterLineChartData({
+      a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+      b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+      c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    });
+
+    setMeterLineChartLabels([
+      '2020-07-01',
+      '2020-07-02',
+      '2020-07-03',
+      '2020-07-04',
+      '2020-07-05',
+      '2020-07-06',
+      '2020-07-07',
+      '2020-07-08',
+      '2020-07-09',
+      '2020-07-10',
+      '2020-07-11',
+      '2020-07-12'
+    ]);
+
+    setParameterLineChartLabels([
+      '2020-07-01',
+      '2020-07-02',
+      '2020-07-03',
+      '2020-07-04',
+      '2020-07-05',
+      '2020-07-06',
+      '2020-07-07',
+      '2020-07-08',
+      '2020-07-09',
+      '2020-07-10',
+      '2020-07-11',
+      '2020-07-12'
+    ]);
+
+    setParameterLineChartData({
+      a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+      b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+      c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+      d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+      e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    });
+
+    setParameterLineChartOptions([
+      { value: 'a', label: '室外温度' },
+      { value: 'b', label: '相对湿度' },
+      { value: 'c', label: '电费率' },
+      { value: 'd', label: '自来水费率' },
+      { value: 'e', label: '天然气费率' }
+    ]);
+
+    setDetailedDataTableColumns([{
+      dataField: 'startdatetime',
+      text: t('Datetime'),
+      sort: true
+    }, {
+      dataField: 'a',
+      text: '电 (kWh)',
+      sort: true
+    }, {
+      dataField: 'b',
+      text: '吨标准煤 (TCE)',
+      sort: true
+    }, {
+      dataField: 'c',
+      text: '二氧化碳排放 (T)',
+      sort: true
+    }]);
+
+    setDetailedDataTableData([
+      {
+        id: 1,
+        startdatetime: '2020-07-01',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 2,
+        startdatetime: '2020-07-02',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 3,
+        startdatetime: '2020-07-03',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 4,
+        startdatetime: '2020-07-04',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 5,
+        startdatetime: '2020-07-05',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 6,
+        startdatetime: '2020-07-06',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 7,
+        startdatetime: '2020-07-07',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 8,
+        startdatetime: '2020-07-08',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 9,
+        startdatetime: '2020-07-09',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 10,
+        startdatetime: '2020-07-10',
+        a: 9872,
+        b: (567 * 0.67).toFixed(2),
+        c: 567,
+      },
+      {
+        id: 11,
+        startdatetime: t('Total'),
+        a: 98720,
+        b: 5670 * 0.67,
+        c: 5670,
+      }
+    ]);
   };
 
   return (
@@ -543,22 +575,22 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
           color="success"  >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
+          <CountUp end={reportingPeriodEnergyConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
           color="warning" >
-          <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
           color="warning" >
-          <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodEnergyConsumptionInCategory, 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': basePeriodEnergyConsumptionInCategory, 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
         labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>

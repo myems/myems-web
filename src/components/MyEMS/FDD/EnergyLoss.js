@@ -54,7 +54,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [periodType, setPeriodType] = useState(undefined);
+  const [periodType, setPeriodType] = useState('daily');
   const [isDisabled, setIsDisabled] = useState(true);
 
   const cascaderOptions = [{
@@ -300,6 +300,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(periodType);
   };
 
   return (
