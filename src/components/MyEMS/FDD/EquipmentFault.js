@@ -61,7 +61,8 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
-  const [equipment, setEquipment] = useState(undefined);
+  const [equipmentList, setEquipmentList] = useState([]);
+  const [selectedEquipment, setSelectedEquipment] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
@@ -92,6 +93,41 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Equipments by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/equipments', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json);
+            setEquipmentList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedEquipment(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedEquipment(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Equipments by root Space ID
       } else {
         toast.error(json.description);
       }
@@ -576,12 +612,6 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
     onSelectAll: onSelect
   });
 
-  const equipmentList = [
-    { value: 1, label: 'P3PW_D36_009' },
-    { value: 2, label: '71AL6-1' },
-    { value: 3, label: 'CH-CCHWS' },
-    { value: 4, label: '1#冷冻泵' }];
-
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   // State
@@ -603,10 +633,44 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   };
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/equipments', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json)
+        setEquipmentList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedEquipment(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedEquipment(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
+
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
   }
@@ -628,6 +692,7 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(selectedEquipment);
   };
 
 
@@ -658,10 +723,10 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="equipment">
+                  <Label className={labelClasses} for="equipmentSelect">
                     {t('Equipment')}
                   </Label>
-                  <CustomInput type="select" id="equipment" name="equipment" value={equipment} onChange={({ target }) => setEquipment(target.value)}
+                  <CustomInput type="select" id="equipmentSelect" name="equipmentSelect" onChange={({ target }) => setSelectedEquipment(target.value)}
                   >
                     {equipmentList.map((equipment, index) => (
                       <option value={equipment.value} key={equipment.value}>
@@ -699,7 +764,7 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
