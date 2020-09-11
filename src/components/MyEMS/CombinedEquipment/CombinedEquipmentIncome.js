@@ -58,13 +58,13 @@ const CombinedEquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
   const [combinedEquipmentList, setCombinedEquipmentList] = useState([]);
   const [selectedCombinedEquipment, setSelectedCombinedEquipment] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
+  const [periodType, setPeriodType] = useState('daily');
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
   const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -155,10 +155,10 @@ const CombinedEquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const combinedEquipmentLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   const combinedEquipmentLineChartOptions = [
@@ -183,19 +183,19 @@ const CombinedEquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度' },
-    { value: 'b', label: '相对湿度' },
-    { value: 'c', label: '电费率' },
-    { value: 'd', label: '自来水费率' },
-    { value: 'e', label: '天然气费率' }];
+    { value: 'a0', label: '室外温度' },
+    { value: 'a1', label: '相对湿度' },
+    { value: 'a2', label: '电费率' },
+    { value: 'a3', label: '自来水费率' },
+    { value: 'a4', label: '天然气费率' }];
 
   const detailedDataTableData = [
     {
@@ -421,6 +421,7 @@ const CombinedEquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedSpaceID);
     console.log(selectedCombinedEquipment);
+    console.log(periodType);
   };
 
   return (

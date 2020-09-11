@@ -59,13 +59,13 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
+  const [periodType, setPeriodType] = useState('daily');
   const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
   const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
   const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
   const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [periodType, setPeriodType] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -117,26 +117,26 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
     {
       id: 1,
       name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 2,
       name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 3,
       name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-      co2: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     }
   ];
   const childSpacesTableColumns = [{
@@ -177,18 +177,18 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const spaceLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
 
   const spaceLineChartOptions = [
-    { value: 'a', label: '电' },
-    { value: 'b', label: '自来水' },
-    { value: 'c', label: '天然气' },
-    { value: 'd', label: '二氧化碳排放' }];
+    { value: 'a0', label: '电' },
+    { value: 'a1', label: '自来水' },
+    { value: 'a2', label: '天然气' },
+    { value: 'a3', label: '二氧化碳排放' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -206,108 +206,108 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度' },
-    { value: 'b', label: '相对湿度' },
-    { value: 'c', label: '电费率' },
-    { value: 'd', label: '自来水费率' },
-    { value: 'e', label: '天然气费率' }];
+    { value: 'a0', label: '室外温度' },
+    { value: 'a1', label: '相对湿度' },
+    { value: 'a2', label: '电费率' },
+    { value: 'a3', label: '自来水费率' },
+    { value: 'a4', label: '天然气费率' }];
 
   const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 11,
       startdatetime: t('Total'),
-      a: '98720',
-      b: '34570',
-      c: '5670',
-      d: '5670',
+      a0: '98720',
+      a1: '34570',
+      a2: '5670',
+      a3: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -410,6 +410,7 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(periodType);
   };
 
 

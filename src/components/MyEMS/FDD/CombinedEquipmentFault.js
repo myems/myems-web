@@ -61,8 +61,8 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
-  const [comparisonType, setComparisonType] = useState('month-on-month');
-  const [combinedEquipment, setCombinedEquipment] = useState(undefined);
+  const [combinedEquipmentList, setCombinedEquipmentList] = useState([]);
+  const [selectedCombinedEquipment, setSelectedCombinedEquipment] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
@@ -93,6 +93,41 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
+        // get Combined Equipments by root Space ID
+        let isResponseOK = false;
+        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/combinedequipments', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json);
+            setCombinedEquipmentList(json[0]);
+            if (json[0].length > 0) {
+              setSelectedCombinedEquipment(json[0][0].value);
+              setIsDisabled(false);
+            } else {
+              setSelectedCombinedEquipment(undefined);
+              setIsDisabled(true);
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of get Combined Equipments by root Space ID
       } else {
         toast.error(json.description);
       }
@@ -578,10 +613,6 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
     onSelectAll: onSelect
   });
 
-  const combinedEquipmentList = [
-    { value: 1, label: '冷站' },
-    { value: 2, label: '锅炉房' }];
-
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   let table = createRef();
@@ -602,9 +633,42 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
   };
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
+
+    let isResponseOK = false;
+    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/combinedequipments', {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+        console.log(json)
+        setCombinedEquipmentList(json[0]);
+        if (json[0].length > 0) {
+          setSelectedCombinedEquipment(json[0][0].value);
+          setIsDisabled(false);
+        } else {
+          setSelectedCombinedEquipment(undefined);
+          setIsDisabled(true);
+        }
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
@@ -628,6 +692,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(selectedCombinedEquipment);
   };
 
 
@@ -658,10 +723,10 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="combinedEquipment">
+                  <Label className={labelClasses} for="combinedEquipmentSelect">
                     {t('Combined Equipment')}
                   </Label>
-                  <CustomInput type="select" id="组合设备" name="combinedEquipment" value={combinedEquipment} onChange={({ target }) => setCombinedEquipment(target.value)}
+                  <CustomInput type="select" id="combinedEquipmentSelect" name="combinedEquipmentSelect" onChange={({ target }) => setSelectedCombinedEquipment(target.value)}
                   >
                     {combinedEquipmentList.map((combinedEquipment, index) => (
                       <option value={combinedEquipment.value} key={combinedEquipment.value}>
@@ -699,7 +764,7 @@ const CombinedEquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

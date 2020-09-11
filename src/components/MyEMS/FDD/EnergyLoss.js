@@ -54,7 +54,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [periodType, setPeriodType] = useState(undefined);
+  const [periodType, setPeriodType] = useState('daily');
   const [isDisabled, setIsDisabled] = useState(true);
 
   const cascaderOptions = [{
@@ -122,16 +122,16 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const meterLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
 
   const meterLineChartOptions = [
-    { value: 'a', label: '电' },
-    { value: 'b', label: '吨标准煤' },
-    { value: 'c', label: '二氧化碳排放' }];
+    { value: 'a0', label: '电' },
+    { value: 'a1', label: '吨标准煤' },
+    { value: 'a2', label: '二氧化碳排放' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -149,19 +149,19 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度' },
-    { value: 'b', label: '相对湿度' },
-    { value: 'c', label: '电费率' },
-    { value: 'd', label: '自来水费率' },
-    { value: 'e', label: '天然气费率' }];
+    { value: 'a0', label: '室外温度' },
+    { value: 'a1', label: '相对湿度' },
+    { value: 'a2', label: '电费率' },
+    { value: 'a3', label: '自来水费率' },
+    { value: 'a4', label: '天然气费率' }];
 
   const detailedDataTableData = [
     {
@@ -300,6 +300,7 @@ const EnergyLoss = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(periodType);
   };
 
   return (

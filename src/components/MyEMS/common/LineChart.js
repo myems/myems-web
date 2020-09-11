@@ -11,7 +11,7 @@ const LineChart = ({
   data,
   options
 }) => {
-  const [option, setOption] = useState('a');
+  const [option, setOption] = useState('a0');
   const { isDark } = useContext(AppContext);
 
   const config = {
