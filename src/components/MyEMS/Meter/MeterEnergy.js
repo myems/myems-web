@@ -308,7 +308,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           'name': json['meter']['energy_category_name'],
           'unit': json['meter']['unit_of_measure']
         });
-        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']).toFixed(3) + "%");
+        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']*100).toFixed(2) + "%");
         setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
         setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
         setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
