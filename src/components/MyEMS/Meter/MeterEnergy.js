@@ -322,9 +322,15 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
 
         setMeterLineChartLabels(json['reporting_period']['timestamps']);
 
-        let values = {}
-        json['reporting_period']['values'].forEach((currentValue, index) => {
-          values['a' + index] = currentValue;
+        let values = {'a0':[], 'a1':[], 'a2':[]}
+        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+          values['a0'][index] = currentValue.toFixed(2);
+        });
+        json['reporting_period']['values'][1].forEach((currentValue, index) => {
+          values['a1'][index] = (currentValue / 1000).toFixed(2);
+        });
+        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+          values['a2'][index] = (currentValue / 1000).toFixed(2);
         });
         setMeterLineChartData(values)
 
@@ -341,7 +347,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           values['a' + index] = currentValue;
         });
         setParameterLineChartData(values);
-                
+
         setDetailedDataTableColumns([{
           dataField: 'startdatetime',
           text: t('Datetime'),
@@ -361,7 +367,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         }]);
 
         let detial_value_list = [];
-        
+
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
           let detial_value = {};
           detial_value['id'] = index;
