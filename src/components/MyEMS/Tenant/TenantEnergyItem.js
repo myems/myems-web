@@ -155,18 +155,18 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const tenantLineChartData = {
-    a: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
 
   const tenantLineChartOptions = [
-    { value: 'a', label: '空调水' },
-    { value: 'b', label: '空调风' },
-    { value: 'c', label: '照明及插座' },
-    { value: 'd', label: '电梯' }];
+    { value: 'a0', label: '空调水' },
+    { value: 'a1', label: '空调风' },
+    { value: 'a2', label: '照明及插座' },
+    { value: 'a3', label: '电梯' }];
 
   const parameterLineChartLabels = [
     '2020-07-01',
@@ -184,108 +184,108 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
   ];
 
   const parameterLineChartData = {
-    a: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    b: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    c: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    e: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
   };
 
   const parameterLineChartOptions = [
-    { value: 'a', label: '室外温度' },
-    { value: 'b', label: '相对湿度' },
-    { value: 'c', label: '电费率' },
-    { value: 'd', label: '自来水费率' },
-    { value: 'e', label: '天然气费率' }];
+    { value: 'a0', label: '室外温度' },
+    { value: 'a1', label: '相对湿度' },
+    { value: 'a2', label: '电费率' },
+    { value: 'a3', label: '自来水费率' },
+    { value: 'a4', label: '天然气费率' }];
 
   const detailedDataTableData = [
     {
       id: 1,
       startdatetime: '2020-07-01',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 2,
       startdatetime: '2020-07-02',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 3,
       startdatetime: '2020-07-03',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 4,
       startdatetime: '2020-07-04',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 5,
       startdatetime: '2020-07-05',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 6,
       startdatetime: '2020-07-06',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 7,
       startdatetime: '2020-07-07',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 8,
       startdatetime: '2020-07-08',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 9,
       startdatetime: '2020-07-09',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 10,
       startdatetime: '2020-07-10',
-      a: '9872',
-      b: '3457',
-      c: '567',
-      d: '567',
+      a0: '9872',
+      a1: '3457',
+      a2: '567',
+      a3: '567',
     },
     {
       id: 11,
       startdatetime: t('Total'),
-      a: '98720',
-      b: '34570',
-      c: '5670',
-      d: '5670',
+      a0: '98720',
+      a1: '34570',
+      a2: '5670',
+      a3: '5670',
     }
   ];
   const detailedDataTableColumns = [{
@@ -293,19 +293,19 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     text: t('Datetime'),
     sort: true
   }, {
-    dataField: 'a',
+    dataField: 'a0',
     text: '空调水 (kWh)',
     sort: true
   }, {
-    dataField: 'b',
+    dataField: 'a1',
     text: '空调风 (kWh)',
     sort: true
   }, {
-    dataField: 'c',
+    dataField: 'a2',
     text: '照明及插座 (kWh)',
     sort: true
   }, {
-    dataField: 'd',
+    dataField: 'a3',
     text: '电梯 (kWh)',
     sort: true
   }];
