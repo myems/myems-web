@@ -52,7 +52,9 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
   });
+
   // State
+  //Query From
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [virtualMeterList, setVirtualMeterList] = useState([]);
@@ -67,6 +69,22 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [virtualMeterEnergyCategory, setVirtualMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
+  const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
+  const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
+  const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
+  const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
+  const [basePeriodEnergyConsumptionInCategory, setBasePeriodEnergyConsumptionInCategory] = useState(0);
+  const [virtualMeterLineChartOptions, setVirtualMeterLineChartOptions] = useState([]);
+  const [virtualMeterLineChartData, setVirtualMeterLineChartData] = useState({});
+  const [virtualMeterLineChartLabels, setVirtualMeterLineChartLabels] = useState([]);
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+
 
   useEffect(() => {
     let isResponseOK = false;
@@ -80,20 +98,20 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       body: null,
 
     }).then(response => {
-      console.log(response)
+      console.log(response);
       if (response.ok) {
         isResponseOK = true;
       }
       return response.json();
     }).then(json => {
-      console.log(json)
+      console.log(json);
       if (isResponseOK) {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
         setSelectedSpaceID([json[0]].map(o => o.value));
-        // get Offline Meters by root Space ID
+        // get Virtual Meters by root Space ID
         let isResponseOK = false;
         fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/virtualmeters', {
           method: 'GET',
@@ -127,171 +145,23 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         }).catch(err => {
           console.log(err);
         });
-        // end of get Offline Meters by root Space ID
+        // end of get Virtual Meters by root Space ID
       } else {
-        toast.error(json.description)
+        toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
     });
 
+    setDetailedDataTableColumns([{
+      dataField: 'startdatetime',
+      text: t('Datetime'),
+      sort: true
+    }]);
   }, []);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  const virtualMeterLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
-
-  const virtualMeterLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-
-  const virtualMeterLineChartOptions = [
-    { value: 'a0', label: '电' },
-    { value: 'a1', label: '吨标准煤' },
-    { value: 'a2', label: '二氧化碳排放' }];
-
-  const parameterLineChartLabels = [
-    '2020-07-01',
-    '2020-07-02',
-    '2020-07-03',
-    '2020-07-04',
-    '2020-07-05',
-    '2020-07-06',
-    '2020-07-07',
-    '2020-07-08',
-    '2020-07-09',
-    '2020-07-10',
-    '2020-07-11',
-    '2020-07-12'
-  ];
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a0: 9872,
-      a1: (567 * 0.67).toFixed(2),
-      a2: 567,
-    },
-    {
-      id: 11,
-      startdatetime: t('Total'),
-      a0: 98720,
-      b: 5670 * 0.67,
-      c: 5670,
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '吨标准煤 (TCE)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
@@ -315,7 +185,7 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-        console.log(json);
+        console.log(json)
         setVirtualMeterList(json[0]);
         if (json[0].length > 0) {
           setSelectedVirtualMeter(json[0][0].value);
@@ -325,13 +195,12 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           setIsDisabled(true);
         }
       } else {
-        toast.error(json.description);
+        toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
   }
-
 
   let onComparisonTypeChange = ({ target }) => {
     console.log(target.value);
@@ -398,7 +267,6 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   var getValidReportingPeriodEndsDatetimes = function (currentDate) {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
-
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
@@ -407,12 +275,124 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedVirtualMeter);
     console.log(comparisonType);
     console.log(periodType);
-    console.log(basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
-    console.log(basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
-  };
 
+    let isResponseOK = false;
+    fetch(baseURL + '/reports/virtualmeterenergy?' +
+      'virtualmeterid=' + selectedVirtualMeter +
+      '&periodtype=' + periodType +
+      '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&baseperiodendsdatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+        setVirtualMeterEnergyCategory({
+          'name': json['virtual_meter']['energy_category_name'],
+          'unit': json['virtual_meter']['unit_of_measure']
+        });
+        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']*100).toFixed(2) + "%");
+        setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
+        setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
+        setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
+        setBasePeriodEnergyConsumptionInCategory(json['base_period']['total_in_category']);
+
+        let names = Array();
+        [json['virtual_meter']['energy_category_name'], '吨标准煤', '二氧化碳排放'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setVirtualMeterLineChartOptions(names);
+
+        setVirtualMeterLineChartLabels(json['reporting_period']['timestamps']);
+
+        let values = {'a0':[], 'a1':[], 'a2':[]}
+        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+          values['a0'][index] = currentValue.toFixed(2);
+        });
+        json['reporting_period']['values'][1].forEach((currentValue, index) => {
+          values['a1'][index] = (currentValue / 1000).toFixed(2);
+        });
+        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+          values['a2'][index] = (currentValue / 1000).toFixed(2);
+        });
+        setVirtualMeterLineChartData(values)
+
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+
+        setParameterLineChartLabels(json['parameters']['timestamps']);
+
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+
+        setDetailedDataTableColumns([{
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        }, {
+          dataField: 'a0',
+          text: json['virtual_meter']['energy_category_name'] + ' (' + json['virtual_meter']['unit_of_measure'] + ')',
+          sort: true
+        }, {
+          dataField: 'a1',
+          text: '吨标准煤 (TCE)',
+          sort: true
+        }, {
+          dataField: 'a2',
+          text: '二氧化碳排放 (T)',
+          sort: true
+        }]);
+
+        let detial_value_list = [];
+
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          let detial_value = {};
+          detial_value['id'] = index;
+          detial_value['startdatetime'] = currentValue;
+          detial_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
+          detial_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
+          detial_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
+          detial_value_list.push(detial_value);
+        });
+        let detial_value = {};
+        detial_value['id'] = detial_value_list.length;
+        detial_value['startdatetime'] = t('Total');
+        detial_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
+        detial_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
+        detial_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
+        detial_value_list.push(detial_value);
+        setDetailedDataTableData(detial_value_list);
+
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  };
 
   return (
     <Fragment>
@@ -424,7 +404,7 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Form onSubmit={handleSubmit}>
-            <Row form>
+            <Row form >
               <Col xs="auto">
                 <FormGroup className="form-group">
                   <Label className={labelClasses} for="space">
@@ -444,7 +424,7 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
                   <Label className={labelClasses} for="virtualMeterSelect">
                     {t('Virtual Meter')}
                   </Label>
-                  <CustomInput type="select" id="virtualMeterSelect" name="virtualMeterSelect" value={selectedVirtualMeter} onChange={({ target }) => setSelectedVirtualMeter(target.value)}
+                  <CustomInput type="select" id="virtualMeterSelect" name="virtualMeterSelect" onChange={({ target }) => setSelectedVirtualMeter(target.value)}
                   >
                     {virtualMeterList.map((virtualMeter, index) => (
                       <option value={virtualMeter.value} key={virtualMeter.value}>
@@ -549,22 +529,22 @@ const VirtualMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': virtualMeterEnergyCategory['name'], 'UNIT': '(' + virtualMeterEnergyCategory['unit'] + ')' })}
           color="success"  >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
+          <CountUp end={reportingPeriodEnergyConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
           color="warning" >
-          <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
           color="warning" >
-          <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
       </div>
 
-      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': virtualMeterEnergyCategory['name'], 'VALUE': reportingPeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + virtualMeterEnergyCategory['unit'] + ')' })}
+        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': virtualMeterEnergyCategory['name'], 'VALUE': basePeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + virtualMeterEnergyCategory['unit'] + ')' })}
         labels={virtualMeterLineChartLabels}
         data={virtualMeterLineChartData}
         options={virtualMeterLineChartOptions}>
