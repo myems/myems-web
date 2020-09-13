@@ -14,16 +14,20 @@ import {
   Label,
   CustomInput
 } from 'reactstrap';
+import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
+import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { baseURL } from '../../../config';
+import { periodTypeOptions } from '../common/PeriodTypeOptions';
+import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -48,15 +52,32 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('token', token, 1000 * 60 * 60 * 8);
     }
   });
+
   // State
+  //Query From
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('day'));
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
+  const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
+  const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
+  const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
+  const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
+  const [meterLineChartOptions, setMeterLineChartOptions] = useState([]);
+  const [meterLineChartData, setMeterLineChartData] = useState({});
+  const [meterLineChartLabels, setMeterLineChartLabels] = useState([]);
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+
 
   useEffect(() => {
     let isResponseOK = false;
@@ -125,134 +146,14 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
 
+    setDetailedDataTableColumns([{
+      dataField: 'startdatetime',
+      text: t('Datetime'),
+      sort: true
+    }]);
   }, []);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
-  const meterLineChartLabels = [
-    '2020-07-01 00:00:00AM',
-    '2020-07-02 00:00:00AM',
-    '2020-07-03 00:00:00AM',
-    '2020-07-04 00:00:00AM',
-    '2020-07-05 00:00:00AM',
-    '2020-07-06 00:00:00AM',
-    '2020-07-07 00:00:00AM',
-    '2020-07-08 00:00:00AM',
-    '2020-07-09 00:00:00AM',
-    '2020-07-10 00:00:00AM',
-    '2020-07-11 00:00:00AM',
-    '2020-07-12 00:00:00AM'
-  ];
-
-  const meterLineChartData = {
-    a: [4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 18, 19],
-  };
-
-
-  const meterLineChartOptions = [
-    { value: 'a', label: '有功功率 (kWh)' },];
-
-  const parameterLineChartLabels = [
-    '2020-07-01 00:00:00AM',
-    '2020-07-02 00:00:00AM',
-    '2020-07-03 00:00:00AM',
-    '2020-07-04 00:00:00AM',
-    '2020-07-05 00:00:00AM',
-    '2020-07-06 00:00:00AM',
-    '2020-07-07 00:00:00AM',
-    '2020-07-08 00:00:00AM',
-    '2020-07-09 00:00:00AM',
-    '2020-07-10 00:00:00AM',
-    '2020-07-11 00:00:00AM',
-    '2020-07-12 00:00:00AM'
-  ];
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01 00:00:00AM',
-      a: 4,
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02 00:00:00AM',
-      a: 5,
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03 00:00:00AM',
-      a: 7,
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04 00:00:00AM',
-      a: 8,
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05 00:00:00AM',
-      a: 10,
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06 00:00:00AM',
-      a: 11,
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07 00:00:00AM',
-      a: 13,
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08 00:00:00AM',
-      a: 14,
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09 00:00:00AM',
-      a: 16,
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10 00:00:00AM',
-      a: 17,
-    },
-    {
-      id: 11,
-      startdatetime: '2020-07-11 00:00:00AM',
-      a: 18,
-    },
-    {
-      id: 12,
-      startdatetime: '2020-07-12 00:00:00AM',
-      a: 19,
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '有功功率 (kWh)',
-    sort: true
-  }];
 
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
@@ -293,13 +194,16 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
   }
-  
+
+
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
+    
   }
 
   let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
     setReportingPeriodEndsDatetime(newDateTime);
+    
   }
 
   var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
@@ -309,7 +213,6 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
   var getValidReportingPeriodEndsDatetimes = function (currentDate) {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
-
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
@@ -318,6 +221,97 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedMeter);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    let isResponseOK = false;
+    fetch(baseURL + '/reports/metertrend?' +
+      'meterid=' + selectedMeter +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+        setMeterEnergyCategory({
+          'name': json['meter']['energy_category_name'],
+          'unit': json['meter']['unit_of_measure']
+        });
+        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']*100).toFixed(2) + "%");
+        setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
+        setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
+        setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
+        
+        let names = Array();
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setMeterLineChartOptions(names);
+
+        setMeterLineChartLabels(json['reporting_period']['timestamps']);
+
+        let values = {}
+        json['reporting_period']['values'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setMeterLineChartData(values)
+
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+
+        setParameterLineChartLabels(json['parameters']['timestamps']);
+
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+
+        let columns = [{
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        }];
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let column = {};
+          column['dataField'] = 'a' + index;
+          column['text'] = currentValue;
+          column['sort'] = true;
+          columns.push(column);
+        });
+        setDetailedDataTableColumns(columns);
+
+        let detial_value_list = [];
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          let detial_value = {};
+          detial_value['id'] = index;
+          detial_value['startdatetime'] = currentValue;
+          json['reporting_period']['names'].forEach((currentValue1, index1) => {
+            detial_value['a' + index1] = json['reporting_period']['values'][index1][index];
+          });
+          detial_value_list.push(detial_value);
+        });
+        setDetailedDataTableData(detial_value_list);
+
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
@@ -330,7 +324,7 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
           <Form onSubmit={handleSubmit}>
-            <Row form>
+            <Row form >
               <Col xs="auto">
                 <FormGroup className="form-group">
                   <Label className={labelClasses} for="space">
@@ -398,7 +392,7 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       </Card>
 
       <LineChart reportingTitle={t('Trend Values')}
-        baseTitle=''
+        baseTitle
         labels={meterLineChartLabels}
         data={meterLineChartData}
         options={meterLineChartOptions}>
