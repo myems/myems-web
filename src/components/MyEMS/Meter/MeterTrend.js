@@ -256,14 +256,16 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
         json['reporting_period']['names'].forEach((currentValue, index) => {
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
+        console.log(names);
         setMeterLineChartOptions(names);
 
         setMeterLineChartLabels(json['reporting_period']['timestamps']);
 
-        let values = {}
+        let values = {};
         json['reporting_period']['values'].forEach((currentValue, index) => {
-          names.push({ 'value': 'a' + index, 'label': currentValue });
+          values['a'+index] = currentValue
         });
+        console.log(values);
         setMeterLineChartData(values)
 
         names = Array();
