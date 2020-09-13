@@ -14,20 +14,16 @@ import {
   Label,
   CustomInput
 } from 'reactstrap';
-import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { baseURL } from '../../../config';
-import { periodTypeOptions } from '../common/PeriodTypeOptions';
-import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -59,16 +55,11 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('day'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
   //Results
-  const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
-  const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
-  const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
-  const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
-  const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
   const [meterLineChartOptions, setMeterLineChartOptions] = useState([]);
   const [meterLineChartData, setMeterLineChartData] = useState({});
   const [meterLineChartLabels, setMeterLineChartLabels] = useState([]);
@@ -243,20 +234,11 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         console.log(json)
-        setMeterEnergyCategory({
-          'name': json['meter']['energy_category_name'],
-          'unit': json['meter']['unit_of_measure']
-        });
-        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']*100).toFixed(2) + "%");
-        setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
-        setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
-        setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
         
         let names = Array();
         json['reporting_period']['names'].forEach((currentValue, index) => {
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
-        console.log(names);
         setMeterLineChartOptions(names);
 
         setMeterLineChartLabels(json['reporting_period']['timestamps']);
@@ -265,7 +247,6 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
         json['reporting_period']['values'].forEach((currentValue, index) => {
           values['a'+index] = currentValue
         });
-        console.log(values);
         setMeterLineChartData(values)
 
         names = Array();
