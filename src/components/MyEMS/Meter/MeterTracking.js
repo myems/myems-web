@@ -118,7 +118,8 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   const columns = [
     {
-      dataField: 'name',
+      key: "a0",
+      dataField: 'metername',
       headerClasses: 'border-0',
       text: t('Name'),
       classes: 'border-0 py-2 align-middle',
@@ -126,13 +127,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      dataField: 'costcenter',
-      headerClasses: 'border-0',
-      text: t('Cost Center'),
-      classes: 'border-0 py-2 align-middle',
-      sort: true
-    },
-    {
+      key: "a1",
       dataField: 'space',
       headerClasses: 'border-0',
       text: t('Space'),
@@ -140,6 +135,23 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
+      key: "a2",
+      dataField: 'costcenter',
+      headerClasses: 'border-0',
+      text: t('Cost Center'),
+      classes: 'border-0 py-2 align-middle',
+      sort: true
+    },
+    {
+      key: "a3",
+      dataField: 'energycategory',
+      headerClasses: 'border-0',
+      text: t('Energy Category'),
+      classes: 'border-0 py-2 align-middle',
+      sort: true
+    },
+    {
+      key: "a4",
       dataField: 'description',
       headerClasses: 'border-0',
       text: t('Description'),
@@ -147,6 +159,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
+      key: "a5",
       dataField: '',
       headerClasses: 'border-0',
       text: '',
@@ -156,192 +169,21 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
     }
   ];
 
-  const meters = [
-    {
-      id: uuid(),
-      name: '锅炉#1',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/锅炉房',
-      description: '2392 Main Avenue, Penasauka, New Jersey 02139',
-    },
-    {
-      id: uuid(),
-      name: '锅炉#2',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/锅炉房',
-      description: '2289 5th Avenue, New York, New York, 10037',
-      joined: '11/07/2017'
-    },
-    {
-      id: uuid(),
-      name: '锅炉#3',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/锅炉房',
-      description: '112 Bostwick Avenue, Jersey City, New Jersey, 0730',
-    },
-    {
-      id: uuid(),
-      name: '锅炉#4',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/锅炉房',
-      description: '3448 Ile De France St #242, Fort Wainwright, Alaska, 99703',
-    },
-    {
-      id: uuid(),
-      name: '锅炉#5',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/锅炉房',
-      description: '659 Hannah Street, Charlotte, NC 28273',
-    },
-    {
-      id: uuid(),
-      name: '高压制冷机CH-ZL-01',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/空调水',
-      description: '2298 Locust Court, Artesia, CA 90701',
-    },
-    {
-      id: uuid(),
-      name: '高压制冷机CH-ZL-02',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/空调水',
-      description: '4678 Maud Street, Philadelphia, DE 19103',
-    },
-    {
-      id: uuid(),
-      name: '高压制冷机CH-ZL-03',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/空调水',
-      description: '3412 Crestview Manor, Indianapolis, IN 46234',
-    },
-    {
-      id: uuid(),
-      name: '高压制冷机CH-ZL-04',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/空调水',
-      description: '4895 Farnum Road, New York, NY 10004',
-    },
-    {
-      id: uuid(),
-      name: '高压制冷机CH-ZL-05',
-      costcenter: '成本中心1',
-      space: '成都项目/公区商场/空调水',
-      description: '3291 Hillside Street, Mesa, AZ 85201',
-    },
-    {
-      id: uuid(),
-      name: '空压机#1',
-      costcenter: '成本中心1',
-      space: '成都项目/动力中心/空压站',
-      description: '162 Hillhaven Drive',
-    },
-    {
-      id: uuid(),
-      name: '空压机#2',
-      costcenter: '成本中心1',
-      space: '成都项目/动力中心/空压站',
-      description: '2551 Ocala Street',
-    },
-    {
-      id: uuid(),
-      name: '空压机#3',
-      costcenter: '成本中心1',
-      space: '成都项目/动力中心/空压站',
-      description: '13572 Kurt Mews South'
-    },
-    {
-      id: uuid(),
-      name: '空压机#4',
-      costcenter: '成本中心1',
-      space: '成都项目/动力中心/空压站',
-      description: '91979 Kohler Place'
-    },
-    {
-      id: uuid(),
-      name: '空压机#5',
-      costcenter: '成本中心1',
-      space: '成都项目/动力中心/空压站',
-      description: '6757 Giuseppe Meadows'
-    },
-    {
-      id: uuid(),
-      name: '注塑机#1',
-      costcenter: '成本中心1',
-      space: '成都项目/二期厂/空压站',
-      description: '2327 Kaylee Mill'
-    },
-    {
-      id: uuid(),
-      name: '注塑机#2',
-      costcenter: '成本中心1',
-      space: '成都项目/二期厂/空压站',
-      description: '25156 Isaac Crossing'
-    },
-    {
-      id: uuid(),
-      name: '注塑机#3',
-      costcenter: '成本中心1',
-      space: '成都项目/二期厂/空压站',
-      description: '71603 Wolff Plains'
-    },
-    {
-      id: uuid(),
-      name: '注塑机#4',
-      costcenter: '成本中心1',
-      space: '成都项目/二期厂/空压站',
-      description: '431 Steuber Mews'
-    },
-    {
-      id: uuid(),
-      name: '注塑机#5',
-      costcenter: '成本中心1',
-      space: '成都项目/二期厂/空压站',
-      description: '4167 Laverna Manor'
-    },
-    {
-      id: uuid(),
-      name: '清洗机#1',
-      costcenter: '成本中心1',
-      space: '成都项目/发动机厂',
-      description: '829 Lavonne Valley'
-    },
-    {
-      id: uuid(),
-      name: '清洗机#2',
-      costcenter: '成本中心1',
-      space: '成都项目/发动机厂',
-      description: '53150 Thad Squares'
-    },
-    {
-      id: uuid(),
-      name: '清洗机#3',
-      costcenter: '成本中心1',
-      space: '成都项目/发动机厂',
-      description: "9198 O'Kon Harbors"
-    },
-    {
-      id: uuid(),
-      name: "清洗机#4",
-      costcenter: '成本中心1',
-      space: '成都项目/发动机厂',
-      description: '1478 Kaitlin Haven'
-    },
-    {
-      id: uuid(),
-      name: '清洗机#5',
-      costcenter: '成本中心1',
-      space: '成都项目/发动机厂',
-      description: 'Garry Brainstrow'
-    }
-  ];
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
 
+  }
+
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
+
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/meters', {
+    fetch(baseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -359,19 +201,25 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json)
-        setMeterList(json[0]);
+        let meters = [];
+        json[0].forEach((currentValue, index) => {
+          meters.push({
+            'key': index,
+            'id': currentValue['id'],
+            'name': currentValue['meter_name'],
+            'space': currentValue['space_name'],
+            'costcenter': currentValue['cost_center_name'],
+            'energycategory': currentValue['energy_category_name'],
+            'description': currentValue['description']});
+        });
+        setMeterList(meters);
+        console.log(meters);
       } else {
         toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
-  }
-
-  // Handler
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit');
   };
 
   return (
@@ -412,7 +260,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
           </Form>
         </CardBody>
       </Card>
-      <DetailedDataTable data={meters} title={t('Meter List')} columns={columns} pagesize={10} >
+      <DetailedDataTable data={meterList} title={t('Meter List')} columns={columns} pagesize={10} >
       </DetailedDataTable>
 
     </Fragment>
