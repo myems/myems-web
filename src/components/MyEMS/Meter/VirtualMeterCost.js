@@ -82,7 +82,7 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
   const [parameterLineChartData, setParameterLineChartData] = useState({});
   const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
-  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
 
 
@@ -153,11 +153,6 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
 
-    setDetailedDataTableColumns([{
-      dataField: 'startdatetime',
-      text: t('Datetime'),
-      sort: true
-    }]);
   }, [t, ]);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
@@ -320,7 +315,11 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setVirtualMeterLineChartOptions(names);
 
-        setVirtualMeterLineChartLabels(json['reporting_period']['timestamps']);
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setVirtualMeterLineChartLabels(timestamps);
 
         let values = {'a0':[], 'a1':[], 'a2':[]}
         json['reporting_period']['values'][2].forEach((currentValue, index) => {
@@ -340,7 +339,11 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setParameterLineChartOptions(names);
 
-        setParameterLineChartLabels(json['parameters']['timestamps']);
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
         values = {}
         json['parameters']['values'].forEach((currentValue, index) => {
