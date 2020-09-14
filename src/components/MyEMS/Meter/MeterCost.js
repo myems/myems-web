@@ -158,7 +158,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
       text: t('Datetime'),
       sort: true
     }]);
-  }, []);
+  }, [t, ]);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
