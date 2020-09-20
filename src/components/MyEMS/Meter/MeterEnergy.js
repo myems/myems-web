@@ -18,6 +18,7 @@ import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import loadable from '@loadable/component';
+import Loader from '../../common/Loader';
 import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
@@ -69,6 +70,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [loading, setLoading] = useState(false);
   //Results
   const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
   const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
@@ -82,7 +84,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
   const [parameterLineChartData, setParameterLineChartData] = useState({});
   const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
-  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
 
 
@@ -153,12 +155,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
 
-    setDetailedDataTableColumns([{
-      dataField: 'startdatetime',
-      text: t('Datetime'),
-      sort: true
-    }]);
-  }, []);
+  }, [t,]);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -308,7 +305,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           'name': json['meter']['energy_category_name'],
           'unit': json['meter']['unit_of_measure']
         });
-        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate']*100).toFixed(2) + "%");
+        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate'] * 100).toFixed(2) + "%");
         setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
         setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
         setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
@@ -319,11 +316,15 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
         setMeterLineChartOptions(names);
+        
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setMeterLineChartLabels(timestamps);
 
-        setMeterLineChartLabels(json['reporting_period']['timestamps']);
-
-        let values = {'a0':[], 'a1':[], 'a2':[]}
-        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+        let values = { 'a0': [], 'a1': [], 'a2': [] }
+        json['reporting_period']['values'][0].forEach((currentValue, index) => {
           values['a0'][index] = currentValue.toFixed(2);
         });
         json['reporting_period']['values'][1].forEach((currentValue, index) => {
@@ -339,8 +340,12 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
         setParameterLineChartOptions(names);
-
-        setParameterLineChartLabels(json['parameters']['timestamps']);
+        
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
         values = {}
         json['parameters']['values'].forEach((currentValue, index) => {
@@ -366,25 +371,24 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           sort: true
         }]);
 
-        let detial_value_list = [];
-
-        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
-          let detial_value = {};
-          detial_value['id'] = index;
-          detial_value['startdatetime'] = currentValue;
-          detial_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
-          detial_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
-          detial_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
-          detial_value_list.push(detial_value);
+        let detialed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
+          let detialed_value = {};
+          detialed_value['id'] = index;
+          detialed_value['startdatetime'] = currentValue;
+          detialed_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
+          detialed_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
+          detialed_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
+          detialed_value_list.push(detialed_value);
         });
-        let detial_value = {};
-        detial_value['id'] = detial_value_list.length;
-        detial_value['startdatetime'] = t('Total');
-        detial_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
-        detial_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
-        detial_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
-        detial_value_list.push(detial_value);
-        setDetailedDataTableData(detial_value_list);
+        let detialed_value = {};
+        detialed_value['id'] = detialed_value_list.length;
+        detialed_value['startdatetime'] = t('Total');
+        detialed_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
+        detialed_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
+        detialed_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
+        detialed_value_list.push(detialed_value);
+        setDetailedDataTableData(detialed_value_list);
 
       } else {
         toast.error(json.description)
@@ -528,38 +532,44 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           </Form>
         </CardBody>
       </Card>
-      <div className="card-deck">
-        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
-          color="success"  >
-          <CountUp end={reportingPeriodEnergyConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
-          color="warning" >
-          <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-        <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
-          color="warning" >
-          <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-      </div>
+      <Fragment>
 
-      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
-        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': basePeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
-        labels={meterLineChartLabels}
-        data={meterLineChartData}
-        options={meterLineChartOptions}>
-      </LineChart>
+        <div className="card-deck">
 
-      <LineChart reportingTitle={t('Related Parameters')}
-        baseTitle=''
-        labels={parameterLineChartLabels}
-        data={parameterLineChartData}
-        options={parameterLineChartOptions}>
-      </LineChart>
-      <br />
-      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
-      </DetailedDataTable>
+          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+            color="success"  >
+            <CountUp end={reportingPeriodEnergyConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
+          </CardSummary>
 
+          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+            color="warning" >
+            <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          </CardSummary>
+          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+            color="warning" >
+            <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          </CardSummary>
+
+        </div>
+
+        <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': basePeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          labels={meterLineChartLabels}
+          data={meterLineChartData}
+          options={meterLineChartOptions}>
+        </LineChart>
+
+        <LineChart reportingTitle={t('Related Parameters')}
+          baseTitle=''
+          labels={parameterLineChartLabels}
+          data={parameterLineChartData}
+          options={parameterLineChartOptions}>
+        </LineChart>
+        <br />
+        <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
+        </DetailedDataTable>
+
+      </Fragment>
     </Fragment>
   );
 };

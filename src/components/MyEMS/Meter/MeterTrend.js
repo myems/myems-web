@@ -66,7 +66,7 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
   const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
   const [parameterLineChartData, setParameterLineChartData] = useState({});
   const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
-  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
 
 
@@ -137,11 +137,6 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
 
-    setDetailedDataTableColumns([{
-      dataField: 'startdatetime',
-      text: t('Datetime'),
-      sort: true
-    }]);
   }, []);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
@@ -241,7 +236,11 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setMeterLineChartOptions(names);
 
-        setMeterLineChartLabels(json['reporting_period']['timestamps']);
+        let timestamps =  {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setMeterLineChartLabels(timestamps);
 
         let values = {};
         json['reporting_period']['values'].forEach((currentValue, index) => {
@@ -254,8 +253,12 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
         setParameterLineChartOptions(names);
-
-        setParameterLineChartLabels(json['parameters']['timestamps']);
+        
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
         values = {}
         json['parameters']['values'].forEach((currentValue, index) => {

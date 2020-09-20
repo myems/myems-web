@@ -11,6 +11,7 @@ const LineChart = ({
   data,
   options
 }) => {
+  const [selectedLabel, setSelectedLabel] = useState('a0');
   const [option, setOption] = useState('a0');
   const { isDark } = useContext(AppContext);
 
@@ -24,7 +25,7 @@ const LineChart = ({
       gradientFill.addColorStop(1, isDark ? 'transparent' : 'rgba(255, 255, 255, 0)');
 
       return {
-        labels: labels,
+        labels: labels[selectedLabel],
         datasets: [
           {
             borderWidth: 2,
@@ -43,7 +44,7 @@ const LineChart = ({
         yPadding: 10,
         displayColors: false,
         callbacks: {
-          label: tooltipItem => `${labels[tooltipItem.index]} - ${tooltipItem.yLabel}`,
+          label: tooltipItem => `${labels[selectedLabel][tooltipItem.index]} - ${tooltipItem.yLabel}`,
           title: () => null
         }
       },
@@ -92,7 +93,7 @@ const LineChart = ({
                 bsSize="sm"
                 className="mb-3 shadow"
                 value={option}
-                onChange={({ target }) => setOption(target.value)}
+                onChange={({ target }) => {setOption(target.value); setSelectedLabel(target.value);}}
               >
                 {options.map(({ value, label }) => (
                     <option key={value} value={value}>{label}</option>

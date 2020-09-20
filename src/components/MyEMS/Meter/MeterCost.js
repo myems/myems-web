@@ -82,7 +82,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
   const [parameterLineChartData, setParameterLineChartData] = useState({});
   const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
-  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
 
 
@@ -152,13 +152,7 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
     }).catch(err => {
       console.log(err);
     });
-
-    setDetailedDataTableColumns([{
-      dataField: 'startdatetime',
-      text: t('Datetime'),
-      sort: true
-    }]);
-  }, []);
+  }, [t, ]);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
@@ -320,7 +314,17 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setMeterLineChartOptions(names);
 
-        setMeterLineChartLabels(json['reporting_period']['timestamps']);
+        let timestamps =  { 'a0': [], 'a1': [], 'a2': [] }
+        json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
+          timestamps['a0'][index] = currentValue;
+        });
+        json['reporting_period']['timestamps'][1].forEach((currentValue, index) => {
+          timestamps['a1'][index] = currentValue;
+        });
+        json['reporting_period']['timestamps'][2].forEach((currentValue, index) => {
+          timestamps['a2'][index] = currentValue;
+        });
+        setMeterLineChartLabels(timestamps);
 
         let values = {'a0':[], 'a1':[], 'a2':[]}
         json['reporting_period']['values'][2].forEach((currentValue, index) => {
@@ -340,7 +344,11 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setParameterLineChartOptions(names);
 
-        setParameterLineChartLabels(json['parameters']['timestamps']);
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
         values = {}
         json['parameters']['values'].forEach((currentValue, index) => {
@@ -366,25 +374,24 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
           sort: true
         }]);
 
-        let detial_value_list = [];
-
-        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
-          let detial_value = {};
-          detial_value['id'] = index;
-          detial_value['startdatetime'] = currentValue;
-          detial_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
-          detial_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
-          detial_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
-          detial_value_list.push(detial_value);
+        let detialed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
+          let detialed_value = {};
+          detialed_value['id'] = index;
+          detialed_value['startdatetime'] = currentValue;
+          detialed_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
+          detialed_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
+          detialed_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
+          detialed_value_list.push(detialed_value);
         });
-        let detial_value = {};
-        detial_value['id'] = detial_value_list.length;
-        detial_value['startdatetime'] = t('Total');
-        detial_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
-        detial_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
-        detial_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
-        detial_value_list.push(detial_value);
-        setDetailedDataTableData(detial_value_list);
+        let detialed_value = {};
+        detialed_value['id'] = detialed_value_list.length;
+        detialed_value['startdatetime'] = t('Total');
+        detialed_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
+        detialed_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
+        detialed_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
+        detialed_value_list.push(detialed_value);
+        setDetailedDataTableData(detialed_value_list);
 
       } else {
         toast.error(json.description)
