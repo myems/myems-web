@@ -23,7 +23,7 @@ refer to http://nginx.org/en/docs/install.html
   $ cd ~/myems-web
   $ sudo nano src/config.js
 ```
-  Build and install 
+  Build and install
 ```
   $ sudo npm run build
   $ cd build
