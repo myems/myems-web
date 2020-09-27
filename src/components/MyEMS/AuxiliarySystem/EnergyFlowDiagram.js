@@ -22,7 +22,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
@@ -56,7 +56,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/energyflowdiagrams', {
+    fetch(APIBaseURL + '/energyflowdiagrams', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",

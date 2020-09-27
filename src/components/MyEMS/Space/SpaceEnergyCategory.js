@@ -28,7 +28,7 @@ import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
@@ -84,7 +84,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",

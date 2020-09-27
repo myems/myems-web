@@ -25,7 +25,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
@@ -69,7 +69,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",

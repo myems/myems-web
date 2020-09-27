@@ -26,7 +26,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
@@ -90,7 +90,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -115,7 +115,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setSelectedSpaceID([json[0]].map(o => o.value));
         // get Meters by root Space ID
         let isResponseOK = false;
-        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/meters', {
+        fetch(APIBaseURL + '/spaces/' + [json[0]].map(o => o.value) + '/meters', {
           method: 'GET',
           headers: {
             "Content-type": "application/json",
@@ -165,7 +165,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     setSelectedSpaceID(value[value.length - 1]);
 
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/meters', {
+    fetch(APIBaseURL + '/spaces/' + value[value.length - 1] + '/meters', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -278,7 +278,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
     let isResponseOK = false;
-    fetch(baseURL + '/reports/meterenergy?' +
+    fetch(APIBaseURL + '/reports/meterenergy?' +
       'meterid=' + selectedMeter +
       '&periodtype=' + periodType +
       '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +

@@ -7,7 +7,7 @@ import { Button, Form, Row, Col, FormGroup, Input, CustomInput, Label } from 're
 import { createCookie, getItemFromStore, setItemToStore } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
@@ -23,7 +23,7 @@ const LoginForm = ({ setRedirect, hasLabel, layout, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     let isResponseOK = false;
-    fetch(baseURL + '/users/login', {
+    fetch(APIBaseURL + '/users/login', {
       method: 'PUT',
       body: JSON.stringify({ "data": { "email": email, "password": password } }),
       headers: { "Content-Type": "application/json" }

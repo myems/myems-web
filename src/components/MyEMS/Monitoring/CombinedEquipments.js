@@ -28,7 +28,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
@@ -61,7 +61,7 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -86,7 +86,7 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
         setSelectedSpaceID([json[0]].map(o => o.value));
         // get Combined Equipments by root Space ID
         let isResponseOK = false;
-        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/combinedequipments', {
+        fetch(APIBaseURL + '/spaces/' + [json[0]].map(o => o.value) + '/combinedequipments', {
           method: 'GET',
           headers: {
             "Content-type": "application/json",
@@ -142,7 +142,7 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     setSelectedSpaceID(value[value.length - 1]);
 
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/combinedequipments', {
+    fetch(APIBaseURL + '/spaces/' + value[value.length - 1] + '/combinedequipments', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",

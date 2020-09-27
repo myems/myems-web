@@ -22,7 +22,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
@@ -54,7 +54,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/distributionsystems', {
+    fetch(APIBaseURL + '/distributionsystems', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
