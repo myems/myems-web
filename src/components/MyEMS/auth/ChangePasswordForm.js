@@ -7,7 +7,7 @@ import FormGroupInput from '../../common/FormGroupInput';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
@@ -43,7 +43,7 @@ const ChangePasswordForm = ({ setRedirect, setRedirectUrl, layout, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     let isResponseOK = false;
-    fetch(baseURL + '/users/changepassword', {
+    fetch(APIBaseURL + '/users/changepassword', {
       method: 'PUT',
       body: JSON.stringify({
         "data": {

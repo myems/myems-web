@@ -7,14 +7,14 @@ import { toast } from 'react-toastify';
 import { createCookie, getCookieValue } from '../../../helpers/utils';
 import rocket from '../../../assets/img/illustrations/rocket.png';
 import { withTranslation } from 'react-i18next';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const LogoutContent = ({ layout, titleTag: TitleTag, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/users/logout', {
+    fetch(APIBaseURL + '/users/logout', {
       method: 'PUT',
       headers: {
         "Content-type": "application/json",

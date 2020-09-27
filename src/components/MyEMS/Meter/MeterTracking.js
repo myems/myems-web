@@ -28,7 +28,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
@@ -60,7 +60,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -183,7 +183,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
 
     let isResponseOK = false;
-    fetch(baseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
+    fetch(APIBaseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
       method: 'GET',
       headers: {
         "Content-type": "application/json",

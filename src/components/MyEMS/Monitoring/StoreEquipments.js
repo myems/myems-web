@@ -28,7 +28,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { baseURL } from '../../../config';
+import { APIBaseURL } from '../../../config';
 
 
 const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
@@ -61,7 +61,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
 
   useEffect(() => {
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/tree', {
+    fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -86,7 +86,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
         setSelectedSpaceID([json[0]].map(o => o.value));
         // get Stores by root Space ID
         let isResponseOK = false;
-        fetch(baseURL + '/spaces/' + [json[0]].map(o => o.value) + '/stores', {
+        fetch(APIBaseURL + '/spaces/' + [json[0]].map(o => o.value) + '/stores', {
           method: 'GET',
           headers: {
             "Content-type": "application/json",
@@ -142,7 +142,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     setSelectedSpaceID(value[value.length - 1]);
 
     let isResponseOK = false;
-    fetch(baseURL + '/spaces/' + value[value.length - 1] + '/stores', {
+    fetch(APIBaseURL + '/spaces/' + value[value.length - 1] + '/stores', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
