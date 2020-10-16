@@ -34,8 +34,8 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('token', token, 1000 * 60 * 60 * 8);
       toast(
         <Fragment>
-          {t("Welcome to")} <strong>MyEMS</strong>!<br />
-          {t("The Leading Open Source Energy Management System")}
+          {t("Welcome to MyEMS")}!<br />
+          {t("An Industry Leading Open Source Energy Management System")}
         </Fragment>
       );
     }

@@ -57,8 +57,8 @@ const resources = {
       "Store Equipments": "Store Equipments",
       "Shopfloor Equipments": "Shopfloor Equipments",
       // Dashboard
-      "Welcome to": "Welcome to",
-      "The Leading Open Source Energy Management System": "The Leading Open Source Energy Management System",
+      "Welcome to MyEMS": "Welcome to MyEMS",
+      "An Industry Leading Open Source Energy Management System": "An Industry Leading Open Source Energy Management System",
       "Costs by Energy Category": "Costs by Energy Category",
       "Electricity Consumption by Time-Of-Use": "Electricity Consumption by Time-Of-Use",
       "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
@@ -364,8 +364,8 @@ const resources = {
       "Store Equipments": "Geschäft Ausrüstung",
       "Shopfloor Equipments": "Werkstatt Ausrüstung",
       // Dashboard
-      "Welcome to": 'Willkommen',
-      "The Leading Open Source Energy Management System": "Das führende Open Source Energiemanagementsystem",
+      "Welcome to MyEMS": 'Willkommen bei MyEMS',
+      "An Industry Leading Open Source Energy Management System": "Ein branchenführendes Open Source Energie Management System",
       "Costs by Energy Category": "Kosten nach Energiekategorie",
       "Electricity Consumption by Time-Of-Use": "Stromverbrauch nach Nutzungsdauer",
       "Ton of Standard Coal by Energy Category": "Tonne Standardkohle nach Energiekategorie",
@@ -674,8 +674,8 @@ const resources = {
       "Store Equipments": "门店设备",
       "Shopfloor Equipments": "车间设备",
       // Dashboard
-      "Welcome to": '欢迎使用',
-      "The Leading Open Source Energy Management System": "领先的开源能源管理系统",
+      "Welcome to MyEMS": '欢迎使用MyEMS',
+      "An Industry Leading Open Source Energy Management System": "业界领先的开源能源管理系统",
       "Costs by Energy Category": "成本占比",
       "Electricity Consumption by Time-Of-Use": "分时消耗电量",
       "Ton of Standard Coal by Energy Category": "吨标准煤占比",
