@@ -281,7 +281,8 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
         setDetailedDataTableColumns(columns);
 
         let detial_value_list = [];
-        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+        // choose the first point's timestamps for all points
+        json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
           let detial_value = {};
           detial_value['id'] = index;
           detial_value['startdatetime'] = currentValue;

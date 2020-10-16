@@ -21,7 +21,7 @@ const Dashboard = () => {
     toast(
       <Fragment>
         Welcome to <strong>MyEMS</strong>!<br />
-        The Leading Open Source Energy Management System
+        An Industry Leading Open Source Energy Management System
       </Fragment>
     );
   }, []);
