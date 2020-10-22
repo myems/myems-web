@@ -54,6 +54,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  // Query Parameters
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
@@ -67,7 +68,22 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
   const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+  
+  //Results
+  const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
+  const [spaceLineChartData, setSpaceLineChartData] = useState({});
+  const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
+  
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
+  
+  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
+  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
+  
 
   useEffect(() => {
     let isResponseOK = false;
@@ -102,6 +118,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
+
   const inputEnergyCategoryOptions = [
     { value: 1, label: '电' },
     { value: 2, label: '自来水' },
@@ -113,181 +130,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     { value: 6, label: '蒸汽' },];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const childSpacesTableData = [
-    {
-      id: 1,
-      name: '公区',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: t('Child Spaces'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '冷 (kWh)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '效率 (kWh/kWh)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const spaceLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 11,
-      startdatetime: t('Total'),
-      a: '98720',
-      b: '34570',
-      c: '5.67',
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '冷 (kWh)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '效率 (kWh/kWh)',
-    sort: true
-  }];
-
-
+  
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
@@ -366,7 +209,226 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(comparisonType);
     console.log(periodType);
+    console.log(inputEnergyCategory);
+    console.log(outputEnergyCategory);
+    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/spaceefficiency?' +
+      'spaceid=' + selectedSpaceID +
+      '&periodtype=' + periodType +
+      '&inputenergycategoryid=' + inputEnergyCategory +
+      '&outputenergycategoryid=' + outputEnergyCategory +
+      '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&baseperiodendsdatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+        setChildSpacesTableData([
+          {
+            id: 1,
+            name: '公区',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 2,
+            name: '车库',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 3,
+            name: '租区',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          }
+        ]);
+        setChildSpacesTableColumns([
+          {
+            dataField: 'name',
+            text: t('Child Spaces'),
+            sort: true
+          }, {
+            dataField: 'a',
+            text: '电 (kWh)',
+            sort: true
+          }, {
+            dataField: 'b',
+            text: '冷 (kWh)',
+            sort: true
+          }, {
+            dataField: 'c',
+            text: '效率 (kWh/kWh)',
+            sort: true
+          }
+        ]);
+      
+        setSpaceLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+      
+        setSpaceLineChartData({
+          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+      
+        setParameterLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+      
+        setParameterLineChartData({
+          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+      
+        setParameterLineChartOptions([
+          { value: 'a0', label: '室外温度' },
+          { value: 'a1', label: '相对湿度' },
+          { value: 'a2', label: '电费率' },
+          { value: 'a3', label: '自来水费率' },
+          { value: 'a4', label: '天然气费率' }
+        ]);
+      
+        setDetailedDataTableData([
+          {
+            id: 1,
+            startdatetime: '2020-07-01',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 2,
+            startdatetime: '2020-07-02',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 3,
+            startdatetime: '2020-07-03',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 4,
+            startdatetime: '2020-07-04',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 5,
+            startdatetime: '2020-07-05',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 6,
+            startdatetime: '2020-07-06',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 7,
+            startdatetime: '2020-07-07',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 8,
+            startdatetime: '2020-07-08',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 9,
+            startdatetime: '2020-07-09',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 10,
+            startdatetime: '2020-07-10',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 11,
+            startdatetime: t('Total'),
+            a: '98720',
+            b: '34570',
+            c: '5.67',
+          }
+        ]);
+
+        setDetailedDataTableColumns([
+          {
+            dataField: 'startdatetime',
+            text: t('Datetime'),
+            sort: true
+          }, {
+            dataField: 'a',
+            text: '电 (kWh)',
+            sort: true
+          }, {
+            dataField: 'b',
+            text: '冷 (kWh)',
+            sort: true
+          }, {
+            dataField: 'c',
+            text: '效率 (kWh/kWh)',
+            sort: true
+          }
+        ]);
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    }); 
+  
   };
 
   return (
@@ -535,7 +597,8 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
       <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
         baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
         labels={spaceLineChartLabels}
-        data={spaceLineChartData} >
+        data={spaceLineChartData}
+        options={spaceLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')}
         baseTitle=''
@@ -543,11 +606,11 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
         data={parameterLineChartData}
         options={parameterLineChartOptions}>
       </LineChart>
-      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
-      <br />
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
       </DetailedDataTable>
+      <br />
+      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
+      </ChildSpacesTable>
 
     </Fragment>
   );
