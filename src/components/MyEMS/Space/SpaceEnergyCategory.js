@@ -72,20 +72,24 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
   //Results
-
-  const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
-  const [spaceLineChartData, setSpaceLineChartData] = useState({});
-  const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
-  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
-  const [parameterLineChartData, setParameterLineChartData] = useState({});
-  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
-  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
-  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
-  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
-  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
   const [timeOfUseShareData, setTimeOfUseShareData] = useState([]);
   const [TCEShareData, setTCEShareData] = useState([]);
   const [CO2ShareData, setCO2ShareData] = useState([]);
+
+  const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
+  const [spaceLineChartData, setSpaceLineChartData] = useState({});
+  const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
+  
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
+  
+  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
+  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
+  
 
   useEffect(() => {
     let isResponseOK = false;
