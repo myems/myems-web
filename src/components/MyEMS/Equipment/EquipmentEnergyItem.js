@@ -271,7 +271,7 @@ const EquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/equipmentcost?' +
+    fetch(APIBaseURL + '/reports/equipmentenergyitem?' +
       'equipmentid=' + selectedEquipment +
       '&periodtype=' + periodType +
       '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
