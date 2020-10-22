@@ -55,6 +55,7 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  // Query Form
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
@@ -66,8 +67,22 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
 
+  //Results
+  const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
+  const [spaceLineChartData, setSpaceLineChartData] = useState({});
+  const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
+  
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
+  
+  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
+  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
+  
   useEffect(() => {
     let isResponseOK = false;
     fetch(APIBaseURL + '/spaces/tree', {
@@ -102,208 +117,7 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
 
   }, []);
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-  const childSpacesTableData = [
-    {
-      id: 1,
-      name: '公区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 2,
-      name: '车库',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    },
-    {
-      id: 3,
-      name: '租区',
-      a: '98.172',
-      b: '34.157',
-      c: '56.127',
-      d: '56.357',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: t('Child Spaces'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电平均负荷 (kW)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '自来水平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '天然气平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'd',
-    text: '冷平均负荷 (kW)',
-    sort: true
-  }];
-
-  const spaceLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const spaceLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-  };
-
-
-  const spaceLineChartOptions = [
-    { value: 'a', label: '电' },
-    { value: 'b', label: '自来水' },
-    { value: 'c', label: '天然气' },
-    { value: 'd', label: '冷' },];
-
-  const parameterLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    },
-    {
-      id: 11,
-      startdatetime: '平均',
-      a0: '98.172',
-      a1: '34.157',
-      a2: '56.127',
-      a3: '56.357',
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a0',
-    text: '电平均负荷 (kW)',
-    sort: true
-  }, {
-    dataField: 'a1',
-    text: '自来水平均负荷 (M3/h)',
-    sort: true
-  }, {
-    dataField: 'a2',
-    text: '天然气平均负荷 (M3/)',
-    sort: true
-  }, {
-    dataField: 'a3',
-    text: '冷平均负荷 (kW)',
-    sort: true
-  }];
+  
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     console.log(value, selectedOptions);
@@ -383,7 +197,252 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+    console.log(comparisonType);
     console.log(periodType);
+    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/spaceload?' +
+      'spaceid=' + selectedSpaceID +
+      '&periodtype=' + periodType +
+      '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&baseperiodendsdatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+        
+        setSpaceLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+      
+        setSpaceLineChartData({
+          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+        });
+    
+        setSpaceLineChartOptions([
+          { value: 'a', label: '电' },
+          { value: 'b', label: '自来水' },
+          { value: 'c', label: '天然气' },
+          { value: 'd', label: '冷' }
+        ]);
+      
+        setParameterLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+      
+        setParameterLineChartData({
+          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+      
+        setParameterLineChartOptions([
+          { value: 'a0', label: '室外温度' },
+          { value: 'a1', label: '相对湿度' },
+          { value: 'a2', label: '电费率' },
+          { value: 'a3', label: '自来水费率' },
+          { value: 'a4', label: '天然气费率' }
+        ]);
+      
+        setDetailedDataTableData([
+          {
+            id: 1,
+            startdatetime: '2020-07-01',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 2,
+            startdatetime: '2020-07-02',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 3,
+            startdatetime: '2020-07-03',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 4,
+            startdatetime: '2020-07-04',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 5,
+            startdatetime: '2020-07-05',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 6,
+            startdatetime: '2020-07-06',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 7,
+            startdatetime: '2020-07-07',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 8,
+            startdatetime: '2020-07-08',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 9,
+            startdatetime: '2020-07-09',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 10,
+            startdatetime: '2020-07-10',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          },
+          {
+            id: 11,
+            startdatetime: '平均',
+            a0: '98.172',
+            a1: '34.157',
+            a2: '56.127',
+            a3: '56.357',
+          }
+        ]);
+        setDetailedDataTableColumns([
+          {
+            dataField: 'startdatetime',
+            text: t('Datetime'),
+            sort: true
+          }, {
+            dataField: 'a0',
+            text: '电平均负荷 (kW)',
+            sort: true
+          }, {
+            dataField: 'a1',
+            text: '自来水平均负荷 (M3/h)',
+            sort: true
+          }, {
+            dataField: 'a2',
+            text: '天然气平均负荷 (M3/)',
+            sort: true
+          }, {
+            dataField: 'a3',
+            text: '冷平均负荷 (kW)',
+            sort: true
+          }
+        ]);
+        
+        setChildSpacesTableData([
+          {
+            id: 1,
+            name: '公区',
+            a: '98.172',
+            b: '34.157',
+            c: '56.127',
+            d: '56.357',
+          },
+          {
+            id: 2,
+            name: '车库',
+            a: '98.172',
+            b: '34.157',
+            c: '56.127',
+            d: '56.357',
+          },
+          {
+            id: 3,
+            name: '租区',
+            a: '98.172',
+            b: '34.157',
+            c: '56.127',
+            d: '56.357',
+          }
+        ]);
+        setChildSpacesTableColumns([
+          {
+            dataField: 'name',
+            text: t('Child Spaces'),
+            sort: true
+          }, {
+            dataField: 'a',
+            text: '电平均负荷 (kW)',
+            sort: true
+          }, {
+            dataField: 'b',
+            text: '自来水平均负荷 (M3/h)',
+            sort: true
+          }, {
+            dataField: 'c',
+            text: '天然气平均负荷 (M3/h)',
+            sort: true
+          }, {
+            dataField: 'd',
+            text: '冷平均负荷 (kW)',
+            sort: true
+          }
+        ]);
+      
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
 
