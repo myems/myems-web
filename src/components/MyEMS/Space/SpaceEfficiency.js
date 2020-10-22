@@ -54,7 +54,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
-  // Query Form
+  // Query Parameters
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [comparisonType, setComparisonType] = useState('month-on-month');
