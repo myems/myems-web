@@ -275,7 +275,7 @@ const CombinedEquipmentEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => 
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/combinedequipmentcost?' +
+    fetch(APIBaseURL + '/reports/combinedequipmentenergycategory?' +
       'combinedequipmentid=' + selectedCombinedEquipment +
       '&periodtype=' + periodType +
       '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
