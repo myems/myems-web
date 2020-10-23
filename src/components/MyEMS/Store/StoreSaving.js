@@ -274,7 +274,7 @@ const StoreSaving = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/storecost?' +
+    fetch(APIBaseURL + '/reports/storesaving?' +
       'storeid=' + selectedStore +
       '&periodtype=' + periodType +
       '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +

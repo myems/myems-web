@@ -54,6 +54,7 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  // Query Parameters
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [combinedEquipmentList, setCombinedEquipmentList] = useState([]);
@@ -68,6 +69,21 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [costShareData, setCostShareData] = useState([]);
+  const [TCEShareData, setTCEShareData] = useState([]);
+  const [CO2ShareData, setCO2ShareData] = useState([]);
+
+  const [combinedEquipmentLineChartLabels, setCombinedEquipmentLineChartLabels] = useState([]);
+  const [combinedEquipmentLineChartData, setCombinedEquipmentLineChartData] = useState({});
+  const [combinedEquipmentLineChartOptions, setCombinedEquipmentLineChartOptions] = useState([]);
+
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -139,175 +155,6 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl, t }) => {
   }, []);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
-  const costshare = [
-    { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
-    { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: 9887, name: '天然气', color: '#d8e2ef' }
-  ];
-  const tceshare = [
-    { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
-    { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
-  ];
-  const co2share = [
-    { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
-    { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
-  ];
-  const combinedEquipmentLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const combinedEquipmentLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const combinedEquipmentLineChartOptions = [
-    { value: 'a0', label: '电' },
-    { value: 'a1', label: '自来水' },
-    { value: 'a2', label: '天然气' },
-    { value: 'a3', label: '二氧化碳排放' }];
-
-  const parameterLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a0: '9872',
-      a1: '3457',
-      a2: '567',
-      a3: '567',
-    },
-    {
-      id: 11,
-      startdatetime: t('Total'),
-      a0: '98720',
-      a1: '34570',
-      a2: '5670',
-      a3: '5670',
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a0',
-    text: '电 (RMB)',
-    sort: true
-  }, {
-    dataField: 'a1',
-    text: '自来水 (RMB)',
-    sort: true
-  }, {
-    dataField: 'a2',
-    text: '天然气 (RMB)',
-    sort: true
-  }, {
-    dataField: 'a3',
-    text: '二氧化碳排放 (T)',
-    sort: true
-  }];
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
@@ -422,6 +269,218 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedSpaceID);
     console.log(selectedCombinedEquipment);
     console.log(periodType);
+    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/combinedequipmentcost?' +
+      'combinedequipmentid=' + selectedCombinedEquipment +
+      '&periodtype=' + periodType +
+      '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&baseperiodendsdatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+              
+        setCostShareData([
+          { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
+          { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
+          { id: 3, value: 9887, name: '天然气', color: '#d8e2ef' }
+        ]);
+
+        setTCEShareData([
+          { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
+          { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
+          { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
+        ]);
+
+        setCO2ShareData([
+          { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
+          { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
+          { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
+        ]);
+
+        setCombinedEquipmentLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+
+        setCombinedEquipmentLineChartData({
+          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+
+        setCombinedEquipmentLineChartOptions([
+          { value: 'a0', label: '电' },
+          { value: 'a1', label: '自来水' },
+          { value: 'a2', label: '天然气' },
+          { value: 'a3', label: '二氧化碳排放' }
+        ]);
+
+        setParameterLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+
+        setParameterLineChartData({
+          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+
+        setParameterLineChartOptions([
+          { value: 'a0', label: '室外温度' },
+          { value: 'a1', label: '相对湿度' },
+          { value: 'a2', label: '电费率' },
+          { value: 'a3', label: '自来水费率' },
+          { value: 'a4', label: '天然气费率' }
+        ]);
+
+        setDetailedDataTableData([
+          {
+            id: 1,
+            startdatetime: '2020-07-01',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 2,
+            startdatetime: '2020-07-02',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 3,
+            startdatetime: '2020-07-03',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 4,
+            startdatetime: '2020-07-04',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 5,
+            startdatetime: '2020-07-05',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 6,
+            startdatetime: '2020-07-06',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 7,
+            startdatetime: '2020-07-07',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 8,
+            startdatetime: '2020-07-08',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 9,
+            startdatetime: '2020-07-09',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 10,
+            startdatetime: '2020-07-10',
+            a0: '9872',
+            a1: '3457',
+            a2: '567',
+            a3: '567',
+          },
+          {
+            id: 11,
+            startdatetime: t('Total'),
+            a0: '98720',
+            a1: '34570',
+            a2: '5670',
+            a3: '5670',
+          }
+        ]);
+
+        setDetailedDataTableColumns([
+          {
+            dataField: 'startdatetime',
+            text: t('Datetime'),
+            sort: true
+          }, {
+            dataField: 'a0',
+            text: '电 (RMB)',
+            sort: true
+          }, {
+            dataField: 'a1',
+            text: '自来水 (RMB)',
+            sort: true
+          }, {
+            dataField: 'a2',
+            text: '天然气 (RMB)',
+            sort: true
+          }, {
+            dataField: 'a3',
+            text: '二氧化碳排放 (T)',
+            sort: true
+          }
+        ]);
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
@@ -582,13 +641,13 @@ const CombinedEquipmentCost = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={costshare} title={t('Costs by Energy Category')} />
+          <SharePie data={costShareData} title={t('Costs by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={tceshare} title={t('Ton of Standard Coal by Energy Category')} />
+          <SharePie data={TCEShareData} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
+          <SharePie data={CO2ShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
       <LineChart reportingTitle={t('Reporting Period Costs CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(RMB)' })}
