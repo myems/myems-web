@@ -71,10 +71,6 @@ const EquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   //Results
-  const [costShareData, setCostShareData] = useState([]);
-  const [TCEShareData, setTCEShareData] = useState([]);
-  const [CO2ShareData, setCO2ShareData] = useState([]);
-
   const [equipmentLineChartLabels, setEquipmentLineChartLabels] = useState([]);
   const [equipmentLineChartData, setEquipmentLineChartData] = useState({});
   const [equipmentLineChartOptions, setEquipmentLineChartOptions] = useState([]);
