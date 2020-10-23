@@ -53,6 +53,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   // State
+  // Query Parameters
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [combinedEquipmentList, setCombinedEquipmentList] = useState([]);
@@ -66,9 +67,19 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [fractionParameter, setFractionParameter] = useState(1);
-  const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [combinedEquipmentLineChartLabels, setCombinedEquipmentLineChartLabels] = useState([]);
+  const [combinedEquipmentLineChartData, setCombinedEquipmentLineChartData] = useState({});
+  const [combinedEquipmentLineChartOptions, setCombinedEquipmentLineChartOptions] = useState([]);
+
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
 
 
   useEffect(() => {
@@ -144,154 +155,6 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     { value: 1, label: '综合能效比EER' },];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
-  const equipmentLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const equipmentLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const detailedDataTableData = [
-    {
-      id: 1,
-      startdatetime: '2020-07-01',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 2,
-      startdatetime: '2020-07-02',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 3,
-      startdatetime: '2020-07-03',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 4,
-      startdatetime: '2020-07-04',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 5,
-      startdatetime: '2020-07-05',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 6,
-      startdatetime: '2020-07-06',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 7,
-      startdatetime: '2020-07-07',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 8,
-      startdatetime: '2020-07-08',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 9,
-      startdatetime: '2020-07-09',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 10,
-      startdatetime: '2020-07-10',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 11,
-      startdatetime: '2020-07-11',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 12,
-      startdatetime: '2020-07-12',
-      a: '9872',
-      b: '55975',
-      c: '5.67',
-    },
-    {
-      id: 13,
-      startdatetime: t('Total'),
-      a: '118464',
-      b: '671700',
-      c: '5.67',
-    }
-  ];
-  const detailedDataTableColumns = [{
-    dataField: 'startdatetime',
-    text: t('Datetime'),
-    sort: true
-  }, {
-    dataField: 'a',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'b',
-    text: '冷 (kWh)',
-    sort: true
-  }, {
-    dataField: 'c',
-    text: '综合能效比EER (kWh/kWh)',
-    sort: true
-  }];
-
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
@@ -406,6 +269,198 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedSpaceID);
     console.log(selectedCombinedEquipment);
     console.log(periodType);
+    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/combinedequipmentefficiency?' +
+      'combinedequipmentid=' + selectedCombinedEquipment +
+      '&fractionparameterid=' + fractionParameter +
+      '&periodtype=' + periodType +
+      '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&baseperiodendsdatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+              
+        setCombinedEquipmentLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+
+        setCombinedEquipmentLineChartData({
+          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+
+        setCombinedEquipmentLineChartOptions([
+          { value: 'a', label: '综合能效比EER' },
+        ]);
+        
+        setParameterLineChartLabels({
+          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        });
+
+        setParameterLineChartData({
+          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
+          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
+          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        });
+
+        setParameterLineChartOptions([
+          { value: 'a0', label: '室外温度' },
+          { value: 'a1', label: '相对湿度' },
+          { value: 'a2', label: '电费率' },
+          { value: 'a3', label: '自来水费率' },
+          { value: 'a4', label: '天然气费率' }
+        ]);
+
+        setDetailedDataTableData([
+          {
+            id: 1,
+            startdatetime: '2020-07-01',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 2,
+            startdatetime: '2020-07-02',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 3,
+            startdatetime: '2020-07-03',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 4,
+            startdatetime: '2020-07-04',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 5,
+            startdatetime: '2020-07-05',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 6,
+            startdatetime: '2020-07-06',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 7,
+            startdatetime: '2020-07-07',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 8,
+            startdatetime: '2020-07-08',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 9,
+            startdatetime: '2020-07-09',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 10,
+            startdatetime: '2020-07-10',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 11,
+            startdatetime: '2020-07-11',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 12,
+            startdatetime: '2020-07-12',
+            a: '9872',
+            b: '55975',
+            c: '5.67',
+          },
+          {
+            id: 13,
+            startdatetime: t('Total'),
+            a: '118464',
+            b: '671700',
+            c: '5.67',
+          }
+        ]);
+
+        setDetailedDataTableColumns([
+          {
+            dataField: 'startdatetime',
+            text: t('Datetime'),
+            sort: true
+          }, {
+            dataField: 'a',
+            text: '电 (kWh)',
+            sort: true
+          }, {
+            dataField: 'b',
+            text: '冷 (kWh)',
+            sort: true
+          }, {
+            dataField: 'c',
+            text: '综合能效比EER (kWh/kWh)',
+            sort: true
+          }
+        ]);
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+    
   };
 
   return (
@@ -667,8 +722,9 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <LineChart reportingTitle={t('COMBINED_EQUIPMENT Reporting Period Cumulative Comprehensive Efficiency VALUE UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
         baseTitle={t('COMBINED_EQUIPMENT Base Period Cumulative Comprehensive Efficiency VALUE UNIT', { 'COMBINED_EQUIPMENT': '冷站', 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
-        labels={equipmentLineChartLabels}
-        data={equipmentLineChartData}>
+        labels={combinedEquipmentLineChartLabels}
+        data={combinedEquipmentLineChartData}
+        options={combinedEquipmentLineChartOptions}>
       </LineChart>
       <LineChart reportingTitle={t('Related Parameters')}
         baseTitle=''
