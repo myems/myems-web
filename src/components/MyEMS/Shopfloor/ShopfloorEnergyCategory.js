@@ -299,6 +299,7 @@ const ShopfloorEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         console.log(json)
+        
         setTimeOfUseShareData([
           { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
           { id: 2, value: 1178172.6, name: t('On-Peak'), color: '#27bcfd' },
