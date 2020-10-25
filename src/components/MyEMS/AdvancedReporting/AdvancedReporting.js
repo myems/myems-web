@@ -22,10 +22,12 @@ import { isIterableArray } from '../../../helpers/utils';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { APIBaseURL } from '../../../config';
 
 
 const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
-
+  let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -45,60 +47,15 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
 
-  let current_moment = moment();
+  // State
+  // Query Parameters
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
+  //Results
+  const [reports, setReports] = useState([]);
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
-
-  const reports = [
-    {
-      id: uuid(),
-      calendar: { month: 'Mar', day: '26' },
-      title: "空间数据日报",
-      additional: t('Created Datetime') + ': 2020-03-26 11:00AM<br/>' +
-        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-      to: '#'
-    },
-    {
-      id: uuid(),
-      calendar: { month: 'Jul', day: '21' },
-      title: '设备数据日报',
-      additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
-        t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
-      to: '#'
-    },
-    {
-      id: uuid(),
-      calendar: { month: 'Jul', day: '21' },
-      title: '租户数据日报',
-      additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
-        t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
-      to: '#',
-      badge: {
-        text: 'New',
-        color: 'soft-success',
-        pill: true
-      }
-    },
-    {
-      id: uuid(),
-      calendar: { month: 'Jul', day: '31' },
-      title: '门店数据日报',
-      additional: t('Created Datetime') + ': 2020-07-31 11:00AM<br/>' +
-        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-      to: '#'
-    },
-    {
-      id: uuid(),
-      calendar: { month: 'Jul', day: '16' },
-      title: '车间数据日报',
-      additional: t('Created Datetime') + ': 2020-07-16 11:00AM<br/>' +
-        t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-      to: '#'
-    }
-  ];
-
+  
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
   }
@@ -119,6 +76,83 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/advancereporting?' +
+      'reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json);
+        setReports([
+          {
+            id: uuid(),
+            calendar: { month: 'Mar', day: '26' },
+            title: "空间数据日报",
+            additional: t('Created Datetime') + ': 2020-03-26 11:00AM<br/>' +
+              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
+            to: '#'
+          },
+          {
+            id: uuid(),
+            calendar: { month: 'Jul', day: '21' },
+            title: '设备数据日报',
+            additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
+              t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
+            to: '#'
+          },
+          {
+            id: uuid(),
+            calendar: { month: 'Jul', day: '21' },
+            title: '租户数据日报',
+            additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
+              t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
+            to: '#',
+            badge: {
+              text: 'New',
+              color: 'soft-success',
+              pill: true
+            }
+          },
+          {
+            id: uuid(),
+            calendar: { month: 'Jul', day: '31' },
+            title: '门店数据日报',
+            additional: t('Created Datetime') + ': 2020-07-31 11:00AM<br/>' +
+              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
+            to: '#'
+          },
+          {
+            id: uuid(),
+            calendar: { month: 'Jul', day: '16' },
+            title: '车间数据日报',
+            additional: t('Created Datetime') + ': 2020-07-16 11:00AM<br/>' +
+              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
+            to: '#'
+          }
+        ]);
+
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (

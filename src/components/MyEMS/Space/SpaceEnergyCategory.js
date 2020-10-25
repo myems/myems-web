@@ -233,7 +233,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       return response.json();
     }).then(json => {
       if (isResponseOK) {
-        console.log(json)
+        console.log(json);
 
         setTimeOfUseShareData([
           { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
