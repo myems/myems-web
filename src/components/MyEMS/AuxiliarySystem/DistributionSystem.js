@@ -47,10 +47,14 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   });
   let table = createRef();
   // State
+  // Query Parameters
   const [distributionSystemList, setDistributionSystemList] = useState([]);
   const [selectedDistributionSystem, setSelectedDistributionSystem] = useState(undefined);
-  const [selectedDistributionSystemID, setSelectedDistributionSystemID] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [realtimeChartOptions, setRealtimeChartOptions] = useState([]);
+  const [realtimeChartData, setRealtimeChartData] = useState([]);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -76,8 +80,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
         json = JSON.parse(JSON.stringify(json).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json);
         setDistributionSystemList(json);
-        setSelectedDistributionSystem([json[0]].map(o => o.label));
-        setSelectedDistributionSystemID([json[0]].map(o => o.value));
+        setSelectedDistributionSystem([json[0]].map(o => o.value));
         setIsDisabled(false);
       } else {
         toast.error(json.description);
@@ -90,20 +93,53 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
 
-  const images = [img1];
+  
 
-  const realtimeChartOptions = [
-    { value: 'a', label: '主进线' },
-    { value: 'b', label: '地源热泵空调总表' },
-    { value: 'c', label: '消防栓机械泵2路' },
-    { value: 'd', label: '一层南' },
-    { value: 'e', label: '一层北' }];
 
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedDistributionSystem);
+
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/auxiliarysystemdistributionsystem?' +
+      'distributionsystemid=' + selectedDistributionSystem, {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json)
+        
+        setRealtimeChartOptions([
+          { value: 'a', label: '主进线' },
+          { value: 'b', label: '地源热泵空调总表' },
+          { value: 'c', label: '消防栓机械泵2路' },
+          { value: 'd', label: '一层南' },
+          { value: 'e', label: '一层北' }
+        ]);
+
+        setRealtimeChartData([]);
+
+        setImages([img1]);
+        
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
