@@ -349,7 +349,7 @@ const EquipmentFault = ({ setRedirect, setRedirectUrl, t }) => {
       return response.json();
     }).then(json => {
       if (isResponseOK) {
-        console.log(json)
+        console.log(json);
               
         setDetailedDataTableData([
           {
