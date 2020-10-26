@@ -211,7 +211,7 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/spaceenergycategory?' +
+    fetch(APIBaseURL + '/reports/spacesaving?' +
       'spaceid=' + selectedSpaceID +
       '&periodtype=' + periodType +
       '&baseperiodbeginsdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
