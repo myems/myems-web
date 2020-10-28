@@ -108,9 +108,8 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
     }
   });
   //State
-  const [subtotal, setSubtotal] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [total, setTotal] = useState(0);
+  // Query Parameters
+ 
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [tenantList, setTenantList] = useState([]);
@@ -119,6 +118,11 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months').endOf('month'));
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
+  //Results
+  const [invoice, setInvoice] = useState(undefined);
+  const [subtotal, setSubtotal] = useState(0);
+  const [tax, setTax] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -230,63 +234,6 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
     });
   }
 
-  const invoice = {
-    institution: 'MyEMS商场有限公司',
-    logo: logoInvoice,
-    address: '王府井大街<br />北京市东城区',
-    tax: 0.13,
-    currency: '¥',
-    user: {
-      name: '海上捞火锅(北京王府井店)',
-      address: '王府井大街MyEMS商场三层<br/>东城区<br/>北京市',
-      email: 'example@163.com',
-      cell: '+86-135-6666-7777'
-    },
-    summary: {
-      invoice_no: 202007310015,
-      order_number: 'AD20295',
-      invoice_date: '2020-07-31',
-      payment_due: '2020-09-30',
-      amount_due: 12644.08
-    },
-    products: [
-      {
-        name: '电',
-        startdate: '2020-07-01',
-        enddate: '2020-07-31',
-        quantity: 1589.920,
-        rate: 1.500
-      },
-      {
-        name: '自来水',
-        startdate: '2020-07-01',
-        enddate: '2020-07-31',
-        quantity: 387.980,
-        rate: 8.901
-      },
-      {
-        name: '天然气',
-        startdate: '2020-07-01',
-        enddate: '2020-07-31',
-        quantity: 879.981,
-        rate: 6.081
-      }
-    ]
-  };
-
-  useEffect(() => {
-    if (isIterableArray(invoice.products)) {
-      setSubtotal(calculateSubtotal(invoice.products));
-    }
-  }, [invoice]);
-
-  useEffect(() => {
-    setTax(subtotal * invoice.tax);
-  }, [subtotal, invoice]);
-
-  useEffect(() => {
-    setTotal(subtotal + tax);
-  }, [subtotal, tax]);
 
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
@@ -310,6 +257,89 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedSpaceID);
     console.log(selectedTenant);
+    console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+    
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/tenantbill?' +
+      'tenantid=' + selectedTenant +
+      '&reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+      '&reportingperiodendsdatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json);
+        
+        setInvoice({
+          institution: 'MyEMS商场有限公司',
+          logo: logoInvoice,
+          address: '王府井大街<br />北京市东城区',
+          tax: 0.13,
+          currency: '¥',
+          user: {
+            name: '海上捞火锅(北京王府井店)',
+            address: '王府井大街MyEMS商场三层<br/>东城区<br/>北京市',
+            email: 'example@163.com',
+            cell: '+86-135-6666-7777'
+          },
+          summary: {
+            invoice_no: 202007310015,
+            order_number: 'AD20295',
+            invoice_date: '2020-07-31',
+            payment_due: '2020-09-30',
+            amount_due: 12644.08
+          },
+          products: [
+            {
+              name: '电',
+              startdate: '2020-07-01',
+              enddate: '2020-07-31',
+              quantity: 1589.920,
+              rate: 1.500
+            },
+            {
+              name: '自来水',
+              startdate: '2020-07-01',
+              enddate: '2020-07-31',
+              quantity: 387.980,
+              rate: 8.901
+            },
+            {
+              name: '天然气',
+              startdate: '2020-07-01',
+              enddate: '2020-07-31',
+              quantity: 879.981,
+              rate: 6.081
+            }
+          ]
+        });
+
+        if (isIterableArray(invoice.products)) {
+          setSubtotal(calculateSubtotal(invoice.products));
+        }
+
+        setTax(subtotal * invoice.tax);
+
+        setTotal(subtotal + tax);
+        
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
   };
 
   return (
@@ -389,6 +419,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <Card className="mb-3">
+        {invoice !== undefined &&
         <CardBody>
           <Row className="justify-content-between align-items-center">
             <Col md>
@@ -405,9 +436,11 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
             </Col>
           </Row>
         </CardBody>
+        }
       </Card>
 
       <Card>
+        {invoice !== undefined &&
         <CardBody>
           <InvoiceHeader institution={invoice.institution} logo={invoice.logo} address={invoice.address} t={t} />
           <Row className="justify-content-between align-items-center">
@@ -489,6 +522,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
             </Col>
           </Row>
         </CardBody>
+        }
         <CardFooter className="bg-light">
           <p className="fs--1 mb-0">
             <strong>{t('Please make sure to pay on or before the payment due date above')}, {t('Send money to the following account')}:</strong><br />

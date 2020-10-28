@@ -8,6 +8,11 @@ Providing Web UI for MyEMS users to analysis energy data
 ## Prerequisites
 nginx-1.18.0 or later
 
+myems-database
+
+myems-api
+
+
 
 ## Installation
 
@@ -17,7 +22,6 @@ refer to http://nginx.org/en/docs/install.html
 
 * Install myems-web :
 
-```
   Check and change the config file if necessary:
 ```
   $ cd ~/myems-web
