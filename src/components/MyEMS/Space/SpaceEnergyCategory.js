@@ -254,159 +254,76 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
         ]);
 
-        setSpaceLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
-      
-        setSpaceLineChartData({
-          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        setSpaceLineChartLabels(timestamps);
+        
+        let values = {}
+        json['reporting_period']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
         });
-      
-        setSpaceLineChartOptions([
-          { value: 'a0', label: '电' },
-          { value: 'a1', label: '自来水' },
-          { value: 'a2', label: '天然气' },
-          { value: 'a3', label: '二氧化碳排放' }]);
-      
-        setParameterLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        setSpaceLineChartData(values);
+        
+        let names = Array();
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
         });
-      
-        setParameterLineChartData({
-          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        setSpaceLineChartOptions(names);
+       
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
+        setParameterLineChartLabels(timestamps);
+
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
       
-        setParameterLineChartOptions([
-          { value: 'a0', label: '室外温度' },
-          { value: 'a1', label: '相对湿度' },
-          { value: 'a2', label: '电费率' },
-          { value: 'a3', label: '自来水费率' },
-          { value: 'a4', label: '天然气费率' }]);
-      
-        setDetailedDataTableData([
-          {
-            id: 1,
-            startdatetime: '2020-07-01',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 2,
-            startdatetime: '2020-07-02',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 3,
-            startdatetime: '2020-07-03',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 4,
-            startdatetime: '2020-07-04',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 5,
-            startdatetime: '2020-07-05',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 6,
-            startdatetime: '2020-07-06',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 7,
-            startdatetime: '2020-07-07',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 8,
-            startdatetime: '2020-07-08',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 9,
-            startdatetime: '2020-07-09',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 10,
-            startdatetime: '2020-07-10',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 11,
-            startdatetime: t('Total'),
-            a0: '98720',
-            a1: '34570',
-            a2: '5670',
-            a3: '5670',
-          }
-        ]);
-        setDetailedDataTableColumns([{
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+        
+        let detailed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          json['reporting_period']['values'].forEach((currentValue, energyCategoryIndex) => {
+            detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+          });
+          detailed_value_list.push(detailed_value);
+        });
+
+        let detailed_value = {};
+        detailed_value['id'] = detailed_value_list.length;
+        detailed_value['startdatetime'] = t('Total');
+        json['reporting_period']['subtotals'].forEach((currentValue, energyCategoryIndex) => {
+            detailed_value['a' + energyCategoryIndex] = currentValue.toFixed(2);
+          });
+        detailed_value_list.push(detailed_value);
+        setDetailedDataTableData(detailed_value_list);
+        
+        let detailed_column_list = [];
+        detailed_column_list.push({
           dataField: 'startdatetime',
           text: t('Datetime'),
           sort: true
-        }, {
-          dataField: 'a0',
-          text: '电 (kWh)',
-          sort: true
-        }, {
-          dataField: 'a1',
-          text: '自来水 (M3)',
-          sort: true
-        }, {
-          dataField: 'a2',
-          text: '天然气 (M3)',
-          sort: true
-        }, {
-          dataField: 'a3',
-          text: '二氧化碳排放 (T)',
-          sort: true
-        }]);
+        })
+        json['reporting_period']['names'].forEach((currentValue, energyCategoryIndex) => {
+          detailed_column_list.push({
+            dataField: 'a' + energyCategoryIndex,
+            text: currentValue,
+            sort: true
+          })
+        });
+        setDetailedDataTableColumns(detailed_column_list);
 
         setChildSpacesTableData([
           {
