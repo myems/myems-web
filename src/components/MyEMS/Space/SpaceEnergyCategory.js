@@ -74,7 +74,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   //Results
   const [timeOfUseShareData, setTimeOfUseShareData] = useState([]);
   const [TCEShareData, setTCEShareData] = useState([]);
-  const [CO2ShareData, setCO2ShareData] = useState([]);
+  const [TCO2EShareData, setTCO2EShareData] = useState([]);
 
   const [cardSummaryList, setCardSummaryList] = useState([]);
   const [totalInTCE, setTotalInTCE] = useState({});
@@ -252,17 +252,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           { id: 4, value: 1178172.6, name: t('Off-Peak'), color: '#1812ef' }
         ]);
 
-        setTCEShareData([
-          { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
-          { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
-          { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
-        ]);
-
-        setCO2ShareData([
-          { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
-          { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
-          { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
-        ]);
+        
         let cardSummaryList = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
@@ -286,6 +276,32 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
         totalInTCO2E['value_per_unit_area'] = json['reporting_period']['total_in_kgco2e_per_unit_area'];
         setTotalInTCO2E(totalInTCO2E);
+
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+
+        });
+
+        let TCEDataArray = [];
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let TCEDataItem = {}
+          TCEDataItem['id'] = index;
+          TCEDataItem['name'] = currentValue;
+          TCEDataItem['value'] = json['reporting_period']['subtotals_in_kgce'][index] / 1000;
+          TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          TCEDataArray.push(TCEDataItem);
+        });
+        setTCEShareData(TCEDataArray);
+
+        let TCO2EDataArray = [];
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let TCO2EDataItem = {}
+          TCO2EDataItem['id'] = index;
+          TCO2EDataItem['name'] = currentValue;
+          TCO2EDataItem['value'] = json['reporting_period']['subtotals_in_kgco2e'][index] / 1000;
+          TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          TCO2EDataArray.push(TCO2EDataItem);
+        });
+        setTCO2EShareData(TCO2EDataArray);
 
         let timestamps = {}
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
@@ -580,7 +596,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           <SharePie data={TCEShareData} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={CO2ShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
+          <SharePie data={TCO2EShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
       <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
