@@ -204,7 +204,10 @@ const resources = {
       "Reporting Period Lost CATEGORY VALUE UNIT": "Reporting Period Lost {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "Upstream Meter": "Upstream Meter",
       //Data Panels
+      "Ton of Standard Coal": "Ton of Standard Coal",
+      "Ton of Carbon Dioxide Emissions": "Ton of Carbon Dioxide Emissions",
       "Related Parameters": "Related Parameters",
+      "Tariff": "Tariff",
       "Detailed Data": "Detailed Data",
       "Child Spaces Data": "Child Spaces Data",
       "Child Spaces Data of This Month": "Child Spaces Data of This Month",
@@ -511,7 +514,10 @@ const resources = {
       "Reporting Period Lost CATEGORY VALUE UNIT": "Berichtszeitraum verloren {{CATEGORY}}量 {{VALUE}} {{UNIT}}",
       "Upstream Meter": "Upstream Meter",
       //Data Panels
+      "Ton of Standard Coal": "Tonne Standardkohle",
+      "Ton of Carbon Dioxide Emissions": "Tonne Kohlendioxidemissionen",
       "Related Parameters": "Verwandte Parameter",
+      "Tariff": "Tarif",
       "Detailed Data": "Detaillierte Daten",
       "Child Spaces Data": "Teilplatz Daten",
       "Child Spaces Data of This Month": "Teilplatz Daten dieses Monats",
@@ -821,7 +827,10 @@ const resources = {
       "Reporting Period Lost CATEGORY VALUE UNIT": "报告期损耗{{CATEGORY}}量 {{VALUE}} {{UNIT}}",
       "Upstream Meter": "上游计量表",
       //Data Panels
+      "Ton of Standard Coal": "吨标准煤",
+      "Ton of Carbon Dioxide Emissions": "吨二氧化碳排放",
       "Related Parameters": "相关参数",
+      "Tariff": "费率",
       "Detailed Data": "详细数据",
       "Child Spaces Data": "子空间数据",
       "Child Spaces Data of This Month": "本月子空间数据",

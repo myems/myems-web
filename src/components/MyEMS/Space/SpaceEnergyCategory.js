@@ -76,6 +76,9 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   const [TCEShareData, setTCEShareData] = useState([]);
   const [CO2ShareData, setCO2ShareData] = useState([]);
 
+  const [cardSummaryList, setCardSummaryList] = useState([]);
+  const [totalInTCE, setTotalInTCE] = useState({});
+  const [totalInTCO2E, setTotalInTCO2E] = useState({});
   const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
   const [spaceLineChartData, setSpaceLineChartData] = useState({});
   const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
@@ -198,6 +201,13 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
   var getValidReportingPeriodEndsDatetimes = function (currentDate) {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
+  
+  let onReportingLineChartChange = (value, selectedOptions) => {
+    console.log(value, selectedOptions);
+    // setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
+    // setSelectedSpaceID(value[value.length - 1]);
+  }
+
   // Handler
   const handleSubmit = e => {
     e.preventDefault();
@@ -253,6 +263,30 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
           { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
         ]);
+        let cardSummaryList = []
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let cardSummaryItem = {}
+          cardSummaryItem['key'] = index
+          cardSummaryItem['name'] = json['reporting_period']['names'][index];
+          cardSummaryItem['unit'] = json['reporting_period']['units'][index];
+          cardSummaryItem['subtotal'] = parseFloat(json['reporting_period']['subtotals'][index]).toFixed(2) ;
+          cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['subtotal_per_unit_area'] = parseFloat(json['reporting_period']['subtotals_pre_unit_area'][index]).toFixed(3) ;
+          cardSummaryList.push(cardSummaryItem);
+        });
+        setCardSummaryList(cardSummaryList);
+
+        let totalInTCE = {}; 
+        totalInTCE['value'] = parseFloat(json['reporting_period']['total_in_kgce']).toFixed(2) ;
+        totalInTCE['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
+        totalInTCE['value_per_unit_area'] = parseFloat(json['reporting_period']['total_in_kgce_per_unit_area']).toFixed(3) ;
+        setTotalInTCE(totalInTCE);
+
+        let totalInTCO2E = {}; 
+        totalInTCO2E['value'] = parseFloat(json['reporting_period']['total_in_kgco2e']).toFixed(2) ;
+        totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
+        totalInTCO2E['value_per_unit_area'] = parseFloat(json['reporting_period']['total_in_kgco2e_per_unit_area']).toFixed(3) ;
+        setTotalInTCO2E(totalInTCO2E);
 
         let timestamps = {}
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
@@ -268,7 +302,8 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         
         let names = Array();
         json['reporting_period']['names'].forEach((currentValue, index) => {
-          names.push({ 'value': 'a' + index, 'label': currentValue });
+          let unit = json['reporting_period']['units'][index];
+          names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
         });
         setSpaceLineChartOptions(names);
        
@@ -286,6 +321,10 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       
         names = Array();
         json['parameters']['names'].forEach((currentValue, index) => {
+          if (currentValue.startsWith('TARIFF-')) {
+            currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
+          }
+          
           names.push({ 'value': 'a' + index, 'label': currentValue });
         });
         setParameterLineChartOptions(names);
@@ -304,8 +343,8 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         let detailed_value = {};
         detailed_value['id'] = detailed_value_list.length;
         detailed_value['startdatetime'] = t('Total');
-        json['reporting_period']['subtotals'].forEach((currentValue, energyCategoryIndex) => {
-            detailed_value['a' + energyCategoryIndex] = currentValue.toFixed(2);
+        json['reporting_period']['subtotals'].forEach((currentValue, index) => {
+            detailed_value['a' + index] = currentValue.toFixed(2);
           });
         detailed_value_list.push(detailed_value);
         setDetailedDataTableData(detailed_value_list);
@@ -316,10 +355,11 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           text: t('Datetime'),
           sort: true
         })
-        json['reporting_period']['names'].forEach((currentValue, energyCategoryIndex) => {
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
           detailed_column_list.push({
-            dataField: 'a' + energyCategoryIndex,
-            text: currentValue,
+            dataField: 'a' + index,
+            text: currentValue + ' (' + unit + ')',
             sort: true
           })
         });
@@ -366,7 +406,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           sort: true
         }, {
           dataField: 'a2',
-          text: '天然气 (M3)',
+          text: '天然气 (M³)',
           sort: true
         }, {
           dataField: 'a3',
@@ -502,25 +542,35 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimals={2} decimal="." />
+        {cardSummaryList.map(cardSummaryItem => (
+          <CardSummary 
+            rate={cardSummaryItem['increment_rate']}
+            title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['subtotal_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['subtotal'] && <CountUp end={cardSummaryItem['subtotal']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        ))}
+       
+        <CardSummary 
+          rate={totalInTCE['increment_rate']} 
+          title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
+          color="warning" 
+          footnote={t('Per Unit Area')} 
+          footvalue={totalInTCE['value_per_unit_area']} 
+          footunit="(TCE/M²)">
+          {totalInTCE['value'] && <CountUp end={totalInTCE['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(M3/M2)">
-          <CountUp end={29878} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(M3/M2)">
-          <CountUp end={9887} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)">
-          <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)">
-          <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
+        <CardSummary 
+          rate={totalInTCO2E['increment_rate']} 
+          title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(TCO2E)' })}
+          color="warning" 
+          footnote={t('Per Unit Area')} 
+          footvalue={totalInTCO2E['value_per_unit_area']} 
+          footunit="(TCO2E/M²)">
+          {totalInTCO2E['value'] && <CountUp end={totalInTCO2E['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
       </div>
       <Row noGutters>
@@ -534,8 +584,8 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           <SharePie data={CO2ShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+         baseTitle=''
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
