@@ -266,26 +266,25 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         let cardSummaryList = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
-          cardSummaryItem['key'] = index
           cardSummaryItem['name'] = json['reporting_period']['names'][index];
           cardSummaryItem['unit'] = json['reporting_period']['units'][index];
-          cardSummaryItem['subtotal'] = parseFloat(json['reporting_period']['subtotals'][index]).toFixed(2) ;
+          cardSummaryItem['subtotal'] = json['reporting_period']['subtotals'][index];
           cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates'][index] * 100).toFixed(2) + "%";
-          cardSummaryItem['subtotal_per_unit_area'] = parseFloat(json['reporting_period']['subtotals_pre_unit_area'][index]).toFixed(3) ;
+          cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['subtotals_per_unit_area'][index];
           cardSummaryList.push(cardSummaryItem);
         });
         setCardSummaryList(cardSummaryList);
 
         let totalInTCE = {}; 
-        totalInTCE['value'] = parseFloat(json['reporting_period']['total_in_kgce']).toFixed(2) ;
+        totalInTCE['value'] = json['reporting_period']['total_in_kgce'];
         totalInTCE['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
-        totalInTCE['value_per_unit_area'] = parseFloat(json['reporting_period']['total_in_kgce_per_unit_area']).toFixed(3) ;
+        totalInTCE['value_per_unit_area'] = json['reporting_period']['total_in_kgce_per_unit_area'];
         setTotalInTCE(totalInTCE);
 
         let totalInTCO2E = {}; 
-        totalInTCO2E['value'] = parseFloat(json['reporting_period']['total_in_kgco2e']).toFixed(2) ;
+        totalInTCO2E['value'] = json['reporting_period']['total_in_kgco2e'];
         totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
-        totalInTCO2E['value_per_unit_area'] = parseFloat(json['reporting_period']['total_in_kgco2e_per_unit_area']).toFixed(3) ;
+        totalInTCO2E['value_per_unit_area'] = json['reporting_period']['total_in_kgco2e_per_unit_area'];
         setTotalInTCO2E(totalInTCO2E);
 
         let timestamps = {}
@@ -543,7 +542,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       </Card>
       <div className="card-deck">
         {cardSummaryList.map(cardSummaryItem => (
-          <CardSummary 
+          <CardSummary key={cardSummaryItem['name']}
             rate={cardSummaryItem['increment_rate']}
             title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
             color="success" 
@@ -555,7 +554,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         ))}
        
         <CardSummary 
-          rate={totalInTCE['increment_rate']} 
+          rate={totalInTCE['increment_rate'] || ''} 
           title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
           color="warning" 
           footnote={t('Per Unit Area')} 
@@ -564,7 +563,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           {totalInTCE['value'] && <CountUp end={totalInTCE['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
         <CardSummary 
-          rate={totalInTCO2E['increment_rate']} 
+          rate={totalInTCO2E['increment_rate'] || ''} 
           title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(TCO2E)' })}
           color="warning" 
           footnote={t('Per Unit Area')} 
