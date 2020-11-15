@@ -245,14 +245,6 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json);
 
-        setTimeOfUseShareData([
-          { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
-          { id: 2, value: 1178172.6, name: t('On-Peak'), color: '#27bcfd' },
-          { id: 3, value: 2945431.5, name: t('Mid-Peak'), color: '#d8e2ef' },
-          { id: 4, value: 1178172.6, name: t('Off-Peak'), color: '#1812ef' }
-        ]);
-
-        
         let cardSummaryList = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
@@ -264,7 +256,43 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryList.push(cardSummaryItem);
         });
         setCardSummaryList(cardSummaryList);
+        
+        let timeOfUseArray = [];
+        json['reporting_period']['energy_category_ids'].forEach((currentValue, index) => {
+          if(currentValue == 1) {
+            // energy_category_id 1 electricity
+            let timeOfUseItem = {}
+            timeOfUseItem['id'] = 1;
+            timeOfUseItem['name'] =  t('Top-Peak');
+            timeOfUseItem['value'] = json['reporting_period']['toppeaks'][index];
+            timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            timeOfUseArray.push(timeOfUseItem);
+            
+            timeOfUseItem = {}
+            timeOfUseItem['id'] = 2;
+            timeOfUseItem['name'] =  t('On-Peak');
+            timeOfUseItem['value'] = json['reporting_period']['onpeaks'][index];
+            timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            timeOfUseArray.push(timeOfUseItem);
 
+            timeOfUseItem = {}
+            timeOfUseItem['id'] = 3;
+            timeOfUseItem['name'] =  t('Mid-Peak');
+            timeOfUseItem['value'] = json['reporting_period']['midpeaks'][index];
+            timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            timeOfUseArray.push(timeOfUseItem);
+
+            timeOfUseItem = {}
+            timeOfUseItem['id'] = 4;
+            timeOfUseItem['name'] =  t('Off-Peak');
+            timeOfUseItem['value'] = json['reporting_period']['offpeaks'][index];
+            timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            timeOfUseArray.push(timeOfUseItem);
+          }
+        });
+        setTimeOfUseShareData(timeOfUseArray);
+
+        
         let totalInTCE = {}; 
         totalInTCE['value'] = json['reporting_period']['total_in_kgce'];
         totalInTCE['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
