@@ -380,54 +380,35 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setDetailedDataTableColumns(detailed_column_list);
 
-        setChildSpacesTableData([
-          {
-            id: 1,
-            name: '公区',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 2,
-            name: '车库',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 3,
-            name: '租区',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          }
-        ]);
+        let child_space_value_list = [];
+        json['child_space']['child_space_names_array'][0].forEach((currentValue, index) => {
+          let child_space_value = {};
+          child_space_value['id'] = index;
+          child_space_value['name'] = currentValue;
+          json['child_space']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
+            child_space_value['a' + energyCategoryIndex] = json['child_space']['subtotals'][energyCategoryIndex].toFixed(2);
+          });
+          child_space_value_list.push(child_space_value);
+        });
 
-        setChildSpacesTableColumns([{
+        setChildSpacesTableData(child_space_value_list);
+
+        let child_space_column_list = [];
+        child_space_column_list.push({
           dataField: 'name',
           text: t('Child Spaces'),
           sort: true
-        }, {
-          dataField: 'a0',
-          text: '电 (kWh)',
-          sort: true
-        }, {
-          dataField: 'a1',
-          text: '自来水 (M3)',
-          sort: true
-        }, {
-          dataField: 'a2',
-          text: '天然气 (M³)',
-          sort: true
-        }, {
-          dataField: 'a3',
-          text: '二氧化碳排放 (T)',
-          sort: true
-        }]);
+        })
+        json['child_space']['energy_category_names'].forEach((currentValue, index) => {
+          let unit = json['child_space']['units'][index];
+          child_space_column_list.push({
+            dataField: 'a' + index,
+            text: currentValue + ' (' + unit + ')',
+            sort: true
+          })
+        });
+
+        setChildSpacesTableColumns(child_space_column_list);
 
       } else {
         toast.error(json.description)
