@@ -244,6 +244,13 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['subtotals_per_unit_area'][index];
           cardSummaryList.push(cardSummaryItem);
         });
+        let cardSummaryItem = {}
+        cardSummaryItem['name'] = t('Total');
+        cardSummaryItem['unit'] = json['reporting_period']['total_unit'];
+        cardSummaryItem['subtotal'] = json['reporting_period']['total'];
+        cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['total_increment_rate'] * 100).toFixed(2) + "%";
+        cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['total_per_unit_area'];
+        cardSummaryList.push(cardSummaryItem);
         setCardSummaryList(cardSummaryList);
 
         let timeOfUseArray = [];
