@@ -385,7 +385,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
 
         let detailed_value = {};
         detailed_value['id'] = detailed_value_list.length;
-        detailed_value['startdatetime'] = t('Total');
+        detailed_value['startdatetime'] = t('Subtotal');
         json['reporting_period']['subtotals'].forEach((currentValue, index) => {
             detailed_value['a' + index] = currentValue.toFixed(2);
           });
@@ -426,14 +426,14 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           dataField: 'name',
           text: t('Child Spaces'),
           sort: true
-        })
+        });
         json['child_space']['energy_category_names'].forEach((currentValue, index) => {
           let unit = json['child_space']['units'][index];
           child_space_column_list.push({
             dataField: 'a' + index,
             text: currentValue + ' (' + unit + ')',
             sort: true
-          })
+          });
         });
 
         setChildSpacesTableColumns(child_space_column_list);
