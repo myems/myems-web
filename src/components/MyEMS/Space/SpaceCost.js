@@ -338,18 +338,24 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
           let detailed_value = {};
           detailed_value['id'] = timestampIndex;
           detailed_value['startdatetime'] = currentTimestamp;
+          let total_current_timstamp = 0.0;
           json['reporting_period']['values'].forEach((currentValue, energyCategoryIndex) => {
             detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+            total_current_timstamp += json['reporting_period']['values'][energyCategoryIndex][timestampIndex];
           });
+          detailed_value['total'] = total_current_timstamp.toFixed(2);
           detailed_value_list.push(detailed_value);
         });
 
         let detailed_value = {};
         detailed_value['id'] = detailed_value_list.length;
         detailed_value['startdatetime'] = t('Subtotal');
+        let total_of_subtotals = 0.0;
         json['reporting_period']['subtotals'].forEach((currentValue, index) => {
             detailed_value['a' + index] = currentValue.toFixed(2);
+            total_of_subtotals += currentValue
           });
+        detailed_value['total'] = total_of_subtotals.toFixed(2);
         detailed_value_list.push(detailed_value);
         setDetailedDataTableData(detailed_value_list);
         
@@ -358,14 +364,19 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
           dataField: 'startdatetime',
           text: t('Datetime'),
           sort: true
-        })
+        });
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let unit = json['reporting_period']['units'][index];
           detailed_column_list.push({
             dataField: 'a' + index,
             text: currentValue + ' (' + unit + ')',
             sort: true
-          })
+          });
+        });
+        detailed_column_list.push({
+          dataField: 'total',
+          text: t('Total') + ' (' + json['reporting_period']['total_unit'] + ')',
+          sort: true
         });
         setDetailedDataTableColumns(detailed_column_list);
 
