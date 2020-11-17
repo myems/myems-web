@@ -288,16 +288,16 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
         });
         setTimeOfUseShareData(timeOfUseArray);
 
-        let CostDataArray = [];
+        let costDataArray = [];
         json['reporting_period']['names'].forEach((currentValue, index) => {
-          let CostDataItem = {}
-          CostDataItem['id'] = index;
-          CostDataItem['name'] = currentValue;
-          CostDataItem['value'] = json['reporting_period']['subtotals'][index];
-          CostDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-          CostDataArray.push(CostDataItem);
+          let costDataItem = {}
+          costDataItem['id'] = index;
+          costDataItem['name'] = currentValue;
+          costDataItem['value'] = json['reporting_period']['subtotals'][index];
+          costDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          costDataArray.push(costDataItem);
         });
-        setCostShareData(CostDataArray);
+        setCostShareData(costDataArray);
         
         let timestamps = {}
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
