@@ -245,7 +245,7 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json);
 
-        let cardSummaryList = []
+        let cardSummaryArray = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
           cardSummaryItem['name'] = json['reporting_period']['names'][index];
@@ -253,9 +253,9 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['subtotal'] = json['reporting_period']['subtotals'][index];
           cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates'][index] * 100).toFixed(2) + "%";
           cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['subtotals_per_unit_area'][index];
-          cardSummaryList.push(cardSummaryItem);
+          cardSummaryArray.push(cardSummaryItem);
         });
-        setCardSummaryList(cardSummaryList);
+        setCardSummaryList(cardSummaryArray);
         
         let timeOfUseArray = [];
         json['reporting_period']['energy_category_ids'].forEach((currentValue, index) => {

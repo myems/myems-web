@@ -229,7 +229,7 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         console.log(json)
-        let cardSummaryList = []
+        let cardSummaryArray = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
           cardSummaryItem['name'] = json['reporting_period']['names'][index];
@@ -237,9 +237,9 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['subtotal'] = json['reporting_period']['subtotals'][index];
           cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates'][index] * 100).toFixed(2) + "%";
           cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['subtotals_per_unit_area'][index];
-          cardSummaryList.push(cardSummaryItem);
+          cardSummaryArray.push(cardSummaryItem);
         });
-        setCardSummaryList(cardSummaryList);
+        setCardSummaryList(cardSummaryArray);
 
         let timestamps = {}
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
