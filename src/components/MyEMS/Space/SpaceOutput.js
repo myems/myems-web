@@ -205,6 +205,10 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     
+    // Reinitialize tables
+    setDetailedDataTableData([]);
+    setChildSpacesTableData([]);
+
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/spaceoutput?' +
       'spaceid=' + selectedSpaceID +
