@@ -232,7 +232,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json)
              
-        let cardSummaryList = []
+        let cardSummaryArray = []
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let cardSummaryItem = {}
           cardSummaryItem['name'] = json['reporting_period']['names'][index];
@@ -240,7 +240,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['subtotal'] = json['reporting_period']['subtotals'][index];
           cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates'][index] * 100).toFixed(2) + "%";
           cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['subtotals_per_unit_area'][index];
-          cardSummaryList.push(cardSummaryItem);
+          cardSummaryArray.push(cardSummaryItem);
         });
         let cardSummaryItem = {}
         cardSummaryItem['name'] = t('Total');
@@ -248,8 +248,8 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
         cardSummaryItem['subtotal'] = json['reporting_period']['total'];
         cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['total_increment_rate'] * 100).toFixed(2) + "%";
         cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period']['total_per_unit_area'];
-        cardSummaryList.push(cardSummaryItem);
-        setCardSummaryList(cardSummaryList);
+        cardSummaryArray.push(cardSummaryItem);
+        setCardSummaryList(cardSummaryArray);
         
         let incomeDataArray = [];
         json['reporting_period']['names'].forEach((currentValue, index) => {
