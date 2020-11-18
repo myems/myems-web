@@ -328,6 +328,10 @@ const TenantFault = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedTenant);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    // Reinitialize tables
+    setDetailedDataTableData([]);
+    
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/fddtenantfault?' +
       'tenantid' + selectedTenant +

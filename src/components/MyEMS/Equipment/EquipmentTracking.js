@@ -140,6 +140,9 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
     e.preventDefault();
     console.log('handleSubmit');
     console.log(selectedSpaceID);
+
+    // Reinitialize tables
+    setDetailedDataTableData([]);
     
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/equipmenttracking?' +
