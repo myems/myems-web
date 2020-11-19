@@ -19,6 +19,7 @@ import Datetime from 'react-datetime';
 import moment from 'moment';
 import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
+import SharePie from '../common/SharePie';
 import LineChart from '../common/LineChart';
 import loadable from '@loadable/component';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
@@ -69,6 +70,7 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   //Results
   const [cardSummaryList, setCardSummaryList] = useState([]);
+  const [sharePieList, setSharePieList] = useState([]);
   const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
   const [spaceLineChartData, setSpaceLineChartData] = useState({});
   const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
@@ -244,6 +246,33 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryArray.push(cardSummaryItem);
         });
         setCardSummaryList(cardSummaryArray);
+        
+        let sharePieDict = {}
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let sharePieSubItem = {}
+          sharePieSubItem['id'] = index;
+          sharePieSubItem['name'] = json['reporting_period']['names'][index];
+          sharePieSubItem['value'] = json['reporting_period']['subtotals'][index];
+          sharePieSubItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          
+          let current_energy_category_id = json['reporting_period']['energy_category_ids'][index]
+          if (current_energy_category_id in sharePieDict) {
+            sharePieDict[current_energy_category_id].push(sharePieSubItem);
+          } else {
+            sharePieDict[current_energy_category_id] = [];
+            sharePieDict[current_energy_category_id].push(sharePieSubItem);
+          }
+        });
+        let sharePieArray = [];
+        for (let current_energy_category_id in sharePieDict) {
+          let sharePieItem = {}
+          sharePieItem['data'] = sharePieDict[current_energy_category_id];
+          sharePieItem['energy_category_name'] = json['reporting_period']['energy_category_names'][current_energy_category_id];
+          sharePieItem['unit'] = json['reporting_period']['units'][current_energy_category_id];
+          sharePieArray.push(sharePieItem);
+        }
+
+        setSharePieList(sharePieArray);
 
         let timestamps = {}
         json['reporting_period']['timestamps'].forEach((currentValue, index) => {
@@ -492,6 +521,15 @@ const SpaceEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
           </CardSummary>
         ))}
       </div>
+      <Row noGutters>
+        {sharePieList.map(sharePieItem => (
+          <Col key={sharePieItem['energy_category_name']} className="mb-3 pr-lg-2 mb-3">
+            <SharePie key={sharePieItem['energy_category_name']}
+              data={sharePieItem['data']} 
+              title={t('CATEGORY UNIT Consumption by Energy Items', { 'CATEGORY': sharePieItem['energy_category_name'], 'UNIT': '(' + sharePieItem['unit'] + ')' })} />
+          </Col>
+        ))}
+      </Row>
       <LineChart reportingTitle={t('Reporting Period Consumption ITEM CATEGORY VALUE UNIT', { 'ITEM': null, 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
         baseTitle=''
         labels={spaceLineChartLabels}
