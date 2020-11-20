@@ -463,31 +463,31 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
         <div className="card-deck" key={cardSummaryItem['name']}>
           <CardSummary key={cardSummaryItem['name'] + 'average'}
             rate={cardSummaryItem['average_increment_rate']}
-            title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + '/H)' })}
             color="success" 
             footnote={t('Per Unit Area')} 
             footvalue={cardSummaryItem['average_per_unit_area']}
-            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            footunit={"(" + cardSummaryItem['unit'] + "/H/M²)"} >
             {cardSummaryItem['average'] && <CountUp end={cardSummaryItem['average']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
           </CardSummary>
           <CardSummary key={cardSummaryItem['name'] + 'maximum'}
             rate={cardSummaryItem['maximum_increment_rate']}
-            title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + '/H)' })}
             color="success" 
             footnote={t('Per Unit Area')} 
             footvalue={cardSummaryItem['maximum_per_unit_area']}
-            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            footunit={"(" + cardSummaryItem['unit'] + "/H/M²)"} >
             {cardSummaryItem['maximum'] && <CountUp end={cardSummaryItem['maximum']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
           </CardSummary>
           <CardSummary key={cardSummaryItem['name'] + 'factor'}
             rate={cardSummaryItem['factor_increment_rate']}
-            title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': cardSummaryItem['name'] })}
             color="success" 
             footnote={t('Ratio of Average Load to Maximum Load')} >
             {cardSummaryItem['factor'] && <CountUp end={cardSummaryItem['factor']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
           </CardSummary>
         </div>
-        ))}
+      ))}
    
       <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
         baseTitle=''
