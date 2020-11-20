@@ -29,8 +29,6 @@ import { APIBaseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
-
-const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 
@@ -69,6 +67,7 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
   //Results
+  const [cardSummaryList, setCardSummaryList] = useState([]);
   const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
   const [spaceLineChartData, setSpaceLineChartData] = useState({});
   const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
@@ -79,9 +78,6 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
   
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
   const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
-  
-  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
-  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
   
   useEffect(() => {
     let isResponseOK = false;
@@ -206,7 +202,6 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
     
     // Reinitialize tables
     setDetailedDataTableData([]);
-    setChildSpacesTableData([]);
 
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/spaceload?' +
@@ -233,213 +228,108 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json)
         
-        setSpaceLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let cardSummaryArray = []
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let cardSummaryItem = {}
+          cardSummaryItem['name'] = json['reporting_period']['names'][index];
+          cardSummaryItem['unit'] = json['reporting_period']['units'][index];
+          cardSummaryItem['average'] = json['reporting_period']['averages'][index];
+          cardSummaryItem['average_increment_rate'] = parseFloat(json['reporting_period']['averages_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['average_per_unit_area'] = json['reporting_period']['averages_per_unit_area'][index];
+          cardSummaryItem['maximum'] = json['reporting_period']['maximums'][index];
+          cardSummaryItem['maximum_increment_rate'] = parseFloat(json['reporting_period']['maximums_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['maximum_per_unit_area'] = json['reporting_period']['maximums_per_unit_area'][index];
+          cardSummaryItem['factor'] = json['reporting_period']['factors'][index];
+          cardSummaryItem['factor_increment_rate'] = parseFloat(json['reporting_period']['factors_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryArray.push(cardSummaryItem);
         });
-      
-        setSpaceLineChartData({
-          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          d: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
+        console.log(cardSummaryArray);
+        setCardSummaryList(cardSummaryArray);
+
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
-    
-        setSpaceLineChartOptions([
-          { value: 'a', label: '电' },
-          { value: 'b', label: '自来水' },
-          { value: 'c', label: '天然气' },
-          { value: 'd', label: '冷' }
-        ]);
-      
-        setParameterLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-        });
-      
-        setParameterLineChartData({
-          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-        });
-      
-        setParameterLineChartOptions([
-          { value: 'a0', label: '室外温度' },
-          { value: 'a1', label: '相对湿度' },
-          { value: 'a2', label: '电费率' },
-          { value: 'a3', label: '自来水费率' },
-          { value: 'a4', label: '天然气费率' }
-        ]);
-      
-        setDetailedDataTableData([
-          {
-            id: 1,
-            startdatetime: '2020-07-01',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 2,
-            startdatetime: '2020-07-02',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 3,
-            startdatetime: '2020-07-03',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 4,
-            startdatetime: '2020-07-04',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 5,
-            startdatetime: '2020-07-05',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 6,
-            startdatetime: '2020-07-06',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 7,
-            startdatetime: '2020-07-07',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 8,
-            startdatetime: '2020-07-08',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 9,
-            startdatetime: '2020-07-09',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 10,
-            startdatetime: '2020-07-10',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          },
-          {
-            id: 11,
-            startdatetime: '平均',
-            a0: '98.172',
-            a1: '34.157',
-            a2: '56.127',
-            a3: '56.357',
-          }
-        ]);
-        setDetailedDataTableColumns([
-          {
-            dataField: 'startdatetime',
-            text: t('Datetime'),
-            sort: true
-          }, {
-            dataField: 'a0',
-            text: '电平均负荷 (kW)',
-            sort: true
-          }, {
-            dataField: 'a1',
-            text: '自来水平均负荷 (M3/h)',
-            sort: true
-          }, {
-            dataField: 'a2',
-            text: '天然气平均负荷 (M3/)',
-            sort: true
-          }, {
-            dataField: 'a3',
-            text: '冷平均负荷 (kW)',
-            sort: true
-          }
-        ]);
+        setSpaceLineChartLabels(timestamps);
         
-        setChildSpacesTableData([
-          {
-            id: 1,
-            name: '公区',
-            a: '98.172',
-            b: '34.157',
-            c: '56.127',
-            d: '56.357',
-          },
-          {
-            id: 2,
-            name: '车库',
-            a: '98.172',
-            b: '34.157',
-            c: '56.127',
-            d: '56.357',
-          },
-          {
-            id: 3,
-            name: '租区',
-            a: '98.172',
-            b: '34.157',
-            c: '56.127',
-            d: '56.357',
+        let values = {}
+        json['reporting_period']['sub_averages'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setSpaceLineChartData(values);
+        
+        let names = Array();
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + '/H)'});
+        });
+        setSpaceLineChartOptions(names);
+      
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
+
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+      
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          if (currentValue.startsWith('TARIFF-')) {
+            currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
           }
-        ]);
-        setChildSpacesTableColumns([
-          {
-            dataField: 'name',
-            text: t('Child Spaces'),
+          
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+      
+        let detailed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          json['reporting_period']['sub_averages'].forEach((currentValue, energyCategoryIndex) => {
+            if (json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex] != null) {
+              detailed_value['a' + 2 * energyCategoryIndex] = json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex].toFixed(2);
+            } else {
+              detailed_value['a' + 2 * energyCategoryIndex] = '';
+            };  
+          
+            if (json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex] != null) {
+              detailed_value['a' + (2 * energyCategoryIndex + 1)] = json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex].toFixed(2);
+            } else {
+              detailed_value['a' + (2 * energyCategoryIndex + 1)] = '';
+            };            
+          });
+          detailed_value_list.push(detailed_value);
+        });
+
+        setDetailedDataTableData(detailed_value_list);
+        
+        let detailed_column_list = [];
+        detailed_column_list.push({
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        })
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          detailed_column_list.push({
+            dataField: 'a' + 2 * index,
+            text: currentValue + ' ' + t('Average Load') + ' (' + unit + '/H)',
             sort: true
-          }, {
-            dataField: 'a',
-            text: '电平均负荷 (kW)',
+          });
+          detailed_column_list.push({
+            dataField: 'a' + (2 * index + 1),
+            text: currentValue + ' ' + t('Maximum Load') + ' (' + unit + '/H)',
             sort: true
-          }, {
-            dataField: 'b',
-            text: '自来水平均负荷 (M3/h)',
-            sort: true
-          }, {
-            dataField: 'c',
-            text: '天然气平均负荷 (M3/h)',
-            sort: true
-          }, {
-            dataField: 'd',
-            text: '冷平均负荷 (kW)',
-            sort: true
-          }
-        ]);
+          });
+        });
+        setDetailedDataTableColumns(detailed_column_list);
       
       } else {
         toast.error(json.description)
@@ -569,64 +459,38 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
           </Form>
         </CardBody>
       </Card>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': '电', 'UNIT': '(kW)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={89.038 / 1000} footunit="(kW/M2)" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': '电', 'UNIT': '(kW)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={63.101 / 1000} footunit="(kW/M2)" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '电' })}
-          color="success" footnote={t('Ratio of Average Load to Maximum Load')}  >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3/h)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={39.088 / 1000} footunit="(M3/M2)">
-          <CountUp end={39.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3/h)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={28.088 / 1000} footunit="(M3/h/M2)">
-          <CountUp end={28.088} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '自来水' })}
-          color="info" footnote={t('Ratio of Average Load to Maximum Load')} >
-          <CountUp end={0.708} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3/h)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={12.031 / 1000} footunit="(M3/h/M2)">
-          <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3/h)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={8.131 / 1000} footunit="(M3/h/M2)">
-          <CountUp end={8.131} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '天然气' })} color="warning"
-          footnote={t('Ratio of Average Load to Maximum Load')} >
-          <CountUp end={12.031} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': '冷', 'UNIT': '(kW)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={89.038 / 1000} footunit="(kW/M2)" >
-          <CountUp end={89.038} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': '冷', 'UNIT': '(kW)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={63.101 / 1000} footunit="(kW/M2)" >
-          <CountUp end={63.101} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': '冷' })}
-          color="success" footnote={t('Ratio of Average Load to Maximum Load')}  >
-          <CountUp end={0.702} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 7.139, 'UNIT': '(kW)' })}
-        baseTitle={t('Base Period CATEGORY Average Load VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 6.848, 'UNIT': '(kW)' })}
+      {cardSummaryList.map(cardSummaryItem => (
+        <div className="card-deck" key={cardSummaryItem['name']}>
+          <CardSummary key={cardSummaryItem['name'] + 'average'}
+            rate={cardSummaryItem['average_increment_rate']}
+            title={t('Reporting Period CATEGORY Average Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['average_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['average'] && <CountUp end={cardSummaryItem['average']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'maximum'}
+            rate={cardSummaryItem['maximum_increment_rate']}
+            title={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['maximum_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['maximum'] && <CountUp end={cardSummaryItem['maximum']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'factor'}
+            rate={cardSummaryItem['factor_increment_rate']}
+            title={t('Reporting Period CATEGORY Load Factor', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Ratio of Average Load to Maximum Load')} >
+            {cardSummaryItem['factor'] && <CountUp end={cardSummaryItem['factor']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        </div>
+        ))}
+   
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+        baseTitle=''
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
@@ -641,9 +505,7 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
       </DetailedDataTable>
       <br />
-      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
-
+      
     </Fragment>
   );
 };
