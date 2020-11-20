@@ -603,43 +603,43 @@ const EquipmentStatistics = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Value UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="warning"  >
           <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum Value UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="success" >
           <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Value UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
           color="info" >
           <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Value UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
           color="warning"  >
           <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum Value UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
           color="success" >
           <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Value UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
           color="info" >
           <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
       </div>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum Value UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
           color="warning"  >
           <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum Value UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
           color="success" >
           <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average Value UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
+        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
           color="info" >
           <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
