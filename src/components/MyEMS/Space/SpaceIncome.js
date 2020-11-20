@@ -533,7 +533,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={incomeShareData} title={t('Costs by Energy Category')} />
+          <SharePie data={incomeShareData} title={t('Incomes by Energy Category')} />
         </Col>
       </Row>
       <LineChart reportingTitle={t('Reporting Period Income CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
