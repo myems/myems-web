@@ -309,10 +309,6 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
         totalInTCO2E['value_per_unit_area'] = json['reporting_period']['total_in_kgco2e_per_unit_area'];
         setTotalInTCO2E(totalInTCO2E);
 
-        json['reporting_period']['names'].forEach((currentValue, index) => {
-
-        });
-
         let TCEDataArray = [];
         json['reporting_period']['names'].forEach((currentValue, index) => {
           let TCEDataItem = {}
