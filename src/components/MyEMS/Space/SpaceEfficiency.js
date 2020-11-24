@@ -30,7 +30,6 @@ import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
-const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
 const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
@@ -65,11 +64,10 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [inputEnergyCategory, setInputEnergyCategory] = useState(1);
-  const [outputEnergyCategory, setOutputEnergyCategory] = useState(4);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
   //Results
+  const [cardSummaryList, setCardSummaryList] = useState([]);
   const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
   const [spaceLineChartData, setSpaceLineChartData] = useState({});
   const [spaceLineChartOptions, setSpaceLineChartOptions] = useState([]);
@@ -80,9 +78,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
   const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
-  
-  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
-  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
   
 
   useEffect(() => {
@@ -118,16 +113,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     });
 
   }, []);
-
-  const inputEnergyCategoryOptions = [
-    { value: 1, label: '电' },
-    { value: 2, label: '自来水' },
-    { value: 3, label: '天然气' },];
-
-  const outputEnergyCategoryOptions = [
-    { value: 4, label: '冷' },
-    { value: 5, label: '热' },
-    { value: 6, label: '蒸汽' },];
 
   const labelClasses = 'ls text-uppercase text-600 font-weight-semi-bold mb-0';
   
@@ -211,8 +196,6 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedSpaceID);
     console.log(comparisonType);
     console.log(periodType);
-    console.log(inputEnergyCategory);
-    console.log(outputEnergyCategory);
     console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
     console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
@@ -220,14 +203,11 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     
     // Reinitialize tables
     setDetailedDataTableData([]);
-    setChildSpacesTableData([]);
 
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/spaceefficiency?' +
       'spaceid=' + selectedSpaceID +
       '&periodtype=' + periodType +
-      '&inputenergycategoryid=' + inputEnergyCategory +
-      '&outputenergycategoryid=' + outputEnergyCategory +
       '&baseperiodstartdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
       '&baseperiodenddatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
       '&reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
@@ -248,185 +228,98 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         console.log(json)
-        setChildSpacesTableData([
-          {
-            id: 1,
-            name: '公区',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 2,
-            name: '车库',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 3,
-            name: '租区',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          }
-        ]);
-        setChildSpacesTableColumns([
-          {
-            dataField: 'name',
-            text: t('Child Spaces'),
-            sort: true
-          }, {
-            dataField: 'a',
-            text: '电 (kWh)',
-            sort: true
-          }, {
-            dataField: 'b',
-            text: '冷 (kWh)',
-            sort: true
-          }, {
-            dataField: 'c',
-            text: '效率 (kWh/kWh)',
-            sort: true
-          }
-        ]);
-      
-        setSpaceLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let cardSummaryArray = []
+        json['reporting_period_efficiency']['names'].forEach((currentValue, index) => {
+          let cardSummaryItem = {}
+          cardSummaryItem['name'] = json['reporting_period_efficiency']['names'][index];
+          cardSummaryItem['unit'] = json['reporting_period_efficiency']['units'][index];
+          cardSummaryItem['cumulation'] = json['reporting_period_efficiency']['cumulations'][index];
+          cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_efficiency']['increment_rates'][index] * 100).toFixed(2) + "%";
+          cardSummaryArray.push(cardSummaryItem);
         });
+        setCardSummaryList(cardSummaryArray);
       
-        setSpaceLineChartData({
-          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        let timestamps = {}
+        json['reporting_period_efficiency']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
-      
-        setParameterLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        setSpaceLineChartLabels(timestamps);
+        
+        let values = {}
+        json['reporting_period_efficiency']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
         });
-      
-        setParameterLineChartData({
-          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        setSpaceLineChartData(values);
+        
+        let names = Array();
+        json['reporting_period_efficiency']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period_efficiency']['units'][index];
+          names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
         });
-      
-        setParameterLineChartOptions([
-          { value: 'a0', label: '室外温度' },
-          { value: 'a1', label: '相对湿度' },
-          { value: 'a2', label: '电费率' },
-          { value: 'a3', label: '自来水费率' },
-          { value: 'a4', label: '天然气费率' }
-        ]);
-      
-        setDetailedDataTableData([
-          {
-            id: 1,
-            startdatetime: '2020-07-01',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 2,
-            startdatetime: '2020-07-02',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 3,
-            startdatetime: '2020-07-03',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 4,
-            startdatetime: '2020-07-04',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 5,
-            startdatetime: '2020-07-05',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 6,
-            startdatetime: '2020-07-06',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 7,
-            startdatetime: '2020-07-07',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 8,
-            startdatetime: '2020-07-08',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 9,
-            startdatetime: '2020-07-09',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 10,
-            startdatetime: '2020-07-10',
-            a: '9872',
-            b: '55975',
-            c: '5.67',
-          },
-          {
-            id: 11,
-            startdatetime: t('Total'),
-            a: '98720',
-            b: '34570',
-            c: '5.67',
-          }
-        ]);
+        setSpaceLineChartOptions(names);
+       
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
-        setDetailedDataTableColumns([
-          {
-            dataField: 'startdatetime',
-            text: t('Datetime'),
-            sort: true
-          }, {
-            dataField: 'a',
-            text: '电 (kWh)',
-            sort: true
-          }, {
-            dataField: 'b',
-            text: '冷 (kWh)',
-            sort: true
-          }, {
-            dataField: 'c',
-            text: '效率 (kWh/kWh)',
-            sort: true
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+      
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          if (currentValue.startsWith('TARIFF-')) {
+            currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
           }
-        ]);
+          
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+      
+        let detailed_value_list = [];
+        json['reporting_period_efficiency']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          json['reporting_period_efficiency']['values'].forEach((currentValue, energyCategoryIndex) => {
+            if (json['reporting_period_efficiency']['values'][energyCategoryIndex][timestampIndex] != null) {
+              detailed_value['a' + 2 * energyCategoryIndex] = json['reporting_period_efficiency']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+            } else {
+              detailed_value['a' + 2 * energyCategoryIndex] = '';
+            };
+          });
+           
+          detailed_value_list.push(detailed_value);
+        });
+
+        let detailed_value = {};
+        detailed_value['id'] = detailed_value_list.length;
+        detailed_value['startdatetime'] = t('Subtotal');
+        json['reporting_period_efficiency']['cumulations'].forEach((currentValue, index) => {
+            detailed_value['a' + index] = currentValue.toFixed(2);
+          });
+        detailed_value_list.push(detailed_value);
+        setDetailedDataTableData(detailed_value_list);
+        
+        let detailed_column_list = [];
+        detailed_column_list.push({
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        })
+        json['reporting_period_efficiency']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period_efficiency']['units'][index];
+          detailed_column_list.push({
+            dataField: 'a' + index,
+            text: currentValue + ' (' + unit + ')',
+            sort: true
+          })
+        });
+        setDetailedDataTableColumns(detailed_column_list);
       } else {
         toast.error(json.description)
       }
@@ -461,36 +354,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
                   </Cascader>
                 </FormGroup>
               </Col>
-              <Col xs="auto">
-                <FormGroup>
-                  <Label className={labelClasses} for="inputEnergyCategory">
-                    {t('Input Energy Category')}
-                  </Label>
-                  <CustomInput type="select" id="inputEnergyCategory" name="inputEnergyCategory" value={inputEnergyCategory} onChange={({ target }) => setInputEnergyCategory(target.value)}
-                  >
-                    {inputEnergyCategoryOptions.map((inputEnergyCategory, index) => (
-                      <option value={inputEnergyCategory.value} key={inputEnergyCategory.value}>
-                        {inputEnergyCategory.label}
-                      </option>
-                    ))}
-                  </CustomInput>
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
-                <FormGroup>
-                  <Label className={labelClasses} for="outputEnergyCategory">
-                    {t('Output Energy Category')}
-                  </Label>
-                  <CustomInput type="select" id="outputEnergyCategory" name="outputEnergyCategory" value={outputEnergyCategory} onChange={({ target }) => setOutputEnergyCategory(target.value)}
-                  >
-                    {outputEnergyCategoryOptions.map((outputEnergyCategory, index) => (
-                      <option value={outputEnergyCategory.value} key={outputEnergyCategory.value}>
-                        {outputEnergyCategory.label}
-                      </option>
-                    ))}
-                  </CustomInput>
-                </FormGroup>
-              </Col>
+              
               <Col xs="auto">
                 <FormGroup>
                   <Label className={labelClasses} for="comparisonType">
@@ -586,21 +450,18 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="0.0%" title={t('Reporting Period Output CATEGORY UNIT', { 'CATEGORY': '冷', 'UNIT': '(kWh)' })}
-          color="info" >
-          <CountUp end={32988.833} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="-0.23%" title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success"  >
-          <CountUp end={5890.863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+2.0%" title={t('Reporting Period Cumulative Efficiency UNIT', { 'UNIT': '(kWh/kWh)' })}
-          color="warning" >
-          <CountUp end={5.609} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
+      {cardSummaryList.map(cardSummaryItem => (
+          <CardSummary key={cardSummaryItem['name']}
+            rate={cardSummaryItem['increment_rate']}
+            title={t('Reporting Period Cumulative Efficiency NAME UNIT', { 'NAME': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            >
+            {cardSummaryItem['cumulation'] && <CountUp end={cardSummaryItem['cumulation']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        ))}
       </div>
-      <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 5.609, 'UNIT': '(kWh/kWh)' })}
-        baseTitle={t('Base Period Cumulative Efficiency VALUE UNIT', { 'VALUE': 4.321, 'UNIT': '(kWh/kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Cumulative Efficiency VALUE UNIT', { 'VALUE': null, 'UNIT': null })}
+        baseTitle=''
         labels={spaceLineChartLabels}
         data={spaceLineChartData}
         options={spaceLineChartOptions}>
@@ -614,9 +475,7 @@ const SpaceEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
       <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
       </DetailedDataTable>
       <br />
-      <ChildSpacesTable data={childSpacesTableData} title={t('Child Spaces Data')} columns={childSpacesTableColumns}>
-      </ChildSpacesTable>
-
+      
     </Fragment>
   );
 };
