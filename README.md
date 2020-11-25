@@ -4,6 +4,7 @@
 MyEMS Web 界面，用于能源数据分析
 Providing Web UI for MyEMS users to analysis energy data
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/myems/myems-web/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/myems/myems-web/?branch=master)
 
 ## Prerequisites
 nginx-1.18.0 or later
