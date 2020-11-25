@@ -6,6 +6,7 @@ Providing Web UI for MyEMS users to analysis energy data
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d65a896c59f34eadb5c90c8e1abc22ce)](https://app.codacy.com/gh/myems/myems-web?utm_source=github.com&utm_medium=referral&utm_content=myems/myems-web&utm_campaign=Badge_Grade)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/myems/myems-web/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/myems/myems-web/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/390e65ff77c25d1a5a05/maintainability)](https://codeclimate.com/github/myems/myems-web/maintainability)
 
 ## Prerequisites
 nginx-1.18.0 or later
