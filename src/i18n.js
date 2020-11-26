@@ -67,8 +67,7 @@ const resources = {
       "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
       "Carbon Dioxide Emissions by Energy Category": "Carbon Dioxide Emissions by Energy Category",
       "This Month's Consumption CATEGORY VALUE UNIT": "This Month's Consumption {{CATEGORY}} {{VALUE}} {{UNIT}}",
-      "This Year's Costs CATEGORY UNIT": "This Year's Costs {{CATEGORY}} {{UNIT}}",
-      "This Year's Consumption CATEGORY UNIT": "This Year's Consumption {{CATEGORY}} {{UNIT}}",
+      "This Month's Costs CATEGORY VALUE UNIT": "This Month's Costs {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
       "Space": "Space",
       "Equipment": "Equipment",
@@ -384,8 +383,7 @@ const resources = {
       "Ton of Standard Coal by Energy Category": "Tonne Standardkohle nach Energiekategorie",
       "Carbon Dioxide Emissions by Energy Category": "Kohlendioxidemissionen nach Energiekategorie",
       "This Month's Consumption CATEGORY VALUE UNIT": "Der Verbrauch dieses Monats {{CATEGORY}} {{VALUE}} {{UNIT}}",
-      "This Year's Costs CATEGORY UNIT": "Die diesjährigen Kosten {{CATEGORY}} {{UNIT}}",
-      "This Year's Consumption CATEGORY UNIT": "Der diesjährige Verbrauch {{CATEGORY}} {{UNIT}}",
+      "This Month's Costs CATEGORY VALUE UNIT": "Der Kosten dieses Monats {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
       "Space": "Platz",
       "Equipment": "Ausrüstung",
@@ -704,8 +702,7 @@ const resources = {
       "Ton of Standard Coal by Energy Category": "吨标准煤占比",
       "Carbon Dioxide Emissions by Energy Category": "二氧化碳排放占比",
       "This Month's Consumption CATEGORY VALUE UNIT": "本月消耗 {{CATEGORY}} {{VALUE}} {{UNIT}}",
-      "This Year's Costs CATEGORY UNIT": "本年{{CATEGORY}}成本 {{UNIT}}",
-      "This Year's Consumption CATEGORY UNIT": "本年消耗 {{CATEGORY}} {{UNIT}}",
+      "This Month's Costs CATEGORY VALUE UNIT": "本月成本 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
       "Space": "空间",
       "Equipment": "设备",
