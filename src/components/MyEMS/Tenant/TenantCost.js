@@ -455,6 +455,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl, t }) => {
           sort: true
         });
         setDetailedDataTableColumns(detailed_column_list);
+
       } else {
         toast.error(json.description)
       }
@@ -598,7 +599,7 @@ const TenantCost = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-      {cardSummaryList.map(cardSummaryItem => (
+        {cardSummaryList.map(cardSummaryItem => (
           <CardSummary key={cardSummaryItem['name']}
             rate={cardSummaryItem['increment_rate']}
             title={t('Reporting Period Costs CATEGORY UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
