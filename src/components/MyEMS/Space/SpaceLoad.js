@@ -243,7 +243,6 @@ const SpaceLoad = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['factor_increment_rate'] = parseFloat(json['reporting_period']['factors_increment_rate'][index] * 100).toFixed(2) + "%";
           cardSummaryArray.push(cardSummaryItem);
         });
-        console.log(cardSummaryArray);
         setCardSummaryList(cardSummaryArray);
 
         let timestamps = {}

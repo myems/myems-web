@@ -252,7 +252,6 @@ const SpaceStatistics = ({ setRedirect, setRedirectUrl, t }) => {
           cardSummaryItem['variance_per_unit_area'] = json['reporting_period']['variances_per_unit_area'][index];          
           cardSummaryArray.push(cardSummaryItem);
         });
-        console.log(cardSummaryArray);
         setCardSummaryList(cardSummaryArray);
 
         let timestamps = {}

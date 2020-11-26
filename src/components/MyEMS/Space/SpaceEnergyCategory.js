@@ -202,11 +202,6 @@ const SpaceEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
     return currentDate.isAfter(moment(reportingPeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
   
-  let onReportingLineChartChange = (value, selectedOptions) => {
-    console.log(value, selectedOptions);
-    // setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'))
-    // setSelectedSpaceID(value[value.length - 1]);
-  }
 
   // Handler
   const handleSubmit = e => {

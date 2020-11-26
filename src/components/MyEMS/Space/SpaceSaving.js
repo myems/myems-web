@@ -70,7 +70,6 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
   //Results
-  const [timeOfUseShareData, setTimeOfUseShareData] = useState([]);
   const [TCEShareData, setTCEShareData] = useState([]);
   const [TCO2EShareData, setTCO2EShareData] = useState([]);
   
@@ -522,7 +521,7 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-      {cardSummaryList.map(cardSummaryItem => (
+        {cardSummaryList.map(cardSummaryItem => (
           <CardSummary key={cardSummaryItem['name']}
             rate={cardSummaryItem['increment_rate']}
             title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
