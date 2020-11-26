@@ -19,6 +19,7 @@ import Datetime from 'react-datetime';
 import moment from 'moment';
 import Cascader from 'rc-cascader';
 import CardSummary from '../common/CardSummary';
+import SharePie from '../common/SharePie';
 import LineChart from '../common/LineChart';
 import loadable from '@loadable/component';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
@@ -573,6 +574,15 @@ const TenantEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
           </CardSummary>
         ))}
       </div>
+      <Row noGutters>
+        {sharePieList.map(sharePieItem => (
+          <Col key={sharePieItem['energy_category_name']} className="mb-3 pr-lg-2 mb-3">
+            <SharePie key={sharePieItem['energy_category_name']}
+              data={sharePieItem['data']} 
+              title={t('CATEGORY UNIT Consumption by Energy Items', { 'CATEGORY': sharePieItem['energy_category_name'], 'UNIT': '(' + sharePieItem['unit'] + ')' })} />
+          </Col>
+        ))}
+      </Row>
       <LineChart reportingTitle={t('Reporting Period Consumption ITEM CATEGORY VALUE UNIT', { 'ITEM': null, 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
         baseTitle=''
         labels={tenantLineChartLabels}
