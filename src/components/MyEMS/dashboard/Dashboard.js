@@ -9,11 +9,48 @@ import loadable from '@loadable/component';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import moment from 'moment';
+import { APIBaseURL } from '../../../config';
 
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 
 const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
+  const [fetchSuccess, setFetchSuccess] = useState(false);
+  const [periodType, setPeriodType] = useState('daily');
+  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
+  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
+  const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
+  const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
+  //Results
+  const [costShareData, setCostShareData] = useState([]);
+  const [timeOfUseShareData, setTimeOfUseShareData] = useState([]);
+  const [TCEShareData, setTCEShareData] = useState([]);
+  const [TCO2EShareData, setTCO2EShareData] = useState([]);
+
+  const [inputCardSummaryList, setInputCardSummaryList] = useState([]);
+  const [costCardSummaryList, setCostCardSummaryList] = useState([]);
+  const [totalInTCE, setTotalInTCE] = useState({});
+  const [totalInTCO2E, setTotalInTCO2E] = useState({});
+
+  const [spaceInputLineChartLabels, setSpaceInputLineChartLabels] = useState([]);
+  const [spaceInputLineChartData, setSpaceInputLineChartData] = useState({});
+  const [spaceInputLineChartOptions, setSpaceInputLineChartOptions] = useState([]);
+  const [spaceCostLineChartLabels, setSpaceCostLineChartLabels] = useState([]);
+  const [spaceCostLineChartData, setSpaceCostLineChartData] = useState({});
+  const [spaceCostLineChartOptions, setSpaceCostLineChartOptions] = useState([]);
+  
+  const [parameterLineChartLabels, setParameterLineChartLabels] = useState([]);
+  const [parameterLineChartData, setParameterLineChartData] = useState({});
+  const [parameterLineChartOptions, setParameterLineChartOptions] = useState([]);
+  
+  const [detailedDataTableData, setDetailedDataTableData] = useState([]);
+  const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
+  
+  const [childSpacesTableData, setChildSpacesTableData] = useState([]);
+  const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
+  
 
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
@@ -32,178 +69,362 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
+
+    let isResponseOK = false;
+    if (!fetchSuccess) { 
       toast(
         <Fragment>
           {t("Welcome to MyEMS")}!<br />
           {t("An Industry Leading Open Source Energy Management System")}
         </Fragment>
       );
-    }
+     
+      fetch(APIBaseURL + '/reports/dashboard?' +
+        'useruuid=' + user_uuid +
+        '&periodtype=' + periodType +
+        '&baseperiodstartdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+        '&baseperiodenddatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+        '&reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+        '&reportingperiodenddatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "User-UUID": getCookieValue('user_uuid'),
+          "Token": getCookieValue('token')
+        },
+        body: null,
+
+      }).then(response => {
+        if (response.ok) {
+          isResponseOK = true;
+        }
+        return response.json();
+      }).then(json => {
+        if (isResponseOK) {
+          console.log(json);
+          setFetchSuccess(true);
+          let inputCardSummaryArray = []
+          json['reporting_period_input']['names'].forEach((currentValue, index) => {
+            let cardSummaryItem = {}
+            cardSummaryItem['name'] = json['reporting_period_input']['names'][index];
+            cardSummaryItem['unit'] = json['reporting_period_input']['units'][index];
+            cardSummaryItem['subtotal'] = json['reporting_period_input']['subtotals'][index];
+            cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rates'][index] * 100).toFixed(2) + "%";
+            cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_input']['subtotals_per_unit_area'][index];
+            inputCardSummaryArray.push(cardSummaryItem);
+          });
+          setInputCardSummaryList(inputCardSummaryArray);
+
+          let costCardSummaryArray = []
+          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+            let cardSummaryItem = {}
+            cardSummaryItem['name'] = json['reporting_period_cost']['names'][index];
+            cardSummaryItem['unit'] = json['reporting_period_cost']['units'][index];
+            cardSummaryItem['subtotal'] = json['reporting_period_cost']['subtotals'][index];
+            cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_cost']['increment_rates'][index] * 100).toFixed(2) + "%";
+            cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_cost']['subtotals_per_unit_area'][index];
+            costCardSummaryArray.push(cardSummaryItem);
+          });
+          setCostCardSummaryList(costCardSummaryArray);
+
+          let timeOfUseArray = [];
+          json['reporting_period_input']['energy_category_ids'].forEach((currentValue, index) => {
+            if(currentValue == 1) {
+              // energy_category_id 1 electricity
+              let timeOfUseItem = {}
+              timeOfUseItem['id'] = 1;
+              timeOfUseItem['name'] =  t('Top-Peak');
+              timeOfUseItem['value'] = json['reporting_period_input']['toppeaks'][index];
+              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              timeOfUseArray.push(timeOfUseItem);
+              
+              timeOfUseItem = {}
+              timeOfUseItem['id'] = 2;
+              timeOfUseItem['name'] =  t('On-Peak');
+              timeOfUseItem['value'] = json['reporting_period_input']['onpeaks'][index];
+              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              timeOfUseArray.push(timeOfUseItem);
+
+              timeOfUseItem = {}
+              timeOfUseItem['id'] = 3;
+              timeOfUseItem['name'] =  t('Mid-Peak');
+              timeOfUseItem['value'] = json['reporting_period_input']['midpeaks'][index];
+              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              timeOfUseArray.push(timeOfUseItem);
+
+              timeOfUseItem = {}
+              timeOfUseItem['id'] = 4;
+              timeOfUseItem['name'] =  t('Off-Peak');
+              timeOfUseItem['value'] = json['reporting_period_input']['offpeaks'][index];
+              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              timeOfUseArray.push(timeOfUseItem);
+            }
+          });
+          setTimeOfUseShareData(timeOfUseArray);
+          let totalInTCE = {}; 
+          totalInTCE['value'] = json['reporting_period_input']['total_in_kgce'];
+          totalInTCE['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
+          totalInTCE['value_per_unit_area'] = json['reporting_period_input']['total_in_kgce_per_unit_area'];
+          setTotalInTCE(totalInTCE);
+
+          let costDataArray = [];
+          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+            let costDataItem = {}
+            costDataItem['id'] = index;
+            costDataItem['name'] = currentValue;
+            costDataItem['value'] = json['reporting_period_cost']['subtotals'][index];
+            costDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            costDataArray.push(costDataItem);
+          });
+
+          setCostShareData(costDataArray);
+          let totalInTCO2E = {}; 
+          totalInTCO2E['value'] = json['reporting_period_input']['total_in_kgco2e'];
+          totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
+          totalInTCO2E['value_per_unit_area'] = json['reporting_period_input']['total_in_kgco2e_per_unit_area'];
+          setTotalInTCO2E(totalInTCO2E);
+
+          let TCEDataArray = [];
+          json['reporting_period_input']['names'].forEach((currentValue, index) => {
+            let TCEDataItem = {}
+            TCEDataItem['id'] = index;
+            TCEDataItem['name'] = currentValue;
+            TCEDataItem['value'] = json['reporting_period_input']['subtotals_in_kgce'][index] / 1000;
+            TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            TCEDataArray.push(TCEDataItem);
+          });
+          setTCEShareData(TCEDataArray);
+
+          let TCO2EDataArray = [];
+          json['reporting_period_input']['names'].forEach((currentValue, index) => {
+            let TCO2EDataItem = {}
+            TCO2EDataItem['id'] = index;
+            TCO2EDataItem['name'] = currentValue;
+            TCO2EDataItem['value'] = json['reporting_period_input']['subtotals_in_kgco2e'][index] / 1000;
+            TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+            TCO2EDataArray.push(TCO2EDataItem);
+          });
+          setTCO2EShareData(TCO2EDataArray);
+
+          let timestamps = {}
+          json['reporting_period_input']['timestamps'].forEach((currentValue, index) => {
+            timestamps['a' + index] = currentValue;
+          });
+          setSpaceInputLineChartLabels(timestamps);
+          
+          let values = {}
+          json['reporting_period_input']['values'].forEach((currentValue, index) => {
+            values['a' + index] = currentValue;
+          });
+          setSpaceInputLineChartData(values);
+          
+          let names = Array();
+          json['reporting_period_input']['names'].forEach((currentValue, index) => {
+            let unit = json['reporting_period_input']['units'][index];
+            names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
+          });
+          setSpaceInputLineChartOptions(names);
+
+          timestamps = {}
+          json['reporting_period_cost']['timestamps'].forEach((currentValue, index) => {
+            timestamps['a' + index] = currentValue;
+          });
+          setSpaceCostLineChartLabels(timestamps);
+          
+          values = {}
+          json['reporting_period_cost']['values'].forEach((currentValue, index) => {
+            values['a' + index] = currentValue;
+          });
+          setSpaceCostLineChartData(values);
+          
+          names = Array();
+          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+            let unit = json['reporting_period_cost']['units'][index];
+            names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
+          });
+          setSpaceCostLineChartOptions(names);
+
+          timestamps = {}
+          json['parameters']['timestamps'].forEach((currentValue, index) => {
+            timestamps['a' + index] = currentValue;
+          });
+          setParameterLineChartLabels(timestamps);
+
+          values = {}
+          json['parameters']['values'].forEach((currentValue, index) => {
+            values['a' + index] = currentValue;
+          });
+          setParameterLineChartData(values);
+        
+          names = Array();
+          json['parameters']['names'].forEach((currentValue, index) => {
+            if (currentValue.startsWith('TARIFF-')) {
+              currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
+            }
+            
+            names.push({ 'value': 'a' + index, 'label': currentValue });
+          });
+          setParameterLineChartOptions(names);
+          
+          let detailed_value_list = [];
+          json['reporting_period_input']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+            let detailed_value = {};
+            detailed_value['id'] = timestampIndex;
+            detailed_value['startdatetime'] = currentTimestamp;
+            json['reporting_period_input']['values'].forEach((currentValue, energyCategoryIndex) => {
+              detailed_value['a' + energyCategoryIndex] = json['reporting_period_input']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+            });
+            detailed_value_list.push(detailed_value);
+          });
+
+          let detailed_value = {};
+          detailed_value['id'] = detailed_value_list.length;
+          detailed_value['startdatetime'] = t('Subtotal');
+          json['reporting_period_input']['subtotals'].forEach((currentValue, index) => {
+              detailed_value['a' + index] = currentValue.toFixed(2);
+            });
+          detailed_value_list.push(detailed_value);
+          setDetailedDataTableData(detailed_value_list);
+          
+          let detailed_column_list = [];
+          detailed_column_list.push({
+            dataField: 'startdatetime',
+            text: t('Datetime'),
+            sort: true
+          })
+          json['reporting_period_input']['names'].forEach((currentValue, index) => {
+            let unit = json['reporting_period_input']['units'][index];
+            detailed_column_list.push({
+              dataField: 'a' + index,
+              text: currentValue + ' (' + unit + ')',
+              sort: true
+            })
+          });
+          setDetailedDataTableColumns(detailed_column_list);
+
+          let child_space_value_list = [];
+          json['child_space_input']['child_space_names_array'][0].forEach((currentValue, index) => {
+            let child_space_value = {};
+            child_space_value['id'] = index;
+            child_space_value['name'] = currentValue;
+            json['child_space_input']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
+              child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals'][energyCategoryIndex].toFixed(2);
+            });
+            child_space_value_list.push(child_space_value);
+          });
+          json['child_space_cost']['child_space_names_array'][0].forEach((currentValue, index) => {
+            let child_space_value = {};
+            child_space_value['id'] = index;
+            child_space_value['name'] = currentValue;
+            json['child_space_cost']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
+              child_space_value['a' + energyCategoryIndex] = json['child_space_cost']['subtotals'][energyCategoryIndex].toFixed(2);
+            });
+            child_space_value_list.push(child_space_value);
+          });
+
+          setChildSpacesTableData(child_space_value_list);
+
+          let child_space_column_list = [];
+          child_space_column_list.push({
+            dataField: 'name',
+            text: t('Child Spaces'),
+            sort: true
+          });
+          json['child_space_input']['energy_category_names'].forEach((currentValue, index) => {
+            let unit = json['child_space_input']['units'][index];
+            child_space_column_list.push({
+              dataField: 'a' + index,
+              text: currentValue + ' (' + unit + ')',
+              sort: true
+            });
+          });
+          json['child_space_cost']['energy_category_names'].forEach((currentValue, index) => {
+            let unit = json['child_space_cost']['units'][index];
+            child_space_column_list.push({
+              dataField: 'a' + index,
+              text: currentValue + ' (' + unit + ')',
+              sort: true
+            });
+          });
+
+          setChildSpacesTableColumns(child_space_column_list);
+        }
+      });
+    };
+
+  };
   }, );
-  // State
-  const spaceLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const spaceLineChartData = {
-    a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-
-  const spaceLineChartOptions = [
-    { value: 'a0', label: '电' },
-    { value: 'a1', label: '自来水' },
-    { value: 'a2', label: '天然气' },
-    { value: 'a3', label: '二氧化碳排放' }];
-
-  const parameterLineChartLabels = {
-    a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-    a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-  };
-
-  const parameterLineChartData = {
-    a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-    a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-    a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-    a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
-  };
-
-  const parameterLineChartOptions = [
-    { value: 'a0', label: '室外温度' },
-    { value: 'a1', label: '相对湿度' },
-    { value: 'a2', label: '电费率' },
-    { value: 'a3', label: '自来水费率' },
-    { value: 'a4', label: '天然气费率' }];
-
-  const timeofuseshare = [
-    { id: 1, value: 589086.3, name: t('Top-Peak'), color: '#2c7b15' },
-    { id: 2, value: 1178172.6, name: t('On-Peak'), color: '#27bcfd' },
-    { id: 3, value: 2945431.5, name: t('Mid-Peak'), color: '#d8e2ef' },
-    { id: 4, value: 1178172.6, name: t('Off-Peak'), color: '#1812ef' }
-  ];
-  const costshare = [
-    { id: 1, value: 5890863, name: '电', color: '#2c7be5' },
-    { id: 2, value: 29878, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: 9887, name: '天然气', color: '#d8e2ef' }
-  ];
-  const tceshare = [
-    { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
-    { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
-  ];
-  const co2share = [
-    { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
-    { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
-    { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
-  ];
-
-  const childSpacesTableData = [
-    {
-      id: 1,
-      name: '公区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-    },
-    {
-      id: 2,
-      name: '车库',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-    },
-    {
-      id: 3,
-      name: '租区',
-      electricity: '9872',
-      water: '3457',
-      naturalgas: '567',
-    }
-  ];
-  const childSpacesTableColumns = [{
-    dataField: 'name',
-    text: t('Child Spaces'),
-    sort: true
-  }, {
-    dataField: 'electricity',
-    text: '电 (kWh)',
-    sort: true
-  }, {
-    dataField: 'water',
-    text: '自来水 (M3)',
-    sort: true
-  }, {
-    dataField: 'naturalgas',
-    text: '天然气 (M3)',
-    sort: true
-  }];
+  
 
   return (
     <Fragment>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t("This Year's Consumption CATEGORY UNIT", { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(kWh/M2)" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." decimals={2} />
+      {inputCardSummaryList.map(cardSummaryItem => (
+          <CardSummary key={cardSummaryItem['name']}
+            rate={cardSummaryItem['increment_rate']}
+            title={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': cardSummaryItem['name'], 'VALUE': null, 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['subtotal_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['subtotal'] && <CountUp end={cardSummaryItem['subtotal']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        ))}
+        {costCardSummaryList.map(cardSummaryItem => (
+          <CardSummary key={cardSummaryItem['name']}
+            rate={cardSummaryItem['increment_rate']}
+            title={t("This Month's Costs CATEGORY VALUE UNIT", { 'CATEGORY': cardSummaryItem['name'], 'VALUE': null, 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['subtotal_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['subtotal'] && <CountUp end={cardSummaryItem['subtotal']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        ))}
+        <CardSummary 
+          rate={totalInTCE['increment_rate'] || ''} 
+          title={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
+          color="warning" 
+          footnote={t('Per Unit Area')} 
+          footvalue={totalInTCE['value_per_unit_area']} 
+          footunit="(TCE/M²)">
+          {totalInTCE['value'] && <CountUp end={totalInTCE['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
-        <CardSummary rate="0.0%" title={t("This Year's Consumption CATEGORY UNIT", { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(M3/M2)" >
-          <CountUp end={29878} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t("This Year's Consumption CATEGORY UNIT", { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={9887 / 1000} footunit="(M3/M2)" >
-          <CountUp end={9887} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t("This Year's Consumption CATEGORY UNIT", { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={(5890863 / 8135.56 + 9887 / 751.8) / 1000} footunit="(TCE/M2)" >
-          <CountUp end={5890863 / 8135.56 + 9887 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t("This Year's Consumption CATEGORY UNIT", { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={((5890863 / 8135.56 + 9887 / 751.8) * 0.67) / 1000} footunit="(T/M2)" >
-          <CountUp end={(5890863 / 8135.56 + 9887 / 751.8) * 0.67} duration={2} prefix="" separator="," decimal="." decimals={2} />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t("This Year's Costs CATEGORY UNIT", { 'CATEGORY': '电', 'UNIT': '(RMB)' })}
-          color="success" footnote={t('Per Unit Area')} footvalue={5890863 / 1000} footunit="(RMB/M2)" >
-          <CountUp end={5890863} duration={2} prefix="" separator="," decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t("This Year's Costs CATEGORY UNIT", { 'CATEGORY': '自来水', 'UNIT': '(RMB)' })}
-          color="info" footnote={t('Per Unit Area')} footvalue={29878 / 1000} footunit="(RMB/M2)" >
-          <CountUp end={29878} duration={2} prefix="" separator="," decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t("This Year's Costs CATEGORY UNIT", { 'CATEGORY': '天然气', 'UNIT': '(RMB)' })}
-          color="warning" footnote={t('Per Unit Area')} footvalue={43594 / 1000} footunit="(RMB/M2)" >
-          <CountUp end={43594} duration={2} prefix="" separator="," decimal="." />
+        <CardSummary 
+          rate={totalInTCO2E['increment_rate'] || ''} 
+          title={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(TCO2E)' })}
+          color="warning" 
+          footnote={t('Per Unit Area')} 
+          footvalue={totalInTCO2E['value_per_unit_area']} 
+          footunit="(TCO2E/M²)">
+          {totalInTCO2E['value'] && <CountUp end={totalInTCO2E['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
       </div>
       <Row noGutters>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={timeofuseshare} title={t('Electricity Consumption by Time-Of-Use')} />
+          <SharePie data={timeOfUseShareData} title={t('Electricity Consumption by Time-Of-Use')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={costshare} title={t('Costs by Energy Category')} />
+          <SharePie data={costShareData} title={t('Costs by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={tceshare} title={t('Ton of Standard Coal by Energy Category')} />
+          <SharePie data={TCEShareData} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={co2share} title={t('Carbon Dioxide Emissions by Energy Category')} />
+          <SharePie data={TCO2EShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
         baseTitle=''
-        labels={spaceLineChartLabels}
-        data={spaceLineChartData}
-        options={spaceLineChartOptions}>
+        labels={spaceInputLineChartLabels}
+        data={spaceInputLineChartData}
+        options={spaceInputLineChartOptions}>
+      </LineChart>
+      <LineChart reportingTitle={t("This Month's Costs CATEGORY VALUE UNIT", { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+        baseTitle=''
+        labels={spaceCostLineChartLabels}
+        data={spaceCostLineChartData}
+        options={spaceCostLineChartOptions}>
       </LineChart>
 
       <LineChart reportingTitle={t('Related Parameters')}
