@@ -318,12 +318,12 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
         setCardSummaryList(cardSummaryArray);
 
         let totalInTCE = {}; 
-        totalInTCE['value'] = json['reporting_period']['total_in_kgce_saving'];
+        totalInTCE['value'] = json['reporting_period']['total_in_kgce_saving'] / 1000; // convert from kg to t
         totalInTCE['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgce_saving'] * 100).toFixed(2) + "%";
         setTotalInTCE(totalInTCE);
 
         let totalInTCO2E = {}; 
-        totalInTCO2E['value'] = json['reporting_period']['total_in_kgco2e_saving'];
+        totalInTCO2E['value'] = json['reporting_period']['total_in_kgco2e_saving'] / 1000; // convert from kg to t
         totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgco2e_saving'] * 100).toFixed(2) + "%";
         setTotalInTCO2E(totalInTCO2E);
 
@@ -332,7 +332,7 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
           let TCEDataItem = {}
           TCEDataItem['id'] = index;
           TCEDataItem['name'] = currentValue;
-          TCEDataItem['value'] = json['reporting_period']['subtotals_in_kgce_saving'][index] / 1000;
+          TCEDataItem['value'] = json['reporting_period']['subtotals_in_kgce_saving'][index] / 1000; // convert from kg to t
           TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
           TCEDataArray.push(TCEDataItem);
         });
@@ -343,7 +343,7 @@ const EquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
           let TCO2EDataItem = {}
           TCO2EDataItem['id'] = index;
           TCO2EDataItem['name'] = currentValue;
-          TCO2EDataItem['value'] = json['reporting_period']['subtotals_in_kgco2e_saving'][index] / 1000;
+          TCO2EDataItem['value'] = json['reporting_period']['subtotals_in_kgco2e_saving'][index] / 1000; // convert from kg to t
           TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
           TCO2EDataArray.push(TCO2EDataItem);
         });
