@@ -162,9 +162,9 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
           });
           setTimeOfUseShareData(timeOfUseArray);
           let totalInTCE = {}; 
-          totalInTCE['value'] = json['reporting_period_input']['total_in_kgce'];
+          totalInTCE['value'] = json['reporting_period_input']['total_in_kgce'] / 1000; // convert from kg to t
           totalInTCE['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
-          totalInTCE['value_per_unit_area'] = json['reporting_period_input']['total_in_kgce_per_unit_area'];
+          totalInTCE['value_per_unit_area'] = json['reporting_period_input']['total_in_kgce_per_unit_area'] / 1000; // convert from kg to t
           setTotalInTCE(totalInTCE);
 
           let costDataArray = [];
@@ -179,9 +179,9 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
 
           setCostShareData(costDataArray);
           let totalInTCO2E = {}; 
-          totalInTCO2E['value'] = json['reporting_period_input']['total_in_kgco2e'];
+          totalInTCO2E['value'] = json['reporting_period_input']['total_in_kgco2e'] / 1000; // convert from kg to t
           totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
-          totalInTCO2E['value_per_unit_area'] = json['reporting_period_input']['total_in_kgco2e_per_unit_area'];
+          totalInTCO2E['value_per_unit_area'] = json['reporting_period_input']['total_in_kgco2e_per_unit_area'] / 1000; // convert from kg to t
           setTotalInTCO2E(totalInTCO2E);
 
           let TCEDataArray = [];
@@ -200,7 +200,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
             let TCO2EDataItem = {}
             TCO2EDataItem['id'] = index;
             TCO2EDataItem['name'] = currentValue;
-            TCO2EDataItem['value'] = json['reporting_period_input']['subtotals_in_kgco2e'][index] / 1000;
+            TCO2EDataItem['value'] = json['reporting_period_input']['subtotals_in_kgco2e'][index] / 1000; // convert from kg to t
             TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
             TCO2EDataArray.push(TCO2EDataItem);
           });
