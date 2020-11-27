@@ -309,15 +309,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
             child_space_value['name'] = currentValue;
             json['child_space_input']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
               child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals'][energyCategoryIndex].toFixed(2);
-            });
-            child_space_value_list.push(child_space_value);
-          });
-          json['child_space_cost']['child_space_names_array'][0].forEach((currentValue, index) => {
-            let child_space_value = {};
-            child_space_value['id'] = index;
-            child_space_value['name'] = currentValue;
-            json['child_space_cost']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
-              child_space_value['a' + energyCategoryIndex] = json['child_space_cost']['subtotals'][energyCategoryIndex].toFixed(2);
+              child_space_value['b' + energyCategoryIndex] = json['child_space_cost']['subtotals'][energyCategoryIndex].toFixed(2);
             });
             child_space_value_list.push(child_space_value);
           });
