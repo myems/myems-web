@@ -71,8 +71,11 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   //Results
   const [TCEShareData, setTCEShareData] = useState([]);
-  const [CO2ShareData, setCO2ShareData] = useState([]);
-
+  const [TCO2EShareData, setTCO2EShareData] = useState([]);
+  
+  const [cardSummaryList, setCardSummaryList] = useState([]);
+  const [totalInTCE, setTotalInTCE] = useState({});
+  const [totalInTCO2E, setTotalInTCO2E] = useState({});
   const [combinedEquipmentLineChartLabels, setCombinedEquipmentLineChartLabels] = useState([]);
   const [combinedEquipmentLineChartData, setCombinedEquipmentLineChartData] = useState({});
   const [combinedEquipmentLineChartOptions, setCombinedEquipmentLineChartOptions] = useState([]);
@@ -301,176 +304,125 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json)
               
-        setTCEShareData([
-          { id: 1, value: 5890863 / 8135.56, name: '电', color: '#2c7be5' },
-          { id: 2, value: 29878 / 1000, name: '自来水', color: '#27bcfd' },
-          { id: 3, value: 9887 / 751.8, name: '天然气', color: '#d8e2ef' }
-        ]);
-
-        setCO2ShareData([
-          { id: 1, value: (5890863 / 8135.56) * 0.67, name: '电', color: '#2c7be5' },
-          { id: 2, value: (29878 / 1000) * 0.67, name: '自来水', color: '#27bcfd' },
-          { id: 3, value: (9887 / 751.8) * 0.67, name: '天然气', color: '#d8e2ef' }
-        ]);
-
-        setCombinedEquipmentLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let cardSummaryArray = []
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let cardSummaryItem = {}
+          cardSummaryItem['name'] = json['reporting_period']['names'][index];
+          cardSummaryItem['unit'] = json['reporting_period']['units'][index];
+          cardSummaryItem['subtotal'] = json['reporting_period']['subtotals_saving'][index];
+          cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period']['increment_rates_saving'][index] * 100).toFixed(2) + "%";
+          cardSummaryArray.push(cardSummaryItem);
         });
+        setCardSummaryList(cardSummaryArray);
 
-        setCombinedEquipmentLineChartData({
-          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        let totalInTCE = {}; 
+        totalInTCE['value'] = json['reporting_period']['total_in_kgce_saving'];
+        totalInTCE['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgce_saving'] * 100).toFixed(2) + "%";
+        setTotalInTCE(totalInTCE);
+
+        let totalInTCO2E = {}; 
+        totalInTCO2E['value'] = json['reporting_period']['total_in_kgco2e_saving'];
+        totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period']['increment_rate_in_kgco2e_saving'] * 100).toFixed(2) + "%";
+        setTotalInTCO2E(totalInTCO2E);
+
+        let TCEDataArray = [];
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let TCEDataItem = {}
+          TCEDataItem['id'] = index;
+          TCEDataItem['name'] = currentValue;
+          TCEDataItem['value'] = json['reporting_period']['subtotals_in_kgce_saving'][index] / 1000;
+          TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          TCEDataArray.push(TCEDataItem);
         });
+        setTCEShareData(TCEDataArray);
 
-        setCombinedEquipmentLineChartOptions([
-          { value: 'a0', label: '电' },
-          { value: 'a1', label: '自来水' },
-          { value: 'a2', label: '天然气' },
-          { value: 'a3', label: '二氧化碳排放' }
-        ]);
-
-        setParameterLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let TCO2EDataArray = [];
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let TCO2EDataItem = {}
+          TCO2EDataItem['id'] = index;
+          TCO2EDataItem['name'] = currentValue;
+          TCO2EDataItem['value'] = json['reporting_period']['subtotals_in_kgco2e_saving'][index] / 1000;
+          TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+          TCO2EDataArray.push(TCO2EDataItem);
         });
+        setTCO2EShareData(TCO2EDataArray);
 
-        setParameterLineChartData({
-          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
+        setCombinedEquipmentLineChartLabels(timestamps);
+        
+        let values = {}
+        json['reporting_period']['values_saving'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setCombinedEquipmentLineChartData(values);
+        
+        let names = Array();
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
+        });
+        setCombinedEquipmentLineChartOptions(names);
+       
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
-        setParameterLineChartOptions([
-          { value: 'a0', label: '室外温度' },
-          { value: 'a1', label: '相对湿度' },
-          { value: 'a2', label: '电费率' },
-          { value: 'a3', label: '自来水费率' },
-          { value: 'a4', label: '天然气费率' }
-        ]);
-
-        setDetailedDataTableData([
-          {
-            id: 1,
-            startdatetime: '2020-07-01',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 2,
-            startdatetime: '2020-07-02',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 3,
-            startdatetime: '2020-07-03',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 4,
-            startdatetime: '2020-07-04',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 5,
-            startdatetime: '2020-07-05',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 6,
-            startdatetime: '2020-07-06',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 7,
-            startdatetime: '2020-07-07',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 8,
-            startdatetime: '2020-07-08',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 9,
-            startdatetime: '2020-07-09',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 10,
-            startdatetime: '2020-07-10',
-            a0: '9872',
-            a1: '3457',
-            a2: '567',
-            a3: '567',
-          },
-          {
-            id: 11,
-            startdatetime: t('Total'),
-            a0: '98720',
-            a1: '34570',
-            a2: '5670',
-            a3: '5670',
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+      
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          if (currentValue.startsWith('TARIFF-')) {
+            currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
           }
-        ]);
+          
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+        
+        let detailed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          json['reporting_period']['values_saving'].forEach((currentValue, energyCategoryIndex) => {
+            detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values_saving'][energyCategoryIndex][timestampIndex].toFixed(2);
+          });
+          detailed_value_list.push(detailed_value);
+        });
 
-        setDetailedDataTableColumns([
-          {
-            dataField: 'startdatetime',
-            text: t('Datetime'),
+        let detailed_value = {};
+        detailed_value['id'] = detailed_value_list.length;
+        detailed_value['startdatetime'] = t('Subtotal');
+        json['reporting_period']['subtotals_saving'].forEach((currentValue, index) => {
+            detailed_value['a' + index] = currentValue.toFixed(2);
+          });
+        detailed_value_list.push(detailed_value);
+        setDetailedDataTableData(detailed_value_list);
+        
+        let detailed_column_list = [];
+        detailed_column_list.push({
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        })
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          detailed_column_list.push({
+            dataField: 'a' + index,
+            text: currentValue + ' (' + unit + ')',
             sort: true
-          }, {
-            dataField: 'a',
-            text: '节约电 (kWh)',
-            sort: true
-          }, {
-            dataField: 'b',
-            text: '节约自来水 (M3)',
-            sort: true
-          }, {
-            dataField: 'c',
-            text: '节约天然气 (M3)',
-            sort: true
-          }, {
-            dataField: 'd',
-            text: '减少二氧化碳排放 (T)',
-            sort: true
-          }
-        ]);
+          })
+        });
+        setDetailedDataTableColumns(detailed_column_list);
       } else {
         toast.error(json.description)
       }
@@ -615,25 +567,26 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success"  >
-          <CountUp end={764.39} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="info" >
-          <CountUp end={878} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="info" >
-          <CountUp end={87} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        {cardSummaryList.map(cardSummaryItem => (
+          <CardSummary key={cardSummaryItem['name']}
+            rate={cardSummaryItem['increment_rate']}
+            title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" >
+            {cardSummaryItem['subtotal'] && <CountUp end={cardSummaryItem['subtotal']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        ))}
+       
+        <CardSummary 
+          rate={totalInTCE['increment_rate'] || ''} 
+          title={t('Reporting Period Savings CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
           color="warning" >
-          <CountUp end={764.39 / 8135.56 + 87 / 751.8} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          {totalInTCE['value'] && <CountUp end={totalInTCE['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
-        <CardSummary rate="+9.54%" title={t('Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+        <CardSummary 
+          rate={totalInTCO2E['increment_rate'] || ''} 
+          title={t('Reporting Period Decreased CATEGORY (Baseline - Actual) UNIT', { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(TCO2E)' })}
           color="warning" >
-          <CountUp end={(764.39 / 8135.56 + 87 / 751.8) * 0.67} duration={2} prefix="" separator="," decimals={2} decimal="." />
+          {totalInTCO2E['value'] && <CountUp end={totalInTCO2E['value']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
         </CardSummary>
       </div>
       <Row noGutters>
@@ -641,11 +594,11 @@ const CombinedEquipmentSaving = ({ setRedirect, setRedirectUrl, t }) => {
           <SharePie data={TCEShareData} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={CO2ShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
+          <SharePie data={TCO2EShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
-      <LineChart reportingTitle={t('Reporting Period Savings CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 764.39, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Savings CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 684.87, 'UNIT': '(kWh)' })}
+      <LineChart reportingTitle={t('Reporting Period Savings CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+        baseTitle=''
         labels={combinedEquipmentLineChartLabels}
         data={combinedEquipmentLineChartData}
         options={combinedEquipmentLineChartOptions}>
