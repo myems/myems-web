@@ -235,6 +235,7 @@ const resources = {
       "Realtime Value": "Realtime Value",
       //Meter Tracking
       "Meter List": "Meter List",
+      "Edit Meter": "Edit",
       //Profile Dropdown
       "Feedback": "Feedback",
       "Account Settings": "Account Settings",
@@ -551,6 +552,7 @@ const resources = {
       "Realtime Value": "Echtzeitwert",
       //Meter Tracking
       "Meter List": "Zählerliste",
+      "Edit Meter": "Meter bearbeiten",
       //Profile Dropdown
       "Feedback": "Feedback",
       "Account Settings": "Kontoeinstellungen",
@@ -870,6 +872,7 @@ const resources = {
       "Realtime Value": "实时值",
       //Meter Tracking
       "Meter List": "计量表列表",
+      "Edit Meter": "编辑计量表",
       //Profile Dropdown
       "Feedback": "反馈",
       "Account Settings": "账号设置",
