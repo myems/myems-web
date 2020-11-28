@@ -94,7 +94,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
   const nameFormatter = (dataField, { name }) => (
-    <Link to="/pages/customer-details">
+    <Link to='#'>
       <Media tag={Flex} align="center">
         <Media body className="ml-2">
           <h5 className="mb-0 fs--1">{name}</h5>
@@ -105,13 +105,13 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   const actionFormatter = (dataField, { id }) => (
     // Control your row with this id
+    // todo: add edit meter function
     <UncontrolledDropdown>
       <DropdownToggle color="link" size="sm" className="text-600 btn-reveal mr-3">
         <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
       </DropdownToggle>
       <DropdownMenu right className="border py-2">
-        <DropdownItem onClick={() => console.log('Edit: ', id)}>Edit</DropdownItem>
-        <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">Delete</DropdownItem>
+        <DropdownItem onClick={() => console.log('Edit: ', id)}>{t('Edit Meter')}</DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>
   );
