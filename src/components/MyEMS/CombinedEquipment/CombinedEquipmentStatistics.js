@@ -592,7 +592,7 @@ const CombinedEquipmentStatistics = ({ setRedirect, setRedirectUrl, t }) => {
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={50} >
       </DetailedDataTable>
 
     </Fragment>

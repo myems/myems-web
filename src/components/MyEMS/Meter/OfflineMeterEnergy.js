@@ -313,26 +313,16 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setBasePeriodEnergyConsumptionInCategory(json['base_period']['total_in_category']);
 
         let names = Array();
-        [json['offline_meter']['energy_category_name'], '吨标准煤', '二氧化碳排放'].forEach((currentValue, index) => {
-          names.push({ 'value': 'a' + index, 'label': currentValue });
-        });
+        names.push({ 'value': 'a0', 'label': json['offline_meter']['energy_category_name'] });
         setOfflineMeterLineChartOptions(names);
         
         let timestamps = {}
-        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
-          timestamps['a' + index] = currentValue;
-        });
+        timestamps['a0'] = json['reporting_period']['timestamps'];
         setOfflineMeterLineChartLabels(timestamps);
 
-        let values = {'a0':[], 'a1':[], 'a2':[]}
-        json['reporting_period']['values'][2].forEach((currentValue, index) => {
+        let values = {'a0':[]}
+        json['reporting_period']['values'].forEach((currentValue, index) => {
           values['a0'][index] = currentValue.toFixed(2);
-        });
-        json['reporting_period']['values'][1].forEach((currentValue, index) => {
-          values['a1'][index] = (currentValue / 1000).toFixed(2);
-        });
-        json['reporting_period']['values'][2].forEach((currentValue, index) => {
-          values['a2'][index] = (currentValue / 1000).toFixed(2);
         });
         setOfflineMeterLineChartData(values)
 
@@ -362,36 +352,23 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
           dataField: 'a0',
           text: json['offline_meter']['energy_category_name'] + ' (' + json['offline_meter']['unit_of_measure'] + ')',
           sort: true
-        }, {
-          dataField: 'a1',
-          text: '吨标准煤 (TCE)',
-          sort: true
-        }, {
-          dataField: 'a2',
-          text: '二氧化碳排放 (T)',
-          sort: true
         }]);
 
-        let detial_value_list = [];
-
-        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
-          let detial_value = {};
-          detial_value['id'] = index;
-          detial_value['startdatetime'] = currentValue;
-          detial_value['a0'] = json['reporting_period']['values'][0][index].toFixed(2);
-          detial_value['a1'] = (json['reporting_period']['values'][1][index] / 1000).toFixed(2);
-          detial_value['a2'] = (json['reporting_period']['values'][2][index] / 1000).toFixed(2);
-          detial_value_list.push(detial_value);
+        let detailed_value_list = [];
+        json['reporting_period']['timestamps'].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          detailed_value['a0'] = json['reporting_period']['values'][timestampIndex].toFixed(2);
+          detailed_value_list.push(detailed_value);
         });
-        let detial_value = {};
-        detial_value['id'] = detial_value_list.length;
-        detial_value['startdatetime'] = t('Total');
-        detial_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
-        detial_value['a1'] = (json['reporting_period']['total_in_kgce'] / 1000).toFixed(2);
-        detial_value['a2'] = (json['reporting_period']['total_in_kgco2e'] / 1000).toFixed(2);
-        detial_value_list.push(detial_value);
-        setDetailedDataTableData(detial_value_list);
-
+        
+        let detailed_value = {};
+        detailed_value['id'] = detailed_value_list.length;
+        detailed_value['startdatetime'] = t('Total');
+        detailed_value['a0'] = json['reporting_period']['total_in_category'].toFixed(2);
+        detailed_value_list.push(detailed_value);
+        setDetailedDataTableData(detailed_value_list);
       } else {
         toast.error(json.description)
       }
@@ -563,7 +540,7 @@ const OfflineMeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         options={parameterLineChartOptions}>
       </LineChart>
       <br />
-      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={31} >
+      <DetailedDataTable data={detailedDataTableData} title={t('Detailed Data')} columns={detailedDataTableColumns} pagesize={50} >
       </DetailedDataTable>
 
     </Fragment>
