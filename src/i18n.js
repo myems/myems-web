@@ -695,7 +695,7 @@ const resources = {
       "Shopfloor Equipments": "车间设备",
       // Dashboard
       "Welcome to MyEMS": '欢迎使用MyEMS',
-      "An Industry Leading Open Source Energy Management System": "业界领先的开源能源管理系统",
+      "An Industry Leading Open Source Energy Management System": "行业领先的开源能源管理系统",
       "Costs by Energy Category": "成本占比",
       "Incomes by Energy Category": "收入占比",
       "Electricity Consumption by Time-Of-Use": "分时消耗电量",
