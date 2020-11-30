@@ -89,8 +89,22 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     setSelectedSpaceID(value[value.length - 1]);
 
+  }
+
+  const handleNextPage = ({ page, onPageChange }) => () => {
+    onPageChange(page + 1);
+  };
+
+  const handlePrevPage = ({ page, onPageChange }) => () => {
+    onPageChange(page - 1);
+  };
+
+  // Handler
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('handleSubmit');
     let isResponseOK = false;
-    fetch(APIBaseURL + '/spaces/' + value[value.length - 1] + '/meters', {
+    fetch(APIBaseURL + '/spaces/' + selectedSpaceID + '/meters', {
       method: 'GET',
       headers: {
         "Content-type": "application/json",
@@ -108,27 +122,19 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json)
-        setMeterList(json[0]);
+        setMeterList([{'id': 11, 'name': 'CW_TOTA_M01_001'},
+          {'id': 12, 'name': 'CW_TOTA_M01_002'},
+          {'id': 13, 'name': 'CW_TOTA_M01_003'},
+          {'id': 14, 'name': 'CW_TOTA_M01_004'},
+          {'id': 15, 'name': 'CW_TOTA_M01_005'},
+          {'id': 16, 'name': 'CW_TOTA_M01_006'},
+        ]);
       } else {
         toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
-  }
-
-  const handleNextPage = ({ page, onPageChange }) => () => {
-    onPageChange(page + 1);
-  };
-
-  const handlePrevPage = ({ page, onPageChange }) => () => {
-    onPageChange(page - 1);
-  };
-
-  // Handler
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit');
   };
 
   return (
@@ -170,24 +176,11 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
         </CardBody>
       </Card>
       <Row noGutters>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'CW_TOTA_M01_001'} />
-        </Col>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'EL_P1PR_D13_003'} />
-        </Col>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'EL_P2PR_D24_003'} />
-        </Col>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'EL_P1OF_D15_005'} />
-        </Col>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'EL_P3HP_D40_005'} />
-        </Col>
-        <Col lg="3" className="pr-lg-2">
-          <RealtimeChart title={'AP_P1AC_D12_003'} />
-        </Col>
+        {meterList.map(meterItem => (
+          <Col lg="3" className="pr-lg-2" key={meterItem['id']}>
+            <RealtimeChart title={meterItem['name']} />
+          </Col>
+        ))}
       </Row>
     </Fragment>
   );

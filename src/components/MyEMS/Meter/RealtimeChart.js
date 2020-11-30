@@ -60,7 +60,6 @@ const chartOptions = {
 };
 
 class RealtimeChart extends Component {
-  _isMounted = false;
   refreshInterval;
   refreshTimeout;
   state = {
@@ -72,40 +71,38 @@ class RealtimeChart extends Component {
         {
           label: 'Users',
           backgroundColor: rgbaColor('#fff', 0.3),
-          data: []
+          //data: []
         }
       ]
-    }
+    },
+    pointList: [{'id': 1231, 'name': '电流a (A)', 'value': 18.098},
+        {'id': 1232, 'name': '电流b (A)', 'value': 15.001},
+        {'id': 1233, 'name': '电流c (A)', 'value': 16.257},
+        {'id': 1234, 'name': '有功瞬时功率 a (kW)', 'value': 25.98},
+        {'id': 1235, 'name': '有功瞬时功率 b (kW)', 'value': 21.76},
+        {'id': 1236, 'name': '有功瞬时功率 c (kW)', 'value': 29.12},
+      ],
   };
-
-  simulate = () => {
-    this.refreshInterval = setInterval(() => {
-      const currentEnergyValue = this.state.currentEnergyValue + Math.floor(Math.random() * (120 - 60) + 60);
-      const energyTrendLog = [...this.state.energyTrendLog];
-      energyTrendLog.shift();
-      if (this._isMounted) {
-        this.setState({ energyTrendLog }, () => {
-          this.refreshTimeout = setTimeout(() => {
-            const energyTrendLog = [...this.state.energyTrendLog];
-            energyTrendLog.push(currentEnergyValue);
-            if (this._isMounted) {
-              this.setState({ energyTrendLog, currentEnergyValue });
-            }
-          }, 500);
-        });
-      }
-    }, 2000);
-  };
-
-  componentDidMount() {
-    this._isMounted = true;
-    this.simulate();
-  }
 
   componentWillUnmount() {
-    this._isMounted = false;
     clearInterval(this.refreshInterval);
     clearTimeout(this.refreshTimeout);
+  }
+
+  componentDidMount() {
+    this.refreshInterval = setInterval(() => {
+      const currentEnergyValue = this.state.currentEnergyValue + Math.floor(Math.random() * (120 - 60) + 60);
+      
+      const energyTrendLog = [...this.state.energyTrendLog];
+      energyTrendLog.shift();
+      this.setState({ energyTrendLog }, () => {
+        this.refreshTimeout = setTimeout(() => {
+          const energyTrendLog = [...this.state.energyTrendLog];
+          energyTrendLog.push(currentEnergyValue);
+          this.setState({ energyTrendLog, currentEnergyValue });
+        }, 500);
+      });
+    }, 1 * 1000);
   }
 
   render() {
@@ -132,6 +129,7 @@ class RealtimeChart extends Component {
           </p>
           <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">
+          
             <ListGroupItem
               className="bg-transparent d-flex justify-content-between px-0 py-1 font-weight-semi-bold border-top-0"
               style={{ borderColor: listItemBorderColor }}
@@ -139,48 +137,15 @@ class RealtimeChart extends Component {
               <p className="mb-0">{t('Related Parameters')}</p>
               <p className="mb-0">{t('Realtime Value')}</p>
             </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流a (A)</p>
-              <p className="mb-0">18.098</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流b (A)</p>
-              <p className="mb-0">15.001</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-xxl-flex justify-content-between px-0 py-1 d-none"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流c (A)</p>
-              <p className="mb-0">16.257</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-xxl-flex justify-content-between px-0 py-1 d-none"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 a (kW)</p>
-              <p className="mb-0">25.98</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 b (kW)</p>
-              <p className="mb-0">21.76</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 c (kW)</p>
-              <p className="mb-0">29.12</p>
-            </ListGroupItem>
+            {this.state.pointList.map(pointItem => (
+              <ListGroupItem key={pointItem['id']}
+                className="bg-transparent d-flex justify-content-between px-0 py-1"
+                style={{ borderColor: listItemBorderColor }}
+              >
+                <p className="mb-0">{pointItem['name']}</p>
+                <p className="mb-0">{pointItem['value']}</p>
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </CardBody>
       </Card>
