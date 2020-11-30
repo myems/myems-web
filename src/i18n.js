@@ -30,7 +30,6 @@ const resources = {
       "Statistics": "Statistics",
       "Saving": "Saving",
       "Equipment Tracking": "Equipment Tracking",
-      "Equipment List": "Equipment List",
       "Meter Energy": "Meter Energy",
       "Meter Cost": "Meter Cost",
       "Meter Trend": "Meter Trend",
@@ -236,6 +235,9 @@ const resources = {
       //Meter Tracking
       "Meter List": "Meter List",
       "Edit Meter": "Edit",
+      //Equipment Tracking
+      "Equipment List": "Equipment List",
+      "Edit Equipment": "Edit",
       //Profile Dropdown
       "Feedback": "Feedback",
       "Account Settings": "Account Settings",
@@ -347,7 +349,6 @@ const resources = {
       "Statistics": "Statistiken",
       "Saving": "Sparen",
       "Equipment Tracking": "Ausrüstung Datei",
-      "Equipment List": "Ausrüstungsliste",
       "Meter Energy": "Messgeräts Energie ",
       "Meter Cost": "Messgeräts Kosten",
       "Meter Trend": "Messgeräts Trend",
@@ -552,7 +553,10 @@ const resources = {
       "Realtime Value": "Echtzeitwert",
       //Meter Tracking
       "Meter List": "Zählerliste",
-      "Edit Meter": "Meter bearbeiten",
+      "Edit Meter": "bearbeiten",
+      //Equipment Tracking
+      "Equipment List": "Ausrüstungsliste",
+      "Edit Equipment": "bearbeiten",
       //Profile Dropdown
       "Feedback": "Feedback",
       "Account Settings": "Kontoeinstellungen",
@@ -667,7 +671,6 @@ const resources = {
       "Statistics": "统计分析",
       "Saving": "节能分析",
       "Equipment Tracking": "设备台账",
-      "Equipment List": "设备列表",
       "Meter Energy": "计量表能耗分析",
       "Meter Cost": "计量表成本分析",
       "Meter Trend": "计量表趋势分析",
@@ -872,7 +875,10 @@ const resources = {
       "Realtime Value": "实时值",
       //Meter Tracking
       "Meter List": "计量表列表",
-      "Edit Meter": "编辑计量表",
+      "Edit Meter": "编辑",
+      //Equipment Tracking
+      "Equipment List": "设备列表",
+      "Edit Equipment": "编辑",
       //Profile Dropdown
       "Feedback": "反馈",
       "Account Settings": "账号设置",
