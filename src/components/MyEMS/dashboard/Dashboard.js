@@ -11,7 +11,7 @@ import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import { APIBaseURL } from '../../../config';
-
+import uuid from 'uuid/v1';
 
 const ChildSpacesTable = loadable(() => import('../common/ChildSpacesTable'));
 
@@ -333,7 +333,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
           json['child_space_cost']['energy_category_names'].forEach((currentValue, index) => {
             let unit = json['child_space_cost']['units'][index];
             child_space_column_list.push({
-              dataField: 'a' + index,
+              dataField: 'b' + index,
               text: currentValue + ' (' + unit + ')',
               sort: true
             });
@@ -352,7 +352,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
     <Fragment>
       <div className="card-deck">
       {inputCardSummaryList.map(cardSummaryItem => (
-          <CardSummary key={cardSummaryItem['name']}
+          <CardSummary key={uuid()}
             rate={cardSummaryItem['increment_rate']}
             title={t("This Month's Consumption CATEGORY VALUE UNIT", { 'CATEGORY': cardSummaryItem['name'], 'VALUE': null, 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
             color="success" 
@@ -363,7 +363,7 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
           </CardSummary>
         ))}
         {costCardSummaryList.map(cardSummaryItem => (
-          <CardSummary key={cardSummaryItem['name']}
+          <CardSummary key={uuid()}
             rate={cardSummaryItem['increment_rate']}
             title={t("This Month's Costs CATEGORY VALUE UNIT", { 'CATEGORY': cardSummaryItem['name'], 'VALUE': null, 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
             color="success" 
