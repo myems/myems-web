@@ -69,6 +69,7 @@ const ShopfloorStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [isDisabled, setIsDisabled] = useState(true);
   //Results
+  const [cardSummaryList, setCardSummaryList] = useState([]);
   const [shopfloorLineChartLabels, setShopfloorLineChartLabels] = useState([]);
   const [shopfloorLineChartData, setShopfloorLineChartData] = useState({});
   const [shopfloorLineChartOptions, setShopfloorLineChartOptions] = useState([]);
@@ -297,164 +298,109 @@ const ShopfloorStatistics = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json)
 
-        setShopfloorLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        let cardSummaryArray = []
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let cardSummaryItem = {}
+          cardSummaryItem['name'] = json['reporting_period']['names'][index];
+          cardSummaryItem['unit'] = json['reporting_period']['units'][index];
+          cardSummaryItem['mean'] = json['reporting_period']['means'][index];
+          cardSummaryItem['mean_increment_rate'] = parseFloat(json['reporting_period']['means_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['mean_per_unit_area'] = json['reporting_period']['means_per_unit_area'][index];
+          cardSummaryItem['median'] = json['reporting_period']['medians'][index];
+          cardSummaryItem['median_increment_rate'] = parseFloat(json['reporting_period']['medians_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['median_per_unit_area'] = json['reporting_period']['medians_per_unit_area'][index];
+          cardSummaryItem['minimum'] = json['reporting_period']['minimums'][index];
+          cardSummaryItem['minimum_increment_rate'] = parseFloat(json['reporting_period']['minimums_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['minimum_per_unit_area'] = json['reporting_period']['minimums_per_unit_area'][index];
+          cardSummaryItem['maximum'] = json['reporting_period']['maximums'][index];
+          cardSummaryItem['maximum_increment_rate'] = parseFloat(json['reporting_period']['maximums_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['maximum_per_unit_area'] = json['reporting_period']['maximums_per_unit_area'][index];
+          cardSummaryItem['stdev'] = json['reporting_period']['stdevs'][index];
+          cardSummaryItem['stdev_increment_rate'] = parseFloat(json['reporting_period']['stdevs_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['stdev_per_unit_area'] = json['reporting_period']['stdevs_per_unit_area'][index];
+          cardSummaryItem['variance'] = json['reporting_period']['variances'][index];
+          cardSummaryItem['variance_increment_rate'] = parseFloat(json['reporting_period']['variances_increment_rate'][index] * 100).toFixed(2) + "%";
+          cardSummaryItem['variance_per_unit_area'] = json['reporting_period']['variances_per_unit_area'][index];          
+          cardSummaryArray.push(cardSummaryItem);
         });
+        setCardSummaryList(cardSummaryArray);
 
-        setShopfloorLineChartData({
-          a0: [4, 1, 6, 2, 7, 12, 4, 6, 5, 4, 5, 10],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        let timestamps = {}
+        json['reporting_period']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
         });
-
-        setShopfloorLineChartOptions([
-          { value: 'a0', label: '电' },
-          { value: 'a1', label: '自来水' },
-          { value: 'a2', label: '天然气' },
-          { value: 'a3', label: '二氧化碳排放' }
-        ]);
-
-        setParameterLineChartLabels({
-          a0: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a1: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a2: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
-          a3: ['2020-07-01','2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09','2020-07-10','2020-07-11','2020-07-12'],
+        setShopfloorLineChartLabels(timestamps);
+        
+        let values = {}
+        json['reporting_period']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
         });
-
-        setParameterLineChartData({
-          a0: [40, 31, 36, 32, 27, 32, 34, 26, 25, 24, 25, 30],
-          a1: [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8],
-          a2: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a3: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2],
-          a4: [1, 0, 2, 1, 2, 1, 1, 0, 0, 1, 0, 2]
+        setShopfloorLineChartData(values);
+        
+        let names = Array();
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
         });
+        setShopfloorLineChartOptions(names);
+      
+        timestamps = {}
+        json['parameters']['timestamps'].forEach((currentValue, index) => {
+          timestamps['a' + index] = currentValue;
+        });
+        setParameterLineChartLabels(timestamps);
 
-        setParameterLineChartOptions([
-          { value: 'a0', label: '室外温度' },
-          { value: 'a1', label: '相对湿度' },
-          { value: 'a2', label: '电费率' },
-          { value: 'a3', label: '自来水费率' },
-          { value: 'a4', label: '天然气费率' }
-        ]);
-
-        setDetailedDataTableData([
-          {
-            id: 1,
-            startdatetime: '2020-07-01',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 2,
-            startdatetime: '2020-07-02',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 3,
-            startdatetime: '2020-07-03',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 4,
-            startdatetime: '2020-07-04',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 5,
-            startdatetime: '2020-07-05',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 6,
-            startdatetime: '2020-07-06',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 7,
-            startdatetime: '2020-07-07',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 8,
-            startdatetime: '2020-07-08',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 9,
-            startdatetime: '2020-07-09',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 10,
-            startdatetime: '2020-07-10',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
-          },
-          {
-            id: 11,
-            startdatetime: '总平均值',
-            a: '9872',
-            b: '3457',
-            c: '567',
-            d: '567',
+        values = {}
+        json['parameters']['values'].forEach((currentValue, index) => {
+          values['a' + index] = currentValue;
+        });
+        setParameterLineChartData(values);
+      
+        names = Array();
+        json['parameters']['names'].forEach((currentValue, index) => {
+          if (currentValue.startsWith('TARIFF-')) {
+            currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
           }
-        ]);
+          
+          names.push({ 'value': 'a' + index, 'label': currentValue });
+        });
+        setParameterLineChartOptions(names);
+      
+        let detailed_value_list = [];
+        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+          let detailed_value = {};
+          detailed_value['id'] = timestampIndex;
+          detailed_value['startdatetime'] = currentTimestamp;
+          json['reporting_period']['values'].forEach((currentValue, energyCategoryIndex) => {
+            detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+          });
+          detailed_value_list.push(detailed_value);
+        });
 
-        setDetailedDataTableColumns([
-          {
-            dataField: 'startdatetime',
-            text: t('Datetime'),
+        let detailed_value = {};
+        detailed_value['id'] = detailed_value_list.length;
+        detailed_value['startdatetime'] = t('Subtotal');
+        json['reporting_period']['subtotals'].forEach((currentValue, index) => {
+            detailed_value['a' + index] = currentValue.toFixed(2);
+          });
+        detailed_value_list.push(detailed_value);
+        setDetailedDataTableData(detailed_value_list);
+        
+        let detailed_column_list = [];
+        detailed_column_list.push({
+          dataField: 'startdatetime',
+          text: t('Datetime'),
+          sort: true
+        })
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let unit = json['reporting_period']['units'][index];
+          detailed_column_list.push({
+            dataField: 'a' + index,
+            text: currentValue + ' (' + unit + ')',
             sort: true
-          }, {
-            dataField: 'a',
-            text: '电平均值(kWh)',
-            sort: true
-          }, {
-            dataField: 'b',
-            text: '自来水平均值(M3)',
-            sort: true
-          }, {
-            dataField: 'c',
-            text: '天然气平均值(M3)',
-            sort: true
-          }, {
-            dataField: 'd',
-            text: '二氧化碳排放平均值(T)',
-            sort: true
-          }
-        ]);
+          })
+        });
+        setDetailedDataTableColumns(detailed_column_list);
       } else {
         toast.error(json.description)
       }
@@ -598,50 +544,66 @@ const ShopfloorStatistics = ({ setRedirect, setRedirectUrl, t }) => {
           </Form>
         </CardBody>
       </Card>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="warning" footnote={t('Per Unit Production')} footvalue={863 / 1000} footunit="(kWh/PC)" >
-          <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="success" footnote={t('Per Unit Production')} footvalue={278 / 1000} footunit="(kWh/PC)" >
-          <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '电', 'UNIT': '(kWh)' })}
-          color="info" footnote={t('Per Unit Production')} footvalue={587 / 1000} footunit="(kWh/PC)" >
-          <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="warning" footnote={t('Per Unit Production')} footvalue={863 / 1000} footunit="(M3/PC)" >
-          <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="success" footnote={t('Per Unit Production')} footvalue={278 / 1000} footunit="(M3/PC)" >
-          <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '自来水', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Production')} footvalue={587 / 1000} footunit="(M3/PC)" >
-          <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <div className="card-deck">
-        <CardSummary rate="-0.23%" title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="warning" footnote={t('Per Unit Production')} footvalue={863 / 1000} footunit="(M3/PC)" >
-          <CountUp end={863} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="success" footnote={t('Per Unit Production')} footvalue={278 / 1000} footunit="(M3/PC)" >
-          <CountUp end={278} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-        <CardSummary rate="0.0%" title={t('Reporting Period CATEGORY Average UNIT', { 'CATEGORY': '天然气', 'UNIT': '(M3)' })}
-          color="info" footnote={t('Per Unit Production')} footvalue={587 / 1000} footunit="(M3/PC)" >
-          <CountUp end={587} duration={2} prefix="" separator="," decimals={2} decimal="." />
-        </CardSummary>
-      </div>
-      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 98720, 'UNIT': '(kWh)' })}
-        baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': '电', 'VALUE': 68487, 'UNIT': '(kWh)' })}
+      {cardSummaryList.map(cardSummaryItem => (
+        <div className="card-deck" key={cardSummaryItem['name']}>
+          <CardSummary key={cardSummaryItem['name'] + 'mean'}
+            rate={cardSummaryItem['mean_increment_rate']}
+            title={t('Reporting Period CATEGORY Mean UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['mean_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['mean'] && <CountUp end={cardSummaryItem['mean']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'median'}
+            rate={cardSummaryItem['median_increment_rate']}
+            title={t('Reporting Period CATEGORY Median UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['median_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['median'] && <CountUp end={cardSummaryItem['median']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'minimum'}
+            rate={cardSummaryItem['minimum_increment_rate']}
+            title={t('Reporting Period CATEGORY Minimum UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['minimum_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['minimum'] && <CountUp end={cardSummaryItem['minimum']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'maximum'}
+            rate={cardSummaryItem['maximum_increment_rate']}
+            title={t('Reporting Period CATEGORY Maximum UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['maximum_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['maximum'] && <CountUp end={cardSummaryItem['maximum']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'stdev'}
+            rate={cardSummaryItem['stdev_increment_rate']}
+            title={t('Reporting Period CATEGORY Stdev UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success" 
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['stdev_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['stdev'] && <CountUp end={cardSummaryItem['stdev']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+          <CardSummary key={cardSummaryItem['name'] + 'variance'}
+            rate={cardSummaryItem['variance_increment_rate']}
+            title={t('Reporting Period CATEGORY Variance UNIT', { 'CATEGORY': cardSummaryItem['name'], 'UNIT': '(' + cardSummaryItem['unit'] + ')' })}
+            color="success"
+            footnote={t('Per Unit Area')} 
+            footvalue={cardSummaryItem['variance_per_unit_area']}
+            footunit={"(" + cardSummaryItem['unit'] + "/M²)"} >
+            {cardSummaryItem['variance'] && <CountUp end={cardSummaryItem['variance']} duration={2} prefix="" separator="," decimal="." decimals={2} />}
+          </CardSummary>
+        </div>
+      ))}
+      <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+        baseTitle=''
         labels={shopfloorLineChartLabels}
         data={shopfloorLineChartData}
         options={shopfloorLineChartOptions}>
