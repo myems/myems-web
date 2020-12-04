@@ -230,7 +230,7 @@ const resources = {
       "Off-Peak": "Off-Peak",
       "Percentage": "Percentage",
       //Realtime Chart
-      "Realtime Value of Energy Value Point UNIT": "Realtime Value of Energy Value Point {{UNIT}}",
+      "Trend in the last hour of Energy Value Point (UNIT)": "Trend in the last hour of Energy Value Point (UNIT) {{UNIT}}",
       "Realtime Value": "Realtime Value",
       //Meter Tracking
       "Meter List": "Meter List",
@@ -549,7 +549,7 @@ const resources = {
       "Off-Peak": "Off-Peak",
       "Percentage": "Prozentsatz",
       //Realtime Chart
-      "Realtime Value of Energy Value Point UNIT": "Echtzeitwert des Energiewertpunkts {{UNIT}}",
+      "Trend in the last hour of Energy Value Point (UNIT)": "Trend in der letzten Stunde des Energiewertpunkts ({{UNIT}})",
       "Realtime Value": "Echtzeitwert",
       //Meter Tracking
       "Meter List": "Zählerliste",
@@ -871,7 +871,7 @@ const resources = {
       "Off-Peak": "谷",
       "Percentage": "百分比",
       //Realtime Chart
-      "Realtime Value of Energy Value Point UNIT": "能耗值点实时值 {{UNIT}}",
+      "Trend in the last hour of Energy Value Point (UNIT)": "能耗值点最近一小时趋势 ({{UNIT}})",
       "Realtime Value": "实时值",
       //Meter Tracking
       "Meter List": "计量表列表",

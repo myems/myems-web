@@ -4,34 +4,13 @@ import range from 'lodash/range';
 import { Card, CardHeader, CardBody, ListGroup, ListGroupItem } from 'reactstrap';
 import { rgbaColor } from '../../../helpers/utils';
 import { withTranslation } from 'react-i18next';
+import uuid from 'uuid/v1';
+import { APIBaseURL } from '../../../config';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import { toast } from 'react-toastify';
 
 
-const energyTrendLog = [
-  11183,
-  12116,
-  13176,
-  14172,
-  15166,
-  16161,
-  17164,
-  18159,
-  19172,
-  20173,
-  21184,
-  22163,
-  23099,
-  24173,
-  25183,
-  26167,
-  27160,
-  28183,
-  29163,
-  30176,
-  31172,
-  32166,
-  33173,
-  34188,
-  35175
+const trendLog = [
 ];
 const dividerBorder = '1px solid rgba(255, 255, 255, 0.15)';
 const listItemBorderColor = 'rgba(255, 255, 255, 0.05)';
@@ -60,49 +39,133 @@ const chartOptions = {
 };
 
 class RealtimeChart extends Component {
+  _isMounted = false;
   refreshInterval;
   refreshTimeout;
   state = {
-    energyTrendLog,
-    currentEnergyValue: energyTrendLog[energyTrendLog.length - 1],
+    trendLog,
+    currentEnergyValue: trendLog[trendLog.length - 1],
     chartData: {
-      labels: range(1, 26),
+      labels: range(1, 60),
       datasets: [
         {
           label: 'Users',
           backgroundColor: rgbaColor('#fff', 0.3),
-          //data: []
         }
       ]
     },
-    pointList: [{'id': 1231, 'name': '电流a (A)', 'value': 18.098},
-        {'id': 1232, 'name': '电流b (A)', 'value': 15.001},
-        {'id': 1233, 'name': '电流c (A)', 'value': 16.257},
-        {'id': 1234, 'name': '有功瞬时功率 a (kW)', 'value': 25.98},
-        {'id': 1235, 'name': '有功瞬时功率 b (kW)', 'value': 21.76},
-        {'id': 1236, 'name': '有功瞬时功率 c (kW)', 'value': 29.12},
-      ],
+    pointList: [],
   };
 
   componentWillUnmount() {
+    this._isMounted = false;
     clearInterval(this.refreshInterval);
     clearTimeout(this.refreshTimeout);
   }
 
   componentDidMount() {
+    this._isMounted = true;
+    // fetch meter realtime data at the first time
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/reports/meterrealtime?meterid=' + this.props.meterId, {
+      method: 'GET',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: null,
+
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+      }
+      return response.json();
+    }).then(json => {
+      if (isResponseOK) {
+        console.log(json);
+        const trendLog = json['energy_value']['values'];
+        const currentEnergyValue = undefined;
+        const pointList = [];
+        if (trendLog.length > 0) {
+          currentEnergyValue = trendLog[trendLog.length - 1];
+        }
+        json['parameters']['names'].forEach((currentName, index) => {
+          let pointItem = {}
+          pointItem['name'] = currentName;
+          pointItem['value'] = undefined;
+          let currentValues = json['parameters']['values'][index];
+          if (currentValues.length > 0) {
+            pointItem['value'] = currentValues[currentValues.length - 1];
+          }
+          pointList.push(pointItem);
+        });
+        if (this._isMounted) {
+          this.setState({ 
+            trendLog: trendLog, 
+            currentEnergyValue: currentEnergyValue,
+            pointList: pointList,
+          });
+        }
+        // todo
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+    //fetch meter realtime data at regular intervals
     this.refreshInterval = setInterval(() => {
-      const currentEnergyValue = this.state.currentEnergyValue + Math.floor(Math.random() * (120 - 60) + 60);
-      
-      const energyTrendLog = [...this.state.energyTrendLog];
-      energyTrendLog.shift();
-      this.setState({ energyTrendLog }, () => {
-        this.refreshTimeout = setTimeout(() => {
-          const energyTrendLog = [...this.state.energyTrendLog];
-          energyTrendLog.push(currentEnergyValue);
-          this.setState({ energyTrendLog, currentEnergyValue });
-        }, 500);
+      let isResponseOK = false;
+      fetch(APIBaseURL + '/reports/meterrealtime?meterid=' + this.props.meterId, {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "User-UUID": getCookieValue('user_uuid'),
+          "Token": getCookieValue('token')
+        },
+        body: null,
+
+      }).then(response => {
+        if (response.ok) {
+          isResponseOK = true;
+        }
+        return response.json();
+      }).then(json => {
+        if (isResponseOK) {
+          console.log(json);
+          const trendLog = json['energy_value']['values'];
+          const currentEnergyValue = undefined;
+          const pointList = [];
+          if (trendLog.length > 0) {
+            currentEnergyValue = trendLog[trendLog.length - 1];
+          }
+          json['parameters']['names'].forEach((currentName, index) => {
+            let pointItem = {}
+            pointItem['name'] = currentName;
+            pointItem['value'] = undefined;
+            let currentValues = json['parameters']['values'][index];
+            if (currentValues.length > 0) {
+              pointItem['value'] = currentValues[currentValues.length - 1];
+            }
+            pointList.push(pointItem);
+          });
+          if (this._isMounted) {
+            this.setState({ 
+              trendLog: trendLog, 
+              currentEnergyValue: currentEnergyValue,
+              pointList: pointList,
+            });
+          }
+          // todo
+        } else {
+          toast.error(json.description)
+        }
+      }).catch(err => {
+        console.log(err);
       });
-    }, 1 * 1000);
+    }, (60 + Math.floor(Math.random() * Math.floor(10))) * 1000); // use random interval to avoid paralels requests 
   }
 
   render() {
@@ -112,7 +175,7 @@ class RealtimeChart extends Component {
       datasets: [
         {
           ...this.state.chartData.datasets[0],
-          data: this.state.energyTrendLog
+          data: this.state.trendLog
         }
       ]
     };
@@ -120,12 +183,12 @@ class RealtimeChart extends Component {
     return (
       <Card className="h-100 bg-gradient">
         <CardHeader className="bg-transparent">
-          <h5 className="text-white">{this.props.title}</h5>
+          <h5 className="text-white">{this.props.meterName}</h5>
           <div className="real-time-user display-1 font-weight-normal text-white">{this.state.currentEnergyValue}</div>
         </CardHeader>
         <CardBody className="text-white fs--1">
           <p className="pb-2" style={{ borderBottom: dividerBorder }}>
-          {t('Realtime Value of Energy Value Point UNIT', {'UNIT': 'kWh'})}
+          {t('Trend in the last hour of Energy Value Point (UNIT)', {'UNIT': 'kWh'})}
           </p>
           <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">
@@ -138,7 +201,7 @@ class RealtimeChart extends Component {
               <p className="mb-0">{t('Realtime Value')}</p>
             </ListGroupItem>
             {this.state.pointList.map(pointItem => (
-              <ListGroupItem key={pointItem['id']}
+              <ListGroupItem key={uuid()}
                 className="bg-transparent d-flex justify-content-between px-0 py-1"
                 style={{ borderColor: listItemBorderColor }}
               >
