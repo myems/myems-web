@@ -53,12 +53,11 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   let table = createRef();
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
-  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
+    // begin of getting space tree
     let isResponseOK = false;
     fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
@@ -81,14 +80,55 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
+        // set the default selected space
         setSelectedSpaceName([json[0]].map(o => o.label));
-        setSelectedSpaceID([json[0]].map(o => o.value));
+        let selectedSpaceID = [json[0]].map(o => o.value);
+        // begin of gettting meter list
+        let isSecondResponseOK = false;
+        fetch(APIBaseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isSecondResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isSecondResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json)
+            let meters = [];
+            json[0].forEach((currentValue, index) => {
+              meters.push({
+                'key': index,
+                'id': currentValue['id'],
+                'name': currentValue['meter_name'],
+                'space': currentValue['space_name'],
+                'costcenter': currentValue['cost_center_name'],
+                'energycategory': currentValue['energy_category_name'],
+                'description': currentValue['description']});
+            });
+            setMeterList(meters);
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of getting meter list
       } else {
         toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
     });
+    // end of getting space tree
 
   }, []);
   const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
@@ -173,16 +213,9 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
-    setSelectedSpaceID(value[value.length - 1]);
-
-  }
-
-  // Handler
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit');
-
-    let isResponseOK = false;
+    let selectedSpaceID = value[value.length - 1];
+    // begin of gettting meter list
+    let isSecondResponseOK = false;
     fetch(APIBaseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
       method: 'GET',
       headers: {
@@ -194,11 +227,11 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
     }).then(response => {
       if (response.ok) {
-        isResponseOK = true;
+        isSecondResponseOK = true;
       }
       return response.json();
     }).then(json => {
-      if (isResponseOK) {
+      if (isSecondResponseOK) {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         console.log(json)
         let meters = [];
@@ -213,14 +246,14 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
             'description': currentValue['description']});
         });
         setMeterList(meters);
-        console.log(meters);
       } else {
         toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
-  };
+    // end of getting meter list
+  }
 
   return (
     <Fragment>
@@ -231,7 +264,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Form onSubmit={handleSubmit}>
+          <Form >
             <Row form>
               <Col xs="auto">
                 <FormGroup className="form-group">
@@ -245,15 +278,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
                     expandTrigger="hover">
                     <Input value={selectedSpaceName || ''} readOnly />
                   </Cascader>
-                </FormGroup>
-              </Col>
-
-              <Col xs="auto">
-                <FormGroup>
-                  <br></br>
-                  <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                  </ButtonGroup>
                 </FormGroup>
               </Col>
             </Row>
