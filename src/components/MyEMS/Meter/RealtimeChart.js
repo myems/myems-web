@@ -10,8 +10,6 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import { toast } from 'react-toastify';
 
 
-const trendLog = [
-];
 const dividerBorder = '1px solid rgba(255, 255, 255, 0.15)';
 const listItemBorderColor = 'rgba(255, 255, 255, 0.05)';
 
@@ -43,13 +41,13 @@ class RealtimeChart extends Component {
   refreshInterval;
   refreshTimeout;
   state = {
-    trendLog,
-    currentEnergyValue: trendLog[trendLog.length - 1],
+    trendLog: [],
+    currentEnergyValue: undefined,
     chartData: {
       labels: range(1, 60),
       datasets: [
         {
-          label: 'Users',
+          label: '',
           backgroundColor: rgbaColor('#fff', 0.3),
         }
       ]
@@ -84,9 +82,9 @@ class RealtimeChart extends Component {
     }).then(json => {
       if (isResponseOK) {
         console.log(json);
-        const trendLog = json['energy_value']['values'];
-        const currentEnergyValue = undefined;
-        const pointList = [];
+        let trendLog = json['energy_value']['values'];
+        let currentEnergyValue = undefined;
+        let pointList = [];
         if (trendLog.length > 0) {
           currentEnergyValue = trendLog[trendLog.length - 1];
         }
@@ -107,7 +105,6 @@ class RealtimeChart extends Component {
             pointList: pointList,
           });
         }
-        // todo
       } else {
         toast.error(json.description)
       }
@@ -135,9 +132,9 @@ class RealtimeChart extends Component {
       }).then(json => {
         if (isResponseOK) {
           console.log(json);
-          const trendLog = json['energy_value']['values'];
-          const currentEnergyValue = undefined;
-          const pointList = [];
+          let trendLog = json['energy_value']['values'];
+          let currentEnergyValue = undefined;
+          let pointList = [];
           if (trendLog.length > 0) {
             currentEnergyValue = trendLog[trendLog.length - 1];
           }
@@ -158,7 +155,6 @@ class RealtimeChart extends Component {
               pointList: pointList,
             });
           }
-          // todo
         } else {
           toast.error(json.description)
         }
