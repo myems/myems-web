@@ -26,12 +26,16 @@ refer to http://nginx.org/en/docs/install.html
   $ cd ~/myems-web
   $ sudo nano src/config.js
 ```
-  Build and install
-  Note that the path may be different in your server.
+  Build and Compress
 ```
   $ sudo npm run build
-  $ cd build
+  $ tar -czvf myems-web.tar.gz build
+```
+  Install
+  Upload the file myems-web.tar.gz to you web server. 
+  Note that the following path may be different in your server.
+```
+  $ tar xzf myems-web.tar.gz
   $ sudo rm -r /var/www/html/
-  $ sudo cp -r .  /var/www/html/
-  $ sudo chmod 0755 -R /var/www/html/
+  $ sudo cp -r build  /var/www/html/
 ```

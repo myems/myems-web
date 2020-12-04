@@ -18,6 +18,7 @@ import RealtimeChart from './RealtimeChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import uuid from 'uuid/v1';
 import { toast } from 'react-toastify';
 import { APIBaseURL } from '../../../config';
 
@@ -44,12 +45,11 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
   let table = createRef();
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
-  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
-  const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
+    //begin of getting space tree
     let isResponseOK = false;
     fetch(APIBaseURL + '/spaces/tree', {
       method: 'GET',
@@ -72,14 +72,44 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
         // rename keys 
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
+        // set the default space
         setSelectedSpaceName([json[0]].map(o => o.label));
-        setSelectedSpaceID([json[0]].map(o => o.value));
+        let selectedSpaceID = [json[0]].map(o => o.value)
+        //begin of getting meters of the default space
+        let isSecondResponseOK = false;
+        fetch(APIBaseURL + '/spaces/' + selectedSpaceID + '/meters', {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isSecondResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isSecondResponseOK) {
+              json = JSON.parse(JSON.stringify([json]));
+              console.log(json);
+              setMeterList(json[0]);
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        //end of getting meters of the default space
       } else {
         toast.error(json.description);
       }
     }).catch(err => {
       console.log(err);
     });
+    //end of getting space tree
 
   }, []);
 
@@ -87,22 +117,8 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
-    setSelectedSpaceID(value[value.length - 1]);
-
-  }
-
-  const handleNextPage = ({ page, onPageChange }) => () => {
-    onPageChange(page + 1);
-  };
-
-  const handlePrevPage = ({ page, onPageChange }) => () => {
-    onPageChange(page - 1);
-  };
-
-  // Handler
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit');
+    let selectedSpaceID = value[value.length - 1]
+    //begin of getting meters of the selected space
     let isResponseOK = false;
     fetch(APIBaseURL + '/spaces/' + selectedSpaceID + '/meters', {
       method: 'GET',
@@ -120,22 +136,17 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
       return response.json();
     }).then(json => {
       if (isResponseOK) {
-        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-        console.log(json)
-        setMeterList([{'id': 11, 'name': 'CW_TOTA_M01_001'},
-          {'id': 12, 'name': 'CW_TOTA_M01_002'},
-          {'id': 13, 'name': 'CW_TOTA_M01_003'},
-          {'id': 14, 'name': 'CW_TOTA_M01_004'},
-          {'id': 15, 'name': 'CW_TOTA_M01_005'},
-          {'id': 16, 'name': 'CW_TOTA_M01_006'},
-        ]);
+          json = JSON.parse(JSON.stringify([json]));
+          console.log(json);
+          setMeterList(json[0]);
       } else {
         toast.error(json.description)
       }
     }).catch(err => {
       console.log(err);
     });
-  };
+    //end of getting meters of the selected space
+  }
 
   return (
     <Fragment>
@@ -146,7 +157,7 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Form onSubmit={handleSubmit}>
+          <Form >
             <Row form>
               <Col xs="auto">
                 <FormGroup className="form-group">
@@ -162,23 +173,14 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
                   </Cascader>
                 </FormGroup>
               </Col>
-
-              <Col xs="auto">
-                <FormGroup>
-                  <br></br>
-                  <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                  </ButtonGroup>
-                </FormGroup>
-              </Col>
             </Row>
           </Form>
         </CardBody>
       </Card>
       <Row noGutters>
-        {meterList.map(meterItem => (
-          <Col lg="3" className="pr-lg-2" key={meterItem['id']}>
-            <RealtimeChart title={meterItem['name']} />
+        {meterList.map(meter => (
+          <Col lg="3" className="pr-lg-2" key={uuid()}>
+            <RealtimeChart meterId={meter['id']} meterName={meter['name']} />
           </Col>
         ))}
       </Row>
