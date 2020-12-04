@@ -54,7 +54,6 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
  
   // State
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
-  const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [equipmentList, setEquipmentList] = useState([]);
   
@@ -82,7 +81,47 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
         json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
         setCascaderOptions(json);
         setSelectedSpaceName([json[0]].map(o => o.label));
-        setSelectedSpaceID([json[0]].map(o => o.value));
+        let selectedSpaceID  = [json[0]].map(o => o.value);
+        // begin of getting equipment list
+        let isSecondResponseOK = false;
+        fetch(APIBaseURL + '/reports/equipmenttracking?' +
+          'spaceid=' + selectedSpaceID, {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isSecondResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isSecondResponseOK) {
+            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
+            console.log(json)
+            let equipments = [];
+            json[0].forEach((currentValue, index) => {
+              equipments.push({
+                'key': index,
+                'id': currentValue['id'],
+                'name': currentValue['equipment_name'],
+                'space': currentValue['space_name'],
+                'costcenter': currentValue['cost_center_name'],
+                'description': currentValue['description']});
+            });
+            setEquipmentList(equipments);
+            console.log(equipments);
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+        // end of getting equipment list
       } else {
         toast.error(json.description);
       }
@@ -164,15 +203,8 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
-    setSelectedSpaceID(value[value.length - 1]);
-  }
-
-  // Handler
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log('handleSubmit');
-    console.log(selectedSpaceID);
-
+    let selectedSpaceID = value[value.length - 1];
+    // begin of getting equipment list
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/equipmenttracking?' +
       'spaceid=' + selectedSpaceID, {
@@ -211,7 +243,8 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
     }).catch(err => {
       console.log(err);
     });
-  };
+    // end of getting equipment list
+  }
 
   return (
     <Fragment>
@@ -222,7 +255,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
       </div>
       <Card className="bg-light mb-3">
         <CardBody className="p-3">
-          <Form onSubmit={handleSubmit}>
+          <Form >
             <Row form>
               <Col xs="auto">
                 <FormGroup className="form-group">
@@ -236,15 +269,6 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
                     expandTrigger="hover">
                     <Input value={selectedSpaceName || ''} readOnly />
                   </Cascader>
-                </FormGroup>
-              </Col>
-
-              <Col xs="auto">
-                <FormGroup>
-                  <br></br>
-                  <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
-                  </ButtonGroup>
                 </FormGroup>
               </Col>
             </Row>
