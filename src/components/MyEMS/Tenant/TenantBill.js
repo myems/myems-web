@@ -31,16 +31,11 @@ import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { APIBaseURL } from '../../../config';
 
-const calculateSubtotal = products => {
-  return products.reduce((currentValue, product) => {
-    return product.quantity * product.rate + currentValue;
-  }, 0);
-};
 
 const formatCurrency = (number, currency) =>
   `${currency}${number.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}`;
 
-const ProductTr = ({ name, description, startdate, enddate, quantity, rate }) => {
+const ProductTr = ({ name, description, startdate, enddate, subtotalinput, unit, subtotalcost }) => {
   return (
     <tr>
       <td className="align-middle">
@@ -49,20 +44,21 @@ const ProductTr = ({ name, description, startdate, enddate, quantity, rate }) =>
       </td>
       <td className="align-middle text-center">{startdate}</td>
       <td className="align-middle text-center">{enddate}</td>
-      <td className="align-middle text-center">{quantity.toFixed(3).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
-      <td className="align-middle text-right">{rate.toFixed(3).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
-      <td className="align-middle text-right">{(quantity * rate).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
+      <td className="align-middle text-center">{subtotalinput.toFixed(3).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
+      <td className="align-middle text-right">{unit}</td>
+      <td className="align-middle text-right">{(subtotalcost).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}</td>
     </tr>
   );
 };
 
 ProductTr.propTypes = {
   name: PropTypes.string.isRequired,
+  description: PropTypes.string,
   startdate: PropTypes.string.isRequired,
   enddate: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  quantity: PropTypes.number.isRequired,
-  rate: PropTypes.number.isRequired
+  subtotalinput: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+  subtotalcost: PropTypes.number.isRequired,
 };
 
 const InvoiceHeader = ({ institution, logo, address, t }) => (
@@ -121,6 +117,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
   //Results
   const [invoice, setInvoice] = useState(undefined);
   const [subtotal, setSubtotal] = useState(0);
+  const [taxRate, setTaxRate] = useState(0.00);
   const [tax, setTax] = useState(0);
   const [total, setTotal] = useState(0);
 
@@ -282,57 +279,45 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
       if (isResponseOK) {
         console.log(json);
         
-        setInvoice({
-          institution: 'MyEMS商场有限公司',
-          logo: logoInvoice,
-          address: '王府井大街<br />北京市东城区',
-          tax: 0.13,
-          currency: '¥',
-          user: {
-            name: '海上捞火锅(北京王府井店)',
-            address: '王府井大街MyEMS商场三层<br/>东城区<br/>北京市',
-            email: 'example@163.com',
-            cell: '+86-135-6666-7777'
-          },
-          summary: {
-            invoice_no: 202007310015,
-            order_number: 'AD20295',
-            invoice_date: '2020-07-31',
-            payment_due: '2020-09-30',
-            amount_due: 12644.08
-          },
-          products: [
-            {
-              name: '电',
-              startdate: '2020-07-01',
-              enddate: '2020-07-31',
-              quantity: 1589.920,
-              rate: 1.500
-            },
-            {
-              name: '自来水',
-              startdate: '2020-07-01',
-              enddate: '2020-07-31',
-              quantity: 387.980,
-              rate: 8.901
-            },
-            {
-              name: '天然气',
-              startdate: '2020-07-01',
-              enddate: '2020-07-31',
-              quantity: 879.981,
-              rate: 6.081
-            }
-          ]
+        let productArray = []
+        json['reporting_period']['names'].forEach((currentValue, index) => {
+          let productItem = {}
+          productItem['name'] = json['reporting_period']['names'][index];
+          productItem['unit'] = json['reporting_period']['units'][index];
+          productItem['startdate'] = reportingPeriodBeginsDatetime.format('YYYY-MM-DD');
+          productItem['enddate'] = reportingPeriodEndsDatetime.format('YYYY-MM-DD');
+          productItem['subtotalinput'] = json['reporting_period']['subtotals_input'][index];
+          productItem['subtotalcost'] = json['reporting_period']['subtotals_cost'][index];
+          productArray.push(productItem);
         });
 
-        if (isIterableArray(invoice.products)) {
-          setSubtotal(calculateSubtotal(invoice.products));
-        }
+        setInvoice({
+          institution: json['tenant']['name'],
+          logo: logoInvoice,
+          address: json['tenant']['rooms'] + '<br />' + json['tenant']['floors'] + '<br />' + json['tenant']['buildings'],
+          tax: 0.01,
+          currency: json['reporting_period']['currency_unit'],
+          user: {
+            name: json['tenant']['name'],
+            address: json['tenant']['rooms'] + '<br />' + json['tenant']['floors'] + '<br />' + json['tenant']['buildings'],
+            email: json['tenant']['email'],
+            cell: json['tenant']['phone']
+          },
+          summary: {
+            invoice_no: current_moment.format('YYYYMMDDHHmmss'),
+            lease_number: json['tenant']['lease_number'],
+            invoice_date: current_moment.format('YYYY-MM-DD'),
+            payment_due: current_moment.clone().add(7, 'days').format('YYYY-MM-DD'),
+            amount_due: json['reporting_period']['total_cost']
+          },
+          products: productArray
+        });
 
-        setTax(subtotal * invoice.tax);
-
-        setTotal(subtotal + tax);
+        setSubtotal(json['reporting_period']['total_cost']);
+        
+        setTax(json['reporting_period']['total_cost'] * taxRate);
+        
+        setTotal(json['reporting_period']['total_cost'] * (1.00 + taxRate));
         
       } else {
         toast.error(json.description)
@@ -423,7 +408,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
         <CardBody>
           <Row className="justify-content-between align-items-center">
             <Col md>
-              <h5 className="mb-2 mb-md-0">{t('Lease Contract Number')}: {invoice.summary.order_number}</h5>
+              <h5 className="mb-2 mb-md-0">{t('Lease Contract Number')}: {invoice.summary.lease_number}</h5>
             </Col>
             <Col xs="auto">
               <ButtonIcon color="falcon-default" size="sm" icon="arrow-down" className="mr-2 mb-2 mb-sm-0">
@@ -464,7 +449,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
                     </tr>
                     <tr>
                       <th className="text-sm-right">{t('Lease Contract Number')}:</th>
-                      <td>{invoice.summary.order_number}</td>
+                      <td>{invoice.summary.lease_number}</td>
                     </tr>
                     <tr>
                       <th className="text-sm-right">{t('Bill Date')}:</th>
@@ -491,7 +476,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
                   <th className="border-0 text-center">{t('Billing Period Start')}</th>
                   <th className="border-0 text-center">{t('Billing Period End')}</th>
                   <th className="border-0 text-center">{t('Quantity')}</th>
-                  <th className="border-0 text-right">{t('Price')}</th>
+                  <th className="border-0 text-right">{t('Unit')}</th>
                   <th className="border-0 text-right">{t('Amount')}</th>
                 </tr>
               </thead>
@@ -523,7 +508,9 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
           </Row>
         </CardBody>
         }
-        <CardFooter className="bg-light">
+        
+        {//todo: get the bank account infomation from API
+        /* <CardFooter className="bg-light">
           <p className="fs--1 mb-0">
             <strong>{t('Please make sure to pay on or before the payment due date above')}, {t('Send money to the following account')}:</strong><br />
             {t('Acount Name')}: MyEMS商场有限公司<br />
@@ -531,7 +518,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
             {t('Bank Address')}: 中国北京市东城区王府井大街<br />
             {t('RMB Account')}: 1188228822882288<br />
           </p>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </Fragment>
   );
