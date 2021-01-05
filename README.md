@@ -10,11 +10,30 @@ Providing Web UI for MyEMS users to analysis energy data
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/myems/myems-web.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/myems/myems-web/alerts/)
 
 ## Prerequisites
+Node.js
+
 nginx-1.18.0 or later
 
 
+## Running in Local environment
+This project is scaffolded using Create React App.
 
-## Installation
+* Install Node.js (https://nodejs.org/) if you do not already have it installed on your machine.
+* Open the “myems-web” directory with your cmd or terminal
+* Run 'npm i'
+This command will download all the necessary dependencies for falcon in the node_modules directory.
+* Run 'npm start'
+A local web server will start at http://localhost:3000.
+We are using webpack and webpack-serve to automatically detect file changes. So, if you edit and save a file, your browser will automatically refresh and preview the change.
+
+## Creating a Production Build
+* Run 'npm run build' command in your project directory to make the Production build.
+
+This will create an optimized production build by compililing, merging and minifying all the source files as necessary and put them in the build/ folder.
+
+You can run 'node server.js' to run the production build locally at http://localhost:5000.
+
+## Installation on NGINX Server
 
 * Install NGINX  Server
 
