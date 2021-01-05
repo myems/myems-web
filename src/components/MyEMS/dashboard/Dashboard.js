@@ -303,13 +303,13 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
           setDetailedDataTableColumns(detailed_column_list);
 
           let child_space_value_list = [];
-          json['child_space_input']['child_space_names_array'][0].forEach((currentValue, index) => {
+          json['child_space_input']['child_space_names_array'][0].forEach((currentSpaceName, spaceIndex) => {
             let child_space_value = {};
-            child_space_value['id'] = index;
-            child_space_value['name'] = currentValue;
+            child_space_value['id'] = spaceIndex;
+            child_space_value['name'] = currentSpaceName;
             json['child_space_input']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
-              child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals'][energyCategoryIndex].toFixed(2);
-              child_space_value['b' + energyCategoryIndex] = json['child_space_cost']['subtotals'][energyCategoryIndex].toFixed(2);
+              child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+              child_space_value['b' + energyCategoryIndex] = json['child_space_cost']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
             });
             child_space_value_list.push(child_space_value);
           });

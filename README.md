@@ -33,7 +33,7 @@ This will create an optimized production build by compililing, merging and minif
 
 You can run 'node server.js' to run the production build locally at http://localhost:5000.
 
-## Installation on NGINX Server
+## Install Production Build on NGINX Server
 
 * Install NGINX  Server
 
