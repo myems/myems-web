@@ -56,6 +56,6 @@ refer to http://nginx.org/en/docs/install.html
   Note that the following path may be different in your server.
 ```
   $ tar xzf myems-web.tar.gz
-  $ sudo rm -r /var/www/html/
-  $ sudo cp -r build  /var/www/html/
+  $ sudo rm -r /var/www/html/web
+  $ sudo mv build  /var/www/html/web
 ```

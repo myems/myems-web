@@ -66,6 +66,9 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  
   //Results
   const [cardSummaryList, setCardSummaryList] = useState([]);
   const [spaceLineChartLabels, setSpaceLineChartLabels] = useState([]);
@@ -205,6 +208,9 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     
+    // disable submit button
+    setSubmitButtonDisabled(true);
+    
     // Reinitialize tables
     setDetailedDataTableData([]);
     setChildSpacesTableData([]);
@@ -229,6 +235,10 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+      
+      // enable submit button
+      setSubmitButtonDisabled(false);
+      
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -475,7 +485,7 @@ const SpaceOutput = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
