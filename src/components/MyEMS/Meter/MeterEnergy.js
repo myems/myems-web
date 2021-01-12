@@ -69,7 +69,10 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
   const [loading, setLoading] = useState(false);
   //Results
   const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
@@ -136,10 +139,12 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
             setMeterList(json[0]);
             if (json[0].length > 0) {
               setSelectedMeter(json[0][0].value);
-              setIsDisabled(false);
+              // enable submit button
+              setSubmitButtonDisabled(false);
             } else {
               setSelectedMeter(undefined);
-              setIsDisabled(true);
+              // disable submit button
+              setSubmitButtonDisabled(true);
             }
           } else {
             toast.error(json.description)
@@ -186,10 +191,12 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setMeterList(json[0]);
         if (json[0].length > 0) {
           setSelectedMeter(json[0][0].value);
-          setIsDisabled(false);
+          // enable submit button
+          setSubmitButtonDisabled(false);
         } else {
           setSelectedMeter(undefined);
-          setIsDisabled(true);
+          // disable submit button
+          setSubmitButtonDisabled(true);
         }
       } else {
         toast.error(json.description)
@@ -276,6 +283,9 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    // disable submit button
+    setSubmitButtonDisabled(true);  
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -506,7 +516,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

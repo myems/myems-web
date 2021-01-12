@@ -63,7 +63,10 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   let current_moment = moment();
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
-  const [isDisabled, setIsDisabled] = useState(true);
+  
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
   //Results
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
   const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
@@ -210,6 +213,9 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
+    // disable submit button
+    setSubmitButtonDisabled(true);
+
     // Reinitialize tables
     setDetailedDataTableData([]);
     
@@ -229,6 +235,10 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+
       return response.json();
     }).then(json => {
       if (isResponseOK) {
