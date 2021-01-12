@@ -285,15 +285,17 @@ const MeterTrend = ({ setRedirect, setRedirectUrl, t }) => {
 
         let detial_value_list = [];
         // choose the first point's timestamps for all points
-        json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
-          let detial_value = {};
-          detial_value['id'] = index;
-          detial_value['startdatetime'] = currentValue;
-          json['reporting_period']['names'].forEach((currentValue1, index1) => {
-            detial_value['a' + index1] = json['reporting_period']['values'][index1][index];
+        if (json['reporting_period']['timestamps'].length > 0) {
+          json['reporting_period']['timestamps'][0].forEach((currentValue, index) => {
+            let detial_value = {};
+            detial_value['id'] = index;
+            detial_value['startdatetime'] = currentValue;
+            json['reporting_period']['names'].forEach((currentValue1, index1) => {
+              detial_value['a' + index1] = json['reporting_period']['values'][index1][index];
+            });
+            detial_value_list.push(detial_value);
           });
-          detial_value_list.push(detial_value);
-        });
+        };
         setDetailedDataTableData(detial_value_list);
 
       } else {

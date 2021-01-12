@@ -328,15 +328,17 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
         setParameterLineChartOptions(names);
         
         let detailed_value_list = [];
-        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
-          let detailed_value = {};
-          detailed_value['id'] = timestampIndex;
-          detailed_value['startdatetime'] = currentTimestamp;
-          json['reporting_period']['values_saving'].forEach((currentValue, energyCategoryIndex) => {
-            detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values_saving'][energyCategoryIndex][timestampIndex].toFixed(2);
+        if (json['reporting_period']['timestamps'].length > 0) {
+          json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+            let detailed_value = {};
+            detailed_value['id'] = timestampIndex;
+            detailed_value['startdatetime'] = currentTimestamp;
+            json['reporting_period']['values_saving'].forEach((currentValue, energyCategoryIndex) => {
+              detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values_saving'][energyCategoryIndex][timestampIndex].toFixed(2);
+            });
+            detailed_value_list.push(detailed_value);
           });
-          detailed_value_list.push(detailed_value);
-        });
+        };
 
         let detailed_value = {};
         detailed_value['id'] = detailed_value_list.length;
@@ -364,15 +366,17 @@ const SpaceSaving = ({ setRedirect, setRedirectUrl, t }) => {
         setDetailedDataTableColumns(detailed_column_list);
 
         let child_space_value_list = [];
-        json['child_space']['child_space_names_array'][0].forEach((currentSpaceName, spaceIndex) => {
-          let child_space_value = {};
-          child_space_value['id'] = spaceIndex;
-          child_space_value['name'] = currentSpaceName;
-          json['child_space']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
-            child_space_value['a' + energyCategoryIndex] = json['child_space']['subtotals_saving_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+        if (json['child_space']['child_space_names_array'].length > 0) {
+          json['child_space']['child_space_names_array'][0].forEach((currentSpaceName, spaceIndex) => {
+            let child_space_value = {};
+            child_space_value['id'] = spaceIndex;
+            child_space_value['name'] = currentSpaceName;
+            json['child_space']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
+              child_space_value['a' + energyCategoryIndex] = json['child_space']['subtotals_saving_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+            });
+            child_space_value_list.push(child_space_value);
           });
-          child_space_value_list.push(child_space_value);
-        });
+        };
 
         setChildSpacesTableData(child_space_value_list);
 
