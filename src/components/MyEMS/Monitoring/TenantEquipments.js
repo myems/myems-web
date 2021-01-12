@@ -57,7 +57,9 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedTenant, setSelectedTenant] = useState(undefined);
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+  
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -107,10 +109,12 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
             setTenantList(json[0]);
             if (json[0].length > 0) {
               setSelectedTenant(json[0][0].value);
-              setIsDisabled(false);
+              // enable submit button
+              setSubmitButtonDisabled(false);
             } else {
               setSelectedTenant(undefined);
-              setIsDisabled(true);
+              // disable submit button
+              setSubmitButtonDisabled(true);
             }
           } else {
             toast.error(json.description)
@@ -163,10 +167,12 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
         setTenantList(json[0]);
         if (json[0].length > 0) {
           setSelectedTenant(json[0][0].value);
-          setIsDisabled(false);
+          // enable submit button
+          setSubmitButtonDisabled(false);
         } else {
           setSelectedTenant(undefined);
-          setIsDisabled(true);
+          // disable submit button
+          setSubmitButtonDisabled(true);
         }
       } else {
         toast.error(json.description)
@@ -194,6 +200,11 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedSpaceID);
     console.log(selectedTenant);
+    // // disable submit button
+    // setSubmitButtonDisabled(true);
+        
+    // // enable submit button
+    // setSubmitButtonDisabled(false);
   };
 
   return (
@@ -240,7 +251,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
