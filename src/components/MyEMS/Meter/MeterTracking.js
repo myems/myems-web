@@ -284,7 +284,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
           </Form>
         </CardBody>
       </Card>
-      <DetailedDataTable data={meterList} title={t('Meter List')} columns={columns} pagesize={10} >
+      <DetailedDataTable data={meterList} title={t('Meter List')} columns={columns} pagesize={50} >
       </DetailedDataTable>
 
     </Fragment>
