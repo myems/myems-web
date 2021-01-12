@@ -68,6 +68,9 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  
   //Results
   const [timeOfUseShareData, setTimeOfUseShareData] = useState([]);
   const [costShareData, setCostShareData] = useState([]);
@@ -104,6 +107,10 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+      
+      // enable submit button
+      setSubmitButtonDisabled(false);
+      
       return response.json();
     }).then(json => {
       console.log(json);
@@ -552,7 +559,7 @@ const SpaceCost = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
