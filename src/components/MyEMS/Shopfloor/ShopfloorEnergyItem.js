@@ -382,15 +382,17 @@ const ShopfloorEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
         setParameterLineChartOptions(names);
       
         let detailed_value_list = [];
-        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
-          let detailed_value = {};
-          detailed_value['id'] = timestampIndex;
-          detailed_value['startdatetime'] = currentTimestamp;
-          json['reporting_period']['values'].forEach((currentValue, energyCategoryIndex) => {
-            detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+        if (json['reporting_period']['timestamps'].length > 0) {
+          json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+            let detailed_value = {};
+            detailed_value['id'] = timestampIndex;
+            detailed_value['startdatetime'] = currentTimestamp;
+            json['reporting_period']['values'].forEach((currentValue, energyCategoryIndex) => {
+              detailed_value['a' + energyCategoryIndex] = json['reporting_period']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+            });
+            detailed_value_list.push(detailed_value);
           });
-          detailed_value_list.push(detailed_value);
-        });
+        };
 
         let detailed_value = {};
         detailed_value['id'] = detailed_value_list.length;

@@ -359,25 +359,27 @@ const TenantLoad = ({ setRedirect, setRedirectUrl, t }) => {
         setParameterLineChartOptions(names);
       
         let detailed_value_list = [];
-        json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
-          let detailed_value = {};
-          detailed_value['id'] = timestampIndex;
-          detailed_value['startdatetime'] = currentTimestamp;
-          json['reporting_period']['sub_averages'].forEach((currentValue, energyCategoryIndex) => {
-            if (json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex] != null) {
-              detailed_value['a' + 2 * energyCategoryIndex] = json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex].toFixed(2);
-            } else {
-              detailed_value['a' + 2 * energyCategoryIndex] = '';
-            };  
-          
-            if (json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex] != null) {
-              detailed_value['a' + (2 * energyCategoryIndex + 1)] = json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex].toFixed(2);
-            } else {
-              detailed_value['a' + (2 * energyCategoryIndex + 1)] = '';
-            };            
+        if (json['reporting_period']['timestamps'].length > 0) {
+          json['reporting_period']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+            let detailed_value = {};
+            detailed_value['id'] = timestampIndex;
+            detailed_value['startdatetime'] = currentTimestamp;
+            json['reporting_period']['sub_averages'].forEach((currentValue, energyCategoryIndex) => {
+              if (json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex] != null) {
+                detailed_value['a' + 2 * energyCategoryIndex] = json['reporting_period']['sub_averages'][energyCategoryIndex][timestampIndex].toFixed(2);
+              } else {
+                detailed_value['a' + 2 * energyCategoryIndex] = '';
+              };  
+            
+              if (json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex] != null) {
+                detailed_value['a' + (2 * energyCategoryIndex + 1)] = json['reporting_period']['sub_maximums'][energyCategoryIndex][timestampIndex].toFixed(2);
+              } else {
+                detailed_value['a' + (2 * energyCategoryIndex + 1)] = '';
+              };            
+            });
+            detailed_value_list.push(detailed_value);
           });
-          detailed_value_list.push(detailed_value);
-        });
+        };
 
         setDetailedDataTableData(detailed_value_list);
         
