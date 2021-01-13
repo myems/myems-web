@@ -51,6 +51,10 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
   // Query Parameters
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
+
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
   //Results
   const [reports, setReports] = useState([]);
 
@@ -78,6 +82,9 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    // disable submit button
+    setSubmitButtonDisabled(true);
     
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/advancereporting?' +
@@ -95,6 +102,10 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -189,7 +200,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
