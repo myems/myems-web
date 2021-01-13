@@ -67,7 +67,10 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  
   //Results
   const [cardSummaryList, setCardSummaryList] = useState([]);
   const [sharePieList, setSharePieList] = useState([]);
@@ -130,10 +133,12 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
             setCombinedEquipmentList(json[0]);
             if (json[0].length > 0) {
               setSelectedCombinedEquipment(json[0][0].value);
-              setIsDisabled(false);
+              // enable submit button
+              setSubmitButtonDisabled(false);
             } else {
               setSelectedCombinedEquipment(undefined);
-              setIsDisabled(true);
+              // disable submit button
+              setSubmitButtonDisabled(true);
             }
           } else {
             toast.error(json.description)
@@ -178,10 +183,12 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
         setCombinedEquipmentList(json[0]);
         if (json[0].length > 0) {
           setSelectedCombinedEquipment(json[0][0].value);
-          setIsDisabled(false);
+          // enable submit button
+          setSubmitButtonDisabled(false);
         } else {
           setSelectedCombinedEquipment(undefined);
-          setIsDisabled(true);
+          // disable submit button
+          setSubmitButtonDisabled(true);
         }
       } else {
         toast.error(json.description)
@@ -270,6 +277,9 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
+    // disable submit button
+    setSubmitButtonDisabled(true);
+
     // Reinitialize tables
     setDetailedDataTableData([]);
     
@@ -293,6 +303,10 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+    
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -551,7 +565,7 @@ const CombinedEquipmentEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
