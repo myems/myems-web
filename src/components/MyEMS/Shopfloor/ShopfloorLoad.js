@@ -12,7 +12,8 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput
+  CustomInput,
+  Spinner,
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -70,6 +71,7 @@ const ShopfloorLoad = ({ setRedirect, setRedirectUrl, t }) => {
 
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   //Results
   const [cardSummaryList, setCardSummaryList] = useState([]);
@@ -279,6 +281,8 @@ const ShopfloorLoad = ({ setRedirect, setRedirectUrl, t }) => {
 
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -306,6 +310,8 @@ const ShopfloorLoad = ({ setRedirect, setRedirectUrl, t }) => {
 
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
 
       return response.json();
     }).then(json => {
@@ -552,6 +558,12 @@ const ShopfloorLoad = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

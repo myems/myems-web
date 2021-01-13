@@ -10,6 +10,7 @@ import {
   Form,
   FormGroup,
   Label,
+  Spinner
 } from 'reactstrap';
 import Summary from './Summary';
 import Loader from '../../common/Loader';
@@ -54,6 +55,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
 
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   //Results
   const [reports, setReports] = useState([]);
@@ -85,6 +87,8 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
 
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
     
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/advancereporting?' +
@@ -105,6 +109,8 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
 
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
 
       return response.json();
     }).then(json => {
@@ -202,6 +208,12 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

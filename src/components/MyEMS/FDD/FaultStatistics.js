@@ -18,7 +18,8 @@ import {
   InputGroup,
   Label,
   CustomInput,
-  UncontrolledDropdown
+  UncontrolledDropdown,
+  Spinner,
 } from 'reactstrap';
 import CardSummary from '../common/CardSummary';
 import Datetime from 'react-datetime';
@@ -65,7 +66,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   
   // Submit button status
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   //Results
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
@@ -215,6 +217,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
 
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -238,6 +242,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
 
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
 
       return response.json();
     }).then(json => {
@@ -685,8 +691,14 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

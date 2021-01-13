@@ -13,6 +13,7 @@ import {
   Input,
   Label,
   Row,
+  Spinner,
 } from 'reactstrap';
 import Cascader from 'rc-cascader';
 import RealtimeChart from './RealtimeChart';
@@ -53,6 +54,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
   
   //Results
   const [realtimeChartOptions, setRealtimeChartOptions] = useState([]);
@@ -108,6 +110,8 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
 
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/auxiliarysystemdistributionsystem?' +
@@ -127,6 +131,8 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
 
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
       
       return response.json();
     }).then(json => {
@@ -186,6 +192,12 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

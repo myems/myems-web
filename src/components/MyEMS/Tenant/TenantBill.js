@@ -16,6 +16,7 @@ import {
   Label,
   CustomInput,
   Table,
+  Spinner,
 } from 'reactstrap';
 import Loader from '../../common/Loader';
 import ButtonIcon from '../../common/ButtonIcon';
@@ -116,6 +117,7 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
 
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
   
   //Results
   const [invoice, setInvoice] = useState(undefined);
@@ -266,6 +268,8 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
     
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
 
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/tenantbill?' +
@@ -287,6 +291,8 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
   
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
 
       return response.json();
     }).then(json => {
@@ -411,6 +417,12 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

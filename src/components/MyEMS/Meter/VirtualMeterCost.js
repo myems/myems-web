@@ -12,7 +12,8 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput
+  CustomInput,
+  Spinner,
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -71,6 +72,7 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
   
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   //Results
   const [virtualMeterEnergyCategory, setVirtualMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
@@ -283,7 +285,9 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
     // disable submit button
-    setSubmitButtonDisabled(true);  
+    setSubmitButtonDisabled(true); 
+    // show spinner
+    setSpinnerHidden(false); 
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -308,6 +312,12 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
+
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -516,6 +526,12 @@ const VirtualMeterCost = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

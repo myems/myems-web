@@ -19,7 +19,8 @@ import {
   DropdownMenu,
   DropdownToggle,
   InputGroup,
-  UncontrolledDropdown
+  UncontrolledDropdown,
+  Spinner,
 } from 'reactstrap';
 import Datetime from 'react-datetime';
 import moment from 'moment';
@@ -68,6 +69,7 @@ const SpaceFault = ({ setRedirect, setRedirectUrl, t }) => {
   
   // Submit button status
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   //Results
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
@@ -88,6 +90,8 @@ const SpaceFault = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(response);
       if (response.ok) {
         isResponseOK = true;
+        // enable submit button
+        setSubmitButtonDisabled(false);
       }
       return response.json();
     }).then(json => {
@@ -261,6 +265,8 @@ const SpaceFault = ({ setRedirect, setRedirectUrl, t }) => {
 
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -285,6 +291,8 @@ const SpaceFault = ({ setRedirect, setRedirectUrl, t }) => {
 
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
 
       return response.json();
     }).then(json => {
@@ -720,8 +728,14 @@ const SpaceFault = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>
