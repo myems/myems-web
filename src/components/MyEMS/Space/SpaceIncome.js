@@ -69,7 +69,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
   // Submit button status
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
 
   //Results
   const [incomeShareData, setIncomeShareData] = useState([]);
