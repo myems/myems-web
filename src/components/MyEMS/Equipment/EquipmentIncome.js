@@ -68,7 +68,10 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  
   //Results
   const [incomeShareData, setIncomeShareData] = useState([]);
 
@@ -132,10 +135,12 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
             setEquipmentList(json[0]);
             if (json[0].length > 0) {
               setSelectedEquipment(json[0][0].value);
-              setIsDisabled(false);
+              // enable submit button
+              setSubmitButtonDisabled(false);
             } else {
               setSelectedEquipment(undefined);
-              setIsDisabled(true);
+              // disable submit button
+              setSubmitButtonDisabled(true);
             }
           } else {
             toast.error(json.description)
@@ -182,10 +187,12 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
         setEquipmentList(json[0]);
         if (json[0].length > 0) {
           setSelectedEquipment(json[0][0].value);
-          setIsDisabled(false);
+          // enable submit button
+          setSubmitButtonDisabled(false);
         } else {
           setSelectedEquipment(undefined);
-          setIsDisabled(true);
+          // disable submit button
+          setSubmitButtonDisabled(true);
         }
       } else {
         toast.error(json.description)
@@ -275,6 +282,9 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
+    // disable submit button
+    setSubmitButtonDisabled(true);
+
     // Reinitialize tables
     setDetailedDataTableData([]);
     
@@ -298,6 +308,10 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -554,7 +568,7 @@ const EquipmentIncome = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

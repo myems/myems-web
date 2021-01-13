@@ -52,7 +52,10 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
-  const [isDisabled, setIsDisabled] = useState(true);
+
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+
   //Results
   const [energyFlowDiagramData, setEnergyFlowDiagramData] = useState({"nodes": [], "links": []});
 
@@ -81,7 +84,8 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
         console.log(json);
         setEnergyFlowDiagramList(json);
         setSelectedEnergyFlowDiagram([json[0]].map(o => o.value));
-        setIsDisabled(false);
+        // enable submit button
+        setSubmitButtonDisabled(false);
       } else {
         toast.error(json.description);
       }
@@ -145,6 +149,10 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedEnergyFlowDiagram);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
+
+    // disable submit button
+    setSubmitButtonDisabled(true);
+
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/auxiliarysystemenergyflowdiagram?' +
       'energyflowdiagramid=' + selectedEnergyFlowDiagram +
@@ -162,6 +170,10 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+      
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -352,7 +364,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>

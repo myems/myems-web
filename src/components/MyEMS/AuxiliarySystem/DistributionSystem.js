@@ -50,7 +50,10 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   // Query Parameters
   const [distributionSystemList, setDistributionSystemList] = useState([]);
   const [selectedDistributionSystem, setSelectedDistributionSystem] = useState(undefined);
-  const [isDisabled, setIsDisabled] = useState(true);
+  
+  // Submit button status
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  
   //Results
   const [realtimeChartOptions, setRealtimeChartOptions] = useState([]);
   const [realtimeChartData, setRealtimeChartData] = useState([]);
@@ -81,7 +84,8 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
         console.log(json);
         setDistributionSystemList(json);
         setSelectedDistributionSystem([json[0]].map(o => o.value));
-        setIsDisabled(false);
+        // enable submit button
+        setSubmitButtonDisabled(false);
       } else {
         toast.error(json.description);
       }
@@ -102,6 +106,9 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedDistributionSystem);
 
+    // disable submit button
+    setSubmitButtonDisabled(true);
+
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/auxiliarysystemdistributionsystem?' +
       'distributionsystemid=' + selectedDistributionSystem, {
@@ -117,6 +124,10 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
+
+      // enable submit button
+      setSubmitButtonDisabled(false);
+      
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -173,7 +184,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
                 <FormGroup>
                   <br></br>
                   <ButtonGroup id="submit">
-                    <Button color="success" disabled={isDisabled} >{t('Submit')}</Button>
+                    <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
               </Col>
