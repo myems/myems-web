@@ -12,7 +12,8 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
+  Spinner,
 } from 'reactstrap';
 import Loader from '../../common/Loader';
 import useFakeFetch from '../../../hooks/useFakeFetch';
@@ -58,8 +59,9 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -202,10 +204,16 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedCombinedEquipment);
     // // disable submit button
     // setSubmitButtonDisabled(true);
+    // // show spinner
+    // setSpinnerHidden(false);
         
     // // enable submit button
     // setSubmitButtonDisabled(false);
+    // // hide spinner
+    // setSpinnerHidden(true);
+
   };
+  
 
   return (
     <Fragment>
@@ -253,6 +261,12 @@ const CombinedEquipments = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>

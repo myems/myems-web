@@ -16,11 +16,7 @@ const ChildSpacesTable = ({ title, data, columns, t }) => {
     <Fragment>
       <Card>
         <FalconCardHeader title={title} className="bg-light">
-          <Fragment>
-            <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-              {t('Export')}
-            </ButtonIcon>
-          </Fragment>
+          
         </FalconCardHeader>
         <CardBody>
           <Row>

@@ -12,7 +12,8 @@ import {
   FormGroup,
   Input,
   Label,
-  CustomInput
+  CustomInput,
+  Spinner
 } from 'reactstrap';
 import CountUp from 'react-countup';
 import Datetime from 'react-datetime';
@@ -26,6 +27,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
@@ -68,8 +70,10 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
-  // Submit button status
+  // buttons
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
+  const [exportButtonHidden, setExportButtonHidden] = useState(true);
 
   //Results
   const [incomeShareData, setIncomeShareData] = useState([]);
@@ -88,7 +92,7 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
   
   const [childSpacesTableData, setChildSpacesTableData] = useState([]);
   const [childSpacesTableColumns, setChildSpacesTableColumns] = useState([{dataField: 'name', text: t('Child Spaces'), sort: true }]);
-  
+  const [excelBytesBase64, setExcelBytesBase64] = useState(undefined);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -105,6 +109,8 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(response);
       if (response.ok) {
         isResponseOK = true;
+        // enable submit button
+        setSubmitButtonDisabled(false);
       }
       return response.json();
     }).then(json => {
@@ -213,6 +219,10 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
     
     // disable submit button
     setSubmitButtonDisabled(true);
+    // show spinner
+    setSpinnerHidden(false);
+    // hide export buttion
+    setExportButtonHidden(true)
     
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -241,6 +251,10 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
       
       // enable submit button
       setSubmitButtonDisabled(false);
+      // hide spinner
+      setSpinnerHidden(true);
+      // show export buttion
+      setExportButtonHidden(false)
       
       return response.json();
     }).then(json => {
@@ -406,6 +420,8 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
         });
 
         setChildSpacesTableColumns(child_space_column_list);
+        
+        setExcelBytesBase64(json['excel_bytes_base64']);
       } else {
         toast.error(json.description)
       }
@@ -413,6 +429,24 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
   };
+
+  const handleExport = e => {
+    e.preventDefault();
+    const mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    const fileName = 'spaceincome.xlsx'
+    var fileUrl = "data:" + mimeType + ";base64," + excelBytesBase64;
+    fetch(fileUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            var link = window.document.createElement("a");
+            link.href = window.URL.createObjectURL(blob, { type: mimeType });
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+  };
+  
 
   return (
     <Fragment>
@@ -528,6 +562,20 @@ const SpaceIncome = ({ setRedirect, setRedirectUrl, t }) => {
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
                 </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                  <br></br>
+                  <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" 
+                  hidden={exportButtonHidden}
+                  onClick={handleExport} >
+                    {t('Export')}
+                  </ButtonIcon>
               </Col>
             </Row>
           </Form>

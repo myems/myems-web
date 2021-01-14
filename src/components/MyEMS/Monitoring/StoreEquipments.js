@@ -12,7 +12,8 @@ import {
   Form,
   FormGroup,
   Input,
-  Label
+  Label,
+  Spinner,
 } from 'reactstrap';
 import Loader from '../../common/Loader';
 import useFakeFetch from '../../../hooks/useFakeFetch';
@@ -28,6 +29,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 
 
@@ -58,8 +60,9 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
+  const [spinnerHidden, setSpinnerHidden] = useState(true);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -201,9 +204,13 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
     console.log(selectedSpaceID);
     // // disable submit button
     // setSubmitButtonDisabled(true);
+    // // show spinner
+    // setSpinnerHidden(false);
         
     // // enable submit button
     // setSubmitButtonDisabled(false);
+    // // hide spinner
+    // setSpinnerHidden(true);
   };
 
   return (
@@ -252,6 +259,12 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
                   <ButtonGroup id="submit">
                     <Button color="success" disabled={submitButtonDisabled} >{t('Submit')}</Button>
                   </ButtonGroup>
+                </FormGroup>
+              </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>
             </Row>
