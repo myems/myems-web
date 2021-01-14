@@ -57,7 +57,7 @@ const SpaceEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
 

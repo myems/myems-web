@@ -29,7 +29,6 @@ import LineChart from '../common/LineChart';
 import { Link } from 'react-router-dom';
 import Badge from 'reactstrap/es/Badge';
 import FalconCardHeader from '../../common/FalconCardHeader';
-import ButtonIcon from '../../common/ButtonIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid/v1';
 import { getPaginationArray } from '../../../helpers/utils';
@@ -37,6 +36,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 
 
@@ -65,9 +65,10 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   
-  // Submit button status
+  // buttons
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
+  const [exportButtonHidden, setExportButtonHidden] = useState(true);
 
   //Results
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
@@ -75,7 +76,7 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
   const [faultLineChartLabels, setFaultLineChartLabels] = useState({});
   const [faultLineChartData, setFaultLineChartData] = useState({});
   const [faultLineChartOptions, setFaultLineChartOptions] = useState([]);
-
+  const [excelBytesBase64, setExcelBytesBase64] = useState(undefined);
 
   let table = createRef();
   const [isSelected, setIsSelected] = useState(false);
@@ -219,6 +220,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
     setSubmitButtonDisabled(true);
     // show spinner
     setSpinnerHidden(false);
+    // hide export buttion
+    setExportButtonHidden(true)
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -244,6 +247,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
       setSubmitButtonDisabled(false);
       // hide spinner
       setSpinnerHidden(true);
+      // show export buttion
+      setExportButtonHidden(false)
 
       return response.json();
     }).then(json => {
@@ -643,6 +648,8 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
             align: 'right'
           }
         ]);
+        
+        setExcelBytesBase64(json['excel_bytes_base64']);
 
       } else {
         toast.error(json.description)
@@ -651,6 +658,24 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
   };
+  
+  const handleExport = e => {
+    e.preventDefault();
+    const mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    const fileName = 'faultstatistics.xlsx'
+    var fileUrl = "data:" + mimeType + ";base64," + excelBytesBase64;
+    fetch(fileUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            var link = window.document.createElement("a");
+            link.href = window.URL.createObjectURL(blob, { type: mimeType });
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+  };
+  
 
   return (
     <Fragment>
@@ -700,6 +725,14 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
                   <br></br>
                   <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
+              </Col>
+              <Col xs="auto">
+                  <br></br>
+                  <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" 
+                  hidden={exportButtonHidden}
+                  onClick={handleExport} >
+                    {t('Export')}
+                  </ButtonIcon>
               </Col>
             </Row>
           </Form>
@@ -756,9 +789,7 @@ const FaultStatistics = ({ setRedirect, setRedirectUrl, t }) => {
             </InputGroup>
           ) : (
               <Fragment>
-                <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  {t('Export')}
-                </ButtonIcon>
+                
               </Fragment>
             )}
         </FalconCardHeader>

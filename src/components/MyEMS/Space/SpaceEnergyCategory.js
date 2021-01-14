@@ -20,7 +20,6 @@ import Datetime from 'react-datetime';
 import moment from 'moment';
 import loadable from '@loadable/component';
 import Cascader from 'rc-cascader';
-import { toast } from 'react-toastify';
 import CardSummary from '../common/CardSummary';
 import LineChart from '../common/LineChart';
 import SharePie from '../common/SharePie';
@@ -29,6 +28,7 @@ import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
+import { toast } from 'react-toastify';
 import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 

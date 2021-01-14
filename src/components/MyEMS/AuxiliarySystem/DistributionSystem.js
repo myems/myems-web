@@ -52,7 +52,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   const [distributionSystemList, setDistributionSystemList] = useState([]);
   const [selectedDistributionSystem, setSelectedDistributionSystem] = useState(undefined);
   
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
   

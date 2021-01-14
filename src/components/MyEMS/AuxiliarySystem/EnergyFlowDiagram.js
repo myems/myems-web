@@ -54,7 +54,7 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const { isDark } = useContext(AppContext);
 
-  // Submit button status
+  // buttons
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
 

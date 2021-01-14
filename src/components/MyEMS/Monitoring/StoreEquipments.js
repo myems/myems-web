@@ -29,6 +29,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 
 
@@ -59,7 +60,7 @@ const TenantEquipments = ({ setRedirect, setRedirectUrl, t }) => {
   const [equipmentIds, setEquipmentIds] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
 

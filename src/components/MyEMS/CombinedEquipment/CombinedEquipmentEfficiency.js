@@ -28,6 +28,7 @@ import { withTranslation } from 'react-i18next';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
 import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 
 
@@ -70,9 +71,10 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
   const [fractionParameter, setFractionParameter] = useState(1);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
 
-  // Submit button status
+  // buttons
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
+  const [exportButtonHidden, setExportButtonHidden] = useState(true);
   
   //Results
   const [combinedEquipmentLineChartLabels, setCombinedEquipmentLineChartLabels] = useState([]);
@@ -85,7 +87,7 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
 
   const [detailedDataTableData, setDetailedDataTableData] = useState([]);
   const [detailedDataTableColumns, setDetailedDataTableColumns] = useState([{dataField: 'startdatetime', text: t('Datetime'), sort: true}]);
-
+  const [excelBytesBase64, setExcelBytesBase64] = useState(undefined);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -287,6 +289,8 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     setSubmitButtonDisabled(true);
     // show spinner
     setSpinnerHidden(false);
+    // hide export buttion
+    setExportButtonHidden(true)
 
     // Reinitialize tables
     setDetailedDataTableData([]);
@@ -317,6 +321,8 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
       setSubmitButtonDisabled(false);
       // hide spinner
       setSpinnerHidden(true);
+      // show export buttion
+      setExportButtonHidden(false)
     
       return response.json();
     }).then(json => {
@@ -477,6 +483,9 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
             sort: true
           }
         ]);
+        
+        setExcelBytesBase64(json['excel_bytes_base64']);
+
       } else {
         toast.error(json.description)
       }
@@ -486,6 +495,23 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
     
   };
 
+  const handleExport = e => {
+    e.preventDefault();
+    const mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    const fileName = 'combinedequipmentefficiency.xlsx'
+    var fileUrl = "data:" + mimeType + ";base64," + excelBytesBase64;
+    fetch(fileUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            var link = window.document.createElement("a");
+            link.href = window.URL.createObjectURL(blob, { type: mimeType });
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+  };
+  
   return (
     <Fragment>
       <div>
@@ -636,6 +662,14 @@ const CombinedEquipmentEfficiency = ({ setRedirect, setRedirectUrl, t }) => {
                   <br></br>
                   <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
+              </Col>
+              <Col xs="auto">
+                  <br></br>
+                  <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" 
+                  hidden={exportButtonHidden}
+                  onClick={handleExport} >
+                    {t('Export')}
+                  </ButtonIcon>
               </Col>
             </Row>
           </Form>

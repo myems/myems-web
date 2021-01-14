@@ -53,7 +53,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
 
-  // Submit button status
+  // button
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [spinnerHidden, setSpinnerHidden] = useState(true);
 
@@ -163,6 +163,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
             to: '#'
           }
         ]);
+
 
       } else {
         toast.error(json.description)
