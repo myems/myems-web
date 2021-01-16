@@ -70,285 +70,285 @@ const Dashboard = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
 
-    let isResponseOK = false;
-    if (!fetchSuccess) { 
-      toast(
-        <Fragment>
-          {t("Welcome to MyEMS")}!<br />
-          {t("An Industry Leading Open Source Energy Management System")}
-        </Fragment>
-      );
-     
-      fetch(APIBaseURL + '/reports/dashboard?' +
-        'useruuid=' + user_uuid +
-        '&periodtype=' + periodType +
-        '&baseperiodstartdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
-        '&baseperiodenddatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
-        '&reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
-        '&reportingperiodenddatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
-        method: 'GET',
-        headers: {
-          "Content-type": "application/json",
-          "User-UUID": getCookieValue('user_uuid'),
-          "Token": getCookieValue('token')
-        },
-        body: null,
+      let isResponseOK = false;
+      if (!fetchSuccess) { 
+        toast(
+          <Fragment>
+            {t("Welcome to MyEMS")}!<br />
+            {t("An Industry Leading Open Source Energy Management System")}
+          </Fragment>
+        );
+      
+        fetch(APIBaseURL + '/reports/dashboard?' +
+          'useruuid=' + user_uuid +
+          '&periodtype=' + periodType +
+          '&baseperiodstartdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+          '&baseperiodenddatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
+          '&reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+          '&reportingperiodenddatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
 
-      }).then(response => {
-        if (response.ok) {
-          isResponseOK = true;
-        }
-        return response.json();
-      }).then(json => {
-        if (isResponseOK) {
-          console.log(json);
-          setFetchSuccess(true);
-          let inputCardSummaryArray = []
-          json['reporting_period_input']['names'].forEach((currentValue, index) => {
-            let cardSummaryItem = {}
-            cardSummaryItem['name'] = json['reporting_period_input']['names'][index];
-            cardSummaryItem['unit'] = json['reporting_period_input']['units'][index];
-            cardSummaryItem['subtotal'] = json['reporting_period_input']['subtotals'][index];
-            cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rates'][index] * 100).toFixed(2) + "%";
-            cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_input']['subtotals_per_unit_area'][index];
-            inputCardSummaryArray.push(cardSummaryItem);
-          });
-          setInputCardSummaryList(inputCardSummaryArray);
-
-          let costCardSummaryArray = []
-          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
-            let cardSummaryItem = {}
-            cardSummaryItem['name'] = json['reporting_period_cost']['names'][index];
-            cardSummaryItem['unit'] = json['reporting_period_cost']['units'][index];
-            cardSummaryItem['subtotal'] = json['reporting_period_cost']['subtotals'][index];
-            cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_cost']['increment_rates'][index] * 100).toFixed(2) + "%";
-            cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_cost']['subtotals_per_unit_area'][index];
-            costCardSummaryArray.push(cardSummaryItem);
-          });
-          setCostCardSummaryList(costCardSummaryArray);
-
-          let timeOfUseArray = [];
-          json['reporting_period_input']['energy_category_ids'].forEach((currentValue, index) => {
-            if(currentValue == 1) {
-              // energy_category_id 1 electricity
-              let timeOfUseItem = {}
-              timeOfUseItem['id'] = 1;
-              timeOfUseItem['name'] =  t('Top-Peak');
-              timeOfUseItem['value'] = json['reporting_period_input']['toppeaks'][index];
-              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-              timeOfUseArray.push(timeOfUseItem);
-              
-              timeOfUseItem = {}
-              timeOfUseItem['id'] = 2;
-              timeOfUseItem['name'] =  t('On-Peak');
-              timeOfUseItem['value'] = json['reporting_period_input']['onpeaks'][index];
-              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-              timeOfUseArray.push(timeOfUseItem);
-
-              timeOfUseItem = {}
-              timeOfUseItem['id'] = 3;
-              timeOfUseItem['name'] =  t('Mid-Peak');
-              timeOfUseItem['value'] = json['reporting_period_input']['midpeaks'][index];
-              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-              timeOfUseArray.push(timeOfUseItem);
-
-              timeOfUseItem = {}
-              timeOfUseItem['id'] = 4;
-              timeOfUseItem['name'] =  t('Off-Peak');
-              timeOfUseItem['value'] = json['reporting_period_input']['offpeaks'][index];
-              timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-              timeOfUseArray.push(timeOfUseItem);
-            }
-          });
-          setTimeOfUseShareData(timeOfUseArray);
-          let totalInTCE = {}; 
-          totalInTCE['value'] = json['reporting_period_input']['total_in_kgce'] / 1000; // convert from kg to t
-          totalInTCE['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
-          totalInTCE['value_per_unit_area'] = json['reporting_period_input']['total_in_kgce_per_unit_area'] / 1000; // convert from kg to t
-          setTotalInTCE(totalInTCE);
-
-          let costDataArray = [];
-          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
-            let costDataItem = {}
-            costDataItem['id'] = index;
-            costDataItem['name'] = currentValue;
-            costDataItem['value'] = json['reporting_period_cost']['subtotals'][index];
-            costDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-            costDataArray.push(costDataItem);
-          });
-
-          setCostShareData(costDataArray);
-          let totalInTCO2E = {}; 
-          totalInTCO2E['value'] = json['reporting_period_input']['total_in_kgco2e'] / 1000; // convert from kg to t
-          totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
-          totalInTCO2E['value_per_unit_area'] = json['reporting_period_input']['total_in_kgco2e_per_unit_area'] / 1000; // convert from kg to t
-          setTotalInTCO2E(totalInTCO2E);
-
-          let TCEDataArray = [];
-          json['reporting_period_input']['names'].forEach((currentValue, index) => {
-            let TCEDataItem = {}
-            TCEDataItem['id'] = index;
-            TCEDataItem['name'] = currentValue;
-            TCEDataItem['value'] = json['reporting_period_input']['subtotals_in_kgce'][index] / 1000;
-            TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-            TCEDataArray.push(TCEDataItem);
-          });
-          setTCEShareData(TCEDataArray);
-
-          let TCO2EDataArray = [];
-          json['reporting_period_input']['names'].forEach((currentValue, index) => {
-            let TCO2EDataItem = {}
-            TCO2EDataItem['id'] = index;
-            TCO2EDataItem['name'] = currentValue;
-            TCO2EDataItem['value'] = json['reporting_period_input']['subtotals_in_kgco2e'][index] / 1000; // convert from kg to t
-            TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
-            TCO2EDataArray.push(TCO2EDataItem);
-          });
-          setTCO2EShareData(TCO2EDataArray);
-
-          let timestamps = {}
-          json['reporting_period_input']['timestamps'].forEach((currentValue, index) => {
-            timestamps['a' + index] = currentValue;
-          });
-          setSpaceInputLineChartLabels(timestamps);
-          
-          let values = {}
-          json['reporting_period_input']['values'].forEach((currentValue, index) => {
-            values['a' + index] = currentValue;
-          });
-          setSpaceInputLineChartData(values);
-          
-          let names = Array();
-          json['reporting_period_input']['names'].forEach((currentValue, index) => {
-            let unit = json['reporting_period_input']['units'][index];
-            names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
-          });
-          setSpaceInputLineChartOptions(names);
-
-          timestamps = {}
-          json['reporting_period_cost']['timestamps'].forEach((currentValue, index) => {
-            timestamps['a' + index] = currentValue;
-          });
-          setSpaceCostLineChartLabels(timestamps);
-          
-          values = {}
-          json['reporting_period_cost']['values'].forEach((currentValue, index) => {
-            values['a' + index] = currentValue;
-          });
-          setSpaceCostLineChartData(values);
-          
-          names = Array();
-          json['reporting_period_cost']['names'].forEach((currentValue, index) => {
-            let unit = json['reporting_period_cost']['units'][index];
-            names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
-          });
-          setSpaceCostLineChartOptions(names);
-
-          timestamps = {}
-          json['parameters']['timestamps'].forEach((currentValue, index) => {
-            timestamps['a' + index] = currentValue;
-          });
-          setParameterLineChartLabels(timestamps);
-
-          values = {}
-          json['parameters']['values'].forEach((currentValue, index) => {
-            values['a' + index] = currentValue;
-          });
-          setParameterLineChartData(values);
-        
-          names = Array();
-          json['parameters']['names'].forEach((currentValue, index) => {
-            if (currentValue.startsWith('TARIFF-')) {
-              currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
-            }
-            
-            names.push({ 'value': 'a' + index, 'label': currentValue });
-          });
-          setParameterLineChartOptions(names);
-          
-          let detailed_value_list = [];
-          if (json['reporting_period_input']['timestamps'].length > 0 ) {
-            json['reporting_period_input']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
-              let detailed_value = {};
-              detailed_value['id'] = timestampIndex;
-              detailed_value['startdatetime'] = currentTimestamp;
-              json['reporting_period_input']['values'].forEach((currentValue, energyCategoryIndex) => {
-                detailed_value['a' + energyCategoryIndex] = json['reporting_period_input']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
-              });
-              detailed_value_list.push(detailed_value);
-            });
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
           }
-
-          let detailed_value = {};
-          detailed_value['id'] = detailed_value_list.length;
-          detailed_value['startdatetime'] = t('Subtotal');
-          json['reporting_period_input']['subtotals'].forEach((currentValue, index) => {
-              detailed_value['a' + index] = currentValue.toFixed(2);
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            console.log(json);
+            setFetchSuccess(true);
+            let inputCardSummaryArray = []
+            json['reporting_period_input']['names'].forEach((currentValue, index) => {
+              let cardSummaryItem = {}
+              cardSummaryItem['name'] = json['reporting_period_input']['names'][index];
+              cardSummaryItem['unit'] = json['reporting_period_input']['units'][index];
+              cardSummaryItem['subtotal'] = json['reporting_period_input']['subtotals'][index];
+              cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rates'][index] * 100).toFixed(2) + "%";
+              cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_input']['subtotals_per_unit_area'][index];
+              inputCardSummaryArray.push(cardSummaryItem);
             });
-          detailed_value_list.push(detailed_value);
-          setDetailedDataTableData(detailed_value_list);
+            setInputCardSummaryList(inputCardSummaryArray);
+
+            let costCardSummaryArray = []
+            json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+              let cardSummaryItem = {}
+              cardSummaryItem['name'] = json['reporting_period_cost']['names'][index];
+              cardSummaryItem['unit'] = json['reporting_period_cost']['units'][index];
+              cardSummaryItem['subtotal'] = json['reporting_period_cost']['subtotals'][index];
+              cardSummaryItem['increment_rate'] = parseFloat(json['reporting_period_cost']['increment_rates'][index] * 100).toFixed(2) + "%";
+              cardSummaryItem['subtotal_per_unit_area'] = json['reporting_period_cost']['subtotals_per_unit_area'][index];
+              costCardSummaryArray.push(cardSummaryItem);
+            });
+            setCostCardSummaryList(costCardSummaryArray);
+
+            let timeOfUseArray = [];
+            json['reporting_period_input']['energy_category_ids'].forEach((currentValue, index) => {
+              if(currentValue == 1) {
+                // energy_category_id 1 electricity
+                let timeOfUseItem = {}
+                timeOfUseItem['id'] = 1;
+                timeOfUseItem['name'] =  t('Top-Peak');
+                timeOfUseItem['value'] = json['reporting_period_input']['toppeaks'][index];
+                timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+                timeOfUseArray.push(timeOfUseItem);
+                
+                timeOfUseItem = {}
+                timeOfUseItem['id'] = 2;
+                timeOfUseItem['name'] =  t('On-Peak');
+                timeOfUseItem['value'] = json['reporting_period_input']['onpeaks'][index];
+                timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+                timeOfUseArray.push(timeOfUseItem);
+
+                timeOfUseItem = {}
+                timeOfUseItem['id'] = 3;
+                timeOfUseItem['name'] =  t('Mid-Peak');
+                timeOfUseItem['value'] = json['reporting_period_input']['midpeaks'][index];
+                timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+                timeOfUseArray.push(timeOfUseItem);
+
+                timeOfUseItem = {}
+                timeOfUseItem['id'] = 4;
+                timeOfUseItem['name'] =  t('Off-Peak');
+                timeOfUseItem['value'] = json['reporting_period_input']['offpeaks'][index];
+                timeOfUseItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+                timeOfUseArray.push(timeOfUseItem);
+              }
+            });
+            setTimeOfUseShareData(timeOfUseArray);
+            let totalInTCE = {}; 
+            totalInTCE['value'] = json['reporting_period_input']['total_in_kgce'] / 1000; // convert from kg to t
+            totalInTCE['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgce'] * 100).toFixed(2) + "%";
+            totalInTCE['value_per_unit_area'] = json['reporting_period_input']['total_in_kgce_per_unit_area'] / 1000; // convert from kg to t
+            setTotalInTCE(totalInTCE);
+
+            let costDataArray = [];
+            json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+              let costDataItem = {}
+              costDataItem['id'] = index;
+              costDataItem['name'] = currentValue;
+              costDataItem['value'] = json['reporting_period_cost']['subtotals'][index];
+              costDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              costDataArray.push(costDataItem);
+            });
+
+            setCostShareData(costDataArray);
+            let totalInTCO2E = {}; 
+            totalInTCO2E['value'] = json['reporting_period_input']['total_in_kgco2e'] / 1000; // convert from kg to t
+            totalInTCO2E['increment_rate'] = parseFloat(json['reporting_period_input']['increment_rate_in_kgco2e'] * 100).toFixed(2) + "%";
+            totalInTCO2E['value_per_unit_area'] = json['reporting_period_input']['total_in_kgco2e_per_unit_area'] / 1000; // convert from kg to t
+            setTotalInTCO2E(totalInTCO2E);
+
+            let TCEDataArray = [];
+            json['reporting_period_input']['names'].forEach((currentValue, index) => {
+              let TCEDataItem = {}
+              TCEDataItem['id'] = index;
+              TCEDataItem['name'] = currentValue;
+              TCEDataItem['value'] = json['reporting_period_input']['subtotals_in_kgce'][index] / 1000;
+              TCEDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              TCEDataArray.push(TCEDataItem);
+            });
+            setTCEShareData(TCEDataArray);
+
+            let TCO2EDataArray = [];
+            json['reporting_period_input']['names'].forEach((currentValue, index) => {
+              let TCO2EDataItem = {}
+              TCO2EDataItem['id'] = index;
+              TCO2EDataItem['name'] = currentValue;
+              TCO2EDataItem['value'] = json['reporting_period_input']['subtotals_in_kgco2e'][index] / 1000; // convert from kg to t
+              TCO2EDataItem['color'] = "#"+((1<<24)*Math.random()|0).toString(16);
+              TCO2EDataArray.push(TCO2EDataItem);
+            });
+            setTCO2EShareData(TCO2EDataArray);
+
+            let timestamps = {}
+            json['reporting_period_input']['timestamps'].forEach((currentValue, index) => {
+              timestamps['a' + index] = currentValue;
+            });
+            setSpaceInputLineChartLabels(timestamps);
+            
+            let values = {}
+            json['reporting_period_input']['values'].forEach((currentValue, index) => {
+              values['a' + index] = currentValue;
+            });
+            setSpaceInputLineChartData(values);
+            
+            let names = Array();
+            json['reporting_period_input']['names'].forEach((currentValue, index) => {
+              let unit = json['reporting_period_input']['units'][index];
+              names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
+            });
+            setSpaceInputLineChartOptions(names);
+
+            timestamps = {}
+            json['reporting_period_cost']['timestamps'].forEach((currentValue, index) => {
+              timestamps['a' + index] = currentValue;
+            });
+            setSpaceCostLineChartLabels(timestamps);
+            
+            values = {}
+            json['reporting_period_cost']['values'].forEach((currentValue, index) => {
+              values['a' + index] = currentValue;
+            });
+            setSpaceCostLineChartData(values);
+            
+            names = Array();
+            json['reporting_period_cost']['names'].forEach((currentValue, index) => {
+              let unit = json['reporting_period_cost']['units'][index];
+              names.push({ 'value': 'a' + index, 'label': currentValue + ' (' + unit + ')'});
+            });
+            setSpaceCostLineChartOptions(names);
+
+            timestamps = {}
+            json['parameters']['timestamps'].forEach((currentValue, index) => {
+              timestamps['a' + index] = currentValue;
+            });
+            setParameterLineChartLabels(timestamps);
+
+            values = {}
+            json['parameters']['values'].forEach((currentValue, index) => {
+              values['a' + index] = currentValue;
+            });
+            setParameterLineChartData(values);
           
-          let detailed_column_list = [];
-          detailed_column_list.push({
-            dataField: 'startdatetime',
-            text: t('Datetime'),
-            sort: true
-          })
-          json['reporting_period_input']['names'].forEach((currentValue, index) => {
-            let unit = json['reporting_period_input']['units'][index];
+            names = Array();
+            json['parameters']['names'].forEach((currentValue, index) => {
+              if (currentValue.startsWith('TARIFF-')) {
+                currentValue = t('Tariff') + currentValue.replace('TARIFF-', '-');
+              }
+              
+              names.push({ 'value': 'a' + index, 'label': currentValue });
+            });
+            setParameterLineChartOptions(names);
+            
+            let detailed_value_list = [];
+            if (json['reporting_period_input']['timestamps'].length > 0 ) {
+              json['reporting_period_input']['timestamps'][0].forEach((currentTimestamp, timestampIndex) => {
+                let detailed_value = {};
+                detailed_value['id'] = timestampIndex;
+                detailed_value['startdatetime'] = currentTimestamp;
+                json['reporting_period_input']['values'].forEach((currentValue, energyCategoryIndex) => {
+                  detailed_value['a' + energyCategoryIndex] = json['reporting_period_input']['values'][energyCategoryIndex][timestampIndex].toFixed(2);
+                });
+                detailed_value_list.push(detailed_value);
+              });
+            }
+
+            let detailed_value = {};
+            detailed_value['id'] = detailed_value_list.length;
+            detailed_value['startdatetime'] = t('Subtotal');
+            json['reporting_period_input']['subtotals'].forEach((currentValue, index) => {
+                detailed_value['a' + index] = currentValue.toFixed(2);
+              });
+            detailed_value_list.push(detailed_value);
+            setDetailedDataTableData(detailed_value_list);
+            
+            let detailed_column_list = [];
             detailed_column_list.push({
-              dataField: 'a' + index,
-              text: currentValue + ' (' + unit + ')',
+              dataField: 'startdatetime',
+              text: t('Datetime'),
               sort: true
             })
-          });
-          setDetailedDataTableColumns(detailed_column_list);
+            json['reporting_period_input']['names'].forEach((currentValue, index) => {
+              let unit = json['reporting_period_input']['units'][index];
+              detailed_column_list.push({
+                dataField: 'a' + index,
+                text: currentValue + ' (' + unit + ')',
+                sort: true
+              })
+            });
+            setDetailedDataTableColumns(detailed_column_list);
 
-          let child_space_value_list = [];
-          if (json['child_space_input']['child_space_names_array'].length > 0) {
-            json['child_space_input']['child_space_names_array'][0].forEach((currentSpaceName, spaceIndex) => {
-              let child_space_value = {};
-              child_space_value['id'] = spaceIndex;
-              child_space_value['name'] = currentSpaceName;
-              json['child_space_input']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
-                child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
-                child_space_value['b' + energyCategoryIndex] = json['child_space_cost']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+            let child_space_value_list = [];
+            if (json['child_space_input']['child_space_names_array'].length > 0) {
+              json['child_space_input']['child_space_names_array'][0].forEach((currentSpaceName, spaceIndex) => {
+                let child_space_value = {};
+                child_space_value['id'] = spaceIndex;
+                child_space_value['name'] = currentSpaceName;
+                json['child_space_input']['energy_category_names'].forEach((currentValue, energyCategoryIndex) => {
+                  child_space_value['a' + energyCategoryIndex] = json['child_space_input']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+                  child_space_value['b' + energyCategoryIndex] = json['child_space_cost']['subtotals_array'][energyCategoryIndex][spaceIndex].toFixed(2);
+                });
+                child_space_value_list.push(child_space_value);
               });
-              child_space_value_list.push(child_space_value);
+            }
+
+            setChildSpacesTableData(child_space_value_list);
+
+            let child_space_column_list = [];
+            child_space_column_list.push({
+              dataField: 'name',
+              text: t('Child Spaces'),
+              sort: true
             });
+            json['child_space_input']['energy_category_names'].forEach((currentValue, index) => {
+              let unit = json['child_space_input']['units'][index];
+              child_space_column_list.push({
+                dataField: 'a' + index,
+                text: currentValue + ' (' + unit + ')',
+                sort: true
+              });
+            });
+            json['child_space_cost']['energy_category_names'].forEach((currentValue, index) => {
+              let unit = json['child_space_cost']['units'][index];
+              child_space_column_list.push({
+                dataField: 'b' + index,
+                text: currentValue + ' (' + unit + ')',
+                sort: true
+              });
+            });
+
+            setChildSpacesTableColumns(child_space_column_list);
           }
+        });
+      };
 
-          setChildSpacesTableData(child_space_value_list);
-
-          let child_space_column_list = [];
-          child_space_column_list.push({
-            dataField: 'name',
-            text: t('Child Spaces'),
-            sort: true
-          });
-          json['child_space_input']['energy_category_names'].forEach((currentValue, index) => {
-            let unit = json['child_space_input']['units'][index];
-            child_space_column_list.push({
-              dataField: 'a' + index,
-              text: currentValue + ' (' + unit + ')',
-              sort: true
-            });
-          });
-          json['child_space_cost']['energy_category_names'].forEach((currentValue, index) => {
-            let unit = json['child_space_cost']['units'][index];
-            child_space_column_list.push({
-              dataField: 'b' + index,
-              text: currentValue + ' (' + unit + ')',
-              sort: true
-            });
-          });
-
-          setChildSpacesTableColumns(child_space_column_list);
-        }
-      });
     };
-
-  };
   }, );
   
 
