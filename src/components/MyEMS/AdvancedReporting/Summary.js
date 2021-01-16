@@ -45,10 +45,11 @@ const Summary = ({ calendar, title, badge, divider, to, children, file_bytes_bas
 Summary.propTypes = {
   calendar: PropTypes.shape(Calendar.propTypes).isRequired,
   title: PropTypes.string.isRequired,
+  divider: PropTypes.bool,
   to: PropTypes.string.isRequired,
   badge: PropTypes.shape(ReportBadge.propTypes),
   children: PropTypes.node,
-  divider: PropTypes.bool
+  file_bytes_base64: PropTypes.string.isRequired
 };
 
 Summary.defaultProps = { divider: true };
