@@ -91,8 +91,8 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     setSpinnerHidden(false);
     
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/advancereporting?' +
-      'reportingperiodbeginsdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+    fetch(APIBaseURL + '/reports/advancedreports?' +
+      'reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
       '&reportingperiodenddatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
       method: 'GET',
       headers: {
@@ -116,54 +116,25 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(json => {
       if (isResponseOK) {
         console.log(json);
-        setReports([
-          {
-            id: uuid(),
-            calendar: { month: 'Mar', day: '26' },
-            title: "空间数据日报",
-            additional: t('Created Datetime') + ': 2020-03-26 11:00AM<br/>' +
-              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-            to: '#'
-          },
-          {
-            id: uuid(),
-            calendar: { month: 'Jul', day: '21' },
-            title: '设备数据日报',
-            additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
-              t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
-            to: '#'
-          },
-          {
-            id: uuid(),
-            calendar: { month: 'Jul', day: '21' },
-            title: '租户数据日报',
-            additional: t('Created Datetime') + ': 2020-07-21 11:00AM<br/>' +
-              t('File Format') + ': DOCX<br/>' + t('File Size') + ': 1.3 MB',
-            to: '#',
-            badge: {
-              text: 'New',
-              color: 'soft-success',
-              pill: true
-            }
-          },
-          {
-            id: uuid(),
-            calendar: { month: 'Jul', day: '31' },
-            title: '门店数据日报',
-            additional: t('Created Datetime') + ': 2020-07-31 11:00AM<br/>' +
-              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-            to: '#'
-          },
-          {
-            id: uuid(),
-            calendar: { month: 'Jul', day: '16' },
-            title: '车间数据日报',
-            additional: t('Created Datetime') + ': 2020-07-16 11:00AM<br/>' +
-              t('File Format') + ': XLSX<br/>' + t('File Size') + ': 1.3 MB',
-            to: '#'
-          }
-        ]);
+        let reportList = []
 
+        if (json.length > 0) {
+          json.forEach((currentValue, index) => {
+            let report = {}
+            report['id'] = json[index]['id'];
+            report['calendar'] = { month: json[index]['create_datetime_local'].substring(5, 7), 
+            day: json[index]['create_datetime_local'].substring(8, 10) };
+            report['title'] = json[index]['file_name'] + '.' + json[index]['file_type'];
+            report['additional'] = t('Created Datetime') + ': ' + json[index]['create_datetime_local']  + '<br/>' +
+            t('File Size') + ': ' + (json[index]['file_size_bytes']/(1024*1024)).toFixed(2) + ' MB';
+            report['to'] = '#';
+            report['file_bytes_base64'] = json[index]['file_bytes_base64'];
+
+            reportList.push(report);
+          });
+        }
+      
+        setReports(reportList);
 
       } else {
         toast.error(json.description)
@@ -172,6 +143,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
   };
+
 
   return (
     <Fragment>
@@ -228,7 +200,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
             <Row>
               {reports.map(({ additional, ...rest }, index) => (
                 <Col md={6} className="h-100" key={index}>
-                  <Summary divider={reports.length !== index + 1} {...rest}>
+                  <Summary  divider={reports.length !== index + 1} {...rest}>
                     <p className="text-1000 mb-0" dangerouslySetInnerHTML={createMarkup(additional)} />
                   </Summary>
                 </Col>
