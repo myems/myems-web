@@ -1,106 +1,25 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import range from 'lodash/range';
-import { Card, CardHeader, CardBody, CustomInput, ListGroup, ListGroupItem, CardFooter } from 'reactstrap';
-import { rgbaColor, isIterableArray } from '../../../helpers/utils';
+import { Card, CardHeader, CardBody, ListGroup, ListGroupItem } from 'reactstrap';
+import { rgbaColor } from '../../../helpers/utils';
 import { withTranslation } from 'react-i18next';
+import uuid from 'uuid/v1';
+import { APIBaseURL } from '../../../config';
+import { getCookieValue, createCookie } from '../../../helpers/utils';
+import { toast } from 'react-toastify';
 
 
-const energyTrendLog = [
-  11183,
-  12116,
-  13176,
-  14172,
-  15166,
-  16161,
-  17164,
-  18159,
-  19172,
-  20173,
-  21184,
-  22163,
-  23099,
-  24173,
-  25183,
-  26167,
-  27160,
-  28183,
-  29163,
-  30176,
-  31172,
-  32166,
-  33173,
-  34188,
-  35175
-];
 const dividerBorder = '1px solid rgba(255, 255, 255, 0.15)';
 const listItemBorderColor = 'rgba(255, 255, 255, 0.05)';
-
-const chartOptions = {
-  legend: { display: false },
-  scales: {
-    yAxes: [
-      {
-        display: true,
-        stacked: false
-      }
-    ],
-    xAxes: [
-      {
-        stacked: false,
-        ticks: { display: false },
-        categoryPercentage: 1.0,
-        gridLines: {
-          color: rgbaColor('#fff', 0.1),
-          display: true
-        }
-      }
-    ]
-  }
-};
 
 class RealtimeChart extends Component {
   _isMounted = false;
   refreshInterval;
   refreshTimeout;
   state = {
-    energyTrendLog,
-    currentEnergyValue: energyTrendLog[energyTrendLog.length - 1],
-    chartData: {
-      labels: range(1, 26),
-      datasets: [
-        {
-          label: 'Users',
-          backgroundColor: rgbaColor('#fff', 0.3),
-          data: []
-        }
-      ]
-    }
+    pointList: [],
   };
-
-  simulate = () => {
-    this.refreshInterval = setInterval(() => {
-      const currentEnergyValue = this.state.currentEnergyValue + Math.floor(Math.random() * (120 - 60) + 60);
-      const energyTrendLog = [...this.state.energyTrendLog];
-      energyTrendLog.shift();
-      if (this._isMounted) {
-        this.setState({ energyTrendLog }, () => {
-          this.refreshTimeout = setTimeout(() => {
-            const energyTrendLog = [...this.state.energyTrendLog];
-            energyTrendLog.push(currentEnergyValue);
-            if (this._isMounted) {
-              this.setState({ energyTrendLog, currentEnergyValue });
-            }
-          }, 500);
-        });
-      }
-    }, 2000);
-  };
-
-  componentDidMount() {
-    this._isMounted = true;
-    this.simulate();
-  }
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -108,88 +27,131 @@ class RealtimeChart extends Component {
     clearTimeout(this.refreshTimeout);
   }
 
-  render() {
-    const { t } = this.props;
-    const chartData = {
-      ...this.state.chartData,
-      datasets: [
-        {
-          ...this.state.chartData.datasets[0],
-          data: this.state.energyTrendLog
+  componentDidMount() {
+    console.log(this.props);
+    this._isMounted = true;
+    // fetch realtime data at the first time
+    let isResponseOK = false;
+    if (this.props.distributionSystemID != undefined) {
+      fetch(APIBaseURL + '/reports/distributionsystem?distributionsystemid=' + this.props.distributionSystemID, {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "User-UUID": getCookieValue('user_uuid'),
+          "Token": getCookieValue('token')
+        },
+        body: null,
+
+      }).then(response => {
+        if (response.ok) {
+          isResponseOK = true;
         }
-      ]
+        return response.json();
+      }).then(json => {
+        if (isResponseOK) {
+          console.log(json);
+          let pointList = [];
+            json.forEach((currentCircuit, circuitIndex) => {
+              json[circuitIndex]['points'].forEach((currentPoint, pointIndex) => {
+                let pointItem = {}
+                pointItem['circuit'] = currentCircuit['name'];
+                pointItem['point'] = currentPoint['name'];
+                pointItem['value'] = currentPoint['value'];
+                pointItem['units'] = currentPoint['units'];
+                pointList.push(pointItem);
+              });
+            });
+          if (this._isMounted) {
+            this.setState({ 
+              pointList: pointList,
+            });
+          }
+        } else {
+          toast.error(json.description)
+        }
+      }).catch(err => {
+        console.log(err);
+      });
     };
 
+    //fetch realtime data at regular intervals
+    this.refreshInterval = setInterval(() => {
+      let isResponseOK = false;
+      fetch(APIBaseURL + '/reports/distributionsystem?distributionsystemid=' + this.props.distributionSystemID, {
+        method: 'GET',
+        headers: {
+          "Content-type": "application/json",
+          "User-UUID": getCookieValue('user_uuid'),
+          "Token": getCookieValue('token')
+        },
+        body: null,
+
+      }).then(response => {
+        if (response.ok) {
+          isResponseOK = true;
+        }
+        return response.json();
+      }).then(json => {
+        if (isResponseOK) {
+          console.log(json);
+          let pointList = [];
+          json.forEach((currentCircuit, circuitIndex) => {
+            json[circuitIndex]['points'].forEach((currentPoint, pointIndex) => {
+              let pointItem = {}
+              pointItem['circuit'] = currentCircuit['name'];
+              pointItem['point'] = currentPoint['name'];
+              pointItem['value'] = currentPoint['value'];
+              pointItem['units'] = currentPoint['units'];
+              pointList.push(pointItem);
+            });
+          });
+          
+          if (this._isMounted) {
+            this.setState({ 
+              pointList: pointList,
+            });
+          }
+        } else {
+          toast.error(json.description)
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+    }, (60 + Math.floor(Math.random() * Math.floor(10))) * 1000); // use random interval to avoid paralels requests 
+  }
+
+  render() {
+    const { t } = this.props;
+    
     return (
       <Card className="h-100 bg-gradient">
         <CardHeader className="bg-transparent">
-          <CustomInput type="select" id="exampleCustomSelect" bsSize="sm">
-            {isIterableArray(this.props.options) &&
-              this.props.options.map(({ value, label }) => (
-                <option key={value} value={value}>{label}</option>
-              ))}
-
-          </CustomInput>
-          <h5 className="text-white">{this.props.title}</h5>
-
-          <div className="real-time-user display-1 font-weight-normal text-white">{this.state.currentEnergyValue}</div>
-
+          <h5 className="text-white">{this.props.distributionSystemName}</h5>
+          <div className="real-time-user display-1 font-weight-normal text-white">{this.state.latestUpdateDatetime}</div>
         </CardHeader>
         <CardBody className="text-white fs--1">
-          <p className="pb-2" style={{ borderBottom: dividerBorder }}>
-            {t('Realtime Value of Energy Value Point UNIT', {'UNIT': '(kWh)'})}
-          </p>
-          <Line data={chartData} options={chartOptions} width={10} height={4} />
           <ListGroup flush className="mt-4">
+          
             <ListGroupItem
               className="bg-transparent d-flex justify-content-between px-0 py-1 font-weight-semi-bold border-top-0"
               style={{ borderColor: listItemBorderColor }}
             >
-              <p className="mb-0">{t('Related Parameters')}</p>
+              <p className="mb-0">{t('Circuit')}</p>
+              <p className="mb-0">{t('Point')}</p>
               <p className="mb-0">{t('Realtime Value')}</p>
+              <p className="mb-0">{t('Unit')}</p>
             </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流a (A)</p>
-              <p className="mb-0">18.098</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流b (A)</p>
-              <p className="mb-0">15.001</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-xxl-flex justify-content-between px-0 py-1 d-none"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">电流c (A)</p>
-              <p className="mb-0">16.257</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-xxl-flex justify-content-between px-0 py-1 d-none"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 a (kW)</p>
-              <p className="mb-0">25.98</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 b (kW)</p>
-              <p className="mb-0">21.76</p>
-            </ListGroupItem>
-            <ListGroupItem
-              className="bg-transparent d-flex justify-content-between px-0 py-1"
-              style={{ borderColor: listItemBorderColor }}
-            >
-              <p className="mb-0">有功瞬时功率 c (kW)</p>
-              <p className="mb-0">29.12</p>
-            </ListGroupItem>
+            {this.state.pointList.map(pointItem => (
+              <ListGroupItem key={uuid()}
+                className="bg-transparent d-flex justify-content-between px-0 py-1"
+                style={{ borderColor: listItemBorderColor }}
+              >
+                <p className="mb-0">{pointItem['circuit']}</p>
+                <p className="mb-0">{pointItem['point']}</p>
+                <p className="mb-0">{pointItem['value']}</p>
+                <p className="mb-0">{pointItem['units']}</p>
+              </ListGroupItem>
+            ))}
           </ListGroup>
         </CardBody>
       </Card>
@@ -197,4 +159,4 @@ class RealtimeChart extends Component {
   }
 }
 
-export default withTranslation()(RealtimeChart);
+export default  withTranslation()(RealtimeChart);
