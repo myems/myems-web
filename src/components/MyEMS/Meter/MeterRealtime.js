@@ -15,7 +15,7 @@ import {
   Spinner,
 } from 'reactstrap';
 import Cascader from 'rc-cascader';
-import RealtimeChart from '../common/RealtimeChart';
+import RealtimeChart from './RealtimeChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';

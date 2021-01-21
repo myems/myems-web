@@ -231,6 +231,8 @@ const resources = {
       "Percentage": "Percentage",
       //Realtime Chart
       "Trend in the last hour of Energy Value Point (UNIT)": "Trend in the last hour of Energy Value Point (UNIT) {{UNIT}}",
+      "Circuit": "Circuit",
+      "Point": "Point",
       "Realtime Value": "Realtime Value",
       //Meter Tracking
       "Meter List": "Meter List",
@@ -551,6 +553,8 @@ const resources = {
       "Percentage": "Prozentsatz",
       //Realtime Chart
       "Trend in the last hour of Energy Value Point (UNIT)": "Trend in der letzten Stunde des Energiewertpunkts ({{UNIT}})",
+      "Circuit": "Schaltkreis",
+      "Point": "Punkt",
       "Realtime Value": "Echtzeitwert",
       //Meter Tracking
       "Meter List": "Zählerliste",
@@ -874,6 +878,8 @@ const resources = {
       "Percentage": "百分比",
       //Realtime Chart
       "Trend in the last hour of Energy Value Point (UNIT)": "能耗值点最近一小时趋势 ({{UNIT}})",
+      "Circuit": "回路",
+      "Point": "数据点",
       "Realtime Value": "实时值",
       //Meter Tracking
       "Meter List": "计量表列表",
