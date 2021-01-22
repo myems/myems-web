@@ -77,46 +77,48 @@ class RealtimeChart extends Component {
     //fetch realtime data at regular intervals
     this.refreshInterval = setInterval(() => {
       let isResponseOK = false;
-      fetch(APIBaseURL + '/reports/distributionsystem?distributionsystemid=' + this.props.distributionSystemID, {
-        method: 'GET',
-        headers: {
-          "Content-type": "application/json",
-          "User-UUID": getCookieValue('user_uuid'),
-          "Token": getCookieValue('token')
-        },
-        body: null,
+      if (this.props.distributionSystemID != undefined) {
+        fetch(APIBaseURL + '/reports/distributionsystem?distributionsystemid=' + this.props.distributionSystemID, {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
 
-      }).then(response => {
-        if (response.ok) {
-          isResponseOK = true;
-        }
-        return response.json();
-      }).then(json => {
-        if (isResponseOK) {
-          console.log(json);
-          let pointList = [];
-          json.forEach((currentCircuit, circuitIndex) => {
-            json[circuitIndex]['points'].forEach((currentPoint, pointIndex) => {
-              let pointItem = {}
-              pointItem['circuit'] = currentCircuit['name'];
-              pointItem['point'] = currentPoint['name'];
-              pointItem['value'] = currentPoint['value'];
-              pointItem['units'] = currentPoint['units'];
-              pointList.push(pointItem);
-            });
-          });
-          
-          if (this._isMounted) {
-            this.setState({ 
-              pointList: pointList,
-            });
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
           }
-        } else {
-          toast.error(json.description)
-        }
-      }).catch(err => {
-        console.log(err);
-      });
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            console.log(json);
+            let pointList = [];
+            json.forEach((currentCircuit, circuitIndex) => {
+              json[circuitIndex]['points'].forEach((currentPoint, pointIndex) => {
+                let pointItem = {}
+                pointItem['circuit'] = currentCircuit['name'];
+                pointItem['point'] = currentPoint['name'];
+                pointItem['value'] = currentPoint['value'];
+                pointItem['units'] = currentPoint['units'];
+                pointList.push(pointItem);
+              });
+            });
+            
+            if (this._isMounted) {
+              this.setState({ 
+                pointList: pointList,
+              });
+            }
+          } else {
+            toast.error(json.description)
+          }
+        }).catch(err => {
+          console.log(err);
+        });
+      }
     }, (60 + Math.floor(Math.random() * Math.floor(10))) * 1000); // use random interval to avoid paralels requests 
   }
 
