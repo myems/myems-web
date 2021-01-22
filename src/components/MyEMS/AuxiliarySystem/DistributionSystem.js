@@ -142,14 +142,14 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
       </Card>
       <Row noGutters>
         
-        <Col lg="5" className="pr-lg-2" key={uuid()}>
+        <Col lg="4" className="pr-lg-2" key={uuid()}>
           <RealtimeChart 
             distributionSystemID={selectedDistributionSystemID} 
             distributionSystemName={selectedDistributionSystemName}  
           />
         </Col>
         
-        <Col lg="7" className="pr-lg-2">
+        <Col lg="8" className="pr-lg-2">
           <div dangerouslySetInnerHTML={images[selectedDistributionSystemID]} />
         </Col>
 

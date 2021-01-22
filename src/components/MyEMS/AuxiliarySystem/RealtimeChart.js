@@ -149,7 +149,7 @@ class RealtimeChart extends Component {
                 style={{ borderColor: listItemBorderColor }}
               >
                 <p className="mb-0">{pointItem['circuit']}</p>
-                <p className="mb-0">{pointItem['point']}</p>
+                <p className="mb-0 ">{pointItem['point']}</p>
                 <p className="mb-0">{pointItem['value']}</p>
                 <p className="mb-0">{pointItem['units']}</p>
               </ListGroupItem>
