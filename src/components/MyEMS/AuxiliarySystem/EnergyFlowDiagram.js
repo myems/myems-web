@@ -173,19 +173,19 @@ const EnergyFlowDiagram = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(response => {
       if (response.ok) {
         isResponseOK = true;
-      }
-
-      // enable submit button
-      setSubmitButtonDisabled(false);
-      // hide spinner
-      setSpinnerHidden(true);
-      
+      };
       return response.json();
     }).then(json => {
       if (isResponseOK) {
         console.log(json)
         setEnergyFlowDiagramData(json);
         console.log(energyFlowDiagramData);
+
+        // enable submit button
+        setSubmitButtonDisabled(false);
+        // hide spinner
+        setSpinnerHidden(true);
+        
       } else {
         toast.error(json.description)
       }

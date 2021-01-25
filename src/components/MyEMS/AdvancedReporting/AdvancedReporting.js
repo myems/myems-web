@@ -105,13 +105,7 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
     }).then(response => {
       if (response.ok) {
         isResponseOK = true;
-      }
-
-      // enable submit button
-      setSubmitButtonDisabled(false);
-      // hide spinner
-      setSpinnerHidden(true);
-
+      };
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -135,6 +129,11 @@ const AdvacnedReporting = ({ setRedirect, setRedirectUrl, t }) => {
         }
       
         setReports(reportList);
+
+        // enable submit button
+        setSubmitButtonDisabled(false);
+        // hide spinner
+        setSpinnerHidden(true);
 
       } else {
         toast.error(json.description)
