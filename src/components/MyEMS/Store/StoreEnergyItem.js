@@ -315,14 +315,6 @@ const StoreEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
-
-      // enable submit button
-      setSubmitButtonDisabled(false);
-      // hide spinner
-      setSpinnerHidden(true);
-      // show export buttion
-      setExportButtonHidden(false)
-
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -448,6 +440,13 @@ const StoreEnergyItem = ({ setRedirect, setRedirectUrl, t }) => {
         setDetailedDataTableColumns(detailed_column_list);
         
         setExcelBytesBase64(json['excel_bytes_base64']);
+
+        // enable submit button
+        setSubmitButtonDisabled(false);
+        // hide spinner
+        setSpinnerHidden(true);
+        // show export buttion
+        setExportButtonHidden(false)
 
       } else {
         toast.error(json.description)

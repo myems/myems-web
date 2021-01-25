@@ -292,14 +292,6 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
       if (response.ok) {
         isResponseOK = true;
       }
-  
-      // enable submit button
-      setSubmitButtonDisabled(false);
-      // hide spinner
-      setSpinnerHidden(true);
-      // show export buttion
-      setExportButtonHidden(false)
-
       return response.json();
     }).then(json => {
       if (isResponseOK) {
@@ -346,6 +338,13 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
         setTotal(json['reporting_period']['total_cost'] * (1.00 + taxRate));
         
         setExcelBytesBase64(json['excel_bytes_base64']);
+  
+        // enable submit button
+        setSubmitButtonDisabled(false);
+        // hide spinner
+        setSpinnerHidden(true);
+        // show export buttion
+        setExportButtonHidden(false)
         
       } else {
         toast.error(json.description)
