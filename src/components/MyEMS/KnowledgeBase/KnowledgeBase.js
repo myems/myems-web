@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { Alert, Card, CardBody, Col, Row } from 'reactstrap';
+import { Alert, Card, CardBody, Col, Row, Spinner, } from 'reactstrap';
 import Summary from './Summary';
 import FalconCardHeader from '../../common/FalconCardHeader';
 import createMarkup from '../../../helpers/createMarkup';
@@ -17,6 +17,8 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
 
   //Results
   const [reports, setReports] = useState([]);
+
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
 
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
@@ -75,6 +77,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
             }
           
             setReports(reportList);
+            setSpinnerHidden(true);
           }
         });
       }
@@ -86,6 +89,7 @@ const KnowledgeBase = ({ setRedirect, setRedirectUrl, t }) => {
       <FalconCardHeader title={t('Knowledge Base')}>
       </FalconCardHeader>
       <CardBody className="fs--1">
+        <Spinner color="primary" hidden={spinnerHidden}  />
         {isIterableArray(reports) ? (
               <Row>
                 {reports.map(({ additional, ...rest }, index) => (

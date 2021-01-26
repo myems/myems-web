@@ -15,6 +15,7 @@ import {
   Media,
   Row,
   UncontrolledDropdown,
+  Spinner,
 } from 'reactstrap';
 import uuid from 'uuid/v1';
 import Cascader from 'rc-cascader';
@@ -54,6 +55,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [equipmentList, setEquipmentList] = useState([]);
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
   
   useEffect(() => {
     let isResponseOK = false;
@@ -112,7 +114,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
                 'description': currentValue['description']});
             });
             setEquipmentList(equipments);
-            console.log(equipments);
+            setSpinnerHidden(true);
           } else {
             toast.error(json.description)
           }
@@ -202,6 +204,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     let selectedSpaceID = value[value.length - 1];
+    setSpinnerHidden(false);
     // begin of getting equipment list
     let isResponseOK = false;
     fetch(APIBaseURL + '/reports/equipmenttracking?' +
@@ -234,7 +237,7 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
             'description': currentValue['description']});
         });
         setEquipmentList(equipments);
-        console.log(equipments);
+        setSpinnerHidden(true);
       } else {
         toast.error(json.description)
       }
@@ -269,6 +272,12 @@ const EquipmentTracking = ({ setRedirect, setRedirectUrl, t }) => {
                   </Cascader>
                 </FormGroup>
               </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
+                </FormGroup>
+              </Col>  
             </Row>
           </Form>
         </CardBody>
