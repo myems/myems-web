@@ -56,6 +56,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
 
   useEffect(() => {
     // begin of getting space tree
@@ -116,6 +117,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
                 'description': currentValue['description']});
             });
             setMeterList(meters);
+            setSpinnerHidden(true);
           } else {
             toast.error(json.description)
           }
@@ -215,6 +217,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     let selectedSpaceID = value[value.length - 1];
+    setSpinnerHidden(false);
     // begin of gettting meter list
     let isSecondResponseOK = false;
     fetch(APIBaseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
@@ -247,6 +250,7 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
             'description': currentValue['description']});
         });
         setMeterList(meters);
+        setSpinnerHidden(true);
       } else {
         toast.error(json.description)
       }
@@ -281,6 +285,12 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
                   </Cascader>
                 </FormGroup>
               </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
+                </FormGroup>
+              </Col>  
             </Row>
           </Form>
         </CardBody>
