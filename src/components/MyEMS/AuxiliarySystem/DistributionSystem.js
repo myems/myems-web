@@ -10,6 +10,7 @@ import {
   FormGroup,
   Label,
   Row,
+  Spinner,
 } from 'reactstrap';
 import RealtimeChart from './RealtimeChart';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
@@ -49,6 +50,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
   
   //Results
   const [images, setImages] = useState([]);
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
 
   useEffect(() => {
     let isResponseOK = false;
@@ -83,6 +85,7 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
           images[currentValue['value']] = {__html: currentValue['svg']}
         });
         setImages(images);
+        setSpinnerHidden(true);
       } else {
         toast.error(json.description);
       }
@@ -135,7 +138,12 @@ const DistributionSystem = ({ setRedirect, setRedirectUrl, t }) => {
                   </CustomInput>
                 </FormGroup>
               </Col>
-              
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
+                </FormGroup>
+              </Col>              
             </Row>
           </Form>
         </CardBody>
