@@ -48,6 +48,7 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceName, setSelectedSpaceName] = useState(undefined);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
 
   useEffect(() => {
     //begin of getting space tree
@@ -97,6 +98,7 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
               json = JSON.parse(JSON.stringify([json]));
               console.log(json);
               setMeterList(json[0]);
+              setSpinnerHidden(true);
           } else {
             toast.error(json.description)
           }
@@ -118,7 +120,8 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
 
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
-    let selectedSpaceID = value[value.length - 1]
+    let selectedSpaceID = value[value.length - 1];
+    setSpinnerHidden(false);
     //begin of getting meters of the selected space
     let isResponseOK = false;
     fetch(APIBaseURL + '/spaces/' + selectedSpaceID + '/meters', {
@@ -140,6 +143,7 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
           json = JSON.parse(JSON.stringify([json]));
           console.log(json);
           setMeterList(json[0]);
+          setSpinnerHidden(true);
       } else {
         toast.error(json.description)
       }
@@ -174,6 +178,12 @@ const MeterRealtime = ({ setRedirect, setRedirectUrl, t }) => {
                   </Cascader>
                 </FormGroup>
               </Col>
+              <Col xs="auto">
+                <FormGroup>
+                  <br></br>
+                  <Spinner color="primary" hidden={spinnerHidden}  />
+                </FormGroup>
+              </Col>  
             </Row>
           </Form>
         </CardBody>
