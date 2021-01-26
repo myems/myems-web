@@ -212,7 +212,7 @@ const SidePanelModal = ({ autoShow, showOnce, autoShowDelay, cookieExpireTime, p
           <p className="fs--1">{t('Get MyEMS now.')}</p>
           <Button
             color="primary"
-            href="https://meyms.io"
+            href="https://myems.io"
           >
             {t('Purchase')}
           </Button>
