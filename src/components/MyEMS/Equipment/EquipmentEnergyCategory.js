@@ -701,7 +701,7 @@ const EquipmentEnergyCategory = ({ setRedirect, setRedirectUrl, t }) => {
           <SharePie data={TCEShareData} title={t('Ton of Standard Coal by Energy Category')} />
         </Col>
         <Col className="mb-3 pr-lg-2 mb-3">
-          <SharePie data={TCO2EShareData} title={t('Carbon Dioxide Emissions by Energy Category')} />
+          <SharePie data={TCO2EShareData} title={t('Ton of Carbon Dioxide Emissions by Energy Category')} />
         </Col>
       </Row>
       <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
