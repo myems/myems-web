@@ -63,8 +63,8 @@ const resources = {
       "Electricity Consumption by Time-Of-Use": "Electricity Consumption by Time-Of-Use",
       "Electricity Cost by Time-Of-Use": "Electricity Cost by Time-Of-Use",
       "CATEGORY UNIT Consumption by Energy Items": "{{CATEGORY}} {{UNIT}} Comsumption by Energy Items",
-      "Ton of Standard Coal by Energy Category": "Ton of Standard Coal by Energy Category",
-      "Carbon Dioxide Emissions by Energy Category": "Carbon Dioxide Emissions by Energy Category",
+      "Ton of Standard Coal by Energy Category": "Ton of Standard Coal(TCE) by Energy Category",
+      "Ton of Carbon Dioxide Emissions by Energy Category": "Ton of Carbon Dioxide Emissions(TCO2E) by Energy Category",
       "This Month's Consumption CATEGORY VALUE UNIT": "This Month's Consumption {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "This Month's Costs CATEGORY VALUE UNIT": "This Month's Costs {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
@@ -385,8 +385,8 @@ const resources = {
       "Electricity Consumption by Time-Of-Use": "Stromverbrauch nach Nutzungsdauer",
       "Electricity Cost by Time-Of-Use": "Stromkosten je nach Nutzungsdauer",
       "CATEGORY UNIT Consumption by Energy Items": "{{CATEGORY}} {{UNIT}} nach Unterpunkt Energieverbrauch",
-      "Ton of Standard Coal by Energy Category": "Tonne Standardkohle nach Energiekategorie",
-      "Carbon Dioxide Emissions by Energy Category": "Kohlendioxidemissionen nach Energiekategorie",
+      "Ton of Standard Coal by Energy Category": "Tonne Standardkohle(TCE) nach Energiekategorie",
+      "Ton of Carbon Dioxide Emissions by Energy Category": "Tonne Kohlendioxidemissionen(TCO2E) nach Energiekategorie",
       "This Month's Consumption CATEGORY VALUE UNIT": "Der Verbrauch dieses Monats {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "This Month's Costs CATEGORY VALUE UNIT": "Der Kosten dieses Monats {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
@@ -710,8 +710,8 @@ const resources = {
       "Electricity Consumption by Time-Of-Use": "分时消耗电量",
       "Electricity Cost by Time-Of-Use": "分时用电成本",
       "CATEGORY UNIT Consumption by Energy Items": "{{CATEGORY}} {{UNIT}} 分项消耗占比",
-      "Ton of Standard Coal by Energy Category": "吨标准煤占比",
-      "Carbon Dioxide Emissions by Energy Category": "二氧化碳排放占比",
+      "Ton of Standard Coal by Energy Category": "吨标准煤(TCE)占比",
+      "Ton of Carbon Dioxide Emissions by Energy Category": "吨二氧化碳排放(TCO2E)占比",
       "This Month's Consumption CATEGORY VALUE UNIT": "本月消耗 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       "This Month's Costs CATEGORY VALUE UNIT": "本月成本 {{CATEGORY}} {{VALUE}} {{UNIT}}",
       // Entities
