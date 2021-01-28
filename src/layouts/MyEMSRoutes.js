@@ -169,7 +169,6 @@ import CombinedEquipmentSaving from '../components/MyEMS/CombinedEquipment/Combi
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
 import DistributionSystem from '../components/MyEMS/AuxiliarySystem/DistributionSystem';
 // FDD
-import FDDFaultStatistics from '../components/MyEMS/FDD/FaultStatistics';
 import FDDCombinedEquipmentFault from '../components/MyEMS/FDD/CombinedEquipmentFault';
 import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
 import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
@@ -407,7 +406,6 @@ const MyEMSRoutes = () => (
     <Route path="/auxiliarysystem/distributionsystem" exact component={DistributionSystem} />
 
     {/*FDD*/}
-    <Route path="/fdd/statistics" exact component={FDDFaultStatistics} />
     <Route path="/fdd/combinedequipment" exact component={FDDCombinedEquipmentFault} />
     <Route path="/fdd/equipment" exact component={FDDEquipmentFault} />
     <Route path="/fdd/space" exact component={FDDSpaceFault} />

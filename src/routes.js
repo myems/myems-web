@@ -437,7 +437,6 @@ export const fddRoutes = {
   to: '/fdd',
   icon: 'chart-pie',
   children: [
-    { to: '/fdd/statistics', name: 'Fault Statistics' },
     { to: '/fdd/space', name: 'Space Faults Data' },
     { to: '/fdd/equipment', name: 'Equipment Faults Data' },
     { to: '/fdd/combinedequipment', name: 'Combined Equipment Faults Data' },
