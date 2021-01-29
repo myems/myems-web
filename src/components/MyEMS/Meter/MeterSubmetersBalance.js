@@ -74,11 +74,10 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
   const [loading, setLoading] = useState(false);
   //Results
   const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
-  const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
-  const [basePeriodEnergyConsumptionInCategory, setBasePeriodEnergyConsumptionInCategory] = useState(0);
-  const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
-  const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
-  const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
+  const [reportingPeriodMasterMeterConsumptionInCategory, setReportingPeriodMasterMeterConsumptionInCategory] = useState(0);
+  const [reportingPeriodSubmetersConsumptionInCategory, setReportingPeriodSubmetersConsumptionInCategory] = useState(0);
+  const [reportingPeriodDifferenceInCategory, setReportingPeriodDifferenceInCategory] = useState(0);
+  const [reportingPeriodPercentageDifference, setReportingPeriodPercentageDifference] = useState(0);
   const [meterLineChartOptions, setMeterLineChartOptions] = useState([]);
   const [meterLineChartData, setMeterLineChartData] = useState({});
   const [meterLineChartLabels, setMeterLineChartLabels] = useState([]);
@@ -265,10 +264,11 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
           'name': json['meter']['energy_category_name'],
           'unit': json['meter']['unit_of_measure']
         });
-        setReportingPeriodEnergyConsumptionRate(parseFloat(json['reporting_period']['increment_rate'] * 100).toFixed(2) + "%");
-        setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
-        setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
-        setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
+        
+        setReportingPeriodMasterMeterConsumptionInCategory(json['reporting_period']['master_meter_consumption_in_category']);
+        setReportingPeriodSubmetersConsumptionInCategory(json['reporting_period']['submeters_consumption_in_category']);
+        setReportingPeriodDifferenceInCategory(json['reporting_period']['difference_in_category']);
+        setReportingPeriodPercentageDifference(parseFloat(json['reporting_period']['precentage_difference'] * 100).toFixed(2) + "%");
 
         let names = Array();
         names.push({ 'value': 'a0', 'label': json['meter']['energy_category_name'] });
@@ -348,7 +348,7 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
   const handleExport = e => {
     e.preventDefault();
     const mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    const fileName = 'meterenergy.xlsx'
+    const fileName = 'metersubmetersbalance.xlsx'
     var fileUrl = "data:" + mimeType + ";base64," + excelBytesBase64;
     fetch(fileUrl)
         .then(response => response.blob())
@@ -472,24 +472,28 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
 
         <div className="card-deck">
 
-          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          <CardSummary title={t('Reporting Period Master Meter Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
             color="success"  >
-            <CountUp end={reportingPeriodEnergyConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
+            <CountUp end={reportingPeriodMasterMeterConsumptionInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
           </CardSummary>
-
-          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
+          <CardSummary title={t('Reporting Period Submeters Consumption CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
             color="warning" >
-            <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
+            <CountUp end={reportingPeriodSubmetersConsumptionInCategory} duration={2} prefix="" separator="," decimal="." decimals={2} />
           </CardSummary>
-          <CardSummary rate={reportingPeriodEnergyConsumptionRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(T)' })}
+          <CardSummary title={t('Reporting Period Difference CATEGORY UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
             color="warning" >
-            <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
+            <CountUp end={reportingPeriodDifferenceInCategory} duration={2} prefix="" separator="," decimal="." decimals={2} />
+          </CardSummary>
+          <CardSummary title={t('Reporting Period Percentage Difference', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+            color="warning" >
+            <CountUp end={reportingPeriodPercentageDifference} duration={2} prefix="" separator="," decimal="." decimals={2} /> %
           </CardSummary>
 
         </div>
 
-        <LineChart reportingTitle={t('Reporting Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
-          baseTitle={t('Base Period Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': basePeriodEnergyConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+        <LineChart reportingTitle={t('Reporting Period Difference CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodMasterMeterConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          baseTitle={t('Reporting Period Master Meter Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodSubmetersConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' }) + ' - ' +
+                    t('Reporting Period Submeters Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodDifferenceInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
           labels={meterLineChartLabels}
           data={meterLineChartData}
           options={meterLineChartOptions}>
