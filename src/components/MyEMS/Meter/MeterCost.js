@@ -577,11 +577,11 @@ const MeterCost = ({ setRedirect, setRedirectUrl, t }) => {
           color="success"  >
           <CountUp end={reportingPeriodEnergyCostInCategory} duration={2} prefix="" separator="," decimals={2} decimal="." />
         </CardSummary>
-        <CardSummary rate={reportingPeriodEnergyCostRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '吨标准煤', 'UNIT': '(TCE)' })}
+        <CardSummary rate={reportingPeriodEnergyCostRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Standard Coal'), 'UNIT': '(TCE)' })}
           color="warning" >
           <CountUp end={reportingPeriodEnergyConsumptionInTCE} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>
-        <CardSummary rate={reportingPeriodEnergyCostRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': '二氧化碳排放', 'UNIT': '(T)' })}
+        <CardSummary rate={reportingPeriodEnergyCostRate} title={t('Reporting Period Consumption CATEGORY UNIT', { 'CATEGORY': t('Ton of Carbon Dioxide Emissions'), 'UNIT': '(T)' })}
           color="warning" >
           <CountUp end={reportingPeriodEnergyConsumptionInCO2} duration={2} prefix="" separator="," decimal="." decimals={2} />
         </CardSummary>

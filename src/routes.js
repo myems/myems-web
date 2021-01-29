@@ -354,6 +354,7 @@ export const meterRoutes = {
     { to: '/meter/metercost', name: 'Meter Cost' },
     { to: '/meter/metertrend', name: 'Meter Trend' },
     { to: '/meter/meterrealtime', name: 'Meter Realtime' },
+    { to: '/meter/metersubmetersbalance', name: 'Meter Submeters Balance' },
     { to: '/meter/virtualmeterenergy', name: 'Virtual Meter Energy' },
     { to: '/meter/virtualmetercost', name: 'Virtual Meter Cost' },
     { to: '/meter/offlinemeterenergy', name: 'Offline Meter Energy' },
@@ -443,7 +444,6 @@ export const fddRoutes = {
     { to: '/fdd/tenant', name: 'Tenant Faults Data' },
     { to: '/fdd/store', name: 'Store Faults Data' },
     { to: '/fdd/shopfloor', name: 'Shopfloor Faults Data' },
-    { to: '/fdd/energyloss', name: 'Energy Loss' },
   ]
 };
 

@@ -30,12 +30,11 @@ import { toast } from 'react-toastify';
 import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 import { periodTypeOptions } from '../common/PeriodTypeOptions';
-import { comparisonTypeOptions } from '../common/ComparisonTypeOptions';
 
 
 const DetailedDataTable = loadable(() => import('../common/DetailedDataTable'));
 
-const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
+const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
   let current_moment = moment();
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
@@ -62,12 +61,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   const [selectedSpaceID, setSelectedSpaceID] = useState(undefined);
   const [meterList, setMeterList] = useState([]);
   const [selectedMeter, setSelectedMeter] = useState(undefined);
-  const [comparisonType, setComparisonType] = useState('month-on-month');
   const [periodType, setPeriodType] = useState('daily');
-  const [basePeriodBeginsDatetime, setBasePeriodBeginsDatetime] = useState(current_moment.clone().subtract(1, 'months').startOf('month'));
-  const [basePeriodEndsDatetime, setBasePeriodEndsDatetime] = useState(current_moment.clone().subtract(1, 'months'));
-  const [basePeriodBeginsDatetimeDisabled, setBasePeriodBeginsDatetimeDisabled] = useState(true);
-  const [basePeriodEndsDatetimeDisabled, setBasePeriodEndsDatetimeDisabled] = useState(true);
   const [reportingPeriodBeginsDatetime, setReportingPeriodBeginsDatetime] = useState(current_moment.clone().startOf('month'));
   const [reportingPeriodEndsDatetime, setReportingPeriodEndsDatetime] = useState(current_moment);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
@@ -81,10 +75,10 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   //Results
   const [meterEnergyCategory, setMeterEnergyCategory] = useState({ 'name': '', 'unit': '' });
   const [reportingPeriodEnergyConsumptionInCategory, setReportingPeriodEnergyConsumptionInCategory] = useState(0);
+  const [basePeriodEnergyConsumptionInCategory, setBasePeriodEnergyConsumptionInCategory] = useState(0);
   const [reportingPeriodEnergyConsumptionRate, setReportingPeriodEnergyConsumptionRate] = useState('');
   const [reportingPeriodEnergyConsumptionInTCE, setReportingPeriodEnergyConsumptionInTCE] = useState(0);
   const [reportingPeriodEnergyConsumptionInCO2, setReportingPeriodEnergyConsumptionInCO2] = useState(0);
-  const [basePeriodEnergyConsumptionInCategory, setBasePeriodEnergyConsumptionInCategory] = useState(0);
   const [meterLineChartOptions, setMeterLineChartOptions] = useState([]);
   const [meterLineChartData, setMeterLineChartData] = useState({});
   const [meterLineChartLabels, setMeterLineChartLabels] = useState([]);
@@ -210,62 +204,12 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     });
   }
 
-  let onComparisonTypeChange = ({ target }) => {
-    console.log(target.value);
-    setComparisonType(target.value);
-    if (target.value === 'year-over-year') {
-      setBasePeriodBeginsDatetimeDisabled(true);
-      setBasePeriodEndsDatetimeDisabled(true);
-      setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'years'));
-      setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'years'));
-    } else if (target.value === 'month-on-month') {
-      setBasePeriodBeginsDatetimeDisabled(true);
-      setBasePeriodEndsDatetimeDisabled(true);
-      setBasePeriodBeginsDatetime(moment(reportingPeriodBeginsDatetime).subtract(1, 'months'));
-      setBasePeriodEndsDatetime(moment(reportingPeriodEndsDatetime).subtract(1, 'months'));
-    } else if (target.value === 'free-comparison') {
-      setBasePeriodBeginsDatetimeDisabled(false);
-      setBasePeriodEndsDatetimeDisabled(false);
-    } else if (target.value === 'none-comparison') {
-      setBasePeriodBeginsDatetime(undefined);
-      setBasePeriodEndsDatetime(undefined);
-      setBasePeriodBeginsDatetimeDisabled(true);
-      setBasePeriodEndsDatetimeDisabled(true);
-    }
-  }
-
-  let onBasePeriodBeginsDatetimeChange = (newDateTime) => {
-    setBasePeriodBeginsDatetime(newDateTime);
-  }
-
-  let onBasePeriodEndsDatetimeChange = (newDateTime) => {
-    setBasePeriodEndsDatetime(newDateTime);
-  }
-
   let onReportingPeriodBeginsDatetimeChange = (newDateTime) => {
     setReportingPeriodBeginsDatetime(newDateTime);
-    if (comparisonType === 'year-over-year') {
-      setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType === 'month-on-month') {
-      setBasePeriodBeginsDatetime(newDateTime.clone().subtract(1, 'months'));
-    }
   }
 
   let onReportingPeriodEndsDatetimeChange = (newDateTime) => {
     setReportingPeriodEndsDatetime(newDateTime);
-    if (comparisonType === 'year-over-year') {
-      setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'years'));
-    } else if (comparisonType === 'month-on-month') {
-      setBasePeriodEndsDatetime(newDateTime.clone().subtract(1, 'months'));
-    }
-  }
-
-  var getValidBasePeriodBeginsDatetimes = function (currentDate) {
-    return currentDate.isBefore(moment(basePeriodEndsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
-  }
-
-  var getValidBasePeriodEndsDatetimes = function (currentDate) {
-    return currentDate.isAfter(moment(basePeriodBeginsDatetime, 'MM/DD/YYYY, hh:mm:ss a'));
   }
 
   var getValidReportingPeriodBeginsDatetimes = function (currentDate) {
@@ -281,10 +225,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     console.log('handleSubmit');
     console.log(selectedSpaceID);
     console.log(selectedMeter);
-    console.log(comparisonType);
     console.log(periodType);
-    console.log(basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
-    console.log(basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : undefined);
     console.log(reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
     console.log(reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'));
 
@@ -299,11 +240,9 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     setDetailedDataTableData([]);
 
     let isResponseOK = false;
-    fetch(APIBaseURL + '/reports/meterenergy?' +
+    fetch(APIBaseURL + '/reports/metersubmetersbalance?' +
       'meterid=' + selectedMeter +
       '&periodtype=' + periodType +
-      '&baseperiodstartdatetime=' + (basePeriodBeginsDatetime != null ? basePeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
-      '&baseperiodenddatetime=' + (basePeriodEndsDatetime != null ? basePeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss') : '') +
       '&reportingperiodstartdatetime=' + reportingPeriodBeginsDatetime.format('YYYY-MM-DDTHH:mm:ss') +
       '&reportingperiodenddatetime=' + reportingPeriodEndsDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
       method: 'GET',
@@ -330,7 +269,6 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
         setReportingPeriodEnergyConsumptionInCategory(json['reporting_period']['total_in_category']);
         setReportingPeriodEnergyConsumptionInTCE(json['reporting_period']['total_in_kgce'] / 1000);
         setReportingPeriodEnergyConsumptionInCO2(json['reporting_period']['total_in_kgco2e'] / 1000);
-        setBasePeriodEnergyConsumptionInCategory(json['base_period']['total_in_category']);
 
         let names = Array();
         names.push({ 'value': 'a0', 'label': json['meter']['energy_category_name'] });
@@ -429,7 +367,7 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Energy')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Submeters Balance')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
@@ -467,23 +405,6 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
               </Col>
               <Col xs="auto">
                 <FormGroup>
-                  <Label className={labelClasses} for="comparisonType">
-                    {t('Comparison Types')}
-                  </Label>
-                  <CustomInput type="select" id="comparisonType" name="comparisonType"
-                    defaultValue="month-on-month"
-                    onChange={onComparisonTypeChange}
-                  >
-                    {comparisonTypeOptions.map((comparisonType, index) => (
-                      <option value={comparisonType.value} key={comparisonType.value} >
-                        {t(comparisonType.label)}
-                      </option>
-                    ))}
-                  </CustomInput>
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
-                <FormGroup>
                   <Label className={labelClasses} for="periodType">
                     {t('Period Types')}
                   </Label>
@@ -495,32 +416,6 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
                       </option>
                     ))}
                   </CustomInput>
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
-                <FormGroup className="form-group">
-                  <Label className={labelClasses} for="basePeriodBeginsDatetime">
-                    {t('Base Period Begins')}{t('(Optional)')}
-                  </Label>
-                  <Datetime id='basePeriodBeginsDatetime'
-                    value={basePeriodBeginsDatetime}
-                    inputProps={{ disabled: basePeriodBeginsDatetimeDisabled }}
-                    onChange={onBasePeriodBeginsDatetimeChange}
-                    isValidDate={getValidBasePeriodBeginsDatetimes}
-                    closeOnSelect={true} />
-                </FormGroup>
-              </Col>
-              <Col xs="auto">
-                <FormGroup className="form-group">
-                  <Label className={labelClasses} for="basePeriodEndsDatetime">
-                    {t('Base Period Ends')}{t('(Optional)')}
-                  </Label>
-                  <Datetime id='basePeriodEndsDatetime'
-                    value={basePeriodEndsDatetime}
-                    inputProps={{ disabled: basePeriodEndsDatetimeDisabled }}
-                    onChange={onBasePeriodEndsDatetimeChange}
-                    isValidDate={getValidBasePeriodEndsDatetimes}
-                    closeOnSelect={true} />
                 </FormGroup>
               </Col>
               <Col xs="auto">
@@ -615,4 +510,4 @@ const MeterEnergy = ({ setRedirect, setRedirectUrl, t }) => {
   );
 };
 
-export default withTranslation()(withRedirect(MeterEnergy));
+export default withTranslation()(withRedirect(MeterSubmetersBalance));
