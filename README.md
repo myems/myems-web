@@ -49,7 +49,7 @@ refer to http://nginx.org/en/docs/install.html
   Build and Compress
 ```
   $ sudo npm run build
-  $ tar -czvf myems-web.tar.gz build
+  $ tar czvf myems-web.tar.gz build
 ```
   Install
   Upload the file myems-web.tar.gz to you web server. 
