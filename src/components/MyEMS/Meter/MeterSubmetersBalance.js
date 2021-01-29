@@ -268,7 +268,7 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
         setReportingPeriodMasterMeterConsumptionInCategory(json['reporting_period']['master_meter_consumption_in_category']);
         setReportingPeriodSubmetersConsumptionInCategory(json['reporting_period']['submeters_consumption_in_category']);
         setReportingPeriodDifferenceInCategory(json['reporting_period']['difference_in_category']);
-        setReportingPeriodPercentageDifference(parseFloat(json['reporting_period']['precentage_difference'] * 100).toFixed(2) + "%");
+        setReportingPeriodPercentageDifference(parseFloat(json['reporting_period']['percentage_difference'] * 100).toFixed(2) + "%");
 
         let names = Array();
         names.push({ 'value': 'a0', 'label': json['meter']['energy_category_name'] });
