@@ -128,6 +128,7 @@ import MeterEnergy from '../components/MyEMS/Meter/MeterEnergy';
 import MeterCost from '../components/MyEMS/Meter/MeterCost';
 import MeterTrend from '../components/MyEMS/Meter/MeterTrend';
 import MeterRealtime from '../components/MyEMS/Meter/MeterRealtime';
+import MeterSubmetersBalance from '../components/MyEMS/Meter/MeterSubmetersBalance';
 import OfflineMeterEnergy from '../components/MyEMS/Meter/OfflineMeterEnergy';
 import OfflineMeterCost from '../components/MyEMS/Meter/OfflineMeterCost';
 import VirtualMeterEnergy from '../components/MyEMS/Meter/VirtualMeterEnergy';
@@ -169,14 +170,12 @@ import CombinedEquipmentSaving from '../components/MyEMS/CombinedEquipment/Combi
 import EnergyFlowDiagram from '../components/MyEMS/AuxiliarySystem/EnergyFlowDiagram';
 import DistributionSystem from '../components/MyEMS/AuxiliarySystem/DistributionSystem';
 // FDD
-import FDDFaultStatistics from '../components/MyEMS/FDD/FaultStatistics';
 import FDDCombinedEquipmentFault from '../components/MyEMS/FDD/CombinedEquipmentFault';
 import FDDEquipmentFault from '../components/MyEMS/FDD/EquipmentFault';
 import FDDSpaceFault from '../components/MyEMS/FDD/SpaceFault';
 import FDDTenantFault from '../components/MyEMS/FDD/TenantFault';
 import FDDStoreFault from '../components/MyEMS/FDD/StoreFault';
 import FDDShopfloorFault from '../components/MyEMS/FDD/ShopfloorFault';
-import EnergyLoss from '../components/MyEMS/FDD/EnergyLoss';
 // Monitoring
 import SpaceEquipments from '../components/MyEMS/Monitoring/SpaceEquipments';
 import CombinedEquipments from '../components/MyEMS/Monitoring/CombinedEquipments';
@@ -361,11 +360,13 @@ const MyEMSRoutes = () => (
     <Route path="/meter/metercost" exact component={MeterCost} />
     <Route path="/meter/metertrend" exact component={MeterTrend} />
     <Route path="/meter/meterrealtime" exact component={MeterRealtime} />
+    <Route path="/meter/metersubmetersbalance" exact component={MeterSubmetersBalance} />
     <Route path="/meter/offlinemeterenergy" exact component={OfflineMeterEnergy} />
     <Route path="/meter/offlinemetercost" exact component={OfflineMeterCost} />
     <Route path="/meter/virtualmeterenergy" exact component={VirtualMeterEnergy} />
     <Route path="/meter/virtualmetercost" exact component={VirtualMeterCost} />
     <Route path="/meter/tracking" exact component={MeterTracking} />
+
     {/*Tenant*/}
     <Route path="/tenant/energycategory" exact component={TenantEnergyCategory} />
     <Route path="/tenant/energyitem" exact component={TenantEnergyItem} />
@@ -407,14 +408,12 @@ const MyEMSRoutes = () => (
     <Route path="/auxiliarysystem/distributionsystem" exact component={DistributionSystem} />
 
     {/*FDD*/}
-    <Route path="/fdd/statistics" exact component={FDDFaultStatistics} />
     <Route path="/fdd/combinedequipment" exact component={FDDCombinedEquipmentFault} />
     <Route path="/fdd/equipment" exact component={FDDEquipmentFault} />
     <Route path="/fdd/space" exact component={FDDSpaceFault} />
     <Route path="/fdd/tenant" exact component={FDDTenantFault} />
     <Route path="/fdd/store" exact component={FDDStoreFault} />
     <Route path="/fdd/shopfloor" exact component={FDDShopfloorFault} />
-    <Route path="/fdd/energyloss" exact component={EnergyLoss} />
     
     {/*Equipment Monitoring*/}
     <Route path="/monitoring/spaceequipments" exact component={SpaceEquipments} />
