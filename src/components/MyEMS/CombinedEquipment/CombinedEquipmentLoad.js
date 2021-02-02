@@ -339,7 +339,7 @@ const CombinedEquipmentLoad = ({ setRedirect, setRedirectUrl, t }) => {
         setCombinedEquipmentLineChartLabels(timestamps);
         
         let values = {}
-        json['reporting_period']['sub_averages'].forEach((currentValue, index) => {
+        json['reporting_period']['sub_maximums'].forEach((currentValue, index) => {
           values['a' + index] = currentValue;
         });
         setCombinedEquipmentLineChartData(values);
