@@ -627,7 +627,7 @@ const EquipmentLoad = ({ setRedirect, setRedirectUrl, t }) => {
           </CardSummary>
         </div>
       ))}
-      <LineChart reportingTitle={t('Reporting Period CATEGORY Average Load VALUE UNIT', { 'CATEGORY': null, 'VALUE': null, 'UNIT': null })}
+      <LineChart reportingTitle={t('Reporting Period CATEGORY Maximum Load UNIT', { 'CATEGORY': null, 'UNIT': null })}
         baseTitle=''
         labels={equipmentLineChartLabels}
         data={equipmentLineChartData}
