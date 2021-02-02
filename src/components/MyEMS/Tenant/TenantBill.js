@@ -469,15 +469,6 @@ const Invoice = ({ setRedirect, setRedirectUrl, t }) => {
             <Col md>
               <h5 className="mb-2 mb-md-0">{t('Lease Contract Number')}: {invoice.summary.lease_number}</h5>
             </Col>
-            <Col xs="auto">
-              <ButtonIcon color="falcon-default" size="sm" icon="arrow-down" className="mr-2 mb-2 mb-sm-0">
-                {t('Download')} (.pdf)
-              </ButtonIcon>
-              <ButtonIcon color="falcon-default" size="sm" icon="print" className="mr-2 mb-2 mb-sm-0">
-                {t('Print')}
-              </ButtonIcon>
-
-            </Col>
           </Row>
         </CardBody>
         }
