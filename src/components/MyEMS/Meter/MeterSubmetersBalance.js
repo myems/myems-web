@@ -491,9 +491,9 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
 
         </div>
 
-        <LineChart reportingTitle={t('Reporting Period Difference CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodMasterMeterConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
-          baseTitle={t('Reporting Period Master Meter Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodSubmetersConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' }) + ' - ' +
-                    t('Reporting Period Submeters Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodDifferenceInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+        <LineChart reportingTitle={t('Reporting Period Difference CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodDifferenceInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          baseTitle={t('Reporting Period Master Meter Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodMasterMeterConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' }) + ' - ' +
+                    t('Reporting Period Submeters Consumption CATEGORY VALUE UNIT', { 'CATEGORY': meterEnergyCategory['name'], 'VALUE': reportingPeriodSubmetersConsumptionInCategory.toFixed(2), 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
           labels={meterLineChartLabels}
           data={meterLineChartData}
           options={meterLineChartOptions}>
