@@ -354,7 +354,7 @@ export const meterRoutes = {
     { to: '/meter/metercost', name: 'Meter Cost' },
     { to: '/meter/metertrend', name: 'Meter Trend' },
     { to: '/meter/meterrealtime', name: 'Meter Realtime' },
-    { to: '/meter/metersubmetersbalance', name: 'Meter Submeters Balance' },
+    { to: '/meter/metersubmetersbalance', name: 'Master Meter Submeters Balance' },
     { to: '/meter/virtualmeterenergy', name: 'Virtual Meter Energy' },
     { to: '/meter/virtualmetercost', name: 'Virtual Meter Cost' },
     { to: '/meter/offlinemeterenergy', name: 'Offline Meter Energy' },
