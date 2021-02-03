@@ -484,9 +484,9 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
             color="warning" >
             <CountUp end={reportingPeriodDifferenceInCategory} duration={2} prefix="" separator="," decimal="." decimals={2} />
           </CardSummary>
-          <CardSummary title={t('Reporting Period Percentage Difference', { 'CATEGORY': meterEnergyCategory['name'], 'UNIT': '(' + meterEnergyCategory['unit'] + ')' })}
+          <CardSummary title={t('Reporting Period Percentage Difference', { }) + '%'}
             color="warning" >
-            <CountUp end={reportingPeriodPercentageDifference} duration={2} prefix="" separator="," decimal="." decimals={2} /> %
+            <CountUp end={reportingPeriodPercentageDifference} duration={2} prefix="" separator="," decimal="." decimals={2} />
           </CardSummary>
 
         </div>
