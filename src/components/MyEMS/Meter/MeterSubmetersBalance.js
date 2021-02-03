@@ -367,7 +367,7 @@ const MeterSubmetersBalance = ({ setRedirect, setRedirectUrl, t }) => {
     <Fragment>
       <div>
         <Breadcrumb>
-          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Meter Submeters Balance')}</BreadcrumbItem>
+          <BreadcrumbItem>{t('Meter Data')}</BreadcrumbItem><BreadcrumbItem active>{t('Master Meter Submeters Balance')}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <Card className="bg-light mb-3">
