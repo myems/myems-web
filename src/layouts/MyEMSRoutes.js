@@ -187,7 +187,7 @@ import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedRep
 // Knowledge Base
 import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
 // Notificaton
-import Notificaton from '../components/MyEMS/Notification/Notifiction';
+import Notificaton from '../components/MyEMS/Notification/Notification';
 
 // const InboxRoutes = ({ match: { url } }) => (
 //   <InboxProvider>
