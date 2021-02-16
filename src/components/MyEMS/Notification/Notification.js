@@ -1,6 +1,7 @@
 import React, { createRef, Fragment, useEffect, useState } from 'react';
 import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { toast } from 'react-toastify';
 import {
   Row,
   Col,
@@ -12,7 +13,8 @@ import {
   DropdownMenu,
   DropdownToggle,
   InputGroup,
-  UncontrolledDropdown
+  UncontrolledDropdown,
+  Spinner,
 } from 'reactstrap';
 import ButtonIcon from '../../common/ButtonIcon';
 import { Link } from 'react-router-dom';
@@ -24,11 +26,23 @@ import { getPaginationArray } from '../../../helpers/utils';
 import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
+import moment from 'moment';
+import { APIBaseURL } from '../../../config';
 
 
 
 
 const Notification = ({ setRedirect, setRedirectUrl, t }) => {
+  let current_moment = moment();
+  const [startDatetime, setStartDatetime] = useState(current_moment.clone().subtract(1, 'months'));
+  const [endDatetime, setEndDatetime] = useState(current_moment);
+  
+  const [fetchSuccess, setFetchSuccess] = useState(false);
+  //Results
+  const [notifications, setNotifications] = useState([]);
+
+  const [spinnerHidden, setSpinnerHidden] = useState(false);
+
   useEffect(() => {
     let is_logged_in = getCookieValue('is_logged_in');
     let user_name = getCookieValue('user_name');
@@ -45,6 +59,51 @@ const Notification = ({ setRedirect, setRedirectUrl, t }) => {
       createCookie('user_display_name', user_display_name, 1000 * 60 * 60 * 8);
       createCookie('user_uuid', user_uuid, 1000 * 60 * 60 * 8);
       createCookie('token', token, 1000 * 60 * 60 * 8);
+
+      let isResponseOK = false;
+      if (!fetchSuccess) { 
+        fetch(APIBaseURL + '/notifications?' + 
+        'startdatetime=' + startDatetime.format('YYYY-MM-DDTHH:mm:ss') +
+        '&enddatetime=' + endDatetime.format('YYYY-MM-DDTHH:mm:ss'), {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json",
+            "User-UUID": getCookieValue('user_uuid'),
+            "Token": getCookieValue('token')
+          },
+          body: null,
+
+        }).then(response => {
+          if (response.ok) {
+            isResponseOK = true;
+          }
+          return response.json();
+        }).then(json => {
+          if (isResponseOK) {
+            console.log(json);
+            setFetchSuccess(true);
+
+            let notificationList = []
+
+            if (json.length > 0) {
+              json.forEach((currentValue, index) => {
+                let notification = {}
+                notification['id'] = json[index]['id'];
+                notification['subject'] = json[index]['subject'];
+                notification['created_datetime'] = json[index]['created_datetime']; 
+                notification['message'] = json[index]['message'];
+                notification['status'] = json[index]['status'];
+                notification['url'] = json[index]['url'];
+
+                notificationList.push(notification);
+              });
+            }
+          
+            setNotifications(notificationList);
+            setSpinnerHidden(true);
+          }
+        });
+      }
     }
   }, );
   // State
@@ -66,48 +125,37 @@ const Notification = ({ setRedirect, setRedirectUrl, t }) => {
   };
 
 
-  const orderFormatter = (dataField, { id, name, url }) => (
+  const subjectFormatter = (dataField, { url }) => (
     <Fragment>
-      <Link to="/e-commerce/order-details">
-        <strong>#{id}</strong>
-      </Link>{' '}
-    by <strong>{name}</strong>
-      <br />
-      <a href={`${url}`}>{url}</a>
+      <a href={`${url}`}>{dataField}</a>
     </Fragment>
   );
 
-  const shippingFormatter = (address, { shippingType }) => (
+  const messageFormatter = (dataField,) => (
     <Fragment>
-      {address}
-      <p className="mb-0 text-500">{shippingType}</p>
+      {dataField}
     </Fragment>
   );
 
-  const badgeFormatter = status => {
+  const statusFormatter = status => {
     let color = '';
     let icon = '';
     let text = '';
     switch (status) {
       case 'read':
         color = 'success';
-        icon = 'check';
-        text = 'Read';
+        icon = 'envelope-open';
+        text = t('Notification Read');
         break;
-      case 'archived':
-        color = 'secondary';
-        icon = 'stream';
-        text = 'Archived';
-        break;
-      case 'new':
+      case 'unread':
         color = 'primary';
-        icon = 'redo';
-        text = 'New';
+        icon = 'envelope';
+        text = t('Notification Unread');
         break;
       default:
         color = 'primary';
-        icon = 'redo';
-        text = 'New';
+        icon = 'envelope';
+        text = t('Notification Unread');
     }
 
     return (
@@ -125,82 +173,39 @@ const Notification = ({ setRedirect, setRedirectUrl, t }) => {
         <FontAwesomeIcon icon="ellipsis-h" className="fs--1" />
       </DropdownToggle>
       <DropdownMenu right className="border py-2">
-        <DropdownItem onClick={() => console.log('Mark as Read: ', id)}>Mark as Read</DropdownItem>
-        <DropdownItem onClick={() => console.log('Mark as New: ', id)}>Mark as New</DropdownItem>
-        <DropdownItem onClick={() => console.log('Archive: ', id)}>Archive</DropdownItem>
+        <DropdownItem onClick={() => handleRead(id)}>{t('Notification Mark As Read')}</DropdownItem>
+        <DropdownItem onClick={() => console.log('Archive: ', id)}>{t('Notification Archive')}</DropdownItem>
         <DropdownItem divider />
-        <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">Delete</DropdownItem>
+        <DropdownItem onClick={() => console.log('Delete: ', id)} className="text-danger">{t('Notification Delete')}</DropdownItem>
       </DropdownMenu>
     </UncontrolledDropdown>
   );
-  const notifications = [
-    {
-      id: 1,
-      subject: 'Ricky Antony',
-      url: 'ricky@example.com',
-      createddatetime: '20/04/2019',
-      message: 'Ricky Antony, 2392 Main Avenue, Penasauka, New Jersey 02149',
-      status: 'new',
-    },
-    {
-      id: 2,
-      subject: 'Kin Rossow',
-      url: 'kin@example.com',
-      createddatetime: '20/04/2019',
-      message: 'Kin Rossow, 1 Hollywood Blvd,Beverly Hills, California 90210',
-      status: 'new',
-    },
-    {
-      id: 3,
-      subject: 'Merry Diana',
-      url: 'merry@example.com',
-      createddatetime: '30/04/2019',
-      message: 'Merry Diana, 1 Infinite Loop, Cupertino, California 90210',
-      status: 'read',
-    },
-    {
-      id: 4,
-      name: 'Bucky Robert',
-      url: 'bucky@example.com',
-      createddatetime: '30/04/2019',
-      message: 'Bucky Robert, 1 Infinite Loop, Cupertino, California 90210',
-      status: 'archived'
-    },
-    {
-      id: 5,
-      name: 'Dimitri Boehm',
-      url: 'dimitri@example.com',
-      createddatetime: '23/04/2019',
-      message: 'Dimitri Boehm, 71603 Wolff Plains Apt. 885 Johnstonton, MI 01581',
-      status: 'archived'
-    }
-  ];
   const columns = [
     {
       dataField: 'subject',
-      text: 'Subject',
+      text: t('Notification Subject'),
       classes: 'py-2 align-middle',
-      formatter: orderFormatter,
+      formatter: subjectFormatter,
       sort: true
     },
     {
-      dataField: 'createddatetime',
-      text: 'Created Datetime',
+      dataField: 'created_datetime',
+      text: t('Notification Created Datetime'),
       classes: 'py-2 align-middle',
       sort: true
     },
     {
       dataField: 'message',
-      text: 'Message',
+      text: t('Notification Message'),
       classes: 'py-2 align-middle',
-      formatter: shippingFormatter,
+      formatter: messageFormatter,
       sort: true
     },
     {
       dataField: 'status',
-      text: 'Status',
+      text: t('Notification Status'),
       classes: 'py-2 align-middle',
-      formatter: badgeFormatter,
+      formatter: statusFormatter,
       sort: true
     },
     {
@@ -211,8 +216,6 @@ const Notification = ({ setRedirect, setRedirectUrl, t }) => {
       align: 'right'
     }
   ];
-
-
 
   const options = {
     custom: true,
@@ -244,28 +247,61 @@ const Notification = ({ setRedirect, setRedirectUrl, t }) => {
     onSelectAll: onSelect
   });
 
+  const handleRead = (id, ) => {
+    console.log('Mark As Read: ', id)
+    let isResponseOK = false;
+    fetch(APIBaseURL + '/notifications/' + id, {
+      method: 'PUT',
+      headers: {
+        "Content-type": "application/json",
+        "User-UUID": getCookieValue('user_uuid'),
+        "Token": getCookieValue('token')
+      },
+      body: JSON.stringify({
+        "data": {
+          "status": 'read'
+        }
+      }),
+    }).then(response => {
+      if (response.ok) {
+        isResponseOK = true;
+        return null;
+      } else {
+        return response.json();
+      }
+    }).then(json => {
+      console.log(isResponseOK);
+      if (isResponseOK) {
+        
+      } else {
+        toast.error(json.description)
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  };
+
 
   return (
     <Fragment>
       <Card className="mb-3">
+        <Spinner color="primary" hidden={spinnerHidden}  />
         <FalconCardHeader title={t('Notification List')} light={false}>
           {isSelected ? (
             <InputGroup size="sm" className="input-group input-group-sm">
               <CustomInput type="select" id="bulk-select">
-                <option>Bulk actions</option>
-                <option value="MarkAsRead">MarkAsRead</option>
-                <option value="Archive">Archive</option>
-                <option value="Delete">Delete</option>
+                <option>{t('Bulk actions')}</option>
+                <option value="MarkAsRead">{t('Notification Mark As Read')}</option>
+                <option value="Archive">{t('Notification Archive')}</option>
+                <option value="Delete">{t('Notification Delete')}</option>
               </CustomInput>
               <Button color="falcon-default" size="sm" className="ml-2">
-                Apply
+              {t('Notification Apply')}
                 </Button>
             </InputGroup>
           ) : (
               <Fragment>
-                <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" size="sm">
-                  {t('Export')}
-                </ButtonIcon>
+                
               </Fragment>
             )}
         </FalconCardHeader>
