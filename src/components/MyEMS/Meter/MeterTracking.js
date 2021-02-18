@@ -29,6 +29,7 @@ import { getCookieValue, createCookie } from '../../../helpers/utils';
 import withRedirect from '../../../hoc/withRedirect';
 import { withTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import ButtonIcon from '../../common/ButtonIcon';
 import { APIBaseURL } from '../../../config';
 
 
@@ -57,6 +58,8 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   const [meterList, setMeterList] = useState([]);
   const [cascaderOptions, setCascaderOptions] = useState(undefined);
   const [spinnerHidden, setSpinnerHidden] = useState(false);
+  const [exportButtonHidden, setExportButtonHidden] = useState(true);
+  const [excelBytesBase64, setExcelBytesBase64] = useState(undefined);
 
   useEffect(() => {
     // begin of getting space tree
@@ -103,12 +106,10 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
           return response.json();
         }).then(json => {
           if (isSecondResponseOK) {
-            json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-            console.log(json)
+            let json_meters = JSON.parse(JSON.stringify([json['meters']]).split('"id":').join('"value":').split('"name":').join('"label":'));
             let meters = [];
-            json[0].forEach((currentValue, index) => {
+            json_meters[0].forEach((currentValue, index) => {
               meters.push({
-                'key': index,
                 'id': currentValue['id'],
                 'name': currentValue['meter_name'],
                 'space': currentValue['space_name'],
@@ -117,7 +118,13 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
                 'description': currentValue['description']});
             });
             setMeterList(meters);
+
+            setExcelBytesBase64(json['excel_bytes_base64']);
+            
+            // hide spinner
             setSpinnerHidden(true);
+            // show export buttion
+            setExportButtonHidden(false);
           } else {
             toast.error(json.description)
           }
@@ -161,7 +168,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
 
   const columns = [
     {
-      key: "a0",
       dataField: 'metername',
       headerClasses: 'border-0',
       text: t('Name'),
@@ -170,7 +176,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      key: "a1",
       dataField: 'space',
       headerClasses: 'border-0',
       text: t('Space'),
@@ -178,7 +183,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      key: "a2",
       dataField: 'costcenter',
       headerClasses: 'border-0',
       text: t('Cost Center'),
@@ -186,7 +190,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      key: "a3",
       dataField: 'energycategory',
       headerClasses: 'border-0',
       text: t('Energy Category'),
@@ -194,7 +197,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      key: "a4",
       dataField: 'description',
       headerClasses: 'border-0',
       text: t('Description'),
@@ -202,7 +204,6 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       sort: true
     },
     {
-      key: "a5",
       dataField: '',
       headerClasses: 'border-0',
       text: '',
@@ -217,7 +218,10 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
   let onSpaceCascaderChange = (value, selectedOptions) => {
     setSelectedSpaceName(selectedOptions.map(o => o.label).join('/'));
     let selectedSpaceID = value[value.length - 1];
+    // show spinner
     setSpinnerHidden(false);
+    // hide export buttion
+    setExportButtonHidden(true) 
     // begin of gettting meter list
     let isSecondResponseOK = false;
     fetch(APIBaseURL + '/reports/metertracking?spaceid=' + selectedSpaceID, {
@@ -236,12 +240,10 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       return response.json();
     }).then(json => {
       if (isSecondResponseOK) {
-        json = JSON.parse(JSON.stringify([json]).split('"id":').join('"value":').split('"name":').join('"label":'));
-        console.log(json)
+        let json_meters = JSON.parse(JSON.stringify([json['meters']]).split('"id":').join('"value":').split('"name":').join('"label":'));
         let meters = [];
-        json[0].forEach((currentValue, index) => {
+        json_meters[0].forEach((currentValue, index) => {
           meters.push({
-            'key': index,
             'id': currentValue['id'],
             'name': currentValue['meter_name'],
             'space': currentValue['space_name'],
@@ -250,7 +252,13 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
             'description': currentValue['description']});
         });
         setMeterList(meters);
+
+        setExcelBytesBase64(json['excel_bytes_base64']);
+        
+        // hide spinner
         setSpinnerHidden(true);
+        // show export buttion
+        setExportButtonHidden(false);
       } else {
         toast.error(json.description)
       }
@@ -258,7 +266,25 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
       console.log(err);
     });
     // end of getting meter list
-  }
+  };
+
+
+  const handleExport = e => {
+    e.preventDefault();
+    const mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    const fileName = 'metertracking.xlsx'
+    var fileUrl = "data:" + mimeType + ";base64," + excelBytesBase64;
+    fetch(fileUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            var link = window.document.createElement("a");
+            link.href = window.URL.createObjectURL(blob, { type: mimeType });
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+  };
 
   return (
     <Fragment>
@@ -291,6 +317,14 @@ const MeterTracking = ({ setRedirect, setRedirectUrl, t }) => {
                   <Spinner color="primary" hidden={spinnerHidden}  />
                 </FormGroup>
               </Col>  
+              <Col xs="auto">
+                  <br></br>
+                  <ButtonIcon icon="external-link-alt" transform="shrink-3 down-2" color="falcon-default" 
+                  hidden={exportButtonHidden}
+                  onClick={handleExport} >
+                    {t('Export')}
+                  </ButtonIcon>
+              </Col>
             </Row>
           </Form>
         </CardBody>
