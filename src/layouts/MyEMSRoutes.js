@@ -186,8 +186,8 @@ import ShopfloorEquipments from '../components/MyEMS/Monitoring/ShopfloorEquipme
 import AdvancedReporting from '../components/MyEMS/AdvancedReporting/AdvancedReporting';
 // Knowledge Base
 import KnowledgeBase from '../components/MyEMS/KnowledgeBase/KnowledgeBase';
-// Notificaton
-import Notificaton from '../components/MyEMS/Notification/Notification';
+// Notification
+import Notification from '../components/MyEMS/Notification/Notification';
 
 // const InboxRoutes = ({ match: { url } }) => (
 //   <InboxProvider>
@@ -429,7 +429,7 @@ const MyEMSRoutes = () => (
     <Route path="/knowledgebase" exact component={KnowledgeBase} />
     
     {/* Notification */}
-    <Route path="/notification" exact component={Notificaton} />
+    <Route path="/notification" exact component={Notification} />
 
     {/*Redirect*/}
     <Redirect to="/errors/404" />
